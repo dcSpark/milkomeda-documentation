@@ -3,8 +3,7 @@ sidebar_label: 'Configuring Flint Wallet'
 sidebar_position: 1
 ---
 
-
-Configuring Flint Wallet
+# Configuring Flint Wallet
 
 Flint Wallet is a Chrome extension that serves as a convenient go-to light wallet for DeFi and NFTs. The current version of Flint allows users to enable "Milkomeda mode" to send transactions to the Milkomeda C1 sidechain. Install Flint Wallet by visiting the following link while using Chrome browser and clicking the “Add to Chrome” button: [Install Flint Wallet](https://chrome.google.com/webstore/detail/flint/hnhobjmcibchnmglfbldbfabcgaknlkj)​
 
