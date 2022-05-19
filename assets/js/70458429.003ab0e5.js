@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmilkomeda_documentation=self.webpackChunkmilkomeda_documentation||[]).push([[797],{3066:function(a){a.exports=JSON.parse('{"label":"docusaurus","permalink":"/milkomeda-documentation/blog/tags/docusaurus","allTagsPath":"/milkomeda-documentation/blog/tags","count":4}')}}]);
