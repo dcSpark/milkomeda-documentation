@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmilkomeda_documentation=self.webpackChunkmilkomeda_documentation||[]).push([[6992],{7233:function(a){a.exports=JSON.parse('{"label":"hola","permalink":"/milkomeda-documentation/blog/tags/hola","allTagsPath":"/milkomeda-documentation/blog/tags","count":1}')}}]);
