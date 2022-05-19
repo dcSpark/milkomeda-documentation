@@ -3,14 +3,12 @@ sidebar_label: 'Milkomeda: Getting Started'
 sidebar_position: 1
 ---
 
-
 # Getting Started with Milkomeda
 
 **Milkomeda** is a groundbreaking new protocol that brings EVM capabilities to non-EVM blockchains. As development progresses, Milkomeda will expand to offer L2 solutions (rollups) for several major blockchains including Cardano, Solana, and Algorand. Currently we have an EVM-based sidechain connected to Cardano up and running. We call this the **Milkomeda C1** sidechain.
 
 Follow the steps in this guide to quickly get started using Milkomeda.
 
-(Test3)
 
 # 
 
@@ -55,7 +53,7 @@ Follow the steps in this guide to quickly get started using Milkomeda.
 
 # 
 
-​[Getting Started: For End Users](https://dcspark.gitbook.io/milkomeda-getting-started/for-end-users/)​
+[Getting Started: For End Users](./for-end-users/)
 
 End users can send ADA from the Cardano mainnet to a bridge address and receive wrapped ADA on the **Milkomeda C1** sidechain. Jump ahead to the [Getting Started for End Users page](./for-end-users) to start by setting up Flint and MetaMask.
 
