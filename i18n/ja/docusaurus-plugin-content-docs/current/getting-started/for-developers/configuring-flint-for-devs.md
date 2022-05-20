@@ -4,7 +4,7 @@ sidebar_position: 1
 ---
 
 
-# Flintウォレトの設定
+# Configuring Flint Wallet
 
 Flint Wallet is a Chrome extension that serves as a go-to light wallet for DeFi and NFTs. The current version of Flint allows users to create a Cardano Testnet wallet and enable "Milkomeda mode" to send transactions to the Milkomeda C1 sidechain.
 
