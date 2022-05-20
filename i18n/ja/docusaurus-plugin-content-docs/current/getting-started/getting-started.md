@@ -3,9 +3,9 @@ sidebar_label: 'Milkomeda: Getting Started'
 sidebar_position: 1
 ---
 
-# Getting Started with Milkomeda
+# Milkomedaを始めよう
 
-**Milkomeda** is a groundbreaking new protocol that brings EVM capabilities to non-EVM blockchains. As development progresses, Milkomeda will expand to offer L2 solutions (rollups) for several major blockchains including Cardano, Solana, and Algorand. Currently we have an EVM-based sidechain connected to Cardano up and running. We call this the **Milkomeda C1** sidechain.
+**Milkomeda** は、EVM機能を非EVMブロックチェーンにもたらす画期的な新しいプロトコルです。 As development progresses, Milkomeda will expand to offer L2 solutions (rollups) for several major blockchains including Cardano, Solana, and Algorand. Currently we have an EVM-based sidechain connected to Cardano up and running. We call this the **Milkomeda C1** sidechain.
 
 Follow the steps in this guide to quickly get started using Milkomeda.
 
