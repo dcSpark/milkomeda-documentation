@@ -1,6 +1,6 @@
 ---
-sidebar_label: 'Get Help'
+sidebar_label: 'サポート'
 sidebar_position: 3
 ---
 
-# Get Help
+# サポート
