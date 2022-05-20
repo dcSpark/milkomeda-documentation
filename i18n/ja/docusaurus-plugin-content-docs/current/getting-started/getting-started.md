@@ -12,7 +12,7 @@ Follow the steps in this guide to quickly get started using Milkomeda.
 
 #
 
-**Why Milkomeda?**
+**Milkomedaとは**
 
 -   Milkomeda provides non-EVM ecosystems the ability to inherit key elements such as rollups and Solidity support from EVM-based ecosystems.
 
