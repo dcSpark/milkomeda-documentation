@@ -5,7 +5,7 @@ sidebar_position: 2
 
 
 
-Obtaining Test ADA
+# Obtaining Test ADA
 
 Now we’re ready to get some test ADA from the Cardano testnet faucet.
 
