@@ -10,11 +10,7 @@ sidebar_position: 1
 Follow the steps in this guide to quickly get started using Milkomeda.
 
 
-#
-
-
-**Milkomedaとは**
-
+# Why Milkomeda?
 
 -   Milkomeda provides non-EVM ecosystems the ability to inherit key elements such as rollups and Solidity support from EVM-based ecosystems.
 
@@ -31,9 +27,7 @@ Follow the steps in this guide to quickly get started using Milkomeda.
 -   Milkomeda empowers startups to build on chains like Cardano, Algorand, Solana, and Terra while tapping into the talent and resources of the largest community for smart contracts (Solidity).
 
 
-#
-
-**Features of Milkomeda**
+# Features of Milkomeda
 
 -   Scalability: Milkomeda can scale to hundreds of transactions per second without sacrificing long-term decentralization.
 
@@ -53,14 +47,10 @@ Follow the steps in this guide to quickly get started using Milkomeda.
 -   Developer Experience: Developers can draw directly on all of the tooling and resources of Ethereum.
 
 
-#
-
-[Getting Started: For End Users](./for-end-users/)
+# [Getting Started: For End Users](./for-end-users/)
 
 End users can send ADA from the Cardano mainnet to a bridge address and receive wrapped ADA on the **Milkomeda C1** sidechain. Jump ahead to the [Getting Started for End Users page](./for-end-users) to start by setting up Flint and MetaMask.
 
-#
-
-[Getting Started: For Developers](./for-developers/)
+# [Getting Started: For Developers](./for-developers/)
 
 In addition to the mainnet version of the Milkomeda C1 sidechain which uses wrapped ADA for fees and gas, developers can also access the **Milkomeda Devnet** to wrap assets from the Cardano Testnet and deploy smart contracts on the Milkomeda C1 Devnet sidechain using wrapped Test ADA for fees and gas. Proceed to the [next page](https://dcspark.gitbook.io/milkomeda-getting-started/for-developers) to start by setting up Flint Wallet and obtaining some test ADA from the Cardano Testnet faucet.
