@@ -20,47 +20,11 @@ First, create the solidity smart contract file. Inside the Remix window, click t
 
 Now you will be prompted to enter a filename for a new Solidity smart contract. The filename is arbitrary, but for the purposes of this example we will be deploying an ERC-20 smart contract so we will name the file "Test_ERC20.sol". Type the filename and press **Enter**. The cursor should move to the edit panel where you can input your Solidity code. Enter the following:
 
-1
 
-pragma solidity ^0.7.0;
-
-2
-
-​
-
-3
-
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.4.0-solc-0.7/contracts/token/ERC20/ERC20.sol";
-
-4
-
-​
-
-5
-
-contract Token is ERC20 {
-
-6
-
-​
-
-7
-
-constructor () ERC20("Token", "TKN") {
-
-8
-
-_mint(msg.sender, 1000000 * (10 ** uint256(decimals())));
-
-9
+[Enter code here]
 
 }
 
-10
-
-}
-
-Copied!
 
 Next, click the "**Solidity compiler**" icon on the left side of the screen, choose a compiler version (for this example we will use **0.7.6+commit.7338295f**), and then click "**Compile Test_ERC20.sol**", as shown.
 
