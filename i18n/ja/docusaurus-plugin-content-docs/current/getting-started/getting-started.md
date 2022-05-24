@@ -3,9 +3,11 @@ sidebar_label: 'Milkomeda: Getting Started'
 sidebar_position: 1
 ---
 
+![Milkomeda](/img/milkomeda-banner.png)
+
 # Milkomedaを始めよう
 
-**Milkomeda** は、EVM機能を非EVMブロックチェーンにもたらす画期的な新しいプロトコルです。 As development progresses, Milkomeda will expand to offer L2 solutions (rollups) for several major blockchains including Cardano, Solana, and Algorand. Currently we have an EVM-based sidechain connected to Cardano up and running. We call this the **Milkomeda C1** sidechain.
+**Milkomeda** is a groundbreaking new protocol that brings EVM capabilities to non-EVM blockchains. As development progresses, Milkomeda will expand to offer L2 solutions (rollups) for several major blockchains including Cardano, Solana, and Algorand. Currently we have an EVM-based sidechain connected to Cardano up and running. We call this the **Milkomeda C1** sidechain.
 
 Follow the steps in this guide to quickly get started using Milkomeda.
 
@@ -53,4 +55,4 @@ End users can send ADA from the Cardano mainnet to a bridge address and receive 
 
 # [Getting Started: For Developers](./for-developers/)
 
-In addition to the mainnet version of the Milkomeda C1 sidechain which uses wrapped ADA for fees and gas, developers can also access the **Milkomeda Devnet** to wrap assets from the Cardano Testnet and deploy smart contracts on the Milkomeda C1 Devnet sidechain using wrapped Test ADA for fees and gas. Proceed to the [next page](https://dcspark.gitbook.io/milkomeda-getting-started/for-developers) to start by setting up Flint Wallet and obtaining some test ADA from the Cardano Testnet faucet.
+In addition to the mainnet version of the Milkomeda C1 sidechain which uses wrapped ADA for fees and gas, developers can also access the **Milkomeda Devnet** to wrap assets from the Cardano Testnet and deploy smart contracts on the Milkomeda C1 Devnet sidechain using wrapped Test ADA for fees and gas. Proceed to the next page to start by setting up Flint Wallet and obtaining some test ADA from the Cardano Testnet faucet.
