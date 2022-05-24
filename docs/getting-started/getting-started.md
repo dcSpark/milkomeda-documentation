@@ -53,4 +53,4 @@ End users can send ADA from the Cardano mainnet to a bridge address and receive 
 
 # [Getting Started: For Developers](./for-developers/)
 
-In addition to the mainnet version of the Milkomeda C1 sidechain which uses wrapped ADA for fees and gas, developers can also access the **Milkomeda Devnet** to wrap assets from the Cardano Testnet and deploy smart contracts on the Milkomeda C1 Devnet sidechain using wrapped Test ADA for fees and gas. Proceed to the [next page](https://dcspark.gitbook.io/milkomeda-getting-started/for-developers) to start by setting up Flint Wallet and obtaining some test ADA from the Cardano Testnet faucet.
+In addition to the mainnet version of the Milkomeda C1 sidechain which uses wrapped ADA for fees and gas, developers can also access the **Milkomeda Devnet** to wrap assets from the Cardano Testnet and deploy smart contracts on the Milkomeda C1 Devnet sidechain using wrapped Test ADA for fees and gas. Proceed to the next page to start by setting up Flint Wallet and obtaining some test ADA from the Cardano Testnet faucet.

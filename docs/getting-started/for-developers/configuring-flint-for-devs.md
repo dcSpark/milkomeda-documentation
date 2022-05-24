@@ -10,11 +10,7 @@ Flint Wallet is a Chrome extension that serves as a go-to light wallet for DeFi 
 
 Install Flint Wallet by visiting the following link while using Chrome browser and clicking the “Add to Chrome” button: [Install Flint Wallet](https://chrome.google.com/webstore/detail/flint/hnhobjmcibchnmglfbldbfabcgaknlkj)​
 
-After installing, click the Extensions icon
-
-![](https://219607439-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiSJiJU03fzOYGsKJ0KBc%2Fuploads%2FRxW8fEe4NKUPSEPd9u9w%2Fimage.png?alt=media&token=444bd588-0cf2-4874-9c78-88451f4317f3)
-
-at the top right of the Chrome window and select **Flint Wallet**. Within the Flint window, proceed past the initial warning screen, click “**Let’s Begin**”, choose your language, click “**I agree**”, and when you arrive at the screen shown below, click the “**Testnet**” button.
+After installing, click the Extensions icon ![](/static/img/chrome-extensions-icon.png) at the top right of the Chrome window and select **Flint Wallet**. Within the Flint window, proceed past the initial warning screen, click “**Let’s Begin**”, choose your language, click “**I agree**”, and when you arrive at the screen shown below, click the “**Testnet**” button.
 
 To use real ADA on the mainnet version of Milkomeda C1, click "Mainnet" to create a mainnet Cardano wallet instead.
 
