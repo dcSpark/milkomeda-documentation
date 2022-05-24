@@ -2,6 +2,7 @@
 sidebar_label: 'Milkomeda: Getting Started'
 sidebar_position: 1
 ---
+![Milkomeda](/img/milkomeda-banner.png)
 
 # Getting Started with Milkomeda
 
