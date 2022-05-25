@@ -3,26 +3,15 @@ sidebar_label: 'Obtaining MilkADA'
 sidebar_position: 3
 ---
 
-
 # Obtaining MilkADA
-
-​
 
 Open the Flint Wallet window and click "**Send**". At the next screen, enable the "**Milkomeda mode**" toggle, paste the Milkomeda C1 wallet address currently in the clipboard into the "**Milkomeda Ethereum Address**" field, and enter the amount to send (1 ADA in this example). Then click "**Continue**".
 
-​
-
-![](https://219607439-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiSJiJU03fzOYGsKJ0KBc%2Fuploads%2FZJb4gze1HGSn41YrqkXV%2FWrapADA_arrows_v1_2_0.png?alt=media&token=21cd3d72-85bc-4d68-af66-8046fd1f5bee)
-
-​
+![](/img/flint-wrap-ada.png)
 
 At the confirmation screen, enter your wallet password and click "**Send**".
 
-​
-
-![](https://219607439-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiSJiJU03fzOYGsKJ0KBc%2Fuploads%2FTI6Pfmq8y3ETsy0EVYTq%2FWrapADASend_v1_2_0.png?alt=media&token=05adb476-c8c3-4a4d-94e8-4b98c7091152)
-
-​
+![](/img/flint-wrap-ada-confirm.png)
 
 The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred MilkADA should be visible in your C1 wallet in MetaMask.
 
