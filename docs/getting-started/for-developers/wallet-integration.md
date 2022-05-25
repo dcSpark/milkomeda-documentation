@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Wallet Integration'
-sidebar_position: 7
+sidebar_position: 6
 ---
 
 # Wallet integration
