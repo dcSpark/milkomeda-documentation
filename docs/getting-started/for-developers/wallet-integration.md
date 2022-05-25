@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Wallet Integration'
-sidebar_position: 8
+sidebar_position: 7
 ---
 
 # Wallet integration
@@ -128,7 +128,7 @@ When you have the base URL included in your code, you can use one of the followi
    
 -   **fullAllowedList** ([/v1/fullAllowedList](https://allowlist-mainnet.flint-wallet.com/v1/fullAllowedList))
 - Returns array of EVM addresses allowed in the mainnet
- ``` 
+``` 
  {
 "allowList": ["0x...", "0x..."]
 }
