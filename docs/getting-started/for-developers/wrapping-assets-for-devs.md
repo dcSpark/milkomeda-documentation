@@ -7,16 +7,11 @@ sidebar_position: 4
 
 Open the Flint Wallet window and click "**Send**". At the next screen, enable the "**Milkomeda mode**" toggle, paste your Milkomeda C1 wallet address into the "**Milkomeda Ethereum Address**" field, and enter the amount to send (300 Test ADA in this example). Click "**Continue**".
 
-
-![](https://219607439-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiSJiJU03fzOYGsKJ0KBc%2Fuploads%2FuDjEMOipqX9G0BppBmuh%2FWrapTestADA_Flint_v1_2_0.png?alt=media&token=ec8699e2-6f71-48d5-bb95-555aeac98d6e)
-
-​
+![](/img/flint-wrap-tada.png)
 
 At the confirmation screen, enter your wallet password and click "**Send**".
 
-![](https://219607439-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FiSJiJU03fzOYGsKJ0KBc%2Fuploads%2F8J5hkBHeurG8eQEshCm5%2FWrapTestADA_Send_Flint_v1_2_0.png?alt=media&token=dd15f57d-a526-4904-9154-f537f22a9e2f)
-
-​
+![](/img/flint-wrap-tada-confirm.png)
 
 The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred MilkTADA should be visible in your Milkomeda Cardano Testnet wallet in MetaMask.
 
