@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Deploying a Smart Contract'
-sidebar_position: 7
+sidebar_position: 6
 ---
 
 # Deploying a Smart Contract
@@ -45,5 +45,3 @@ Confirm the transaction in MetaMask.
 You should now see the following under "**Deployed Contracts**" on the left side of the Remix IDE screen.
 
 ![](/img/remix-see-deployed.png)
-
-Finally, let's look at how to unwrap our milkTADA back into tADA on the Cardano Testnet.
