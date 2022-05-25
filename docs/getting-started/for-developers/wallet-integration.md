@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Wallet Integration'
-sidebar_position: 6
+sidebar_position: 8
 ---
 
 # Wallet integration
@@ -133,7 +133,8 @@ When you have the base URL included in your code, you can use one of the followi
 "allowList": ["0x...", "0x..."]
 }
 ```
--   **isAddress=0x** ([/v1/isAddressAllowed?address=0x](https://allowlist-mainnet.flint-wallet.com/v1/isAddressAllowed?address=0x))
+
+**isAddress=0x** ([/v1/isAddressAllowed?address=0x](https://allowlist-mainnet.flint-wallet.com/v1/isAddressAllowed?address=0x))
   
 Returns a boolean value, which informs if the  provided address is allowed on the restricted mainnet or not.
 
