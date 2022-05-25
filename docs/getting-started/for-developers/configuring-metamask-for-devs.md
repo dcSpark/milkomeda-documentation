@@ -25,12 +25,12 @@ From the dropdown list, select “**Add Network**” and enter the following:
 
 If you need a WebSocket endpoint, use the following: wss://rpc-devnet-cardano-evm.c1.milkomeda.com
 
-To use the mainnet version of Milkomeda C1, enter the following parameters instead: 
-Network Name: Milkomeda Cardano (C1) 
-New RPC URL: https://rpc-mainnet-cardano-evm.c1.milkomeda.com 
-Chain ID: 2001 
-Currency Symbol: milkADA 
-Block Explorer URL: https://explorer-mainnet-cardano-evm.c1.milkomeda.com 
+To use the mainnet version of Milkomeda C1, enter the following parameters instead:    
+Network Name: Milkomeda Cardano (C1)    
+New RPC URL: https://rpc-mainnet-cardano-evm.c1.milkomeda.com    
+Chain ID: 2001    
+Currency Symbol: milkADA    
+Block Explorer URL: https://explorer-mainnet-cardano-evm.c1.milkomeda.com    
 
 If you need a WebSocket endpoint, use the following: wss://rpc-mainnet-cardano-evm.c1.milkomeda.com
 
