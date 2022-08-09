@@ -83,10 +83,10 @@ const config = {
         //   src: "img/logo.svg",
         // },
         items: [
-          // {
-          //   type: "localeDropdown",
-          //   position: "right",
-          // },
+          {
+            type: "localeDropdown",
+            position: "right",
+          },
           // {
           //   type: "doc",
           //   docId: "intro",

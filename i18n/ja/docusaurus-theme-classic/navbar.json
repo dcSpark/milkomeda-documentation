@@ -2,9 +2,5 @@
   "title": {
     "message": "Milkomeda",
     "description": "The title in the navbar"
-  },
-  "item.label.Getting Started": {
-    "message": "Getting Started",
-    "description": "Navbar item with label Getting Started"
   }
 }
