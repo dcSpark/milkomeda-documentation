@@ -40,7 +40,7 @@ Follow the steps in this guide to quickly get started using Milkomeda.
 
 ## [Getting Started: For End Users](./cardano/for-end-users/)
 
-End users can send ADA from the Cardano mainnet to a bridge address and receive wrapped ADA on the **Milkomeda C1** sidechain. Jump ahead to the [Getting Started for End Users page](./for-end-users) to start by setting up Flint and MetaMask.
+End users can send ADA from the Cardano mainnet to a bridge address and receive wrapped ADA on the **Milkomeda C1** sidechain. Jump ahead to the [Getting Started for End Users page](./cardano/for-end-users) to start by setting up Flint and MetaMask.
 
 ## [Getting Started: For Developers](./cardano/for-developers/)
 
