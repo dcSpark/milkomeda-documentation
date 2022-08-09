@@ -5,9 +5,13 @@
  */
 
 /* You can override the default Infima variables here. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary: #356ddb;
+  --ifm-color-primary-dark: #356ddb;
   --ifm-color-primary-darker: #277148;
   --ifm-color-primary-darkest: #205d3b;
   --ifm-color-primary-light: #33925d;
@@ -15,10 +19,16 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-spacing-horizontal: 40px;
+  --ifm-font-color-base: #3b454e;
+  --ifm-blockquote-border-left-width: 4px;
+  --ifm-blockquote-color: #5c6975;
+  --ifm-blockquote-padding-horizontal: 20px;
+  --ifm-alert-padding-horizontal: 20px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -27,4 +37,29 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+img {
+  @apply max-w-[300px] mb-3;
+}
+
+.img-full {
+  @apply w-full max-w-full;
+}
+
+.img-card {
+  @apply max-w-[300px] mb-4;
+}
+.img-icon {
+  @apply w-5 mb-0;
+}
+
+.tabs-container [role="tab"] {
+  @apply border-[1px] border-solid border-gray-300 py-2 bg-white border-b-0;
+}
+.tabs-container [role="tab"][aria-selected="false"] {
+  @apply bg-gray-100;
+}
+.tabs-container [role="tabpanel"] {
+  @apply border-[1px] border-solid border-gray-300 p-5 -mt-[18px];
 }
