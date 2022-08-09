@@ -9,7 +9,7 @@ const config = {
   title: "Milkomeda Documentation",
   //  tagline: 'Getting started',
   url: "https://dcspark.github.io",
-  baseUrl: "/milkomeda-documentation",
+  baseUrl: "/milkomeda-documentation/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -83,6 +83,10 @@ const config = {
         //   src: "img/logo.svg",
         // },
         items: [
+          // {
+          //   type: "localeDropdown",
+          //   position: "right",
+          // },
           // {
           //   type: "doc",
           //   docId: "intro",
