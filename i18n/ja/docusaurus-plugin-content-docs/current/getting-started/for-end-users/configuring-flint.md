@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Configuring Flint Wallet'
+sidebar_label: "Configuring Flint Wallet"
 sidebar_position: 1
 ---
 
@@ -27,4 +27,4 @@ Next, click “**Confirm**”, “**Create a new wallet**”, and write down a c
 
 ​
 
-Note that to proceed further you will need to fund your wallet with some ADA. Refer to the "[Get Help](https://dcspark.gitbook.io/milkomeda-getting-started/get-help)" section at the end of this document if you require assistance or encounter trouble at this stage. Next, we will configure MetaMask to connect to the Milkomeda C1 sidechain.
+Note that to proceed further you will need to fund your wallet with some ADA. Refer to the "[Get Help](../../get-help)" section at the end of this document if you require assistance or encounter trouble at this stage. Next, we will configure MetaMask to connect to the Milkomeda C1 sidechain.
