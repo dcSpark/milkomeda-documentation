@@ -3,6 +3,11 @@ title: "Unwrapping Assets"
 sidebar_position: 4
 ---
 
+import tokenSelection from "@site/static/img/token-selection.png";
+import blockchainConfirmation from "@site/static/img/blockchain-confirmation.png";
+import addressBar from "@site/static/img/address-bar-link.png";
+import searchBox from "@site/static/img/search-box-blockscout.png";
+
 # Unwrapping Assets
 
 To move assets from Milkomeda C1 sidechain back to Cardano, use the Milkomeda Cardano Unwrap Bridge. Follow the steps below to unwrap milkADA and receive ADA in your Cardano mainnet wallet.&#x20;
@@ -19,15 +24,11 @@ _Click_ "Next"
 
 _Connect to the Milkomeda C1 Sidechain_
 
-:::danger
-
-Remember to select the appropriate network in your wallet. <br /> Only connect with sites you trust. Make sure the website URL is as follows: `https://cardano-bridge.milkomeda.com`
-
-:::
+:::caution Remember to select the appropriate network in your wallet. <br /> Only connect with sites you trust. Make sure the website URL is as follows: `https://cardano-bridge.milkomeda.com` :::
 
 Next, enter the amount of milkADA to unwrap or click the arrow to select a different asset to unwrap, and paste your Cardano wallet address in the "To" field. Then, click the "Next Step" button.
 
-<img className="img-full" src="/img/token-selection.png" />
+<img className="img-full" src={tokenSelection} />
 
 Sign the transaction for unwrapping the assets in MetaMask by clicking "Confirm".
 
@@ -35,7 +36,7 @@ Sign the transaction for unwrapping the assets in MetaMask by clicking "Confirm"
 
 Next, wait for blockchain confirmation.
 
-<img className="img-full" src="/img/blockchain-confirmation.png" alt="Blockchain confirmation" />
+<img className="img-full" src={blockchainConfirmation} alt="Blockchain confirmation" />
 
 :::info
 
@@ -45,7 +46,7 @@ You can check the transaction details in [Cardanoscan](https://cardanoscan.io) e
 
 At this stage, the address bar of your browser will contain some information about the unwrapping transaction. An example is shown in the figure below.
 
-<img className="img-full" src="/img/address-bar-link.png" alt="Address bar link" />
+<img className="img-full" src={addressBar} alt="Address bar link" />
 
 The meaning of each of these elements in the address bar is as follows:
 
@@ -55,7 +56,7 @@ The meaning of each of these elements in the address bar is as follows:
 
 To look up more detailed information about the unwrapping transaction, go to [Milkomeda Blockscout explorer](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/) and paste the EVM unwrapping transaction ID into the search box, as shown below.
 
-<img className="img-full" src="/img/search-box-blockscout.png" alt="Search box in Blockscout" />
+<img className="img-full" src={searchBox} alt="Search box in Blockscout" />
 
 <a
   href="https://explorer-mainnet-cardano-evm.c1.milkomeda.com/tx/0xf21f79d02f9af4935adbb913f915cf217ad8f3402ea1edf0af4e5913a58792ab/internal-transactions"
@@ -70,8 +71,4 @@ The unwrapping process is now complete. After waiting for the necessary transact
 
 ![Flint transactions page](/img/flint-transactions.png)
 
-:::info
-
-To check the available list of tokens that can be unwrapped, go to [**Cardano Bridge Supported Native Assets**](./cardano-bridge-supported-native-assets) section.
-
-:::
+:::info To check the available list of tokens that can be unwrapped, go to [**Cardano Bridge Supported Native Assets**](./cardano-bridge-supported-native-assets) section. :::
