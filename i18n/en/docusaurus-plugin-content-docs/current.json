@@ -3,9 +3,13 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.Milkomeda: Getting Started": {
-    "message": "Milkomeda: Getting Started",
-    "description": "The label for category Milkomeda: Getting Started in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.category.Cardano": {
+    "message": "Cardano",
+    "description": "The label for category Cardano in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Cardano.link.generated-index.description": {
+    "message": "Here are the articles in this section:",
+    "description": "The generated-index page description for category Cardano in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.For Developers": {
     "message": "For Developers",
@@ -14,5 +18,13 @@
   "sidebar.tutorialSidebar.category.For End Users": {
     "message": "For End Users",
     "description": "The label for category For End Users in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Algorand": {
+    "message": "Algorand",
+    "description": "The label for category Algorand in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Algorand.link.generated-index.description": {
+    "message": "Here are the articles in this section:",
+    "description": "The generated-index page description for category Algorand in sidebar tutorialSidebar"
   }
 }
