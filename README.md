@@ -1,6 +1,5 @@
-<!-- markdownlint-disable-next-line -->
 <p align="center">
-  <img width="100%" src="/static/img/milkomeda-banner.png" alt="Milkomeda logo">
+  <img width="300px" src="/static/img/milkomeda-banner.png" alt="Milkomeda logo">
 </p>
 
 <h1 align="center">Getting started with Milkomeda</h1>
