@@ -2,13 +2,15 @@
 sidebar_position: 4
 ---
 
+import remixImg from "@site/static/img/algorand-remix.png";
+
 # Deploying a Smart Contract
 
 Here we will deploy a Solidity smart contract on the Milkomeda A1 rollup. In this example, we will use Remix[ ](http://remix.ethereum.org/)to deploy the contract. You can access Remix by visiting the following link: [Remix IDE](http://remix.ethereum.org/)
 
 First, create the solidity smart contract file. Inside the Remix window, click the "**Contracts**" folder in the left panel, then click the "**New File**" button in the central panel.
 
-<img src="/img/algorand-remix.png" alt="" />
+![Algorand remix](/img/algorand-remix.png)
 
 Now you will be prompted to enter a filename for a new Solidity smart contract. The filename is arbitrary, but for the purposes of this example we will be deploying an ERC-20 smart contract so we will name the file "Test_ERC20.sol". Type the filename and press **Enter**. The cursor should move to the edit panel where you can input your Solidity code. Enter the following:
 
@@ -27,7 +29,7 @@ contract Token is ERC20 {
 
 Next, click the "**Solidity compiler**" icon on the left side of the screen, choose a compiler version (for this example we will use **0.7.6+commit.7338295f**), and then click "**Compile Test_ERC20.sol**", as shown.
 
-![](/img/algorand-solidity-compiler.png)
+![Solidity compiler](/img/algorand-solidity-compiler.png)
 
 Click the "**Deploy and run transactions**" icon on the left, and from the "**Environment**" pulldown select "**Injected Web3**", as shown. This will bring up the MetaMask screen where you will need to click "**Next**" and then "**Connect**" to connect your C1 wallet with Remix.
 
