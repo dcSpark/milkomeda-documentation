@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Get Help'
+sidebar_label: "Get Help"
 sidebar_position: 3
 ---
 
@@ -13,4 +13,4 @@ We highly recommend joining our channel on [discord](https://discord.com/invite/
 
 ​[Official website](http://milkomeda.com/)​
 
-​[GitHub](https://github.com/dcSpark/milkomeda-validator)​
+<!-- ​[GitHub](https://github.com/dcSpark/milkomeda-validator)​ -->
