@@ -13,13 +13,13 @@ First, install [MetaMask for Chrome](https://chrome.google.com/webstore/detail/m
 From the dropdown list, select “**Add Network**” and enter the following:
 
 > Network Name: Milkomeda Algorand Testnet
->
+> 
 > New RPC URL: https://rpc-devnet-algorand-rollup.a1.milkomeda.com
->
+> 
 > Chain ID: 200202
->
+> 
 > Currency Symbol (Optional): milkTALGO
->
+> 
 > Block Explorer URL (Optional): [https://testnet-algorand-rollup.a1.milkomeda.com/](https://testnet-algorand-rollup.a1.milkomeda.com/)
 
 Click “**Save**”, and you should now see "**Milkomeda Algorand Testnet**" in the network dropdown. Copy your Milkomeda Algorand Testnet wallet address to the clipboard by clicking on the account name, as shown.
