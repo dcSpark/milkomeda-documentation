@@ -6,7 +6,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Milkomeda Documentation",
+  title: "Milkomeda",
   //  tagline: 'Getting started',
   url: "https://dcspark.github.io",
   baseUrl: "/milkomeda-documentation/",
@@ -78,10 +78,10 @@ const config = {
     ({
       navbar: {
         title: "Milkomeda",
-        // logo: {
-        //   alt: "My Site Logo",
-        //   src: "img/logo.svg",
-        // },
+        logo: {
+          alt: "Milkomeda logo",
+          src: "img/favicon.svg",
+        },
         items: [
           {
             type: "localeDropdown",
