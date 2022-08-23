@@ -11,6 +11,4 @@ We highly recommend joining our channel on [discord](https://discord.com/invite/
 
 ​[Twitter](https://twitter.com/Milkomeda_com)​
 
-​[Official website](http://milkomeda.com/)​
-
-<!-- ​[GitHub](https://github.com/dcSpark/milkomeda-validator)​ -->
+​[Official website](http://milkomeda.com/)​<!-- ​\[GitHub\](https://github.com/dcSpark/milkomeda-validator)​ -->
