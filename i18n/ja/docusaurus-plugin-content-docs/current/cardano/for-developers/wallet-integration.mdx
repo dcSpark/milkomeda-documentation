@@ -115,7 +115,7 @@ The metadata of a transaction consists of two parameters - **protocol magic & EV
 #### Example of generating Milkomeda metadata for transaction
 
 ```js
-generateMilkomedaMetadata("0x000…", milkomedaNetworks["c1-devnet"].protocolMagic);
+generateMilkomedaMetadata("0x000… ", milkomedaNetworks["c1-devnet"].protocolMagic);
 ```
 
 :::info
@@ -136,9 +136,9 @@ Base url for REST API is given as the **backendEndpoint** parameter using _milko
   defaultValue="devnet"
   values={[
     { label: "Devnet", value: "devnet" },
-    { label: "Mainnet", value: "mainnet" },
-  ]}
-  className="border-[1px] border-gray-300"
+ { label: "Mainnet", value: "mainnet" },
+ ]}
+ className="border-[1px] border-gray-300"
 >
 <TabItem value="devnet">
 
@@ -183,7 +183,7 @@ Returns array of EVM addresses allowed in the mainnet
 
 - **isAddress=0x** ([/v1/isAddressAllowed?address=0x](https://allowlist-mainnet.flint-wallet.com/v1/isAddressAllowed?address=0x))
 
-Returns a boolean value, which informs if the \*\*\*\* provided address is allowed on the restricted mainnet or not.
+Returns a boolean value, which informs if the provided address is allowed on the restricted mainnet or not.
 
 </TabItem>
 
@@ -207,7 +207,7 @@ Using Milkomeda REST API stargate endpoint you can get the same properties of th
             "minCNTInt": "1",
             "minGWei": "1000000000"
         }
-	…
+    …
     ]
 }
 ```
