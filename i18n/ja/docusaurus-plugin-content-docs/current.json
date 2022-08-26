@@ -8,7 +8,7 @@
     "description": "The label for category Cardano in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Cardano.link.generated-index.description": {
-    "message": "Here are the articles in this section:",
+    "message": "このセクションの記事:",
     "description": "The generated-index page description for category Cardano in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.For Developers": {
@@ -24,7 +24,7 @@
     "description": "The label for category Algorand in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Algorand.link.generated-index.description": {
-    "message": "Here are the articles in this section:",
+    "message": "このセクションの記事:",
     "description": "The generated-index page description for category Algorand in sidebar tutorialSidebar"
   }
 }
