@@ -103,7 +103,7 @@ generateMilkomedaMetadata(
 )
 ```
 
-The metadata of a transaction consists of two parameters - **protocol magic & EVM address**. Exemplary metadata for **testnet** transaction is as follows:
+トランザクションのメタデータは2つのパラメーターで構成されます。**プロトコルマジック&EVMアドレス**です。 **テストネット**トランザクションの一般的なメタデータは以下の通りです。
 
 ```json
 {
@@ -112,25 +112,25 @@ The metadata of a transaction consists of two parameters - **protocol magic & EV
 }
 ```
 
-#### Example of generating Milkomeda metadata for transaction
+#### トランザクションのMilkomedaメタデータを生成した例
 
 ```js
 generateMilkomedaMetadata("0x000… ", milkomedaNetworks["c1-devnet"].protocolMagic);
 ```
 
 :::info
-Remember to replace "0x000..." with your EVM address
+「0x000...」をEVMアドレスに置き換えてください
 :::
 
 ### Milkomeda REST API
 
-Except for the _Milkomeda-js-sdk_ package, we have introduced a REST API that allows to fetch more data regarding the Milkomeda Sidechain itself.
+Milkomedaサイドチェーンに関するデータを取得するREST APIについて、_Milkomeda-js-sdk_パッケージ以外のものを導入しました。
 
 :::info
-In this example, we use the Flint Wallet integration example for a better explanation
+この例では分かりやすくご説明するため、Flintウォレット連携を使っています。
 :::
 
-Base url for REST API is given as the **backendEndpoint** parameter using _milkomeda-js-sdk_. You can take it out from the package using the following code:
+REST APIのベースURLは_milkomeda-js-sdk_を使って**backendEndpoint**パラメーターとして提供されます。 以下のコードを使って、パッケージから取得することができます。
 
 <Tabs
   defaultValue="devnet"
@@ -147,10 +147,10 @@ milkomedaNetworks["c1-devnet"].backendEndpoint
 ```
 
 :::info
-Result: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
+結果: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
 :::
 
-When you have the base URL included in your code, you can use one of the following endpoint:
+ベースURLがコードに含まれる場合、以下のエンドポイントのいずれかを使用できます。
 
 - **Stargate address** ([V1/stargate](https://allowlist.flint-wallet.com/v1/stargate))
 
@@ -163,17 +163,17 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
 ```
 
 :::info
-Result: [https://allowlist-mainnet.flint-wallet.com](https://allowlist-mainnet.flint-wallet.com)
+結果: [https://allowlist-mainnet.flint-wallet.com](https://allowlist-mainnet.flint-wallet.com)
 
-If you want to integrate your Wallet with Milkomeda Mainnet, you need to use another 2 endpoints, to get EVM addresses allowed on the network. The purpose of this [microservice](https://github.com/dcSpark/allowedlist-service/) is to provide a list of addresses that are allowed to use the bridge in Milkomeda.
+ウォレットをMilkomedaメインネットに連携させる場合、別のエンドポイントを2つ使ってネットワーク上で許可されたEVMアドレスを取得する必要があります。 この[microservice]（https://github.com/dcSpark/allowedlist-service/）の目的は、Milkomedaのブリッジを使用できるアドレスのリストを提供することです。
 :::
 
-When you have the base URL included in your code, you can use one of the following endpoints:
+ベースURLがコードに含まれる場合、以下のエンドポイントのいずれかを使用できます。
 
 - **Stargate address** ([/V1/stargate](https://allowlist-mainnet.flint-wallet.com/v1/stargate))
 - **fullAllowedList** ([/v1/fullAllowedList](https://allowlist-mainnet.flint-wallet.com/v1/fullAllowedList))
 
-Returns array of EVM addresses allowed in the mainnet
+メインネットで許可されたEVMアドレスの配列が返されます
 
 ```json
 {
@@ -189,7 +189,7 @@ Returns a boolean value, which informs if the provided address is allowed on the
 
 </Tabs>
 
-Using Milkomeda REST API stargate endpoint you can get the same properties of the payload for both devnet and mainnet. Below you can find an example payload for devnet:&#x20;
+Milkomeda REST APIスターゲートエンドポイントを使うと、Devnetとメインネットで同じペイロードのプロパティを取得できます。 以下は、Devnetのペイロードの例です。&#x20;
 
 ```json
 {
@@ -212,4 +212,4 @@ Using Milkomeda REST API stargate endpoint you can get the same properties of th
 }
 ```
 
-#### If you have any additional questions regarding this article and Milkomeda integration go to [https://www.milkomeda.com/support](https://www.milkomeda.com/support) or visit our [discord server](https://discord.gg/4GSwPJpF) and don’t hesitate to ask us.
+#### この記事やMilkomedaの連携についてご不明な点がありましたら、[https://www.milkomeda.com/support](https://www.milkomeda.com/support)または[Discordサーバー](https://discord.gg/4GSwPJpF)よりお気軽にお問い合わせください。
