@@ -5,8 +5,8 @@ sidebar_position: 2
 
 # For End Users
 
-The Milkomeda C1 sidechain uses MilkADA as its base asset for paying fees and gas. To access the sidechain, you will need a Cardano wallet with some ADA as well as the MetaMask browser extension.
+Milkomeda C1サイドチェーンは、手数料やガスの支払いのベースとなる資産として、MilkADAを使用します。 サイドチェーンにアクセスするには、ADAの入ったCardanoウォレットと、MetaMaskブラウザ拡張機能が必要です。
 
-On the following pages we will walk through the steps to create a Cardano wallet in Flint, configure MetaMask to get a Milkomeda C1 address, and finally send ADA to be converted into MilkADA on Milkomeda C1.
+次のページ以降で、FlintでCardanoウォレットを作成し、MetaMaskの設定によりMilkomeda C1アドレスを取得し、Milkomeda C1上でADAを送信してMilkADAに変換する手順を説明します。
 
 はじめに、Flintウォレットをインストールします。 次のページに移動して、手順を開始しましょう。
