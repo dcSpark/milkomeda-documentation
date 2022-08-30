@@ -1,9 +1,9 @@
 ---
-sidebar_label: "For End Users"
+sidebar_label: "エンドユーザー向け"
 sidebar_position: 2
 ---
 
-# For End Users
+# エンドユーザー向け
 
 Milkomeda C1サイドチェーンは、手数料やガスの支払いのベースとなる資産として、MilkADAを使用します。 サイドチェーンにアクセスするには、ADAの入ったCardanoウォレットと、MetaMaskブラウザ拡張機能が必要です。
 
