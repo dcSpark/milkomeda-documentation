@@ -1,4 +1,4 @@
-# For Developers
+# 開発者向け
 
 現時点でご利用いただけるのはAlgorand Rollup Testnetのみですが、広範囲にわたるQAと主要な監査による最終確認の後、今四半期にAlgorand Rollup Mainnetの提供を開始する見込みです。
 
