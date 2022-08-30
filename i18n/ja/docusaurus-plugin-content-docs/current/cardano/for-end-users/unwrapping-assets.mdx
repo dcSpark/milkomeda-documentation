@@ -14,13 +14,13 @@ import searchBox from "@site/static/img/search-box-blockscout.png";
 
 はじめに、[Milkomeda Cardano Unwrap Bridge](https://cardano-bridge.milkomeda.com/bridge)にアクセスしてMetaMaskウォレットを接続します。
 
-![Connect metamask](/img/connect-metamask.png)
+![MetaMaskを接続](/img/connect-metamask.png)
 
-![Connect Wallet](/img/connect-wallet.png)
+![ウォレットを接続](/img/connect-wallet.png)
 
 「Next（次へ）」を_クリック_します
 
-![Connect Milkomeda network](/img/connect-milkomeda.png)
+![Milkomedaネットワークを接続](/img/connect-milkomeda.png)
 
 _Milkomeda C1サイドチェーンに接続します_
 
@@ -32,11 +32,11 @@ _Milkomeda C1サイドチェーンに接続します_
 
 「Confirm（確認）」をクリックして、MetaMaskで資産のラッピングを解除するトランザクションに署名します。
 
-![Confirm Metamask](/img/confirm-metamask.png)
+![MetaMaskを確認](/img/confirm-metamask.png)
 
 ブロックチェーンの確認を待ちます。
 
-<img className="img-full" src={blockchainConfirmation} alt="Blockchain confirmation" />
+<img className="img-full" src={blockchainConfirmation} alt="ブロックチェーンの確認" />
 
 :::info
 
@@ -46,7 +46,7 @@ _Milkomeda C1サイドチェーンに接続します_
 
 この時点では、ブラウザーのアドレスバーには、ラッピング解除のトランザクションについての情報が記載されています。 以下の図に例を示します。
 
-<img className="img-full" src={addressBar} alt="Address bar link" />
+<img className="img-full" src={addressBar} alt="アドレスバーのリンク" />
 
 アドレスバーの要素の意味は、それぞれ以下のとおりです。
 
@@ -54,9 +54,9 @@ _Milkomeda C1サイドチェーンに接続します_
 - ラッピング解除されたトークンの金額
 - ラッピングを解除されるトークンの名前
 
-To look up more detailed information about the unwrapping transaction, go to [Milkomeda Blockscout explorer](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/) and paste the EVM unwrapping transaction ID into the search box, as shown below.
+ラッピング解除のトランザクションの詳細については、[Milkomeda Blockscoutエクスプローラー](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/)にアクセスして、以下のとおり検索ボックスにEVMラッピング解除トランザクションIDを貼り付けます。
 
-<img className="img-full" src={searchBox} alt="Search box in Blockscout" />
+<img className="img-full" src={searchBox} alt="Blockscoutの検索ボックス" />
 
 <a
   href="https://explorer-mainnet-cardano-evm.c1.milkomeda.com/tx/0xf21f79d02f9af4935adbb913f915cf217ad8f3402ea1edf0af4e5913a58792ab/internal-transactions"
@@ -64,11 +64,11 @@ To look up more detailed information about the unwrapping transaction, go to [Mi
   rel="noreferrer noopener"
   className="text-center block mb-4"
 >
-  Look up the example transaction
+  トランザクションのサンプルを見る
 </a>
 
-The unwrapping process is now complete. After waiting for the necessary transaction confirmations, you should see the unwrapped asset in your Cardano Mainnet wallet.
+ラッピング解除のプロセスが完了しました。 トランザクションの確認が終わると、Cardano Mainnetウォレットにラッピングを解除された資産が表示されます。
 
-![Flint transactions page](/img/flint-transactions.png)
+![Flintのトランザクションページ](/img/flint-transactions.png)
 
 :::info To check the available list of tokens that can be unwrapped, go to [**Cardano Bridge Supported Native Assets**](./cardano-bridge-supported-native-assets) section. :::
