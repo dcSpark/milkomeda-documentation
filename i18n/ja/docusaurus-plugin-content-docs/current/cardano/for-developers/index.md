@@ -1,9 +1,9 @@
 ---
-sidebar_label: "For Developers"
+sidebar_label: "開発者向け"
 sidebar_position: 2
 ---
 
-# For Developers
+# 開発者向け
 
 Milkomeda C1サイドチェーンでは、現在2つのバージョンが動作しています。 1つはDevnetバージョンで、テストADAを使ってCardano Testnetとインタラクションを行います。 もう1つはメインネットバージョンで、リアルADAを使ってCardanoメインネットとインタラクションを行います。
 
