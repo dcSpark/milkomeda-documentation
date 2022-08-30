@@ -12,11 +12,11 @@
     "description": "The generated-index page description for category Cardano in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.For Developers": {
-    "message": "For Developers",
+    "message": "開発者向け",
     "description": "The label for category For Developers in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.For End Users": {
-    "message": "For End Users",
+    "message": "エンドユーザー向け",
     "description": "The label for category For End Users in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Algorand": {
