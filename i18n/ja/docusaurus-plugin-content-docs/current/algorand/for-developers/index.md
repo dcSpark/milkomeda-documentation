@@ -1,7 +1,7 @@
-# For Developers
+# 開発者向け
 
-Currently, only the Algorand Rollup Testnet is available, but we hope to launch Algorand Rollup Mainnet this quarter after more extensive QA and the finalization of our main audit.
+現時点でご利用いただけるのはAlgorand Rollup Testnetのみですが、広範囲にわたるQAと主要な監査による最終確認の後、今四半期中にAlgorand Rollup Mainnetの提供を開始する見込みです。
 
-About the Milkomeda A1 Devnet (Milkomdea's Algorand Rollup Testnet), it uses test ALGO and interacts with the official Algorand Testnet.
+Milkomeda A1 Devnet（MilkomdeaのAlgorand Rollup Testnet）は、テストALGOを用いて正式なAlgorand Testnetとやり取りを行います。
 
-We recommend starting with the devnet to get oriented first. Once you're familiar with the devnet, the operations for the future mainnet will be the same. The example steps that follow will show how to set up a connection to the devnet. Later on we will update the documentation with an additional section in red text indicating parameters and steps for using the mainnet.
+操作に慣れるため、まずはDevnetをご利用になることをおすすめします。 Devnetの使い方を理解できれば、今後提供されるメインネットも同じように操作できます。 これからご紹介する事例では、Devnetへの接続を設定する方法をご説明します。 メインネットを使用するためのパラメーターや手順については、本ドキュメントに赤い文字で追加される予定です。

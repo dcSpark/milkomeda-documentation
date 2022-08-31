@@ -1,12 +1,12 @@
 ---
-sidebar_label: "For Developers"
+sidebar_label: "開発者向け"
 sidebar_position: 2
 ---
 
-# For Developers
+# 開発者向け
 
-Two versions of the Milkomeda C1 sidechain are currently operational. One is the devnet version, which uses test ADA and interacts with the Cardano Testnet. The the other is the mainnet version, which uses real ADA and interacts with the Cardano mainnet.
+Milkomeda C1サイドチェーンでは、現在2つのバージョンが動作しています。 1つはDevnetバージョンで、テストADAを使ってCardano Testnetとインタラクションを行います。 もう1つはメインネットバージョンで、リアルADAを使ってCardanoメインネットとインタラクションを行います。
 
-We recommend starting with the devnet to get oriented first. Once you're familiar with the devnet, the operations for mainnet are the same. The example steps that follow will show how to set up a connection to the devnet, with additional sections in red text indicating parameters and steps for using the mainnet.
+操作に慣れるため、まずはDevnetをご利用になることをおすすめします。 Devnetの使い方を理解できれば、メインネットも同じように操作できます。 これから紹介する手順の例では、Devnetへの接続を設定する方法を紹介しています。赤字の部分は、メインネットで使用するパラメーターや手順を示しています。
 
-Our first step is to install Flint Wallet. Proceed to the next page to begin.
+はじめに、Flintウォレットをインストールします。 次のページに移動して、手順を開始しましょう。

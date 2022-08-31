@@ -1,45 +1,44 @@
 ---
-sidebar_label: "Wrapping Assets"
+sidebar_label: "資産のラッピング"
 sidebar_position: 4
 ---
 
-# Wrapping Assets
+# 資産のラッピング
 
-Open the Flint Wallet window and click "**Send**". At the next screen, enable the "**Milkomeda mode**" toggle, paste your Milkomeda C1 wallet address into the "**Milkomeda Ethereum Address**" field, and enter the amount to send (300 Test ADA in this example). Click "**Continue**".
+Flintウォレットのウィンドウを開き、「**Send**（送る）」をクリックします。 次の画面で「**Milkomedaモード**」のトグルを切り替えて有効にします。Milkomeda C1ウォレットのアドレスを「**Milkomeda Ethereum Address**」欄に貼り付けて、送金する金額を入力します（例では300Test ADAを送金しています）。 「**Continue**（続行）」をクリックします。
 
 ![](/img/flint-wrap-tada.png)
 
-At the confirmation screen, enter your wallet password and click "**Send**".
+確認画面でウォレットのパスワードを入力し、「**Send**（送る）」をクリックします。
 
 ![](/img/flint-wrap-tada-confirm.png)
 
-The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred MilkTADA should be visible in your Milkomeda Cardano Testnet wallet in MetaMask.
+送金には確認を10回行う必要があり、約**5**分かかります。 トランザクションを確認すると、送信したMilkTADAがMetaMaskのMilkomeda Cardano Testnetウォレットに表示されます。
 
-:::info A note on transaction fees
+:::info トランザクションの手数料について
 
-For transactions that take place solely on the Milkomeda C1 sidechain, you only pay the standard Milkomeda network transaction fee set by the block producers.
+Milkomeda C1サイドチェーンのみで行われるトランザクションの場合、ブロックプロデューサーが設定した、標準のMilkomedaネットワークトランザクション手数料のみを支払います。
 
-However, transactions that involve wrapping, i.e., moving assets between Cardano and the Milkomeda C1 sidechain, require payment of transactions fees for both Cardano and Milkomeda since one transaction is required on each chain.
+ただし、ラッピングを含むトランザクション（CardanoとMilkomeda C1サイドチェーン間で資産が移動するトランザクション）の場合、1つのトランザクションがそれぞれのチェーンで行われるため、CardanoとMilkomeda両方のトランザクション手数料を支払う必要があります。
 
-For example, sending assets from Cardano to Milkomeda C1 requires one transaction on Cardano to lock your assets and another transaction on Milkomeda C1 to issue the wrapped assets to you.
+たとえば、CardanoからMilkomeda C1に資産を送信する場合、Cardano上で資産をロックするためのトランザクションが1つ、Milkomeda C1上でラッピングされた資産を発行するためのトランザクションが1つ必要です。
 
-When sending a transaction of this type in Flint Wallet, you can expand the "Network Fee" item to see a "Base Fee" (i.e., the Cardano transaction fee) and a "Milkomeda Fee". Note that the "Milkomeda Fee" for these transactions will be slightly higher than the standard transaction fee on Milkomeda since you are also paying the block producers for their role in wrapping your assets.
+Flintウォレットでこのようなトランザクションを送信する場合、「Network Fee（ネットワーク手数料）」の項目を展開することで、「Base Fee（基本手数料）」（Cardanoトランザクション手数料）と「Milkomeda Fee（Milkomeda手数料）」を確認できます。 このようなトランザクションの「Milkomeda Fee（Milkomeda手数料）」は、資産をラッピングするという役割を担うブロックプロデューサーにも報酬を支払うことになるため、Milkomedaでの標準的なトランザクション手数料よりも若干高くなることに注意しましょう。
 
 :::
 
-Now that we have successfully wrapped Test ADA into MilkTADA for use on the Milkomeda Cardano Testnet sidechain, the next step is to deploy a sample smart contract.
+Milkomeda Cardano Testnetサイドチェーンで使用できるよう、テストADAをMilkTADAにラッピングすることができました。次に、スマートコントラクトのサンプルをデプロイしてみましょう。
 
-:::caution MilkTADA and Wrapped Test ADA
+:::caution MilkTADAとラッピングされたテストADA
 
-As we have seen, MilkTADA is the base asset used for paying fees and gas on the Milkomeda Cardano Testnet sidechain. When you move Test ADA to Milkomeda, you receive MilkTADA.
+これまでご説明してきたとおり、MilkTADAは、Milkomeda Cardano Testnetサイドチェーンで手数料やガスを支払うためのベースとなる資産です。 テストADAをMilkomedaに移動させると、MilkTADAを受け取ることができます。
 
-"Wrapped Test ADA" (wTADA) is a separate ERC20 token that functions the same as WETH on Ethereum.
+「ラッピングされたテストADA（wTADA）」は、Ethereum上のWETHと同様の機能を果たすERC20トークンです。
 
-The contract address for wTADA can be found below. Note that although you can send milkTADA to this address to wrap it, you **shouldn't** send wTADA to this address to unwrap it but rather interact with it using the right method in the smart-contract. wTADA contract address: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
+wTADAのコントラクトアドレスは以下のとおりです。 このアドレスにmilkTADAを送信してラッピングすることは可能ですが、このアドレスにwTADAを送信してラッピングを解除することは**できません**。スマートコントラクトの適切な方法を用いてインタラクションを実行してください。 wTADAコントラクトアドレス: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
 
-If using the Cardano mainnet, find the wADA contract address below.
+Cardanoメインネットを使用する場合、wADAコントラクトアドレスは以下のとおりです。
 
-**Do not directly** send wADA to this address. For now, you will need to use a DEX to unwrap wADA (or interact directly with the smart contract).
+このアドレスにwADAを**直接送信しないでください**。 現時点では、wADAのラッピングを解除するにはDEXを使用する必要があります（または、スマートコントラクトと直接インタラクションを実行します）。
 
-wADA contract address: 0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9
-:::
+wADA contract address: 0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9 :::

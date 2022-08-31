@@ -1,76 +1,76 @@
 ---
-sidebar_label: "Wallet Integration"
+sidebar_label: "ウォレットの連携"
 sidebar_position: 7
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-# Wallet integration
+# ウォレットの連携
 
-Learn how to integrate your web3 wallet or other dApp with Milkomeda
+web3ウォレットやその他のdAppをMilkomedaと連携させる方法
 
-## Start building the future of decentralized finances
+## 分散型金融の未来を構築する
 
-The following article helps to get to know the _**milkomeda-js-sdk package**_ allowing developers to integrate web3 wallet on Milkomeda Sidechain.
+以下では、_**milkomeda-js-sdkパッケージ**_を使ってMilkomeda上でweb3ウォレットを連携させる方法をご説明します。
 
-## Integrate Wallet with Milkomeda protocol
+## ウォレットとMilkomedaプロトコルの連携
 
-**1. Download _milkomeda-js-sdk package_**
+**1. _milkomeda-js-sdkパッケージ_をダウンロードする**
 
-Here you can find the [milkomeda-js-sdk package](https://www.npmjs.com/package/@dcspark/milkomeda-js-sdk). This is a package that hosts static configurations of Milkomeda deployments.
+milkomeda-js-sdkパッケージには[こちら](https://www.npmjs.com/package/@dcspark/milkomeda-js-sdk)からアクセスできます。 このパッケージは、Milkomedaデプロイメントの静的設定をホストしています。
 
 :::info
 
-This is useful to avoid having each project integrate Milkomeda hard-coding static configurations.
+これを利用すると、それぞれのプロジェクトでMilkomedaのハードコーディングの静的設定を連携する必要がなくなります。
 
 :::
 
-**2. Install _milkomeda-js-sdk_ package**
+**2. _milkomeda-js-sdk_パッケージをインストールする**
 
-To install the package using **npm**:
+**npm**を使ってパッケージをインストールする場合：
 
 ```shell
 npm i @dcspark/milkomeda-js-sdk
 ```
 
-To install the package using **yarn**:
+**yarn**を使ってパッケージをインストールする場合：
 
 ```shell
 yarn add @dcspark/milkomeda-js-sdk
 ```
 
-**3. Import the package into your project**
+**3. パッケージをプロジェクトにインポートする**
 
-Using **import:**
+**import**を使用する：
 
 ```js
 import { generateMilkomedaMetadata, milkomedaNetworks } from "@dcspark/milkomeda-js-sdk";
 ```
 
-Using **require:**
+**require**を使用する：
 
 ```js
 const milkomedaJsSdk = require("@dcspark/milkomeda-js-sdk");
 ```
 
-## Learn more about _milkomeda-js-sdk_ package
+## _milkomeda-js-sdk_パッケージの詳細
 
-_Milkomeda-js-sdk_ is a package that hosts static configurations of Milkomeda deployments. This is useful to avoid having each project integrate Milkomeda hard-coding static configurations.
+_Milkomeda-js-sdk_は、Milkomedaデプロイメントの静的設定をホストするパッケージです。 これを利用すると、それぞれのプロジェクトでMilkomedaのハードコーディングの静的設定を連携する必要がなくなります。
 
-| Parameter                  | Description                                                                                                         |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| _isMainnet_                | boolean informing if the specific network configuration is mainnet (e.g. Cardano) or not,                           |
-| _mainchain_                | consists of mainchain information such as protocol and its id,                                                      |
-| _sidechain_                | consists of sidechain information such as protocol name (e.g. MilkomedaC1) and sidechain id,                        |
-| _backendEndpoint_          | provides URL value for the service, which exposes additional information about a specific version of the sidechain, |
-| _protocolMagic_            | introduces protocol magic compatible with appropriate Milkomeda network,                                            |
-| _timeIntervalForAddressMs_ | a time interval of a possible address change defined in milliseconds,                                               |
-| _sidechainContract_        | address of the sidechain contract to which any client can connect.                                                  |
+| パラメーター                     | 概要                                                  |
+| -------------------------- | --------------------------------------------------- |
+| _isMainnet_                | 特定のネットワークの構成がメインネット（Cardanoなど）かどうかを示すブーリアン          |
+| _mainchain_                | プロトコルやIDなど、メインチェーンの情報から構成される                        |
+| _sidechain_                | プロトコル名（MilkomedaC1など）やサイドチェーンIDなど、サイドチェーンの情報から構成される |
+| _backendEndpoint_          | サイドチェーンの特定のバージョンについての追加情報を示す、サービスのURL値を提供する         |
+| _protocolMagic_            | 適切なMilkomedaネットワークと互換性のあるプロトコルマジックを導入する             |
+| _timeIntervalForAddressMs_ | ミリ秒単位で定義された、アドレスを変更する際に必要となる時間の間隔                   |
+| _sidechainContract_        | 任意のクライアントが接続できるサイドチェーンコントラクトのアドレス                   |
 
-#### Example of the exposed payload
+#### 公開されたペイロードの例
 
-Below you can find an example of the exposed payload of one of the Milkomeda Networks (devnet)
+以下は、Milkomedaネットワーク（Devnet）のペイロードを公開した例です。
 
 ```json
 {
@@ -93,7 +93,7 @@ Below you can find an example of the exposed payload of one of the Milkomeda Net
 }
 ```
 
-Additionally, the package introduces helper types and a function that helps to create proper metadata for Milkomeda transactions.
+さらに、パッケージはMilkomedaのトランザクションに適したメタデータを作成するのに役立つヘルパーの型と関数を利用しています。
 
 ```shell
 # Milkomeda metadata generator
@@ -103,7 +103,7 @@ generateMilkomedaMetadata(
 )
 ```
 
-The metadata of a transaction consists of two parameters - **protocol magic & EVM address**. Exemplary metadata for **testnet** transaction is as follows:
+トランザクションのメタデータは2つのパラメーターで構成されます。**プロトコルマジック&EVMアドレス**です。 **テストネット**トランザクションの一般的なメタデータは以下の通りです。
 
 ```json
 {
@@ -112,33 +112,33 @@ The metadata of a transaction consists of two parameters - **protocol magic & EV
 }
 ```
 
-#### Example of generating Milkomeda metadata for transaction
+#### トランザクションのMilkomedaメタデータを生成した例
 
 ```js
-generateMilkomedaMetadata("0x000…", milkomedaNetworks["c1-devnet"].protocolMagic);
+generateMilkomedaMetadata("0x000… ", milkomedaNetworks["c1-devnet"].protocolMagic);
 ```
 
 :::info
-Remember to replace "0x000..." with your EVM address
+「0x000...」をEVMアドレスに置き換えてください
 :::
 
 ### Milkomeda REST API
 
-Except for the _Milkomeda-js-sdk_ package, we have introduced a REST API that allows to fetch more data regarding the Milkomeda Sidechain itself.
+Milkomedaサイドチェーンに関するデータを取得するREST APIについて、_Milkomeda-js-sdk_パッケージ以外のものを導入しました。
 
 :::info
-In this example, we use the Flint Wallet integration example for a better explanation
+この例では分かりやすくご説明するため、Flintウォレット連携を使っています。
 :::
 
-Base url for REST API is given as the **backendEndpoint** parameter using _milkomeda-js-sdk_. You can take it out from the package using the following code:
+REST APIのベースURLは_milkomeda-js-sdk_を使って**backendEndpoint**パラメーターとして提供されます。 以下のコードを使って、パッケージから取得することができます。
 
 <Tabs
   defaultValue="devnet"
   values={[
     { label: "Devnet", value: "devnet" },
-    { label: "Mainnet", value: "mainnet" },
-  ]}
-  className="border-[1px] border-gray-300"
+ { label: "Mainnet", value: "mainnet" },
+ ]}
+ className="border-[1px] border-gray-300"
 >
 <TabItem value="devnet">
 
@@ -147,10 +147,10 @@ milkomedaNetworks["c1-devnet"].backendEndpoint
 ```
 
 :::info
-Result: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
+結果: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
 :::
 
-When you have the base URL included in your code, you can use one of the following endpoint:
+ベースURLがコードに含まれる場合、以下のエンドポイントのいずれかを使用できます。
 
 - **Stargate address** ([V1/stargate](https://allowlist.flint-wallet.com/v1/stargate))
 
@@ -163,17 +163,17 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
 ```
 
 :::info
-Result: [https://allowlist-mainnet.flint-wallet.com](https://allowlist-mainnet.flint-wallet.com)
+結果: [https://allowlist-mainnet.flint-wallet.com](https://allowlist-mainnet.flint-wallet.com)
 
-If you want to integrate your Wallet with Milkomeda Mainnet, you need to use another 2 endpoints, to get EVM addresses allowed on the network. The purpose of this [microservice](https://github.com/dcSpark/allowedlist-service/) is to provide a list of addresses that are allowed to use the bridge in Milkomeda.
+ウォレットをMilkomedaメインネットに連携させる場合、別のエンドポイントを2つ使ってネットワーク上で許可されたEVMアドレスを取得する必要があります。 この[microservice]（https://github.com/dcSpark/allowedlist-service/）の目的は、Milkomedaのブリッジを使用できるアドレスのリストを提供することです。
 :::
 
-When you have the base URL included in your code, you can use one of the following endpoints:
+ベースURLがコードに含まれる場合、以下のエンドポイントのいずれかを使用できます。
 
 - **Stargate address** ([/V1/stargate](https://allowlist-mainnet.flint-wallet.com/v1/stargate))
 - **fullAllowedList** ([/v1/fullAllowedList](https://allowlist-mainnet.flint-wallet.com/v1/fullAllowedList))
 
-Returns array of EVM addresses allowed in the mainnet
+メインネットで許可されたEVMアドレスの配列が返されます
 
 ```json
 {
@@ -183,13 +183,13 @@ Returns array of EVM addresses allowed in the mainnet
 
 - **isAddress=0x** ([/v1/isAddressAllowed?address=0x](https://allowlist-mainnet.flint-wallet.com/v1/isAddressAllowed?address=0x))
 
-Returns a boolean value, which informs if the \*\*\*\* provided address is allowed on the restricted mainnet or not.
+提供されたアドレスが制限されたメインネット上で許可されているかどうかを示すブール値を返します。
 
 </TabItem>
 
 </Tabs>
 
-Using Milkomeda REST API stargate endpoint you can get the same properties of the payload for both devnet and mainnet. Below you can find an example payload for devnet:&#x20;
+Milkomeda REST APIスターゲートエンドポイントを使うと、Devnetとメインネットで同じペイロードのプロパティを取得できます。 以下は、Devnetのペイロードの例です。&#x20;
 
 ```json
 {
@@ -207,9 +207,9 @@ Using Milkomeda REST API stargate endpoint you can get the same properties of th
             "minCNTInt": "1",
             "minGWei": "1000000000"
         }
-	…
+    …
     ]
 }
 ```
 
-#### If you have any additional questions regarding this article and Milkomeda integration go to [https://www.milkomeda.com/support](https://www.milkomeda.com/support) or visit our [discord server](https://discord.gg/4GSwPJpF) and don’t hesitate to ask us.
+#### この記事やMilkomedaの連携についてご不明な点がありましたら、[https://www.milkomeda.com/support](https://www.milkomeda.com/support)または[Discordサーバー](https://discord.gg/4GSwPJpF)よりお気軽にお問い合わせください。

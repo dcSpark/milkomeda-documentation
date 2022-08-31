@@ -1,16 +1,14 @@
 ---
-sidebar_label: "Get Help"
+sidebar_label: "サポート"
 sidebar_position: 3
 ---
 
-# Get Help
+# サポート
 
-We highly recommend joining our channel on [discord](https://discord.com/invite/dcspark), where many developers and community members are active and available to provide guidance and support. You can also refer to the [Milkomeda FAQ](https://dcspark.gitbook.io/milkomeda/details/faq) and reach us through our [contact page](https://www.milkomeda.com/contact).
+[Discord](https://discord.com/invite/dcspark)では開発者やコミュニティメンバーが活発にガイダンスやサポートを提供しています。ぜひご参加ください。 また、 [Milkomeda の FAQ](https://dcspark.gitbook.io/milkomeda/details/faq) や [お問い合わせページ](https://www.milkomeda.com/contact) もご活用いただけます。
 
-# Follow Milkomeda Project Development
+# Milkomedaのプロジェクト開発状況をフォローする
 
 ​[Twitter](https://twitter.com/Milkomeda_com)​
 
-​[Official website](http://milkomeda.com/)​
-
-<!-- ​[GitHub](https://github.com/dcSpark/milkomeda-validator)​ -->
+[公式サイト](http://milkomeda.com/)<!-- ​\[GitHub\](https://github.com/dcSpark/milkomeda-validator)​ -->
