@@ -7,9 +7,9 @@ import puzzleIcon from "@site/static/img/puzzle-icon.png";
 
 # MetaMaskの設定
 
-Now that we have a Cardano testnet wallet and some Test ADA, we need an address on the Milkomeda Cardano Testnet sidechain where we can receive our MilkTADA. 現時点では、このステップにはMetaMaskを使用することをおすすめしています。
+Cardano Testnetウォレットを作成してテストADAを取得したら、Milkomeda Cardano Testnetサイドチェーン上でMilkTADAを受け取ることのできるアドレスが必要です。 現時点では、このステップにはMetaMaskを使用することをおすすめしています。
 
-まず、[Chrome用MetaMask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn)をインストールします。 Then, click the Chrome Extensions icon <img src={puzzleIcon} className="img-icon" /> and select MetaMask. MetaMaskのウィンドウ内の「**Get Started**（開始する）」をクリックして、次に「**Create a Wallet**（ウォレットを作成）」を選択します。 ウォレットのパスワードを設定します。この後に設定画面が表示されるので、クリックして先に進みます。 完了すると、以下のような空のウォレットが新たに作成されます。 MetaMask画面の右上のネットワークドロップダウンを選択します。
+まず、[Chrome用MetaMask](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn)をインストールします。 次にChrome拡張機能アイコン<img src={puzzleIcon} className="img-icon" />をクリックして、MetaMaskを選択します。 MetaMaskのウィンドウ内の「**Get Started**（開始する）」をクリックして、次に「**Create a Wallet**（ウォレットを作成）」を選択します。 ウォレットのパスワードを設定します。この後に設定画面が表示されるので、クリックして先に進みます。 完了すると、以下のような空のウォレットが新たに作成されます。 MetaMask画面の右上のネットワークドロップダウンを選択します。
 
 ![](/img/metamask-change-network.png)
 
@@ -24,11 +24,11 @@ Now that we have a Cardano testnet wallet and some Test ADA, we need an address 
 > Currency Symbol (Optional): milkTADA
 > 
 > <p> Block Explorer URL (Optional): https://explorer-devnet-cardano-evm.c1.milkomeda.com </p>
-If you need a WebSocket endpoint, use the following: wss://rpc-devnet-cardano-evm.c1.milkomeda.com
+WebSocketエンドポイントが必要な場合は、次を使用します。wss://rpc-devnet-cardano-evm.c1.milkomeda.com
 
 :::info
 
-To use the mainnet version of Milkomeda C1, enter the following parameters instead:
+Milkomeda C1メインネットバージョンを使用する場合、パラメーターは以下を入力してください。
 
 - Network Name: Milkomeda Cardano (C1)
 - <span>New RPC URL: https://rpc-mainnet-cardano-evm.c1.milkomeda.com</span>
@@ -36,10 +36,10 @@ To use the mainnet version of Milkomeda C1, enter the following parameters inste
 - Currency Symbol: milkADA
 - <span> Block Explorer URL: https://explorer-mainnet-cardano-evm.c1.milkomeda.com </span>
 
-If you need a WebSocket endpoint, use the following: wss://rpc-mainnet-cardano-evm.c1.milkomeda.com :::
+WebSocketエンドポイントが必要な場合は、次を使用します。wss://rpc-mainnet-cardano-evm.c1.milkomeda.com :::
 
-Click “**Save**”, and you should now see "**Milkomeda Cardano Testnet**" in the network dropdown. Copy your Milkomeda Cardano Testnet wallet address to the clipboard by clicking on the account name, as shown.
+「**Save**（保存）」をクリックすると、ネットワークドロップダウンに「**Milkomeda Cardano Testnet**」が表示されます。 以下のとおり、アカウント名をクリックして、Milkomeda Cardano Testnetウォレットアドレスをクリップボードにコピーします。
 
-![Metamask copy address](/img/metamask-copy-c1-testnet-address.png)
+![Metamaskコピーアドレス](/img/metamask-copy-c1-testnet-address.png)
 
-Next we will go back to Flint Wallet and send our test ADA to be wrapped.
+次に、Flintウォレットに戻り、テストADAをラッピングします。
