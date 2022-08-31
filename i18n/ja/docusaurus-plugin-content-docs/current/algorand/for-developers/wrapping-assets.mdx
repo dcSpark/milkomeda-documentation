@@ -10,16 +10,16 @@ import blockchainConfirmation from "@site/static/img/algorand-blockchain-confirm
 
 Milkomeda A1ブリッジのページ [https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/) にアクセスして、移動したいトークンを選択します（当初はtALGOのみ）。 次にMyAlgoウォレットを、次にMetamaskを接続します。 最後に、Rollupに移動するトークンの金額を入力します。 「**Continue**（続行）」をクリックします。
 
-<img src={wrappingAsset} className="img-full" alt="wrapping assets" />
+<img src={wrappingAsset} className="img-full" alt="資産のラッピング" />
 
 確認画面で`Sign and Send`をクリックして、ウォレットのパスワードを入力して確認します。 パスワードの確認に約20秒かかる場合があります。
 
-<img src={wrappingConfirmation} className="img-full" alt="wrapping confirmation" />
+<img src={wrappingConfirmation} className="img-full" alt="ラッピングの確認" />
 
 > Rollupからのトランザクションは、Algorand Testnetブロックチェーン自体に書き込まれることに ご注意ください。 1回目の確認は資金をウォレットからブリッジのアドレスに送信するためのもので、2回目の確認はAlgorandでのロールアップバッチのトランザクションのためです。
 
 送信に必要な確認は全部で2回で、約20秒かかります（Algorandでは4.5秒、Rollupのバッチでは約14秒かかります）。 トランザクションを確認すると、送信したMilkTALGOがMetaMaskのMilkomeda Algorand Testnetウォレットに表示されます。
 
-<img src={blockchainConfirmation} className="img-full" alt="blockchain confirmation" />
+<img src={blockchainConfirmation} className="img-full" alt="ブロックチェーンの確認" />
 
 これで、Milkomeda A1 Algorand Rollup Testnetで使用するため、Test ALGOをMilkTALGOにラッピングすることができました。次はスマートコントラクトのサンプルをデプロイします。
