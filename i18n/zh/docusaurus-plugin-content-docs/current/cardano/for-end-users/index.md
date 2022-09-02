@@ -1,9 +1,9 @@
 ---
-sidebar_label: "For End Users"
+sidebar_label: "给终端用户"
 sidebar_position: 2
 ---
 
-# For End Users
+# 给终端用户
 
 The Milkomeda C1 sidechain uses MilkADA as its base asset for paying fees and gas. To access the sidechain, you will need a Cardano wallet with some ADA as well as the MetaMask browser extension.
 
