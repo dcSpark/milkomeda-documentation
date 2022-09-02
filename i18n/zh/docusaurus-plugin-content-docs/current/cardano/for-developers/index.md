@@ -1,9 +1,9 @@
 ---
-sidebar_label: "For Developers"
+sidebar_label: "给开发者"
 sidebar_position: 2
 ---
 
-# For Developers
+# 给开发者
 
 Two versions of the Milkomeda C1 sidechain are currently operational. One is the devnet version, which uses test ADA and interacts with the Cardano Testnet. The the other is the mainnet version, which uses real ADA and interacts with the Cardano mainnet.
 
