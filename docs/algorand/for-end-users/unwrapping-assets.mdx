@@ -1,0 +1,45 @@
+---
+sidebar_position: 4
+---
+import dappselectorigirollup from "@site/static/img/dappselectorigirollup.png";
+import unwrappingsummary from "@site/static/img/unwrappingsummary.png";
+import unwrappingcompleted from "@site/static/img/unwrappingsummary.png";
+import unwrappingsuccess from "@site/static/img/unwrappingsuccess.png";
+
+
+# Unwrapping Assets
+<p style={{textAlign:"justify"}}>
+To move assets from Milkomeda Algorand Rollup back to Algorand, go to Milkomeda Bridge dApp (this process is called unwrapping). 
+Follow the steps below to unwrap milkALGO and receive ALGO in your Algorand mainnet wallet.
+
+**Go to the Milkomeda A1 bridge dAp** at https://algorand-bridge-dev.milkomeda.com/. To start uwrapping your assets, choose **Milkomeda to Algorand** direction from Network Origin dropdown button. 
+Then **select the token you want to unwrap** (in our example, we will choose the milkALGO token) from **Select Token** dropdown button. 
+
+<img src={dappselectorigirollup} className="img-full" alt="origin selector" />
+The next step will be to log in to the Metamask and MyAlgo wallets. 
+<ol>
+<li>Click “Connect Wallet” on the Origin side and your Metamask wallet will ask you to confirm that you want to switch networks (if you are not already connected to it) to the Milkomeda A1 network. Then you need to select and confirm which account to connect to the dApp.
+Your available milkALGO balance will then be displayed below the select token field.</li>
+<li>Click “Connect Wallet” on the “Destination” side of the dApp and your MyAlgo wallet (we recently also added Pera Wallet support — see our announcement!) will require you to enter your password and confirm which account to connect to the dApp.</li>
+
+</ol>
+
+**Enter how many test milkALGOs** you want to transfer back to the Algorand mainchain. (If you want to send your whole balance click “Max” to have the bridge calculate the maximum amount you can send minus the transaction fee). 
+
+**Click “Next”** to view a transaction summary, complete with “Estimated Fees” and an “Estimated Wrapping Confirmation Time”. 
+
+<img src={unwrappingsummary} className="img-full" alt="unwrapping summary" />
+
+**Click “Sign and Send”,** confirm the transaction in yout Metamask Wallet and then watch as your tokens get sent to the bridge, unwrapped, and sent back to your MyAlgo wallet on Algorand mainchain! The process should take around 90 seconds to confirm.
+
+> Moving assets the other way (from the Layer 2 to Algorand) requires the user to interact with the bridge’s smart contract in order to request their unwrapping. The validators will then coordinate to build the transaction to release the assets from their custody on the mainchain. Each validator (at least the quorum) needs to provide the necessary signatures in order to validate the transaction on chain.
+
+<img src={unwrappingcompleted} className="img-full" alt="unwrapping completed" />
+Once the transaction is confirmed, the transferred ALGO should be visible in your Algorand wallet.
+
+<img src={unwrappingsuccess} className="img-full" alt="unwrapping success" />
+
+**Congratulations!** You’ve just unwrapped your tokens from the Milkomeda Algorand Rollup to the Algorand!
+
+Now that we have successfully unwrapped milkALGO from the Milkomeda Algorand Rollup to the Algorand let’s talk about moving Algorand Standard Assets using the Milkomeda Rollup Bridge. 
+</p>
