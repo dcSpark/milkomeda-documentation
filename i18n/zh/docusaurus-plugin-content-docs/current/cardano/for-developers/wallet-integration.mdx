@@ -1,64 +1,64 @@
 ---
-sidebar_label: "Wallet Integration"
+sidebar_label: "钱包整合"
 sidebar_position: 7
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-# Wallet integration
+# 钱包整合
 
-Learn how to integrate your web3 wallet or other dApp with Milkomeda
+了解如何将您的web3钱包或其他dApp与Milkomeda整合起来
 
-## Start building the future of decentralized finances
+## 开始构建分散财务的未来
 
-The following article helps to get to know the _**milkomeda-js-sdk package**_ allowing developers to integrate web3 wallet on Milkomeda Sidechain.
+下面的文章有助于了解_**milkomeda-js-sdk包**_，允许开发人员在Milkomeda侧链上整合web3钱包。
 
-## Integrate Wallet with Milkomeda protocol
+## 整合钱包与 Milkomeda 协议
 
-**1. Download _milkomeda-js-sdk package_**
+**1. 下载 _milkomeda-js-sdk 包_**
 
-Here you can find the [milkomeda-js-sdk package](https://www.npmjs.com/package/@dcspark/milkomeda-js-sdk). This is a package that hosts static configurations of Milkomeda deployments.
+您可以在这里找到 [milkomeda-js-sdk 包](https://www.npmjs.com/package/@dcspark/milkomeda-js-sdk)。 这是一个承载Milkomeda部署的静态配置的包。
 
 :::info
 
-This is useful to avoid having each project integrate Milkomeda hard-coding static configurations.
+这对于避免每个项目整合Milkomeda硬编码静态配置是很有用的。
 
 :::
 
-**2. Install _milkomeda-js-sdk_ package**
+**2. 安装 _milkomeda-js-sdk_ 软件包**
 
-To install the package using **npm**:
+使用 **npm** 安装包：
 
 ```shell
 npm i @dcspark/milkomeda-js-sdk
 ```
 
-To install the package using **yarn**:
+使用 **yarn** 安装包：
 
 ```shell
 yarn add @dcspark/milkomeda-js-sdk
 ```
 
-**3. Import the package into your project**
+**3. 将该软件包导入你的项目中**
 
-Using **import:**
+使用 **import**:
 
 ```js
 import { generateMilkomedaMetadata, milkomedaNetworks } from "@dcspark/milkomeda-js-sdk";
 ```
 
-Using **require:**
+使用 **require：**
 
 ```js
 const milkomedaJsSdk = require("@dcspark/milkomeda-js-sdk");
 ```
 
-## Learn more about _milkomeda-js-sdk_ package
+## 了解更多关于 _milkomeda-js-sdk_ 软件包
 
-_Milkomeda-js-sdk_ is a package that hosts static configurations of Milkomeda deployments. This is useful to avoid having each project integrate Milkomeda hard-coding static configurations.
+_Milkomeda-js-sdk_是一个承载Milkomeda部署的静态配置的包。 这对于避免每个项目整合Milkomeda硬编码静态配置是很有用的。
 
-| Parameter                  | Description                                                                                                         |
+| 参数                         | 说明                                                                                                                  |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | _isMainnet_                | boolean informing if the specific network configuration is mainnet (e.g. Cardano) or not,                           |
 | _mainchain_                | consists of mainchain information such as protocol and its id,                                                      |
