@@ -6,20 +6,20 @@ import wrappingAsset from "@site/static/img/algorand-wrapping-assets.png";
 import wrappingConfirmation from "@site/static/img/algorand-wrapping-confirmation.png";
 import blockchainConfirmation from "@site/static/img/algorand-blockchain-confirmation.png";
 
-# Wrapping Assets
+# 包装资产
 
-Go to the Milkomeda A1 bridge page [https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/) and select the token that you would like to move (only tALGO for launch). Then connect your MyAlgo wallet and then your Metamask. Last input the amount of tokens that you would like to move to the Rollup. Click "**Continue**".
+进入Milkomeda A1桥页[https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/)，选择您想移动的代币(在开始时只有tALGO)。 然后连接你的MyAlgo钱包，再连接你的Metamask 最后输入你想转移到Rollup的代币数量。 点击**继续**。
 
-<img src={wrappingAsset} className="img-full" alt="wrapping assets" />
+<img src={wrappingAsset} className="img-full" alt="包装资产" />
 
-At the confirmation screen, click `Sign and Send` enter your wallet password and confirm. The process should take around 20 seconds to confirm.
+在确认屏幕上，点击`签名和发送`输入你的钱包密码并确认。 这个进程需要大约20秒钟才能确认。
 
-<img src={wrappingConfirmation} className="img-full" alt="wrapping confirmation" />
+<img src={wrappingConfirmation} className="img-full" alt="包装确认" />
 
-> Remember that transactions from the Rollup are written to the Algorand Testnet blockchain itself. One confirmation is for sending the funds from the wallet to the bridge address and the second confirmation is for the rollup batch transaction on Algorand.
+> 记住，来自Rollup的交易被写入Algorand Testnet区块链。 第一个确认是将资金从钱包发送至桥接地址。第二个确认是对Algorand的Rollup交易的确认。
 
-The transfer only requires a total of 2 confirmations, which should take approximately 20 seconds (4.5 seconds for Algorand and around 14 seconds for the batch of the Rollup). Once the transaction is confirmed, the transferred MilkTALGO should be visible in your Milkomeda Algorand Testnet wallet in MetaMask.
+转移只需要总共2次确认--这应该需要大约20秒(Algorand为4.5秒，Rollup的批次为14秒左右)。 一旦交易被确认，在您的MetaMask的Milkomeda Algorand Testnet钱包中应该可见到转移的MilkTALGO。
 
-<img src={blockchainConfirmation} className="img-full" alt="blockchain confirmation" />
+<img src={blockchainConfirmation} className="img-full" alt="区块链确认" />
 
-Now that we have successfully wrapped Test ALGO into MilkTALGO for use on the Milkomeda A1 Algorand Rollup Testnet, the next step is to deploy a sample smart contract.
+现在，我们已经成功地将测试ALGO包装成MilkTALGO，用于Milkomeda A1 Algorand Rollup Testnet，下一步是部署一个样本智能合约。
