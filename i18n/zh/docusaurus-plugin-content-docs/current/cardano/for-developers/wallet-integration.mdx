@@ -130,7 +130,7 @@ generateMilkomedaMetadata("0x000…", milkomedaNetworks["c1-devnet"].protocolMag
 在这个例子中，为了更好地解释，我们使用了Flint钱包的整合案例
 :::
 
-Base url for REST API is given as the **backendEndpoint** parameter using _milkomeda-js-sdk_. You can take it out from the package using the following code:
+REST API的基本网址作为**backendEndpoint**参数使用_milkomeda-js-sdk_。 你可以用下面的代码把它从包里取出来:
 
 <Tabs
   defaultValue="devnet"
@@ -147,10 +147,10 @@ milkomedaNetworks["c1-devnet"].backendEndpoint
 ```
 
 :::info
-Result: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
+结果: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
 :::
 
-When you have the base URL included in your code, you can use one of the following endpoint:
+当你的代码中包含了基本的URL，你可以使用以下的一个端点:
 
 - **Stargate address** ([V1/stargate](https://allowlist.flint-wallet.com/v1/stargate))
 
@@ -163,17 +163,19 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
 ```
 
 :::info
-Result: [https://allowlist-mainnet.flint-wallet.com](https://allowlist-mainnet.flint-wallet.com)
+结果: [https://allowlist-mainnet.flint-wallet.com](https://allowlist-mainnet.flint-wallet.com)
 
-If you want to integrate your Wallet with Milkomeda Mainnet, you need to use another 2 endpoints, to get EVM addresses allowed on the network. The purpose of this [microservice](https://github.com/dcSpark/allowedlist-service/) is to provide a list of addresses that are allowed to use the bridge in Milkomeda.
+如果您想将您的钱包与Milkomeda主网整合，您需要使用另外两个终端，以获得网络上允许的EVM地址。 The purpose of this [microservice](https://github.com/dcSpark/allowedlist-service/) is to provide a list of addresses that are allowed to use the bridge in Milkomeda.
+
+这个[microservice] (https://github.com/dcSpark/allowedlist-service/)的目的是提供一个允许使用Milkomeda桥的地址列表。
 :::
 
-When you have the base URL included in your code, you can use one of the following endpoints:
+当你的代码中包含基本的URL时，你可以使用以下的一个端点:
 
 - **Stargate address** ([/V1/stargate](https://allowlist-mainnet.flint-wallet.com/v1/stargate))
 - **fullAllowedList** ([/v1/fullAllowedList](https://allowlist-mainnet.flint-wallet.com/v1/fullAllowedList))
 
-Returns array of EVM addresses allowed in the mainnet
+返回主网中允许的EVM地址数组
 
 ```json
 {
@@ -183,7 +185,7 @@ Returns array of EVM addresses allowed in the mainnet
 
 - **isAddress=0x** ([/v1/isAddressAllowed?address=0x](https://allowlist-mainnet.flint-wallet.com/v1/isAddressAllowed?address=0x))
 
-Returns a boolean value, which informs if the provided address is allowed on the restricted mainnet or not.
+返回一个boolean值，告知所提供的地址是否被允许进入受限的主网。
 
 </TabItem>
 
