@@ -1,0 +1,31 @@
+---
+title: "Algorand Bridge Supported ASA"
+sidebar_position: 5
+---
+
+import asaInTokenRegistry from "@site/static/img/tokens-for-a1-dapp.jpg";
+
+# Algorand Bridge Supported ASA
+
+This section presents all Algorand Standard Assets supported by the Milkomeda Bridge to Algorand. To wrap and unwrap any supported native asset follow the _step-by-step_ tutorial presented in [For End Users](./) section by replacing `milkAlgo` with any token from the table below.
+
+:::info
+Please, remember that the specific native asset must be added to Milkomeda Token Registry before it can be used in any of the wrapping or unwrapping operations. Hence, the list is finite and allows only for specific native tokens.
+:::
+
+List of supported Milkomeda Assets:
+
+| Token name | Token Ticker | Contract Address Details                                                                                                                                   | Token Type |
+| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| USDC       | USDC         | [0xBc31960A049Fe10297Ed8432Fb61DD734fEAd4ea](https://explorer-mainnet-algorand-rollup.a1.milkomeda.com/address/0xBc31960A049Fe10297Ed8432Fb61DD734fEAd4ea) | ERC-20     |
+| USDt       | USDt         | [0x32564ae38E5DBf316958CE25A6aD2A2249EbCc2D](https://explorer-mainnet-algorand-rollup.a1.milkomeda.com/address/0x32564ae38E5DBf316958CE25A6aD2A2249EbCc2D) | ERC-20     |
+| goETH      | goETH        | [0x88168f58F783a23C163FD111DFE69E69BA2947B4](https://explorer-mainnet-algorand-rollup.a1.milkomeda.com/address/0x88168f58F783a23C163FD111DFE69E69BA2947B4) | ERC-20     |
+| goBTC      | goBTC        | [0x36dbbC895B665B6Ad1C6fad28Ff012afaEb54E4C](https://explorer-mainnet-algorand-rollup.a1.milkomeda.com/address/0x36dbbC895B665B6Ad1C6fad28Ff012afaEb54E4C) | ERC-20     |
+
+When using [Milkomeda Algorand A1 Dapp](https://algorand-bridge-dev.milkomeda.com/) for _unwrapping_ a specific native asset, select it from the drop-down list as shown below:
+
+<img
+  className="img-full"
+  src={asaInTokenRegistry}
+  alt="Select ASA to wrap/unwrap"
+/>
