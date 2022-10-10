@@ -1,74 +1,74 @@
 {
   "theme.ErrorPageContent.title": {
-    "message": "This page crashed.",
+    "message": "이 페이지에 문제가 발생했습니다.",
     "description": "The title of the fallback page when the page crashed"
   },
   "theme.ErrorPageContent.tryAgain": {
-    "message": "Try again",
+    "message": "다시 시도해 보세요.",
     "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
-    "message": "Page Not Found",
+    "message": "페이지를 찾을 수 없습니다.",
     "description": "The title of the 404 page"
   },
   "theme.NotFound.p1": {
-    "message": "We could not find what you were looking for.",
+    "message": "요청한 페이지를 찾을 수 없습니다.",
     "description": "The first paragraph of the 404 page"
   },
   "theme.NotFound.p2": {
-    "message": "Please contact the owner of the site that linked you to the original URL and let them know their link is broken.",
+    "message": "링크 제공자에게 이 페이지가 유효하지 않다고 알려주세요.",
     "description": "The 2nd paragraph of the 404 page"
   },
   "theme.admonition.note": {
-    "message": "note",
+    "message": "알림",
     "description": "The default label used for the Note admonition (:::note)"
   },
   "theme.admonition.tip": {
-    "message": "tip",
+    "message": "팁",
     "description": "The default label used for the Tip admonition (:::tip)"
   },
   "theme.admonition.danger": {
-    "message": "danger",
+    "message": "위험",
     "description": "The default label used for the Danger admonition (:::danger)"
   },
   "theme.admonition.info": {
-    "message": "info",
+    "message": "정보",
     "description": "The default label used for the Info admonition (:::info)"
   },
   "theme.admonition.caution": {
-    "message": "caution",
+    "message": "주의",
     "description": "The default label used for the Caution admonition (:::caution)"
   },
   "theme.AnnouncementBar.closeButtonAriaLabel": {
-    "message": "Close",
+    "message": "닫기",
     "description": "The ARIA label for close button of announcement bar"
   },
   "theme.BackToTopButton.buttonAriaLabel": {
-    "message": "Scroll back to top",
+    "message": "맨위로",
     "description": "The ARIA label for the back to top button"
   },
   "theme.blog.paginator.navAriaLabel": {
-    "message": "Blog list page navigation",
+    "message": "블로그 게시물 목록 탐색",
     "description": "The ARIA label for the blog pagination"
   },
   "theme.blog.paginator.newerEntries": {
-    "message": "Newer Entries",
+    "message": "최근 글",
     "description": "The label used to navigate to the newer blog posts page (previous page)"
   },
   "theme.blog.paginator.olderEntries": {
-    "message": "Older Entries",
+    "message": "이전 글",
     "description": "The label used to navigate to the older blog posts page (next page)"
   },
   "theme.blog.archive.title": {
-    "message": "Archive",
+    "message": "아카이브",
     "description": "The page & hero title of the blog archive page"
   },
   "theme.blog.archive.description": {
-    "message": "Archive",
+    "message": "아카이브",
     "description": "The page & hero description of the blog archive page"
   },
   "theme.blog.post.plurals": {
-    "message": "One post|{count} posts",
+    "message": "{count} 개 게시물",
     "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
   "theme.blog.tagTitle": {
