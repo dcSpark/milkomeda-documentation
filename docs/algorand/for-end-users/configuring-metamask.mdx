@@ -1,0 +1,51 @@
+---
+sidebar_position: 2
+---
+
+import puzzleIcon from "@site/static/img/puzzle-icon.png";
+
+# Configuring MetaMask
+
+Now that we have an Algorand testnet wallet and some test ALGO, we need an address on the Milkomeda Algorand A1 Rollup testnet where we can receive our MilkTALGO. We recommend using MetaMask for this step.
+
+First, install [MetaMask for Chrome](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn), then click the Chrome Extensions icon <img src={puzzleIcon} alt="" className="img-icon" /> and select MetaMask. Within the MetaMask window, click "**Get Started**" and then "**Create a Wallet**". Set a wallet password and click through the rest of the setup screens. When you're finished, you will have a new, empty wallet, as shown below. Select the network dropdown in the top right corner of the MetaMask screen.
+
+![](/img/algorand-eth.png)
+
+From the dropdown list, select “**Add Network**” and enter the following:
+
+> Network Name: Milkomeda Algorand Testnet
+>
+> <p> New RPC URL: https://rpc-devnet-algorand-rollup.a1.milkomeda.com </p>
+>
+> Chain ID: 200202
+>
+> Currency Symbol (Optional): milkTALGO
+>
+> <p>
+>   {" "}
+>   Block Explorer URL (Optional): https://testnet-algorand-rollup.a1.milkomeda.com{" "}
+> </p>
+
+:::info
+**To interact with Milkomeda A1 Mainnet, use following network details:**
+
+> Network Name: Milkomeda Algorand mainnet
+>
+> <p> New RPC URL: https://rpc-mainnet-algorand-rollup.a1.milkomeda.com </p>
+>
+> Chain ID: 2002
+>
+> Currency Symbol (Optional): milkAlgo
+>
+> <p>
+>   {" "}
+>   Block Explorer URL (Optional): https://explorer-mainnet-algorand-rollup.a1.milkomeda.com
+> </p>
+> :::
+
+Click “**Save**”, and you will now see **Milkomeda Algorand Testnet** in the network dropdown list. Copy your Milkomeda Algorand Testnet wallet address from MetaMask to the clipboard by clicking on the account name, as shown.
+
+![](/img/algorand-milk.png)
+
+Next we will go to the Milkomeda A1 Bridge dApp and send our test ALGO to the Bridge to be wrapped.
