@@ -10,7 +10,7 @@ import milkomedaBanner from "@site/static/img/milkomeda-banner.png";
 
 <img src={milkomedaBanner} className="img-full" alt="" />
 
-**Milkomeda** 是一个开创性的新协议，它为非 EVM 区块链提供了EVM 功能。 随着开发进程的推进，Milkomeda将扩展为几个主要区块链：包括卡Cardano、Solana和Algorand提供L2解决方案(rollups)。 目前我们有一个以EVM为基础的侧链 ，已连接到Cardano并运行。 我们把它称为 **Milkomeda C1** 侧链。
+**Milkomeda** 是一个开创性的新协议，它为非 EVM 区块链提供了EVM 功能。 随着开发进程的推进，Milkomeda将扩展为几个主要区块链：包括卡Cardano、Solana和Algorand提供L2解决方案(rollups)。 Currently we have an EVM-based sidechain connected to Cardano - <strong>Milkomeda C1</strong> and EVM-based Rollup connected to Algorand - <strong>Milkomeda A1</strong>.
 
 按照本指南中的步骤，快速开始使用 Milkomeda。
 
@@ -40,10 +40,23 @@ import milkomedaBanner from "@site/static/img/milkomeda-banner.png";
 
 - 开发者经验：开发者可以直接利用以太坊的所有工具和资源。
 
-## [使用入门：终端用户](./cardano/for-end-users/)
+## Getting started for Cardano
+
+## [给终端用户](./cardano/for-end-users/)
 
 终端用户可以从Cardano主网发送ADA到一个桥接地址，并在 **Milkomeda C1** 侧链上接收包装好的ADA。 跳转到[终端用户入门页面](./cardano/for-end-users)，开始设置Flint和MetaMask。
 
-## [使用入门：：开发者](./cardano/for-developers/)
+## [给开发者](./cardano/for-developers/)
 
 除了Milkomeda C1侧链的主网版本使用包装好的ADA作为费用和gas外，开发者还可以访问**Milkomeda Devnet**，从Cardano Testnet包装资产，在Milkomeda C1 Devnet侧链上部署智能合约，使用包装好的测试ADA作为费用和gas。 进入下一页，开始设置 Flint 钱包，并从Cardano Testnet龙头获得一些测试ADA。
+
+
+## Getting started for Algorand
+
+## [给终端用户](./algorand/for-end-users/)
+
+End users can send ALGO from the Algorand mainnet to a bridge address and receive wrapped ALGO on the Milkomeda A1 Rollup. Jump ahead to the [Getting Started for End Users page](./algorand/for-end-users) to start by setting up MyAlgo wallet and MetaMask to interact with bridge dApp.
+
+## [给开发者](./algorand/for-developers/)
+
+In addition to the mainnet version of the Milkomeda A1 Rollup which uses wrapped ALGO for fees and gas, developers can also access the Milkomeda A1 Devnet to wrap assets from the Algorand Testnet and deploy smart contracts on the Milkomeda A1 Devnet Rollup using wrapped Test ALGO for fees and gas. Proceed to the next page to start by setting up MyAlgo Wallet and obtaining some test ALGO from the Algorand Testnet faucet.
