@@ -1,7 +1,9 @@
 # 開発者向け
 
-現時点でご利用いただけるのはAlgorand Rollup Testnetのみですが、広範囲にわたるQAと主要な監査による最終確認の後、今四半期中にAlgorand Rollup Mainnetの提供を開始する見込みです。
+**Milkomeda is a protocol designed to improve blockchain interoperability by delivering EVM capabilities to non-EVM blockchains.** This is done by building layer 2 (L2) scaling solutions such as rollups, on which the EVM operates, and connecting these to the non-EVM blockchains, layer 1 (L1), via a permission-less bridge.
 
-Milkomeda A1 Devnet（MilkomedaのAlgorand Rollup Testnet）は、テストALGOを用いて正式なAlgorand Testnetとやり取りを行います。
+A rollup is described as a “layer 2” chain. Layer 2 means that it lives on top of an existing blockchain, which is called the layer 1 or main chain, and thus is able to take advantage of the layer 1’s native, built-in properties. The Milkomeda A1 Rollup uses MilkALGO as its base asset for paying fees and gas. To access the Rollup, you will need a Algorand native wallet with some $ALGO, as well as the MetaMask wallet.
 
-操作に慣れるため、まずはDevnetをご利用になることをおすすめします。 Devnetの使い方を理解できれば、今後提供されるメインネットも同じように操作できます。 これからご紹介する事例では、Devnetへの接続を設定する方法をご説明します。 メインネットを使用するためのパラメーターや手順については、本ドキュメントに赤い文字で追加される予定です。
+In the following pages we will walk through the steps to create a MyAlgo wallet, configure MetaMask to get a Milkomeda A1 address,  send ALGOs to be converted into MilkALGO on Milkomeda Algorand Rollup, and, finally, deploying a smart-contract.
+
+操作に慣れるため、まずはDevnetをご利用になることをおすすめします。 Once you’re familiar with the devnet, the operations for the mainnet are the same. The example steps that follow will show how to set up a connection to the both devnet and mainnet.
