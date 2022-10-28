@@ -2,24 +2,49 @@
 sidebar_position: 3
 ---
 
-import wrappingAsset from "@site/static/img/algorand-wrapping-assets.png";
-import wrappingConfirmation from "@site/static/img/algorand-wrapping-confirmation.png";
-import blockchainConfirmation from "@site/static/img/algorand-blockchain-confirmation.png";
+import dappselectorigin from "@site/static/img/dappselectorigin.png";
+import wrappingsummary from "@site/static/img/wrappingsummary.png";
+import wrappingcompleted from "@site/static/img/wrappingcompleted.png";
+import wrapsuccess from "@site/static/img/wrapsuccess.png";
 
 # 包装资产
 
-进入Milkomeda A1桥页[https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/)，选择您想移动的代币(在开始时只有tALGO)。 然后连接你的MyAlgo钱包，再连接你的Metamask 最后输入你想转移到Rollup的代币数量。 点击**继续**。
+In order to **transfer assets from Algorand (mainchain) to the Milkomeda A1 Rollup**, you need to use our dedicated Bridge dApp. To wrap your assets onto the A1 Rollup go to the Milkomeda A1 bridge dApp at [https://algorand-bridge.milkomeda.com/](https://algorand-bridge.milkomeda.com/).
 
-<img src={wrappingAsset} className="img-full" alt="包装资产" />
+To start wrapping your assets, choose the **Algorand to Milkomeda** direction from the "Network Origin" dropdown menu. Then select the token you want to wrap (in this tutorial, we will use ALGO) from the "Select Token" dropdown menu.
 
-在确认屏幕上，点击`签名和发送`输入你的钱包密码并确认。 这个进程需要大约20秒钟才能确认。
+<img src={dappselectorigin} className="img-full" alt="包装确认" />
 
-<img src={wrappingConfirmation} className="img-full" alt="包装确认" />
+The next step is to log in to your MyAlgo and MetaMask wallets.
 
-> 记住，来自Rollup的交易被写入Algorand Testnet区块链。 第一个确认是将资金从钱包发送至桥接地址。第二个确认是对Algorand的Rollup交易的确认。
+1. Click “Connect Wallet” on the Origin side and your MyAlgo wallet (we recently added support for Pera wallet too) will require you to enter your password and confirm which account to connect to the dApp. Your available ALGO balance will then be displayed below the "Select Token" field.
 
-转移只需要总共2次确认--这应该需要大约20秒(Algorand为4.5秒，Rollup的批次为14秒左右)。 一旦交易被确认，在您的MetaMask的Milkomeda Algorand Testnet钱包中应该可见到转移的MilkTALGO。
+2. Click “Connect Wallet” on the Destination side of the dApp and your Metamask wallet will ask you to confirm that you want to switch networks (if you are not already connected to it) to the Milkomeda A1 network.
 
-<img src={blockchainConfirmation} className="img-full" alt="区块链确认" />
+**Enter how many ALGOs** you want to transfer to the A1 rollup (if you want to send your whole balance click “Max” to have the bridge calculate the maximum amount you can send minus the transaction fee).
 
-现在，我们已经成功地将测试ALGO包装成MilkTALGO，用于Milkomeda A1 Algorand Rollup Testnet，下一步是部署一个样本智能合约。
+**Click “Next”** to view a transaction summary, complete with “Estimated Fees” and an “Estimated Wrapping Confirmation Time”.
+
+<img src={wrappingsummary} className="img-full" alt="wrapping summary" />
+
+**Click “Sign and Send”**, enter your wallet password, and hit confirm. Now watch as your tokens get sent to the bridge, wrapped, and sent to your MetaMask wallet on the Milkomeda Algorand A1 Rollup! 这个进程需要大约20秒钟才能确认。
+
+:::info
+Remember that transactions from the Rollup are written to the Algorand blockchain itself. So one confirmation is for sending funds from the wallet to the bridge address and the second confirmation is for the rollup batch transaction on Algorand.
+:::
+
+转移只需要总共2次确认--这应该需要大约20秒(Algorand为4.5秒，Rollup的批次为14秒左右)。 Once the transaction is confirmed, the transferred MilkALGO should be visible in your Milkomeda Algorand wallet in MetaMask.
+
+<img src={wrappingcompleted} className="img-full" alt="wrapping completed" />
+
+You can now watch your transaction pass through the bridge.
+
+<img src={wrapsuccess} className="img-full" alt="wrapping success popup" />
+
+**Congratulations!** You just wrapped your tokens onto on of the first rollups outside of the Ethereum ecosystem!
+
+Now that we have successfully wrapped ALGO into MilkALGO for use on the Milkomeda A1 Algorand Rollup, the next step is to deploy a sample smart contract.
+
+:::note If you want to learn how to unwrap MilkALGOs, you can find out how to do that by visiting [Unwrapping Assets](https://dcspark.github.io/milkomeda-documentation/algorand/for-end-users/unwrapping-assets). :::
+
+:::note Moreover, if you want to wrap/unwrap ASA, go to: [Algorand Standard Assets Support](https://dcspark.github.io/milkomeda-documentation/algorand/for-end-users/algorand-bridge-supported-asa). :::
