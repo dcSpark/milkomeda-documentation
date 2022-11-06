@@ -1,9 +1,9 @@
 # 개발자 전용
 
-**Milkomeda is a protocol designed to improve blockchain interoperability by delivering EVM capabilities to non-EVM blockchains.** This is done by building layer 2 (L2) scaling solutions such as rollups, on which the EVM operates, and connecting these to the non-EVM blockchains, layer 1 (L1), via a permission-less bridge.
+**Milkomeda는 EVM 기능을 non-EVM 블록체인에 제공하여 블록체인의 상호 운용성을 개선하도록 설계된 프로토콜입니다.** 이는 EVM이 작동하는 롤업과 같은 레이어 2(L2) 확장 솔루션을 구축하고 연결함으로써 이루어집니다. 권한이 없는 브리지를 통해 EVM이 아닌 블록체인인 레이어 1(L1) 로 전송됩니다.
 
-A rollup is described as a “layer 2” chain. Layer 2 means that it lives on top of an existing blockchain, which is called the layer 1 or main chain, and thus is able to take advantage of the layer 1’s native, built-in properties. The Milkomeda A1 Rollup uses MilkALGO as its base asset for paying fees and gas. To access the Rollup, you will need a Algorand native wallet with some $ALGO, as well as the MetaMask wallet.
+롤업은 "레이어 2" 체인으로 기술됩니다. 레이어 2는 레이어 1 또는 메인 체인이라고 하는 기존 블록체인 위에 존재하므로 레이어 1의 기본 제공 속성을 활용할 수 있음을 의미합니다. Milkomeda A1 Rollup은 수수료 및 가스 지불을 위한 기본 자산으로 MilkALGO를 사용합니다. 롤업에 액세스하려면 $ALGO가 포함된 알고랜드 기본 지갑과 MetaMask 지갑이 필요합니다.
 
-In the following pages we will walk through the steps to create a MyAlgo wallet, configure MetaMask to get a Milkomeda A1 address,  send ALGOs to be converted into MilkALGO on Milkomeda Algorand Rollup, and, finally, deploying a smart-contract.
+다음 페이지에서 우리는 MyAlgo 지갑을 생성하고, Milkomeda A1 주소를 얻도록 MetaMask를 구성하고, Milkomeda Algorand Rollup에서 MilkALGO로 변환할 ALGO를 보내고, 마지막으로 스마트 계약을 배포하는 단계를 안내할 것입니다.
 
-먼저 방향을 잡기 위해 devnet으로 시작하시기를 권장합니다. Once you’re familiar with the devnet, the operations for the mainnet are the same. The example steps that follow will show how to set up a connection to the both devnet and mainnet.
+조작에 익숙해지기 위해 먼저 Devnet을 이용하는 것을 권장합니다. 한 번 Devnet에 익숙해진다면 향후 메인넷 작업도 동일하게 조작이 가능할 것입니다. 다음 예제 단계는 devnet에 대한 연결을 설정하는 방법을 보여줍니다.
