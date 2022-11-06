@@ -1,62 +1,127 @@
 ---
-sidebar_label: "Getting Started with Milkomeda"
+sidebar_label: "밀코메다 시작하기"
 sidebar_position: 1
 slug: /
 ---
 
-import milkomedaBanner from "@site/static/img/milkomeda-banner.png";
+"@site/static/img/milkomeda-banner.png"에서 milkomedaBanner 가져오기;
 
-# Getting Started with Milkomeda
+# 밀코메다 시작하기
 
 <img src={milkomedaBanner} className="img-full" alt="" />
 
-**Milkomeda** is a groundbreaking new protocol that brings EVM capabilities to non-EVM blockchains. As development progresses, Milkomeda will expand to offer L2 solutions (rollups) for several major blockchains including Cardano, Solana, and Algorand. Currently we have an EVM-based sidechain connected to Cardano - <strong>Milkomeda C1</strong> and EVM-based Rollup connected to Algorand - <strong>Milkomeda A1</strong>.
+**Milkomeda**는 EVM 기능을 비 EVM 블록체인에 제공하는 획기적인 새 프로토콜입니다. 개발이 진행됨에 따라 Milkomeda는 Cardano, Solana 및 Algorand를 포함한 여러 주요 블록체인을 위한 L2 솔루션(롤업) 을 제공하도록 확장할 것입니다. 현재 Cardano에 연결된 EVM 기반 사이드체인 - <strong>Milkomeda C1</strong> 및 EVM 기반 롤업이 Algorand에 연결된 - <strong>Milkomeda A1< /strong>.</p> 
 
-Follow the steps in this guide to quickly get started using Milkomeda.
+<p spaces-before="0">
+  Milkomeda 사용을 빠르게 시작하려면 이 가이드의 단계를 따르십시오.
+</p>
 
-## Why Milkomeda?
+<h2 spaces-before="0">
+  왜 밀코메다인가?
+</h2>
 
-- Milkomeda provides non-EVM ecosystems the ability to inherit key elements such as rollups and Solidity support from EVM-based ecosystems.
+<ul>
+  <li>
+    <p spaces-before="0">
+      Milkomeda provides non-EVM ecosystems the ability to inherit key elements such as rollups and Solidity support from EVM-based ecosystems.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      Developers have access to all of the tooling from the EVM ecosystem. Building, deploying, debugging, and auditing all work the same as in Ethereum. The capability for developers to port projects over from Ethereum will significantly broaden the selection of dApps available on supported L1 blockchains.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      Security consistency among deployments: Multi-chain deployed code has the same security properties, eliminating the need to do individual audits per chain.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      Future innovations in zero-knowledge technology will be implementable as L3+ solutions on top of Milkomeda.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      Milkomeda empowers startups to build on chains like Cardano, Algorand, and Solana while tapping into the talent and resources of the largest community for smart contracts (Solidity).
+    </p>
+  </li>
+</ul>
 
-- Developers have access to all of the tooling from the EVM ecosystem. Building, deploying, debugging, and auditing all work the same as in Ethereum. The capability for developers to port projects over from Ethereum will significantly broaden the selection of dApps available on supported L1 blockchains.
+<h2 spaces-before="0">
+  Features of Milkomeda
+</h2>
 
-- Security consistency among deployments: Multi-chain deployed code has the same security properties, eliminating the need to do individual audits per chain.
+<ul>
+  <li>
+    <p spaces-before="0">
+      Scalability: Milkomeda can scale to hundreds of transactions per second without sacrificing long-term decentralization.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      Security: Our aim is to leverage the power of rollups for all chains, with audits at key points in the roadman to ensure security of the protocol.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      User Experience: We collaborate with wallets to ensure the experience of moving assets to Milkomeda is a breeze.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      Interoperability: Solidity (EVM) support will come first, followed by Cairo and others.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      Portability: Code once, deploy everywhere without sacrificing security.
+    </p>
+  </li>
+  <li>
+    <p spaces-before="0">
+      Developer Experience: Developers can draw directly on all of the tooling and resources of Ethereum.
+    </p>
+  </li>
+</ul>
 
-- Future innovations in zero-knowledge technology will be implementable as L3+ solutions on top of Milkomeda.
+<h2 spaces-before="0">
+  Getting started for Cardano
+</h2>
 
-- Milkomeda empowers startups to build on chains like Cardano, Algorand, and Solana while tapping into the talent and resources of the largest community for smart contracts (Solidity).
+<h2 spaces-before="0">
+  <a href="./cardano/for-end-users/">최종사용자용</a>
+</h2>
 
-## Features of Milkomeda
+<p spaces-before="0">
+  End users can send ADA from the Cardano mainnet to a bridge address and receive wrapped ADA on the <strong x-id="1">Milkomeda C1</strong> sidechain. Jump ahead to the <a href="./cardano/for-end-users">Getting Started for End Users page</a> to start by setting up Flint and MetaMask.
+</p>
 
-- Scalability: Milkomeda can scale to hundreds of transactions per second without sacrificing long-term decentralization.
+<h2 spaces-before="0">
+  <a href="./cardano/for-developers/">개발자 전용</a>
+</h2>
 
-- Security: Our aim is to leverage the power of rollups for all chains, with audits at key points in the roadman to ensure security of the protocol.
-
-- User Experience: We collaborate with wallets to ensure the experience of moving assets to Milkomeda is a breeze.
-
-- Interoperability: Solidity (EVM) support will come first, followed by Cairo and others.
-
-- Portability: Code once, deploy everywhere without sacrificing security.
-
-- Developer Experience: Developers can draw directly on all of the tooling and resources of Ethereum.
-
-## Getting started for Cardano
-
-## [최종사용자용](./cardano/for-end-users/)
-
-End users can send ADA from the Cardano mainnet to a bridge address and receive wrapped ADA on the **Milkomeda C1** sidechain. Jump ahead to the [Getting Started for End Users page](./cardano/for-end-users) to start by setting up Flint and MetaMask.
-
-## [개발자 전용](./cardano/for-developers/)
-
-In addition to the mainnet version of the Milkomeda C1 sidechain which uses wrapped ADA for fees and gas, developers can also access the **Milkomeda Devnet** to wrap assets from the Cardano Testnet and deploy smart contracts on the Milkomeda C1 Devnet sidechain using wrapped Test ADA for fees and gas. Proceed to the next page to start by setting up Flint Wallet and obtaining some test ADA from the Cardano Testnet faucet.
+<p spaces-before="0">
+  In addition to the mainnet version of the Milkomeda C1 sidechain which uses wrapped ADA for fees and gas, developers can also access the <strong x-id="1">Milkomeda Devnet</strong> to wrap assets from the Cardano Testnet and deploy smart contracts on the Milkomeda C1 Devnet sidechain using wrapped Test ADA for fees and gas. Proceed to the next page to start by setting up Flint Wallet and obtaining some test ADA from the Cardano Testnet faucet.
+</p>
 
 
-## Getting started for Algorand
+<h2 spaces-before="0">
+  Getting started for Algorand
+</h2>
 
-## [최종사용자용](./algorand/for-end-users/)
+<h2 spaces-before="0">
+  <a href="./algorand/for-end-users/">최종사용자용</a>
+</h2>
 
-End users can send ALGO from the Algorand mainnet to a bridge address and receive wrapped ALGO on the Milkomeda A1 Rollup. Jump ahead to the [Getting Started for End Users page](./algorand/for-end-users) to start by setting up MyAlgo wallet and MetaMask to interact with bridge dApp.
+<p spaces-before="0">
+  End users can send ALGO from the Algorand mainnet to a bridge address and receive wrapped ALGO on the Milkomeda A1 Rollup. Jump ahead to the <a href="./algorand/for-end-users">Getting Started for End Users page</a> to start by setting up MyAlgo wallet and MetaMask to interact with bridge dApp.
+</p>
 
-## [개발자 전용](./algorand/for-developers/)
+<h2 spaces-before="0">
+  <a href="./algorand/for-developers/">개발자 전용</a>
+</h2>
 
-In addition to the mainnet version of the Milkomeda A1 Rollup which uses wrapped ALGO for fees and gas, developers can also access the Milkomeda A1 Devnet to wrap assets from the Algorand Testnet and deploy smart contracts on the Milkomeda A1 Devnet Rollup using wrapped Test ALGO for fees and gas. Proceed to the next page to start by setting up MyAlgo Wallet and obtaining some test ALGO from the Algorand Testnet faucet.
+<p spaces-before="0">
+  In addition to the mainnet version of the Milkomeda A1 Rollup which uses wrapped ALGO for fees and gas, developers can also access the Milkomeda A1 Devnet to wrap assets from the Algorand Testnet and deploy smart contracts on the Milkomeda A1 Devnet Rollup using wrapped Test ALGO for fees and gas. Proceed to the next page to start by setting up MyAlgo Wallet and obtaining some test ALGO from the Algorand Testnet faucet.
+</p>
