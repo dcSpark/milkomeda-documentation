@@ -1,44 +1,44 @@
 ---
-sidebar_label: "Wrapping Assets"
+sidebar_label: "자산 랩핑"
 sidebar_position: 4
 ---
 
-# Wrapping Assets
+# 자산 랩핑
 
-Open the Flint Wallet window and click "**Send**". At the next screen, enable the "**Milkomeda mode**" toggle, paste your Milkomeda C1 wallet address into the "**Milkomeda Ethereum Address**" field, and enter the amount to send (300 Test ADA in this example). Click "**Continue**".
+Flint 월렛 창을 열고 **Send**(보내기) 를 클릭합니다. 다음 화면에서 '**Milkomeda 모드**"의 토글을 전환하여 활성화합니다. Milkomeda C1 월렛 주소를 '**Milkomeda Ethereum Address**' 입력란에 붙여넣고 송금할 금액을 입력합니다(예: 300Test ADA를 송금합니다). **Continue**(계속) 을 클릭합니다.
 
 ![](/img/flint-wrap-tada.png)
 
-At the confirmation screen, enter your wallet password and click "**Send**".
+확인 화면에서 월렛 비밀번호를 입력하고 **Send**(보내기) 를 클릭합니다.
 
 ![](/img/flint-wrap-tada-confirm.png)
 
-The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred MilkTADA should be visible in your Milkomeda Cardano Testnet wallet in MetaMask.
+송금에는 확인을 10회 수행해야 하며 약 **5**가 소요됩니다. 거래를 확인하면 제출한 MilkTADA가 MetaMask의 Milkomeda Cardano Testnet 지갑에 표시됩니다.
 
-:::info A note on transaction fees
+:::info 거래 수수료 정보
 
-For transactions that take place solely on the Milkomeda C1 sidechain, you only pay the standard Milkomeda network transaction fee set by the block producers.
+Milkomeda C1 사이드 체인에서만 수행되는 트랜잭션의 경우 블록 생성자가 설정한 표준 Milkomeda 네트워크 트랜잭션 수수료만 지불합니다.
 
-However, transactions that involve wrapping, i.e., moving assets between Cardano and the Milkomeda C1 sidechain, require payment of transactions fees for both Cardano and Milkomeda since one transaction is required on each chain.
+다만 랩핑이 포함된 트랜잭션(Cardano와 Milkomeda C1 사이드 체인 간에 자산이 이동하는 트랜잭션)의 경우 하나의 트랜잭션이 각 체인에서 이루어지므로 Cardano와 Milkomeda 트랜잭션 수수료를 모두 지불해야 합니다.
 
-For example, sending assets from Cardano to Milkomeda C1 requires one transaction on Cardano to lock your assets and another transaction on Milkomeda C1 to issue the wrapped assets to you.
+예를 들어 Cardano에서 Milkomeda C1로 자산을 보내는 경우 Cardano에서 자산을 잠그는 트랜잭션이 하나이고 Milkomeda C1에서 래핑된 자산을 발행하기 위한 트랜잭션이 하나 필요합니다.
 
-When sending a transaction of this type in Flint Wallet, you can expand the "Network Fee" item to see a "Base Fee" (i.e., the Cardano transaction fee) and a "Milkomeda Fee". Note that the "Milkomeda Fee" for these transactions will be slightly higher than the standard transaction fee on Milkomeda since you are also paying the block producers for their role in wrapping your assets.
+Flint 지갑에서 이와 같은 거래를 보내는 경우 "Network Fee(네트워크 수수료)" 항목을 확장하여 "Base Fee(기본 수수료)"(Cardano 트랜잭션 수수료) 및 "Milkomeda Fee(Milkomeda 수수료)" 를 확인할 수 있습니다. 이러한 거래의 'Milkomeda Fee(Milkomeda 수수료)'는 자산을 랩핑하는 역할을 담당하는 블록 생성자에게도 보상을 지불하게 되기 때문에 Milkomeda에서의 표준 거래 수수료보다 약간 높게 되는 것에 주의하시길 바랍니다.
 
 :::
 
-Now that we have successfully wrapped Test ADA into MilkTADA for use on the Milkomeda Cardano Testnet sidechain, the next step is to deploy a sample smart contract.
+Milkomeda Cardano Testnet 사이드 체인에서 사용할 수 있도록 테스트 ADA를 MilkTADA에 래핑 할 수 있었습니다. 다음으로 스마트 계약 샘플을 배포해 봅시다.
 
-:::caution MilkTADA and Wrapped Test ADA
+:::caution MilkTADA와 랩핑된 테스트 ADA
 
-As we have seen, MilkTADA is the base asset used for paying fees and gas on the Milkomeda Cardano Testnet sidechain. When you move Test ADA to Milkomeda, you receive MilkTADA.
+지금까지 설명했듯이 MilkTADA는 Milkomeda Cardano Testnet 사이드 체인에서 수수료와 가스를 지불하는 기본 자산입니다. 테스트 ADA를 Milkomeda로 이동하면 MilkTADA를 받을 수 있습니다.
 
-"Wrapped Test ADA" (wTADA) is a separate ERC20 token that functions the same as WETH on Ethereum.
+'랩핑된 테스트 ADA(wTADA)'는 이더리움의 WETH와 유사한 기능을 수행하는 ERC20 토큰입니다.
 
-The contract address for wTADA can be found below. Note that although you can send milkTADA to this address to wrap it, you **shouldn't** send wTADA to this address to unwrap it but rather interact with it using the right method in the smart-contract. wTADA contract address: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
+Wtada의 계약 주소는 다음과 같습니다. 이 주소로 milkTADA를 보내고 래핑할 수는 있지만 이 주소로 wTADA를 보내 래핑을 해제하는 것은 **할 수 없습니다.**. 스마트 계약의 적절한 방법을 사용하여 상호작용을 수행합니다. wTADA주소: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
 
-If using the Cardano mainnet, find the wADA contract address below.
+Cardano 메인넷을 사용하는 경우 wADA 계약 주소는 다음과 같습니다.
 
-**Do not directly** send wADA to this address. For now, you will need to use a DEX to unwrap wADA (or interact directly with the smart contract).
+이 주소로 wADA를 **직접 보내지 마십시오**. 현재 wADA의 래핑을 해제하려면 DEX를 사용해야합니다 (또는 스마트 계약과 직접 상호 작용).
 
 wADA contract address: 0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9 :::
