@@ -9,4 +9,4 @@ The Milkomeda C1 sidechain uses MilkADA as its base asset for paying fees and ga
 
 On the following pages we will walk through the steps to create a Cardano wallet in Flint, configure MetaMask to get a Milkomeda C1 address, and finally send ADA to be converted into MilkADA on Milkomeda C1.
 
-Our first step is to install Flint Wallet. Proceed to the next page to begin.
+시작하려면 Flint 월렛을 설치합니다. 다음 페이지로 이동하여 단계를 개시합니다.
