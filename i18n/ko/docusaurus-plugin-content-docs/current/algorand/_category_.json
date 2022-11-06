@@ -2,7 +2,7 @@
   "label": "알고랜드",
   "position": 3,
   "link": {
-    "type": "생성된 인덱스",
+    "type": "generated-index",
     "description": "이 섹션의 기사는 다음과 같습니다."
   }
 }
