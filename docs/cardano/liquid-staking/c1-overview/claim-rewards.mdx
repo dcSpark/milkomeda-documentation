@@ -1,0 +1,54 @@
+---
+title: "Claiming rewards"
+sidebar_position: 2
+---
+
+# Claiming rewards
+
+You can claim your rewards every epoch (unlike Cardano where you have to wait multiple epochs before your first reward)
+
+As a user, rewards can be claimed through the liquid staking dApp.
+
+## Claiming rewards as a dApp
+
+dApps can also accrue *stMilkADA* and can claim the staking rewards of any token they've accrued.
+
+The following are required:
+
+1. Ensure your contract has a way of calling with `withdrawRewards` function of the liquid staking contract
+
+```solidity
+function withdrawRewards() external returns (uint256 _rewardsInMilkAda);
+```
+
+2. Ensure your contract has a `ableToWithdrawRewards` that returns true (a-la EIP-165). If your contract does not have a `ableToWithdrawRewards` function, your dApp will **forfeit** any staking rewards accrued by the *stMilkADA* in your dApp 
+
+```solidity
+function ableToWithdrawRewards() external pure returns (bool) {
+    return true;
+}
+```
+
+Optionally, you can implement the `stake` and `unstake` functions if you want to convert to/from *milkADA*
+
+Additionally, note that the default behavior when sending *milkADA* to the liquid staking contract is to stake the tokens. For example, you can implement the stake function wrapper as seen below
+
+```solidity
+function stake(uint256 _amountToStake) external {
+    payable(stakingSmartContractAddress).transfer(_amountToStake);
+}
+```
+
+<details>
+  <summary>Why is ableToWithdrawRewards required?</summary>
+  
+  To avoid staking rewards accumulating forever in dApps that will never be able to claim the rewards, the Milkomeda DAO has a feature where it can claim the rewards on behalf of a smart contract that it judged unable to every claim the rewards
+
+  There are 2 ways of checking whether or not a contract can claim rewards that we investigated:
+
+  1. A staticcall following EIP-165. This costs 3,698 every time Milkomeda DAO attempts to withdraw rewards on behalf of a particular account. The downsides are that it requires work on the smart contract implementer and, if they forget to add the `ableToWithdrawRewards` function, they can't add it later without upgrading their contract
+  2. Maintaining a map of whether or not this contract has claimed rewards in the past so that once a contract claims rewards once, the DAO can no longer claim on their behalf. Other than censorship concerns, this would also cost 22,257 gas to initially add an entry into the map (higher initial cost for lower read cost)
+
+  Due to both the censorship concerns and the higher initial cost, we chose option (1)
+
+</details>

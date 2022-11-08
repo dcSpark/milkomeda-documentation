@@ -1,0 +1,117 @@
+---
+title: "Contract overview"
+sidebar_position: 3
+---
+
+You can find the full contract [here](https://github.com/dcSpark/liquid-staking)
+
+# Contract overview
+
+## sstMilkADA formula
+
+Whenever a user stakes, internally, the user has a mapping that represents the percentage ownership a particular user has as a result of his deposit.
+
+The following formula is used to calculate the number of shares to receive from an amount of *milkADA* deposited:
+
+*Formula one*:
+
+```
+_sharesAmount = (totalShares * _milkAdaAmount) / (totalDeposited + totalRewards)
+```
+
+where
+- `totalShares`: Total shares created as a result of staking *milkAda*
+- `_milkAdaAmount`: Amount of *milkADA* that a user is converting to shares
+- `totalDeposited`: Total amount of *milkADA* deposited in the Staking Smart Contract
+- `totalRewards`: Total amount of rewards deposited by Milkomeda DAO
+- `_sharesAmount`: Amount of shared to received as a result of depositing `_milkAdaAmount`
+
+
+Once the amount of shares is calculated, the Staking Smart Contracts calls the `mint` function from the token to increase the balance of the user in the same amount.
+
+## Member variables
+
+The Staking Smart Contract keeps the count of the total *milkADA* deposited. There are at least three variables that track the movements of *milkADA* native tokens:
+
+- `totalDeposited`: the sum of deposits in *milkAda* made by each individual account
+
+- `userDeposit`: a mapping of the amount of *milkADA* deposited by the user
+
+- `totalRewards`: the total rewards deposited up until this point by the Milkomeda DAO 
+
+
+## Core functions
+
+### 1. **stake** and **unstake**: transfer to/from *milkADA* <-> *stMilkADA*
+
+Every time the `stake` method is executed, internally a specific amount of shares is minted in favor of the caller. This is due to the double accounting system that shares the Staking Smart Contract and the Staked *milkADA* Token.
+
+In order to calculate the number of shares to be minted, Formula One detailed above is used. In other words, the Staking Smart Contract will keep track of the total deposited in *milkADA* while the Staked *milkADA* Token keeps track of the percentage ownership of each user in relation to the total *milkADA* deposited
+
+Note: sending to the liquid staking contract will also call *stake* indirectly
+
+#### Unstaking specifics
+
+1. The amount of *milkADA* to unstake must be less than what he has in the mapping `userDeposit` (what is shown in their wallet balance). By withdrawing rewards first, an account could potentially have more *milkADA* to unstake.
+1. Internally, `withdrawRewards` is called on behalf of the user and the additional rewards are deposited to them (needed to calculate the number of shares to burn)
+
+### 2. **withdrawRewards**: withdraw any accumulated stMilkADA rewards (also: see *ableToWithdrawRewards* for dApps)
+
+All externally owned accounts (EOA) have the assumption that they are capable of withdrawing rewards
+
+For smart contract accounts, see [claim rewards](./claim-rewards)
+
+Since rewards are automatically compounding, you do not need to call this function every epoch
+
+### 3. ERC20 interface
+
+*sstMilkADA* is an ERC20 token
+
+*stMilkADA* is fully compatible with the standard ERC20. However, there have been slight modifications to the most known methods from this standard, such as `transfer`, `transferFrom` and `balanceOf`. On top of that, the `mint` and `burn` methods have been protected by roles: only the Staking Smart Contract can call those methods. While it could have been possible to inherit the ERC20 contract from Open Zeppelin, it was more than necessary to only comply with the interface (IERC20) since several methods have custom implementations.
+
+The main reason for implementing customized complying methods is that there are two account systems within the token: one that is shares-based and another one that represents the equivalence one to one with the amount of Milkada deposited. After staking an X amount of *milkADA*, a Y amount of shares are minted for the user. However, he will only know about the total amount of *milkADA* deposited, which will be represented by the Staked *milkADA* Token that he will see in his wallet balance.
+
+Let's see how the methods are affected:
+
+- `balanceOf`
+
+Returns back the amount of *milkADA* deposited by the user in the Staking Smart Contract. The token Staked *milkADA* does not keep the count of the total *milkADA* deposited. Hence, when the method `balanceOf` is consulted, internally an inter-contract call is executed. The Staking Smart Contract responds to this question and returns the amount of *milkADA* deposited by a particular user. When the balance is shown, it's portrayed as Staked *milkADA* Token.
+
+- `totalSupply`
+
+Another inter-contract call is necessary to grab the total of *milkADA* deposited, which is stored in the Staking Smart Contract. In other words, `totalSupply` does not give back the total number of minted shares but rather the total amount of *milkADA* deposited by all users.
+
+- `transfer` and `transferFrom`
+
+All methods that involve the movements of funds that are executed have as input a specific amount of Milkada Token. After all, the user is only aware of the amount of *milkADA* deposited represented by Staked *milkADA* Token.
+
+When the methods `transfer` and `transferFrom` are called, the amount of *milkADA* received is converted to shares to make the necessary updates. The Formula One described before comes into play to convert the amount of Milkada to shares. 
+
+Since there is a double accounting system, aside from updating the number of shares one particular account has after the transfer of *milkADA*, it's also required to update the balances of *milkADA* deposited in the Staking Smart Contract. For that reason, these two methods (`transfer` and `transferFrom`) have side effects on the other smart contract. The side effect simply decreases the count of *milkADA* deposited in the sender and adds that exact amount to the count of the receiver.
+
+```solidity
+function sideEffectTransferMilkAda(...) … {
+    userDeposit[_from] -= _milkAdaAmount;
+    userDeposit[_to] += _milkAdaAmount;
+}
+```
+
+- `mint` and `burn`
+
+As of now, these two methods are protected by specific roles: `MINTER_ROLE` and `BURNER_ROLE`, respectively. In the same fashion as the two methods described above, before calling `mint` or `burn` the input of *milkADA* amount is converted into shares first. 
+	
+The only place where `mint` is called is within the `stake` method of the Staking Smart Contract. Inversely, `burn` is only called whenever the user wants to `unstake` the total *milkADA* deposited.
+
+- `increaseAllowance`, `decreaseAllowance`, `approve` and `allowance`
+
+All these methods are performed with the input of *milkADA* amount, not the shares. The user through `balanceOf` would be able to know the amount of MIlkAda deposited and not the number of minted shares. Hence, it makes sense to work these methods with his *milkADA* balance.
+
+### 4. **accreditToPool**: called by Milkomeda DAO to deposit new rewards
+
+An external party with a specific privilege called `ACCREDITOR_ROLE` would be able to increase the Staking Smart Contract's rewards. Internally, a variable called `totalRewards` keeps the count of it. This method is meant to be called at every epoch with all accrued gains from the Cardano chain.
+
+Note that this function has no concept of epochs or time passage of the L1. 
+
+### 5. **removeRewardsOnBehalf**: called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards
+
+See [claim rewards](./claim-rewards)
