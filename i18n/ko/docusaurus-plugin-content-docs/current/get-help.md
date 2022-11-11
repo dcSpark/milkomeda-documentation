@@ -11,4 +11,4 @@ sidebar_position: 3
 
 ​[Twitter](https://twitter.com/Milkomeda_com)​
 
-​[Official website](http://milkomeda.com/)​<!-- ​\[GitHub\](https://github.com/dcSpark/milkomeda-validator)​ -->
+​[공식사이트](http://milkomeda.com/)​<!-- ​\[GitHub\](https://github.com/dcSpark/milkomeda-validator)​ -->
