@@ -1,5 +1,5 @@
 ---
-title: "자산 포장 풀기"
+title: "자산 래핑 풀기"
 sidebar_position: 4
 ---
 
@@ -8,55 +8,55 @@ import blockchainConfirmation from "@site/static/img/blockchain-confirmation.png
 import addressBar from "@site/static/img/address-bar-link.png";
 import searchBox from "@site/static/img/search-box-blockscout.png";
 
-# 자산 포장 풀기
+# 자산 래핑 풀기
 
-To move assets from Milkomeda C1 sidechain back to Cardano, use the Milkomeda Cardano Unwrap Bridge. Follow the steps below to unwrap milkADA and receive ADA in your Cardano mainnet wallet.&#x20;
+자산을 Milkomeda C1 사이드체인에서 Cardano로 되돌리려면 Milkomeda Cardano Unwrap Bridge를 사용합니다. 아래 단계에 따라 milkADA의 래핑을 풀고 Cardano 메인넷 지갑에서 ADA를 받으세요. &#x20;
 
-First, access the [Milkomeda Cardano Unwrap Bridge](https://cardano-bridge.milkomeda.com/bridge) and connect your MetaMask wallet.
+우선 [Milkomeda Cardano Unwrap Bridge](https://cardano-bridge.milkomeda.com/bridge)로 이동하여 MetaMask 지갑을 연결합니다.
 
-![Connect metamask](/img/connect-metamask.png)
+![MetaMask 접속하기](/img/connect-metamask.png)
 
-![Connect Wallet](/img/connect-wallet.png)
+![지갑 연결하기](/img/connect-wallet.png)
 
-_Click_ "Next"
+Next(다음) 를 _클릭_합니다.
 
-![Connect Milkomeda network](/img/connect-milkomeda.png)
+![Milkomeda네트워크 접속하기](/img/connect-milkomeda.png)
 
-_Connect to the Milkomeda C1 Sidechain_
+_Milkomeda C1 사이드체인에 연결_
 
-:::caution Remember to select the appropriate network in your wallet. <br /> Only connect with sites you trust. Make sure the website URL is as follows: https://cardano-bridge.milkomeda.com :::
+:::주의 지갑의 적절한 네트워크를 선택합니다. <br /> 신뢰할 수 없는 사이트에 연결하면 안 됩니다. 웹사이트 URL이 다음과 같은지 확인하십시오: https://cardano-bridge.milkomeda.com :::
 
-Next, enter the amount of milkADA to unwrap or click the arrow to select a different asset to unwrap, and paste your Cardano wallet address in the "To" field. 그런 다음 "다음 단계" 버튼을 클릭합니다.
+그런 다음 래핑을 해제할 milkADA의 금액을 입력하거나 화살표를 클릭하여 래핑을 해제할 다른 자산을 선택하고 'To' 입력란에 자신의 Cardano 지갑 주소를 붙여넣습니다. 그 다음 "다음 단계" 버튼을 클릭합니다.
 
 <img className="img-full" src={tokenSelection} />
 
-Sign the transaction for unwrapping the assets in MetaMask by clicking "Confirm".
+「Confirm(확인)」을 클릭하여 MetaMask에서 자산을 래핑 해제할 트랜잭션에 서명합니다.
 
-![Confirm Metamask](/img/confirm-metamask.png)
+![MetaMask를 확인하기](/img/confirm-metamask.png)
 
-Next, wait for blockchain confirmation.
+블록체인 확인을 기다립니다.
 
-<img className="img-full" src={blockchainConfirmation} alt="Blockchain confirmation" />
+<img className="img-full" src={blockchainConfirmation} alt="블록체인 확인하기" />
 
 :::info
 
-You can check the transaction details in [Cardanoscan](https://cardanoscan.io) explorer for more information.
+거래에 대한 자세한 내용은 [Cardanoscan](https://cardanoscan.io) 탐색기에서 확인할 수 있습니다.
 
 :::
 
-At this stage, the address bar of your browser will contain some information about the unwrapping transaction. An example is shown in the figure below.
+이 시점에서 브라우저의 주소 표시줄에는 래핑 해제 거래에 대한 정보가 포함되어 있습니다. 다음 그림은 예를 보여줍니다.
 
-<img className="img-full" src={addressBar} alt="Address bar link" />
+<img className="img-full" src={addressBar} alt="주소 표시줄 링크" />
 
-The meaning of each of these elements in the address bar is as follows:
+주소 표시줄의 요소의 의미는 각각 다음과 같습니다.
 
-- The EVM unwrapping transaction ID
-- The unwrapped token amount
-- The name of the token being unwrapped
+- EVM의 랩핑 해제 트랜잭션 ID
+- 래핑 해제된 토큰 금액
+- 래핑이 해제된 토큰 이름
 
-To look up more detailed information about the unwrapping transaction, go to [Milkomeda Blockscout explorer](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/) and paste the EVM unwrapping transaction ID into the search box, as shown below.
+래핑 해제 거래에 대한 자세한 내용은 [Milkomeda Blockscout 탐색기](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/)를 방문하여 다음과 같이 검색창에 EVM 랩핑 해제 거래 ID를 붙여넣습니다.
 
-<img className="img-full" src={searchBox} alt="Search box in Blockscout" />
+<img className="img-full" src={searchBox} alt="Blockscout 검색창" />
 
 <a
   href="https://explorer-mainnet-cardano-evm.c1.milkomeda.com/tx/0xf21f79d02f9af4935adbb913f915cf217ad8f3402ea1edf0af4e5913a58792ab/internal-transactions"
@@ -64,11 +64,11 @@ To look up more detailed information about the unwrapping transaction, go to [Mi
   rel="noreferrer noopener"
   className="text-center block mb-4"
 >
-  Look up the example transaction
+  거래 예시를 봅니다
 </a>
 
-The unwrapping process is now complete. After waiting for the necessary transaction confirmations, you should see the unwrapped asset in your Cardano Mainnet wallet.
+랩핑 해제 프로세스가 완료되었습니다. 거래 확인이 끝나면 Cardano Mainnet 지갑에 랩핑이 해제된 자산이 표시됩니다.
 
-![Flint transactions page](/img/flint-transactions.png)
+![Flint 거래 페이지](/img/flint-transactions.png)
 
-:::info To check the available list of tokens that can be unwrapped, go to [**Cardano Bridge Supported Native Assets**](./cardano-bridge-supported-native-assets) section. :::
+:::info 래핑을 해제할 수 있는 토큰 목록은 '**Cardano Bridge에서 지원하는 네이티브 애셋**< /a>' 섹션을 확인하세요. :::</p>
