@@ -5,40 +5,40 @@ sidebar_position: 4
 
 # 자산 랩핑
 
-Flint 월렛 창을 열고 **Send**(보내기) 를 클릭합니다. 다음 화면에서 '**Milkomeda 모드**"의 토글을 전환하여 활성화합니다. Milkomeda C1 월렛 주소를 '**Milkomeda Ethereum Address**' 입력란에 붙여넣고 송금할 금액을 입력합니다(예: 300Test ADA를 송금합니다). **Continue**(계속) 을 클릭합니다.
+Flint 지갑창을 열고 **Send**(보내기) 를 클릭합니다. 다음 화면에서 '**Milkomeda 모드**"의 토글을 전환하여 활성화합니다. Milkomeda C1 월렛 주소를 '**Milkomeda Ethereum Address**' 입력란에 붙여넣고 송금할 금액을 입력합니다(예: 300Test ADA를 송금합니다). **Continue**(계속) 을 클릭합니다.
 
 ![](/img/flint-wrap-tada.png)
 
-확인 화면에서 월렛 비밀번호를 입력하고 **Send**(보내기) 를 클릭합니다.
+확인 화면에서 지갑 비밀번호를 입력하고 **Send**(보내기) 를 클릭합니다.
 
 ![](/img/flint-wrap-tada-confirm.png)
 
-송금에는 확인을 10회 수행해야 하며 약 **5**가 소요됩니다. 거래를 확인하면 제출한 MilkTADA가 MetaMask의 Milkomeda Cardano Testnet 지갑에 표시됩니다.
+송금에는 확인을 10회 수행해야 하며 약 **5**분이 소요됩니다. 거래를 확인하면 제출한 MilkTADA가 MetaMask의 Milkomeda Cardano Testnet 지갑에 표시됩니다.
 
 :::info 거래 수수료 정보
 
-Milkomeda C1 사이드 체인에서만 수행되는 트랜잭션의 경우 블록 생성자가 설정한 표준 Milkomeda 네트워크 트랜잭션 수수료만 지불합니다.
+Milkomeda C1 사이드체인에서만 수행되는 거래의 경우 블록생성자가 설정한 표준 Milkomeda 네트워크 거래수수료만 지불합니다.
 
-다만 랩핑이 포함된 트랜잭션(Cardano와 Milkomeda C1 사이드 체인 간에 자산이 이동하는 트랜잭션)의 경우 하나의 트랜잭션이 각 체인에서 이루어지므로 Cardano와 Milkomeda 트랜잭션 수수료를 모두 지불해야 합니다.
+다만 래핑이 포함된 거래(Cardano와 Milkomeda C1 사이드체인 간에 자산이 이동하는 거래)의 경우 하나의 거래가 각 체인에서 이루어지므로 Cardano와 Milkomeda 거래 수수료를 모두 지불해야 합니다.
 
-예를 들어 Cardano에서 Milkomeda C1로 자산을 보내는 경우 Cardano에서 자산을 잠그는 트랜잭션이 하나이고 Milkomeda C1에서 래핑된 자산을 발행하기 위한 트랜잭션이 하나 필요합니다.
+예를 들어 Cardano에서 Milkomeda C1로 자산을 보내는 경우 Cardano에서 자산을 잠그는 거래 하나와 Milkomeda C1에서 래핑된 자산을 발행하기 위한 거래가 하나필요합니다.
 
-Flint 지갑에서 이와 같은 거래를 보내는 경우 "Network Fee(네트워크 수수료)" 항목을 확장하여 "Base Fee(기본 수수료)"(Cardano 트랜잭션 수수료) 및 "Milkomeda Fee(Milkomeda 수수료)" 를 확인할 수 있습니다. 이러한 거래의 'Milkomeda Fee(Milkomeda 수수료)'는 자산을 랩핑하는 역할을 담당하는 블록 생성자에게도 보상을 지불하게 되기 때문에 Milkomeda에서의 표준 거래 수수료보다 약간 높게 되는 것에 주의하시길 바랍니다.
+Flint 지갑에서 이와 같은 거래를 보내는 경우 "Network Fee(네트워크 수수료)" 항목을 확장하여 "Base Fee(기본 수수료)"(Cardano 트랜잭션 수수료) 및 "Milkomeda Fee(Milkomeda 수수료)" 를 확인할 수 있습니다. 이러한 거래의 'Milkomeda Fee(Milkomeda 수수료)'는 자산을 래핑하는 역할을 담당하는 블록생성자에게도 보상을 지불하게 되기 때문에 Milkomeda에서의 표준 거래 수수료보다 약간 높게 되는 것에 주의하시길 바랍니다.
 
 :::
 
-Milkomeda Cardano Testnet 사이드 체인에서 사용할 수 있도록 테스트 ADA를 MilkTADA에 래핑 할 수 있었습니다. 다음으로 스마트 계약 샘플을 배포해 봅시다.
+Milkomeda Cardano Testnet 사이드체인에서 사용할 수 있도록 테스트 ADA를 MilkTADA에 래핑할 수 있었습니다. 다음으로 스마트계약 샘플을 배포해 봅시다.
 
-:::caution MilkTADA와 랩핑된 테스트 ADA
+:::caution MilkTADA와 래핑된 테스트 ADA
 
-지금까지 설명했듯이 MilkTADA는 Milkomeda Cardano Testnet 사이드 체인에서 수수료와 가스를 지불하는 기본 자산입니다. 테스트 ADA를 Milkomeda로 이동하면 MilkTADA를 받을 수 있습니다.
+지금까지 설명했듯이 MilkTADA는 Milkomeda Cardano Testnet 사이드체인에서 수수료와 가스를 지불하는 기본 자산입니다. 테스트 ADA를 Milkomeda로 이동하면 MilkTADA를 받을 수 있습니다.
 
-'랩핑된 테스트 ADA(wTADA)'는 이더리움의 WETH와 유사한 기능을 수행하는 ERC20 토큰입니다.
+'래핑된 테스트 ADA(wTADA)'는 이더리움의 WETH와 유사한 기능을 수행하는 ERC20 토큰입니다.
 
-Wtada의 계약 주소는 다음과 같습니다. 이 주소로 milkTADA를 보내고 래핑할 수는 있지만 이 주소로 wTADA를 보내 래핑을 해제하는 것은 **할 수 없습니다.**. 스마트 계약의 적절한 방법을 사용하여 상호작용을 수행합니다. wTADA주소: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
+Wtada의 계약 주소는 다음과 같습니다. 이 주소로 milkTADA를 보내고 래핑할 수는 있지만 이 주소로 wTADA를 보내 래핑을 해제하는 것은 **할 수 없습니다.**. 스마트계약의 적절한 방법을 사용하여 상호작용을 수행합니다. wTADA계약주소: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
 
 Cardano 메인넷을 사용하는 경우 wADA 계약 주소는 다음과 같습니다.
 
-이 주소로 wADA를 **직접 보내지 마십시오**. 현재 wADA의 래핑을 해제하려면 DEX를 사용해야합니다 (또는 스마트 계약과 직접 상호 작용).
+이 주소로 wADA를 **직접 보내지 마십시오**. 현재 wADA의 래핑을 해제하려면 DEX를 사용해야합니다 (또는 스마트계약과 직접 상호 작용).
 
 wADA contract address: 0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9 :::
