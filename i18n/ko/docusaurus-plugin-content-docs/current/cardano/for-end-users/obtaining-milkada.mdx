@@ -1,32 +1,32 @@
 ---
-title: "Obtaining MilkADA"
+title: "MilkADA 취득"
 sidebar_position: 3
 ---
 
-# Obtaining MilkADA
+# MilkADA 취득
 
-Open the Flint Wallet window and click "**Send**". At the next screen, enable the "**Milkomeda mode**" toggle, paste the Milkomeda C1 wallet address currently in the clipboard into the "**Milkomeda Ethereum Address**" field, and enter the amount to send (1 ADA in this example). Then click "**Continue**".
+Flint 지갑 창을 열고 **Send**(보내기) 를 클릭합니다. 다음 화면에서 '**Milkomeda 모드**"의 토글을 전환하여 활성화합니다. 클립보드에 복사한 Milkomeda C1 지갑 주소를 '**Milkomeda Ethereum Address**' 입력란에 붙여넣고 송금할 금액을 입력합니다(예에서는 1Test ADA 송금하고 있습니다). 「**Continue**（계속）」을 클릭합니다.
 
-![Wrapping ADA in flint wallet](/img/wrapping-send-flint.png)
+![플린트 지갑에서 ADA를 래핑](/img/wrapping-send-flint.png)
 
-At the confirmation screen, enter your wallet password and click "**Send**".
+확인 화면에서 지갑 비밀번호를 입력하고 **Send**(보내기) 를 클릭합니다.
 
-![Wrapping ADA](/img/wrapping-ada-send.png)
+![ADA를 래핑합니다](/img/wrapping-ada-send.png)
 
-The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred MilkADA should be visible in your C1 wallet in MetaMask.
+송금에는 확인을 10회 수행해야 하며 약 **5**분이 소요됩니다. 거래를 확인하면 제출한 MilkADA가 MetaMask의 C1 지갑에 표시됩니다.
 
-:::info A note on transaction fees For transactions that take place solely on the Milkomeda C1 sidechain, you only pay the standard Milkomeda network transaction fee set by the block producers.
+:::info 거래 수수료에 대해 Milkomeda C1 사이드체인에서만 수행되는 거래의 경우 블록생성자가 설정한 표준 Milkomeda 네트워크 거래수수료만 지불합니다.
 
-However, transactions that involve wrapping, i.e., moving assets between Cardano and the Milkomeda C1 sidechain, require payment of transactions fees for both Cardano and Milkomeda since one transaction is required on each chain.
+다만 래핑이 포함된 거래(Cardano와 Milkomeda C1 사이드체인 간에 자산이 이동하는 거래)의 경우 하나의 거래가 각 체인에서 이루어지므로 Cardano와 Milkomeda 거래 수수료를 모두 지불해야 합니다.
 
-For example, sending assets from Cardano to Milkomeda C1 requires one transaction on Cardano to lock your assets and another transaction on Milkomeda C1 to issue the wrapped assets to you.
+예를 들어 Cardano에서 Milkomeda C1로 자산을 보내는 경우 Cardano에서 자산을 잠그는 거래 하나와 Milkomeda C1에서 래핑된 자산을 발행하기 위한 거래 하나가 필요합니다.
 
-When sending a transaction of this type in Flint Wallet, you can expand the "Network Fee" item to see a "Base Fee" (i.e., the Cardano transaction fee) and a "Milkomeda Fee". Note that the "Milkomeda Fee" for these transactions will be slightly higher than the standard transaction fee on Milkomeda since you are also paying the block producers for their role in wrapping your assets. :::
+Flint 지갑에서 이와 같은 트랜잭션을 보내는 경우 "Network Fee(네트워크 수수료)" 항목을 확장하여 "Base Fee(기본 수수료)"(Cardano 트랜잭션 수수료) 및 "Milkomeda Fee(Milkomeda 수수료)" 를 확인할 수 있습니다. 이러한 거래의 'Milkomeda Fee(Milkomeda 수수료)'는 자산을 래핑하는 역할을 담당하는 블록생성자에게도 보상을 지불하게 되기 때문에 Milkomeda에서의 표준 거래 수수료보다 약간 높아지게 되는 것에 주의하시길 바랍니다. :::
 
-Now you have successfully wrapped your ADA into MilkADA for use on the Milkomeda C1 sidechain.
+이상으로 Milkomeda C1 사이드체인에서 사용하기 위해 ADA를 MilkADA로 래핑할 수 있었습니다.
 
-:::caution About "MilkADA" vs. "Wrapped ADA"' MilkADA is the base asset on the Milkomeda C1 sidechain. When you move ADA to Milkomeda, you receive MilkADA.
+:::주의 "MilkADA"와 "Wrapped ADA" MilkADA는 Milkomeda C1 사이드체인에 기반한 자산입니다. ADA를 Milkomeda로 이동시키면 MilkADA를 받을 수 있습니다.
 
-Apart from MilkADA, there is another token called "Wrapped ADA" or WADA. Wrapped ADA is an ERC20 token that functions the same as WETH on Ethereum. Be careful not to get these confused! :::
+MilkADA 외에도 "Wrapped ADA" 또는 "WADA"라는 토큰이 있습니다. Wrapped ADA는 Ethereum의 WETH와 유사한 기능을 수행하는 ERC20 토큰입니다. 이들을 혼동하지 않도록주의하십시오. :::
 
-:::info To check the available list of tokens that can be wrapped, go to [**Cardano Bridge Supported Native Assets**](./cardano-bridge-supported-native-assets) section. :::
+:::info 래핑할 수 있는 토큰 목록은 "[**Cardano Bridge에서 지원하는 네이티브 애셋**](./cardano-bridge-supported-native-assets)' 섹션을 확인하십시오. :::

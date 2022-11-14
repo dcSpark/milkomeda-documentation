@@ -4,15 +4,15 @@ sidebar_position: 4
 
 import remixImg from "@site/static/img/algorand-remix.png";
 
-# Deploying a Smart Contract
+# 部署智能合约
 
-Here we will deploy a Solidity smart contract on the Milkomeda A1 rollup. In this example, we will use Remix[ ](http://remix.ethereum.org/)to deploy the contract. You can access Remix by visiting the following link: [Remix IDE](http://remix.ethereum.org/)
+这里我们将在Milkomeda A1 rollup，部署一个Solidity智能合约。 在这个例子中，我们将使用Remix[ ](http://remix.ethereum.org/)来部署合同。 你可以通过访问以下链接访问Remix：[Remix IDE](http://remix.ethereum.org/)
 
-First, create the solidity smart contract file. Inside the Remix window, click the "**Contracts**" folder in the left panel, then click the "**New File**" button in the central panel.
+首先，创建solidity智能合约文件。 在Remix窗口内，点击左侧面板的「**合约**」文件夹，然后点击中央面板的 「**新文件 **」按钮。
 
 ![Algorand remix](/img/algorand-remix.png)
 
-Now you will be prompted to enter a filename for a new Solidity smart contract. The filename is arbitrary, but for the purposes of this example we will be deploying an ERC-20 smart contract so we will name the file "Test_ERC20.sol". Type the filename and press **Enter**. The cursor should move to the edit panel where you can input your Solidity code. Enter the following:
+现在你将被提示，为新的 Solidity 智能合约输入一个文件名。 文件名是任意的，但为了这个例子，我们将部署一个ERC-20智能合约，所以我们将文件命名为 「Test_ERC20.sol」。 输入文件名并按**输入**. 光标应移至编辑面板，您可在此输入您的 Solidity 代码。 输入以下内容：
 
 ```
 pragma solidity ^0.7.0;
@@ -27,30 +27,30 @@ contract Token is ERC20 {
 }
 ```
 
-Next, click the "**Solidity compiler**" icon on the left side of the screen, choose a compiler version (for this example we will use **0.7.6+commit.7338295f**), and then click "**Compile Test_ERC20.sol**", as shown.
+接下来，点击屏幕左侧的「**Solidity编译器**」 图标，选择一个编译器版本(对于这个例子，我们将使用 **0.7.6+commit.7338295f**), 然后点击「**编译Test_ERC20.sol**」，如图所示。
 
-![Solidity compiler](/img/algorand-solidity-compiler.png)
+![Solidity 编译器](/img/algorand-solidity-compiler.png)
 
-Click the "**Deploy and run transactions**" icon on the left, and from the "**Environment**" pulldown select "**Injected Web3**", as shown. This will bring up the MetaMask screen where you will need to click "**Next**" and then "**Connect**" to connect your C1 wallet with Remix.
+点击左边的「**部署和运行交易**」图标，从 「**环境**」下拉选择 「**Injected Web3**」如图所示。 This will bring up the MetaMask screen where you will need to click "**Next**" and then "**Connect**" to connect your A1 wallet with Remix.
 
 ![](/img/algorand-solidity-compiler-2.png)
 
-With your MetaMask wallet now connected, click the "**Deploy**" button to deploy the smart contract to the Milkomeda A1 Rollup.
+现在你的MetaMask钱包已经连接好了，点击「**部署**」按钮，将智能合约部署到Milkomeda A1 Rollup。
 
 ![](/img/algorand-solidity-compiler-3.png)
 
-Confirm the transaction in MetaMask.
+在MetaMask中确认该交易。
 
 ![](/img/algorand-metamask-details.png)
 
-You should now see the following under "**Deployed Contracts**" on the left side of the Remix IDE screen.
+现在您应该在Remix IDE屏幕左侧的「**已部署的合同**」 下看到以下内容。
 
 ![](/img/algorand-deploy-run.png)
 
-You can copy the address of the ERC20 smart contract and use it in Metamask to add your recently created tokens. Click on `Import tokens` and then paste the contract address.
+你可以复制ERC20智能合约的地址，并在Metamask中使用它来添加你最近创建的代币。 点击`导入代币`，然后贴上合同地址。
 
 ![](/img/algorand-assets.png)
 
 ![](/img/algorand-import.png)
 
-Finally, click on `Add Custom Token` and you should be able to see your tokens! Now you are able to transfer them and interact with smart contracts.
+最后，点击`添加自定代币`，你应该可以看到你的代币了！ 现在你能够转让它们，并与智能合约互动。

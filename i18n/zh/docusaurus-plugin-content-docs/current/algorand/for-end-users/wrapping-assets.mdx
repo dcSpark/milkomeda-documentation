@@ -1,0 +1,46 @@
+---
+sidebar_position: 3
+---
+
+import dappselectorigin from "@site/static/img/dappselectorigin.png";
+import wrappingsummary from "@site/static/img/wrappingsummary.png";
+import wrappingcompleted from "@site/static/img/wrappingcompleted.png";
+import wrapsuccess from "@site/static/img/wrapsuccess.png";
+
+# 包装资产
+
+In order to **transfer assets from Algorand (mainchain) to the Milkomeda A1 Rollup**, you need to use our dedicated Bridge dApp. To wrap your assets onto the A1 Rollup go to the Milkomeda A1 bridge dApp at [https://algorand-bridge.milkomeda.com/](https://algorand-bridge.milkomeda.com/).
+
+To start wrapping your assets, choose the **Algorand to Milkomeda** direction from the "Network Origin" dropdown menu. Then select the token you want to wrap (in this tutorial, we will use ALGO) from the "Select Token" dropdown menu.
+
+<img src={dappselectorigin} className="img-full" alt="包装确认" />
+
+The next step is to log in to your MyAlgo and MetaMask wallets.
+
+1. Click “Connect Wallet” on the Origin side and your MyAlgo wallet (we recently added support for Pera wallet too) will require you to enter your password and confirm which account to connect to the dApp. Your available ALGO balance will then be displayed below the "Select Token" field.
+
+2. Click “Connect Wallet” on the Destination side of the dApp and your Metamask wallet will ask you to confirm that you want to switch networks (if you are not already connected to it) to the Milkomeda A1 network.
+
+**Enter how many ALGOs** you want to transfer to the A1 rollup (if you want to send your whole balance click “Max” to have the bridge calculate the maximum amount you can send minus the transaction fee).
+
+**Click “Next”** to view a transaction summary, complete with “Estimated Fees” and an “Estimated Wrapping Confirmation Time”.
+
+<img src={wrappingsummary} className="img-full" alt="wrapping summary" />
+
+**Click “Sign and Send”**, enter your wallet password, and hit confirm. Now watch as your tokens get sent to the bridge, wrapped, and sent to your MetaMask wallet on the Milkomeda Algorand A1 Rollup! 这个进程需要大约20秒钟才能确认。
+
+:::info
+Remember that transactions from the Rollup are written to the Algorand blockchain itself. So one confirmation is for sending funds from the wallet to the bridge address and the second confirmation is for the rollup batch transaction on Algorand.
+:::
+
+转移只需要总共2次确认--这应该需要大约20秒(Algorand为4.5秒，Rollup的批次为14秒左右)。 Once the transaction is confirmed, the transferred MilkALGO should be visible in your Milkomeda Algorand wallet in MetaMask.
+
+<img src={wrappingcompleted} className="img-full" alt="wrapping completed" />
+
+You can now watch your transaction pass through the bridge.
+
+<img src={wrapsuccess} className="img-full" alt="wrapping success popup" />
+
+**Congratulations!** You just wrapped your tokens onto on of the first rollups outside of the Ethereum ecosystem!
+
+Now that we have successfully wrapped ALGO into MilkALGO, for use on the Milkomeda A1 Algorand Rollup, let's see how to move assets from Milkomeda A1 Rollup to Algorand.

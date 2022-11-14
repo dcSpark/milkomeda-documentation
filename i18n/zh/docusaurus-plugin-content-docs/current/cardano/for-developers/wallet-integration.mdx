@@ -1,76 +1,76 @@
 ---
-sidebar_label: "Wallet Integration"
+sidebar_label: "钱包整合"
 sidebar_position: 7
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-# Wallet integration
+# 钱包整合
 
-Learn how to integrate your web3 wallet or other dApp with Milkomeda
+了解如何将您的web3钱包或其他dApp与Milkomeda整合起来
 
-## Start building the future of decentralized finances
+## 开始构建分散财务的未来
 
-The following article helps to get to know the _**milkomeda-js-sdk package**_ allowing developers to integrate web3 wallet on Milkomeda Sidechain.
+下面的文章有助于了解_**milkomeda-js-sdk包**_，允许开发人员在Milkomeda侧链上整合web3钱包。
 
-## Integrate Wallet with Milkomeda protocol
+## 整合钱包与 Milkomeda 协议
 
-**1. Download _milkomeda-js-sdk package_**
+**1. 下载 _milkomeda-js-sdk 包_**
 
-Here you can find the [milkomeda-js-sdk package](https://www.npmjs.com/package/@dcspark/milkomeda-js-sdk). This is a package that hosts static configurations of Milkomeda deployments.
+您可以在这里找到 [milkomeda-js-sdk 包](https://www.npmjs.com/package/@dcspark/milkomeda-js-sdk)。 这是一个承载Milkomeda部署的静态配置的包。
 
 :::info
 
-This is useful to avoid having each project integrate Milkomeda hard-coding static configurations.
+这对于避免每个项目整合Milkomeda硬编码静态配置是很有用的。
 
 :::
 
-**2. Install _milkomeda-js-sdk_ package**
+**2. 安装 _milkomeda-js-sdk_ 软件包**
 
-To install the package using **npm**:
+使用 **npm** 安装包：
 
 ```shell
 npm i @dcspark/milkomeda-js-sdk
 ```
 
-To install the package using **yarn**:
+使用 **yarn** 安装包：
 
 ```shell
 yarn add @dcspark/milkomeda-js-sdk
 ```
 
-**3. Import the package into your project**
+**3. 将该软件包导入你的项目中**
 
-Using **import:**
+使用 **import**:
 
 ```js
 import { generateMilkomedaMetadata, milkomedaNetworks } from "@dcspark/milkomeda-js-sdk";
 ```
 
-Using **require:**
+使用 **require：**
 
 ```js
 const milkomedaJsSdk = require("@dcspark/milkomeda-js-sdk");
 ```
 
-## Learn more about _milkomeda-js-sdk_ package
+## 了解更多关于 _milkomeda-js-sdk_ 软件包
 
-_Milkomeda-js-sdk_ is a package that hosts static configurations of Milkomeda deployments. This is useful to avoid having each project integrate Milkomeda hard-coding static configurations.
+_Milkomeda-js-sdk_是一个承载Milkomeda部署的静态配置的包。 这对于避免每个项目整合Milkomeda硬编码静态配置是很有用的。
 
-| Parameter                  | Description                                                                                                         |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| _isMainnet_                | boolean informing if the specific network configuration is mainnet (e.g. Cardano) or not,                           |
-| _mainchain_                | consists of mainchain information such as protocol and its id,                                                      |
-| _sidechain_                | consists of sidechain information such as protocol name (e.g. MilkomedaC1) and sidechain id,                        |
-| _backendEndpoint_          | provides URL value for the service, which exposes additional information about a specific version of the sidechain, |
-| _protocolMagic_            | introduces protocol magic compatible with appropriate Milkomeda network,                                            |
-| _timeIntervalForAddressMs_ | a time interval of a possible address change defined in milliseconds,                                               |
-| _sidechainContract_        | address of the sidechain contract to which any client can connect.                                                  |
+| 参数                         | 说明                                        |
+| -------------------------- | ----------------------------------------- |
+| _isMainnet_                | boolean告知特定的网络配置是否是主网(如Cardano)           |
+| _mainchain_                | 由主链信息组成，如协议和它的id                          |
+| _sidechain_                | 由侧链信息组成，如协议名称(如MilkomedaC1)和侧链id          |
+| _backendEndpoint_          | 提供了服务的URL值，它暴露了关于侧链特定版本的额外信息              |
+| _protocolMagic_            | 介绍了与适当的Milkomeda网络兼容的协议魔法(protocol magic) |
+| _timeIntervalForAddressMs_ | 以毫秒为单位定义的可能的地址变化的时间间隔                     |
+| _sidechainContract_        | 侧链合约的地址，任何客户端都可以连接到该地址                    |
 
-#### Example of the exposed payload
+#### 暴露有效载荷的例子
 
-Below you can find an example of the exposed payload of one of the Milkomeda Networks (devnet)
+下面你可以找到一个暴露的Milkomeda网络(devnet)的有效载荷的例子
 
 ```json
 {
@@ -93,7 +93,7 @@ Below you can find an example of the exposed payload of one of the Milkomeda Net
 }
 ```
 
-Additionally, the package introduces helper types and a function that helps to create proper metadata for Milkomeda transactions.
+此外，该包还引入了辅助类型和一个有助于为Milkomeda交易创建适当元数据的函数。
 
 ```shell
 # Milkomeda metadata generator
@@ -103,7 +103,7 @@ generateMilkomedaMetadata(
 )
 ```
 
-The metadata of a transaction consists of two parameters - **protocol magic & EVM address**. Exemplary metadata for **testnet** transaction is as follows:
+交易的元数据由两个参数组成 - **协议魔法& EVM地址** **Testnet**交易的示范性元数据如下。
 
 ```json
 {
@@ -112,25 +112,25 @@ The metadata of a transaction consists of two parameters - **protocol magic & EV
 }
 ```
 
-#### Example of generating Milkomeda metadata for transaction
+#### 为交易生成Milkomeda元数据的例子
 
 ```js
 generateMilkomedaMetadata("0x000…", milkomedaNetworks["c1-devnet"].protocolMagic);
 ```
 
 :::info
-Remember to replace "0x000..." with your EVM address
+记住用你的EVM地址替换「0x000...」
 :::
 
 ### Milkomeda REST API
 
-Except for the _Milkomeda-js-sdk_ package, we have introduced a REST API that allows to fetch more data regarding the Milkomeda Sidechain itself.
+除了_Milkomeda-js-sdk_包，我们已经引入了一个REST API，可以获取更多关于Milkomeda侧链本身的数据。
 
 :::info
-In this example, we use the Flint Wallet integration example for a better explanation
+在这个例子中，为了更好地解释，我们使用了Flint钱包的整合案例
 :::
 
-Base url for REST API is given as the **backendEndpoint** parameter using _milkomeda-js-sdk_. You can take it out from the package using the following code:
+REST API的基本网址作为**backendEndpoint**参数使用_milkomeda-js-sdk_。 你可以用下面的代码把它从包里取出来:
 
 <Tabs
   defaultValue="devnet"
@@ -147,10 +147,10 @@ milkomedaNetworks["c1-devnet"].backendEndpoint
 ```
 
 :::info
-Result: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
+结果: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
 :::
 
-When you have the base URL included in your code, you can use one of the following endpoint:
+当你的代码中包含了基本的URL，你可以使用以下的一个端点:
 
 - **Stargate address** ([V1/stargate](https://allowlist.flint-wallet.com/v1/stargate))
 
@@ -163,17 +163,19 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
 ```
 
 :::info
-Result: [https://allowlist-mainnet.flint-wallet.com](https://allowlist-mainnet.flint-wallet.com)
+结果: [https://allowlist-mainnet.flint-wallet.com](https://allowlist-mainnet.flint-wallet.com)
 
-If you want to integrate your Wallet with Milkomeda Mainnet, you need to use another 2 endpoints, to get EVM addresses allowed on the network. The purpose of this [microservice](https://github.com/dcSpark/allowedlist-service/) is to provide a list of addresses that are allowed to use the bridge in Milkomeda.
+如果您想将您的钱包与Milkomeda主网整合，您需要使用另外两个终端，以获得网络上允许的EVM地址。 The purpose of this [microservice](https://github.com/dcSpark/allowedlist-service/) is to provide a list of addresses that are allowed to use the bridge in Milkomeda.
+
+这个[microservice] (https://github.com/dcSpark/allowedlist-service/)的目的是提供一个允许使用Milkomeda桥的地址列表。
 :::
 
-When you have the base URL included in your code, you can use one of the following endpoints:
+当你的代码中包含基本的URL时，你可以使用以下的一个端点:
 
 - **Stargate address** ([/V1/stargate](https://allowlist-mainnet.flint-wallet.com/v1/stargate))
 - **fullAllowedList** ([/v1/fullAllowedList](https://allowlist-mainnet.flint-wallet.com/v1/fullAllowedList))
 
-Returns array of EVM addresses allowed in the mainnet
+返回主网中允许的EVM地址数组
 
 ```json
 {
@@ -183,13 +185,13 @@ Returns array of EVM addresses allowed in the mainnet
 
 - **isAddress=0x** ([/v1/isAddressAllowed?address=0x](https://allowlist-mainnet.flint-wallet.com/v1/isAddressAllowed?address=0x))
 
-Returns a boolean value, which informs if the provided address is allowed on the restricted mainnet or not.
+返回一个boolean值，告知所提供的地址是否被允许进入受限的主网。
 
 </TabItem>
 
 </Tabs>
 
-Using Milkomeda REST API stargate endpoint you can get the same properties of the payload for both devnet and mainnet. Below you can find an example payload for devnet:&#x20;
+使用Milkomeda REST API stargate 端点，你可以获得devnet和mainnet的相同属性的有效载荷。 在下方你可以看到devnet的一个有效载荷的例子：&#x20;
 
 ```json
 {
@@ -212,4 +214,4 @@ Using Milkomeda REST API stargate endpoint you can get the same properties of th
 }
 ```
 
-#### If you have any additional questions regarding this article and Milkomeda integration go to [https://www.milkomeda.com/support](https://www.milkomeda.com/support) or visit our [discord server](https://discord.gg/4GSwPJpF) and don’t hesitate to ask us.
+#### 如果您对本文和Milkomeda整合有任何其他问题，请访问[https://www.milkomeda.com/support](https://www.milkomeda.com/support)或访问我们的[discord服务器](https://discord.gg/4GSwPJpF)，请不要犹豫，与我们联系。

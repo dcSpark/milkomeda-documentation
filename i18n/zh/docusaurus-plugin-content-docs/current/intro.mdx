@@ -1,49 +1,62 @@
 ---
-sidebar_label: "Getting Started with Milkomeda"
+sidebar_label: "开始使用Milkomeda"
 sidebar_position: 1
 slug: /
 ---
 
 import milkomedaBanner from "@site/static/img/milkomeda-banner.png";
 
-# Getting Started with Milkomeda
+# 开始使用Milkomeda
 
 <img src={milkomedaBanner} className="img-full" alt="" />
 
-**Milkomeda** is a groundbreaking new protocol that brings EVM capabilities to non-EVM blockchains. As development progresses, Milkomeda will expand to offer L2 solutions (rollups) for several major blockchains including Cardano, Solana, and Algorand. Currently we have an EVM-based sidechain connected to Cardano up and running. We call this the **Milkomeda C1** sidechain.
+**Milkomeda** 是一个开创性的新协议，它为非 EVM 区块链提供了EVM 功能。 随着开发进程的推进，Milkomeda将扩展为几个主要区块链：包括卡Cardano、Solana和Algorand提供L2解决方案(rollups)。 Currently we have an EVM-based sidechain connected to Cardano - <strong>Milkomeda C1</strong> and EVM-based Rollup connected to Algorand - <strong>Milkomeda A1</strong>.
 
-Follow the steps in this guide to quickly get started using Milkomeda.
+按照本指南中的步骤，快速开始使用 Milkomeda。
 
-## Why Milkomeda?
+## 为什么要使用Milkomeda？
 
-- Milkomeda provides non-EVM ecosystems the ability to inherit key elements such as rollups and Solidity support from EVM-based ecosystems.
+- Milkomeda 为非 EVM 生态系统提供了继承关键元素的能力，例如来自基于EVM生态系统的rollup和 Solidity支援。
 
-- Developers have access to all of the tooling from the EVM ecosystem. Building, deploying, debugging, and auditing all work the same as in Ethereum. The capability for developers to port projects over from Ethereum will significantly broaden the selection of dApps available on supported L1 blockchains.
+- 开发者可以使用来自EVM生态系统的所有工具。 建筑、部署、调试和审计所有工作都与以太坊相同。 开发者将项目从以太坊移植过来的能力，将大大拓宽支持的L1区块链上可用的dApps选择。
 
-- Security consistency among deployments: Multi-chain deployed code has the same security properties, eliminating the need to do individual audits per chain.
+- 部署之间的安全一致性。多链部署的代码具有相同的安全属性，无需对每个链进行单独审计。
 
-- Future innovations in zero-knowledge technology will be implementable as L3+ solutions on top of Milkomeda.
+- 未来的零知识技术的创新，将作为L3+解决方案在Milkomeda之上实现。
 
-- Milkomeda empowers startups to build on chains like Cardano, Algorand, and Solana while tapping into the talent and resources of the largest community for smart contracts (Solidity).
+- Milkomeda使初创企业能够在Cardano、Algorand和Solana等链上建立。 同时利用最大的智能合约社区(Solidity) 的人才和资源。
 
-## Features of Milkomeda
+## Milkomeda的特点
 
-- Scalability: Milkomeda can scale to hundreds of transactions per second without sacrificing long-term decentralization.
+- 可扩展性：Milkomeda可以在不牺牲长期分散性的情况下，扩展到每秒数百个交易。
 
-- Security: Our aim is to leverage the power of rollups for all chains, with audits at key points in the roadman to ensure security of the protocol.
+- 安全性：我们的目标是利用所有区块链的卷积力量，在路线图的关键点进行审计，以确保协议的安全性。
 
-- User Experience: We collaborate with wallets to ensure the experience of moving assets to Milkomeda is a breeze.
+- 用户体验：我们与钱包合作，以确保将资产转移到Milkomeda是轻而易举的。
 
-- Interoperability: Solidity (EVM) support will come first, followed by Cairo and others.
+- 互操作性：Solidity（EVM）的支援将是第一位的，其次是Cairo和其他。
 
-- Portability: Code once, deploy everywhere without sacrificing security.
+- 可移植性：你只需要编码一次，然后它就可以在不牺牲安全的情况下到处利用。
 
-- Developer Experience: Developers can draw directly on all of the tooling and resources of Ethereum.
+- 开发者经验：开发者可以直接利用以太坊的所有工具和资源。
 
-## [Getting Started: For End Users](./cardano/for-end-users/)
+## Getting started for Cardano
 
-End users can send ADA from the Cardano mainnet to a bridge address and receive wrapped ADA on the **Milkomeda C1** sidechain. Jump ahead to the [Getting Started for End Users page](./cardano/for-end-users) to start by setting up Flint and MetaMask.
+## [给终端用户](./cardano/for-end-users/)
 
-## [Getting Started: For Developers](./cardano/for-developers/)
+终端用户可以从Cardano主网发送ADA到一个桥接地址，并在 **Milkomeda C1** 侧链上接收包装好的ADA。 跳转到[终端用户入门页面](./cardano/for-end-users)，开始设置Flint和MetaMask。
 
-In addition to the mainnet version of the Milkomeda C1 sidechain which uses wrapped ADA for fees and gas, developers can also access the **Milkomeda Devnet** to wrap assets from the Cardano Testnet and deploy smart contracts on the Milkomeda C1 Devnet sidechain using wrapped Test ADA for fees and gas. Proceed to the next page to start by setting up Flint Wallet and obtaining some test ADA from the Cardano Testnet faucet.
+## [给开发者](./cardano/for-developers/)
+
+除了Milkomeda C1侧链的主网版本使用包装好的ADA作为费用和gas外，开发者还可以访问**Milkomeda Devnet**，从Cardano Testnet包装资产，在Milkomeda C1 Devnet侧链上部署智能合约，使用包装好的测试ADA作为费用和gas。 进入下一页，开始设置 Flint 钱包，并从Cardano Testnet龙头获得一些测试ADA。
+
+
+## Getting started for Algorand
+
+## [给终端用户](./algorand/for-end-users/)
+
+End users can send ALGO from the Algorand mainnet to a bridge address and receive wrapped ALGO on the Milkomeda A1 Rollup. Jump ahead to the [Getting Started for End Users page](./algorand/for-end-users) to start by setting up MyAlgo wallet and MetaMask to interact with bridge dApp.
+
+## [给开发者](./algorand/for-developers/)
+
+In addition to the mainnet version of the Milkomeda A1 Rollup which uses wrapped ALGO for fees and gas, developers can also access the Milkomeda A1 Devnet to wrap assets from the Algorand Testnet and deploy smart contracts on the Milkomeda A1 Devnet Rollup using wrapped Test ALGO for fees and gas. Proceed to the next page to start by setting up MyAlgo Wallet and obtaining some test ALGO from the Algorand Testnet faucet.

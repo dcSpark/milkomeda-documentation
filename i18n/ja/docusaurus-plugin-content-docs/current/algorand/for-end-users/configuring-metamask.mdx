@@ -1,0 +1,50 @@
+---
+sidebar_position: 2
+---
+
+import puzzleIcon from "@site/static/img/puzzle-icon.png";
+
+# MetaMaskの設定
+
+:::note
+In the previous step we showed you how to get the ALGO testnet to start interacting with Milkomeda A1 Rollup Testnet. From now on, documentation will be focused on mainnet settings. Nevertheless, we recommend that you first interact with Milkomeda A1 Rollup using testnet funds. For this purpose change the corresponding RPC settings to Testnet. Please keep in mind, that all the steps described for mainnet settings are the same as the ones for testnet.
+:::
+
+Now that we have an Algorand wallet and some ALGOs, we need an address on the Milkomeda Algorand A1 Rollup where we can receive our MilkALGO. We recommend using MetaMask for this step.
+
+First, install [MetaMask for Chrome](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn), then click the Chrome Extensions icon <img src={puzzleIcon} alt="" className="img-icon" /> and select MetaMask. MetaMaskのウィンドウ内の「**Get Started**（開始する）」をクリックして、次に「**Create a Wallet**（ウォレットを作成）」を選択します。 ウォレットのパスワードを設定します。この後に設定画面が表示されるので、クリックして先に進みます。 When you're finished, you will have a new, empty wallet, as shown below. Select the network dropdown in the top right corner of the MetaMask screen.
+
+![](/img/algorand-eth.png)
+
+ドロップダウンリストから「**Add Network**（ネットワークを追加）」を選択して、以下の内容を入力します。
+
+> Network Name: Milkomeda Algorand mainnet
+> 
+> <p> New RPC URL: https://rpc-mainnet-algorand-rollup.a1.milkomeda.com </p>
+> 
+> Chain ID: 2002
+> 
+> Currency Symbol (Optional): milkAlgo
+> 
+> <p>
+>   {" "}
+>   Block Explorer URL (Optional): https://explorer-mainnet-algorand-rollup.a1.milkomeda.com
+> </p>
+:::info
+**To interact with Milkomeda A1 Testnet, use following network details:**
+
+Network Name: Milkomeda Algorand Testnet
+<p> New RPC URL: https://rpc-devnet-algorand-rollup.a1.milkomeda.com </p>
+<p>Chain ID: 200202</p>
+<p>Currency Symbol (Optional): milkTALGO</p>
+<p>
+  {" "}
+  Block Explorer URL (Optional): https://testnet-algorand-rollup.a1.milkomeda.com{" "}
+</p>
+:::
+
+Click “**Save**”, and you will now see **Milkomeda Algorand** in the network dropdown list. Copy your Milkomeda Algorand wallet address from MetaMask to the clipboard by clicking on the account name, as shown.
+
+![](/img/algorand-milk.png)
+
+Next we will go to the Milkomeda A1 Bridge dApp and send our ALGO to the Bridge to be wrapped.

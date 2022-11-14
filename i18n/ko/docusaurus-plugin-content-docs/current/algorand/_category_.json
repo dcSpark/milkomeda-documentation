@@ -1,8 +1,8 @@
 {
-  "label": "Algorand",
+  "label": "알고랜드",
   "position": 3,
   "link": {
     "type": "generated-index",
-    "description": "Here are the articles in this section:"
+    "description": "이 섹션의 기사는 다음과 같습니다."
   }
 }

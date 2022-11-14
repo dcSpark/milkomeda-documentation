@@ -1,7 +1,9 @@
-# For Developers
+# 개발자 전용
 
-Currently, only the Algorand Rollup Testnet is available, but we hope to launch Algorand Rollup Mainnet this quarter after more extensive QA and the finalization of our main audit.
+**Milkomeda는 EVM 기능을 non-EVM 블록체인에 제공하여 블록체인의 상호 운용성을 개선하도록 설계된 프로토콜입니다.** 이는 EVM이 작동하는 롤업과 같은 레이어 2(L2) 확장 솔루션을 구축하고 연결함으로써 이루어집니다. 권한이 없는 브리지를 통해 EVM이 아닌 블록체인인 레이어 1(L1) 로 전송됩니다.
 
-About the Milkomeda A1 Devnet (Milkomdea's Algorand Rollup Testnet), it uses test ALGO and interacts with the official Algorand Testnet.
+롤업은 "레이어 2" 체인으로 기술됩니다. 레이어 2는 레이어 1 또는 메인 체인이라고 하는 기존 블록체인 위에 존재하므로 레이어 1의 기본 제공 속성을 활용할 수 있음을 의미합니다. Milkomeda A1 Rollup은 수수료 및 가스 지불을 위한 기본 자산으로 MilkALGO를 사용합니다. 롤업에 액세스하려면 $ALGO가 포함된 알고랜드 기본 지갑과 MetaMask 지갑이 필요합니다.
 
-We recommend starting with the devnet to get oriented first. Once you're familiar with the devnet, the operations for the future mainnet will be the same. The example steps that follow will show how to set up a connection to the devnet. Later on we will update the documentation with an additional section in red text indicating parameters and steps for using the mainnet.
+다음 페이지에서 우리는 MyAlgo 지갑을 생성하고, Milkomeda A1 주소를 얻도록 MetaMask를 구성하고, Milkomeda Algorand Rollup에서 MilkALGO로 변환할 ALGO를 보내고, 마지막으로 스마트 계약을 배포하는 단계를 안내할 것입니다.
+
+조작에 익숙해지기 위해 먼저 Devnet을 이용하는 것을 권장합니다. 한 번 Devnet에 익숙해진다면 향후 메인넷 작업도 동일하게 조작이 가능할 것입니다. 다음 예제 단계는 devnet에 대한 연결을 설정하는 방법을 보여줍니다.

@@ -1,44 +1,44 @@
 ---
-sidebar_label: "Wrapping Assets"
+sidebar_label: "包装资产"
 sidebar_position: 4
 ---
 
-# Wrapping Assets
+# 包装资产
 
-Open the Flint Wallet window and click "**Send**". At the next screen, enable the "**Milkomeda mode**" toggle, paste your Milkomeda C1 wallet address into the "**Milkomeda Ethereum Address**" field, and enter the amount to send (300 Test ADA in this example). Click "**Continue**".
+打开Flint钱包窗口，点击「**发送**」。 在下一个屏幕，启用「**Milkomeda模式**」切换，将您的Milkomeda C1钱包地址贴上到「**Milkomeda以太坊地址**」区域，并输入要发送的金额(本例中为300 Test ADA)。 点击**继续**。
 
 ![](/img/flint-wrap-tada.png)
 
-At the confirmation screen, enter your wallet password and click "**Send**".
+在确认屏幕上，输入你的钱包密码并点击「**发送**」。
 
 ![](/img/flint-wrap-tada-confirm.png)
 
-The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred MilkTADA should be visible in your Milkomeda Cardano Testnet wallet in MetaMask.
+转移将需要10次确认，这应该需要大约**5**分钟。 一旦交易被确认，在您的MetaMask的Milkomeda Cardano Testnet钱包中应该可见到转移的MilkTADA。
 
-:::info A note on transaction fees
+:::info 关于交易费用的备注
 
-For transactions that take place solely on the Milkomeda C1 sidechain, you only pay the standard Milkomeda network transaction fee set by the block producers.
+对于仅在Milkomeda C1侧链上进行的交易，您只需支付由区块生产商设定的标准Milkomeda网络交易费用。
 
-However, transactions that involve wrapping, i.e., moving assets between Cardano and the Milkomeda C1 sidechain, require payment of transactions fees for both Cardano and Milkomeda since one transaction is required on each chain.
+然而，涉及包装的交易，即在Cardano和Milkomeda C1侧链之间移动资产，需要为Cardano和Milkomeda支付交易费用，因为每条链上都需要进行一次交易。
 
-For example, sending assets from Cardano to Milkomeda C1 requires one transaction on Cardano to lock your assets and another transaction on Milkomeda C1 to issue the wrapped assets to you.
+例如，从Cardano向Milkomeda C1发送资产需要在Cardano上进行一笔交易来锁定你的资产，在Milkomeda C1上进行另一笔交易来向你发放包装好的资产。
 
-When sending a transaction of this type in Flint Wallet, you can expand the "Network Fee" item to see a "Base Fee" (i.e., the Cardano transaction fee) and a "Milkomeda Fee". Note that the "Milkomeda Fee" for these transactions will be slightly higher than the standard transaction fee on Milkomeda since you are also paying the block producers for their role in wrapping your assets.
+当在Flint钱包中发送这种类型的交易时，你可以展开「网络费用」项目，看到一个 「基本费用」（如Cardano交易费用）和一个 「Milkomeda费用」。 请注意，这些交易的「Milkomeda费」将略高于Milkomeda的标准交易费，因为您也要向区块生产商支付他们在包裹您的资产方面的作用。
 
 :::
 
-Now that we have successfully wrapped Test ADA into MilkTADA for use on the Milkomeda Cardano Testnet sidechain, the next step is to deploy a sample smart contract.
+现在，我们已经成功地将Test ADA包装成MilkTADA，用于Milkomeda Cardano Testnet侧链，下一步是部署一个样本智能合约。
 
-:::caution MilkTADA and Wrapped Test ADA
+:::警告 MilkTADA 和包装测试 ADA
 
-As we have seen, MilkTADA is the base asset used for paying fees and gas on the Milkomeda Cardano Testnet sidechain. When you move Test ADA to Milkomeda, you receive MilkTADA.
+正如我们所看到的，MilkTADA是Milkomeda Cardano Testnet侧链上用于支付费用和gas的基本资产。 当您将Test ADA转移到Milkomeda时，您会收到MilkTADA。
 
-"Wrapped Test ADA" (wTADA) is a separate ERC20 token that functions the same as WETH on Ethereum.
+「包装Test ADA」（wTADA）是一个独立的ERC20代币，其功能与以太坊上的WETH相同。
 
-The contract address for wTADA can be found below. Note that although you can send milkTADA to this address to wrap it, you **shouldn't** send wTADA to this address to unwrap it but rather interact with it using the right method in the smart-contract. wTADA contract address: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
+wTADA的合同地址如下。 请注意，尽管你可以向这个地址发送milkTADA来包装它，但你**不应该**向这个地址发送wTADA来解除包装，而应该使用智能合约中的正确方法与它进行互动。 wTADA 合同地址：0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
 
-If using the Cardano mainnet, find the wADA contract address below.
+如果使用Cardano主网，找到下面的wADA合约地址。
 
-**Do not directly** send wADA to this address. For now, you will need to use a DEX to unwrap wADA (or interact directly with the smart contract).
+**请勿直接**向此地址发送WADA。 目前，你将需要使用DEX来解开wADA（或直接与智能合约互动）。
 
-wADA contract address: 0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9 :::
+wADA 合同地址：0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9 ::::
