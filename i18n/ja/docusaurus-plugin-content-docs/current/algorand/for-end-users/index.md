@@ -1,6 +1,6 @@
 # For End-users
 
-**Milkomeda is a protocol designed to improve blockchain interoperability by delivering EVM capabilities to non-EVM blockchains.** This is done by building layer 2 (L2) scaling solutions such as rollups, on which the EVM operates, and connecting these to the non-EVM blockchains, layer 1 (L1), via a permission-less bridge.
+**Milkomedaは、EVMの機能を非EVMのブロックチェーンに提供することで、ブロックチェーンの相互運用性を向上させるために設計されたプロトコルです。**これは、EVMが動作するロールアップなどのレイヤー2（L2）スケーリング・ソリューションを構築し、これをパーミッションレス・ブリッジを介して非EVMブロックチェーンのレイヤー1（L1）に接続することで実現します。
 
 A rollup is described as a “layer 2” chain. Layer 2 means that it lives on top of an existing blockchain, which is called the layer 1 or main chain, and thus is able to take advantage of the layer 1’s native, built-in properties.
 
