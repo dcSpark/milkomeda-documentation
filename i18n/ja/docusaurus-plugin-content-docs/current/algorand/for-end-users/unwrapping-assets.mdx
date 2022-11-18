@@ -7,35 +7,35 @@ import unwrappingsummary from "@site/static/img/unwrappingsummary.png";
 import unwrappingcompleted from "@site/static/img/unwrappingsummary.png";
 import unwrappingsuccess from "@site/static/img/unwrappingsuccess.png";
 
-# 資産のラッピング解除
+# 資産のアンラッピング
 
-To move assets from the Milkomeda Algorand Rollup back to Algorand (in a process called unwrapping), first go to Milkomeda Bridge dApp. Follow the steps below to unwrap milkALGO and to receive ALGO in your Algorand wallet.
+Milkomeda AlgorandロールアップからAlgorandに資産を戻す（アンラッピングと呼ばれるプロセス）には、まずMilkomedaブリッジdAppにアクセスしてください。 以下の手順でmilkALGOをアンラッピングし、AlgorandウォレットにALGOを受け取ります。
 
-**Go to the Milkomeda A1 bridge dApp** at [https://algorand-bridge.milkomeda.com/](https://algorand-bridge.milkomeda.com/). To start unwrapping your assets, choose the **Milkomeda to Algorand** option from the "Network Origin" dropdown menu. Then **select the token you want to unwrap** (in our example, we will use the milkALGO token) from "Select Token" dropdown menu.
+**Milkomeda A1ブリッジのdApp**（ [http://algorand-bridge.milkomeda.com](https://algorand-bridge.milkomeda.com/)）にアクセスします。 資産のアンラッピングを開始するには、「Network Origin（送信元ネットワーク）」ドロップダウン・メニューから「**Milkomeda to Algorand（MilkomedaからAlgorand）**」オプションを選択します。 次に、「Select Token（トークン選択）」ドロップダウン・メニューから**アンラッピングしたいトークン**（この例では、milkALGOトークンを使用します）を選択します。
 
-<img src={dappselectorigirollup} className="img-full" alt="origin selector" />
-The next step is be to log in to your MetaMask and MyAlgo wallets.
+<img src={dappselectorigirollup} className="img-full" alt="送信元選択" />
+次に、MetaMaskとMyAlgoのウォレットにログインします。
 
-1.  Click “Connect Wallet” on the Origin side and your Metamask wallet will ask you to confirm that you want to switch networks (if you are not already connected to it) to the Milkomeda A1 network. Your available milkALGO balance will then be displayed below the Select Token field.
+1.  送信元側の「Connect Wallet（ウォレット接続）」をクリックすると、Metamaskウォレットは、ネットワークを（まだ接続していない場合は）Milkomeda A1ネットワークに切り替えるかどうかの確認を求めてきます。 すると、利用可能なmilkALGOの残高が、トークンの選択欄の下に表示されます。
 
-2.  Click “Connect Wallet” on the “Destination” side of the dApp and your MyAlgo wallet will require you to enter your password and confirm which account to connect to the dApp.
+2.  dAppの「Destination（送信先）」側にある「Connect Wallet（ウォレットを接続）」をクリックすると、MyAlgoウォレットはパスワードの入力と、dAppに接続するアカウントを確認するよう要求します。
 
-**Enter how many milkALGO** you want to transfer back to the Algorand (if you want to send your whole balance click “Max” to have the bridge calculate the maximum amount you can send minus the transaction fee).
+Algorandに送り返す**milkALGOの数を入力**します（残高全体を送りたい場合は「Max（最大）」をクリックすると、ブリッジが送金手数料を差し引いた最大額を計算してくれます）。
 
 「**Next（次へ）**」をクリックすると、「Estimated Fees（予想手数料）」と「Estimated Wrapping Confirmation Time（予想ラッピング確認時間）」が記載された取引概要が表示されます。
 
-<img src={unwrappingsummary} className="img-full" alt="unwrapping summary" />
+<img src={unwrappingsummary} className="img-full" alt="アンラッピング・サマリー" />
 
-**Click “Sign and Send”,** confirm the transaction in your Metamask wallet and then watch as your tokens get sent to the bridge, unwrapped, and sent to your MyAlgo wallet on Algorand! The process should take around 90 seconds to confirm.
+**「Sign and Send（署名して送信）」をクリック**し、Metamaskウォレットでトランザクションを確認したら、あなたのトークンがブリッジに送られ、アンラッピングされ、AlgorandのMyAlgoウォレットに送られるのを確認しましょう！ このプロセスは約90秒かかります。
 
-:::info 
-Moving assets the other way (from the Layer 2 to Algorand) requires the user to interact with the bridge’s smart contract in order to request their unwrapping. The validators will then coordinate to build the transaction to release the assets from their custody on the mainchain. Each validator (at least the quorum) needs to provide the necessary signatures in order to validate the transaction on chain.
+:::情報 
+レイヤー2からAlgorandへアセットを移動させる場合、ユーザーはブリッジのスマートコントラクトと対話し、アセットをアンラッピングするよう要求する必要があります。 バリデータはその後、メインチェーン上の保管場所からアセットを解放するためのトランザクションを構築するために調整します。 各バリデータ（少なくとも定足数）は、チェーン上のトランザクションを検証するために必要な署名を提供する必要があります。
 :::
 
-Once the transaction is confirmed, the transferred ALGO should be visible in your Algorand wallet.
+トランザクションが確認されると、転送されたALGOはあなたのAlgorandウォレットに表示されるはずです。
 
-<img src={unwrappingsuccess} className="img-full" alt="unwrapping success" />
+<img src={unwrappingsuccess} className="img-full" alt="アンラッピング成功" />
 
-**Congratulations!** You’ve just unwrapped your tokens from the Milkomeda Algorand Rollup to Algorand!
+**おめでとうございます！**Milkomeda AlgorandロールアップからAlgorandへのトークンのアンラッピングが完了しました！
 
-Now that we have successfully unwrapped milkALGO from the Milkomeda Algorand Rollup to the Algorand let’s talk about moving Algorand Standard Assets (ASAs) using the Milkomeda Rollup Bridge.
+さて、milkomeda AlgorandロールアップからAlgorandへのアンラッピングに成功したので、Milkomedaロールアップ・ブリッジを使ったAlgorand 標準アセット（ASAs）の移動について説明します。
