@@ -4,124 +4,59 @@ sidebar_position: 1
 slug: /
 ---
 
-"@site/static/img/milkomeda-banner.png"에서 milkomedaBanner 가져오기;
+import milkomedaBanner from "@site/static/img/milkomeda-banner.png";
 
 # 밀코메다 시작하기
 
 <img src={milkomedaBanner} className="img-full" alt="" />
 
-**Milkomeda**는 EVM 기능을 비 EVM 블록체인에 제공하는 획기적인 새 프로토콜입니다. 개발이 진행됨에 따라 Milkomeda는 Cardano, Solana 및 Algorand를 포함한 여러 주요 블록체인을 위한 L2 솔루션(롤업) 을 제공하도록 확장할 것입니다. 현재 Cardano에 연결된 EVM 기반 사이드체인 - <strong>Milkomeda C1</strong> 및 EVM 기반 롤업이 Algorand에 연결된 - <strong>Milkomeda A1< /strong>.</p> 
+**Milkomeda**는 EVM 기능을 비 EVM 블록체인에 제공하는 획기적인 새 프로토콜입니다. 개발이 진행됨에 따라 Milkomeda는 Cardano, Solana 및 Algorand를 포함한 여러 주요 블록체인을 위한 L2 솔루션(롤업) 을 제공하도록 확장할 것입니다. 현재 Cardano에 연결된 EVM 기반 사이드체인 - <strong>Milkomeda C1</strong> 및 EVM 기반 롤업이 Algorand에 연결된 - <strong>Milkomeda A1< /strong>.
 
-<p spaces-before="0">
-  Milkomeda 사용을 빠르게 시작하려면 이 가이드의 단계를 따르십시오.
-</p>
+Milkomeda 사용을 빠르게 시작하려면 이 가이드의 단계를 따르십시오.
 
-<h2 spaces-before="0">
-  왜 밀코메다인가?
-</h2>
+## 왜 밀코메다인가?
 
-<ul>
-  <li>
-    <p spaces-before="0">
-      Milkomeda는 EVM 기반 생태계에서 롤업 및 Solidity 지원과 같은 핵심 요소를 상속할 수 있는 비 EVM 생태계를 제공합니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      개발자는 EVM 에코시스템의 모든 도구에 액세스할 수 있습니다. 빌드, 배포, 디버깅 및 감사는 모두 이더리움에서와 동일하게 작동합니다. 개발자가 이더리움에서 프로젝트를 이식할 수 있는 기능은 지원되는 L1 블록체인에서 사용할 수 있는 dApp의 선택을 크게 넓힐 것입니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      배포간에 보안 일관성을 유지합니다. 다중 체인 배포된 코드는 공통 보안 속성이 설정되므로 체인별로 개별적으로 감사할 필요가 없습니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      장래에 제공되는 영지식 기술에 의거한 혁신은 Milkomeda를 기반으로 한 L3+ 솔루션으로 구현될 것입니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      스타트업은 Milkomeda를 통해 스마트 계약(Solidity) 최대의 커뮤니티 인력과 자원을 활용하여 Cardano, Algorand, Solana 등의 체인을 구축할 수 있습니다.
-    </p>
-  </li>
-</ul>
+- Milkomeda는 EVM 기반 생태계에서 롤업 및 Solidity 지원과 같은 핵심 요소를 상속할 수 있는 비 EVM 생태계를 제공합니다.
 
-<h2 spaces-before="0">
-  밀코메다의 특징
-</h2>
+- 개발자는 EVM 에코시스템의 모든 도구에 액세스할 수 있습니다. 빌드, 배포, 디버깅 및 감사는 모두 이더리움에서와 동일하게 작동합니다. 개발자가 이더리움에서 프로젝트를 이식할 수 있는 기능은 지원되는 L1 블록체인에서 사용할 수 있는 dApp의 선택을 크게 넓힐 것입니다.
 
-<ul>
-  <li>
-    <p spaces-before="0">
-      확장성: Milkomeda는 장기적인 관점에서 분산을 실현하면서 초당 수백 개의 트랜잭션 처리로 확장이 가능합니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      보안: 로드맵의 주요 지점에서 감사를 통해 프로토콜 보안을 유지하면서 모든 체인 롤업 기능을 활용하는 것을 목표로 합니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      사용자 환경: 지갑과의 연계를 통해 자산을 Milkomeda로 쉽게 이식할 수 있습니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      상호 운용성: 먼저 Solidity (EVM) 지원을 제공하고 나중에 Cairo 등으로 확장합니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      이식성: 코드를 작성하면 보안을 유지하면서 모든 장소에 배포할 수 있습니다.
-    </p>
-  </li>
-  <li>
-    <p spaces-before="0">
-      개발자 경험: 개발자는 Ethereum의 모든 도구와 리소스를 직접 사용할 수 있습니다.
-    </p>
-  </li>
-</ul>
+- 다중 체인 배포된 코드는 공통 보안 속성이 설정되므로 체인별로 개별적으로 감사할 필요가 없습니다.
 
-<h2 spaces-before="0">
-  카르다노 시작하기
-</h2>
+- 장래에 제공되는 영지식 기술에 의거한 혁신은 Milkomeda를 기반으로 한 L3+ 솔루션으로 구현될 것입니다.
 
-<h2 spaces-before="0">
-  <a href="./cardano/for-end-users/">최종사용자용</a>
-</h2>
+- 스타트업은 Milkomeda를 통해 스마트 계약(Solidity) 최대의 커뮤니티 인력과 자원을 활용하여 Cardano, Algorand, Solana 등의 체인을 구축할 수 있습니다.
 
-<p spaces-before="0">
-  최종 사용자는 Cardano 메인 넷에서 브리지 주소로 ADA를 전송하여 <strong x-id="1">Milkomeda C1</strong>사이드체인으로 래핑된 ADA를 받을 수 있습니다. <a href="./cardano/for-end-users">최종사용자 시작가이드</a>로 이동하여 Flint 및 MetaMask 설정을 시작합니다.
-</p>
+## 밀코메다의 특징
 
-<h2 spaces-before="0">
-  <a href="./cardano/for-developers/">개발자 전용</a>
-</h2>
+- 확장성: Milkomeda는 장기적인 관점에서 분산을 실현하면서 초당 수백 개의 트랜잭션 처리로 확장이 가능합니다.
 
-<p spaces-before="0">
-  수수료 및 가스를 위해 ADA를 포장하는 Milkomeda C1 사이드체인의 메인넷 버전 외에도 개발자는 <strong x-id="1">Milkomeda Devnet</strong>을 방문하여 Cardano Testnet의 자산을 포장하고 수수료 및 가스용으로 래핑된 테스트 ADA를 사용하여 Milkomeda C1 Devnet 사이드체인에 스마트계약을 배포할 수도 있습니다. 다음 페이지에서 Flint 지갑을 설정하고 Cardano Testnet 포셋에서 테스트 ADA를 가져옵니다.
-</p>
+- 보안: 로드맵의 주요 지점에서 감사를 통해 프로토콜 보안을 유지하면서 모든 체인 롤업 기능을 활용하는 것을 목표로 합니다.
+
+- 사용자 환경: 지갑과의 연계를 통해 자산을 Milkomeda로 쉽게 이식할 수 있습니다.
+
+- 상호 운용성: 먼저 Solidity (EVM) 지원을 제공하고 나중에 Cairo 등으로 확장합니다.
+
+- 이식성: 코드를 작성하면 보안을 유지하면서 모든 장소에 배포할 수 있습니다.
+
+- 개발자 경험: 개발자는 Ethereum의 모든 도구와 리소스를 직접 사용할 수 있습니다.
+
+## 카르다노 시작하기
+
+## [최종사용자용](./cardano/for-end-users/)
+
+최종 사용자는 Cardano 메인 넷에서 브리지 주소로 ADA를 전송하여 **Milkomeda C1**사이드체인으로 래핑된 ADA를 받을 수 있습니다. [최종사용자 시작가이드](./cardano/for-end-users)로 이동하여 Flint 및 MetaMask 설정을 시작합니다.
+
+## [개발자 전용](./cardano/for-developers/)
+
+수수료 및 가스를 위해 ADA를 래핑하는 Milkomeda C1 사이드체인의 메인넷 버전 외에도 개발자는 Milkomeda Devnet을 방문하여 Cardano Testnet의 자산을 래핑하고 수수료 및 가스용으로 래핑된 테스트 ADA를 사용하여Milkomeda C1 Devnet 사이드체인에 스마트계약을 배포할 수도 있습니다. 다음 페이지에서 Flint 지갑을 설정하고 Cardano Testnet 포셋에서 테스트 ADA를 가져옵니다.
 
 
-<h2 spaces-before="0">
-  알고랜드 시작하기
-</h2>
+## 알고랜드 시작하기
 
-<h2 spaces-before="0">
-  <a href="./algorand/for-end-users/">최종사용자용</a>
-</h2>
+## [최종사용자용](./algorand/for-end-users/)
 
-<p spaces-before="0">
-  최종 사용자는 Cardano 메인넷에서 브리지 주소로 ADA를 전송하여 Milkomeda C1사이드 체인으로 래핑된 ADA를 받을 수 있습니다. <a href="./algorand/for-end-users">최종사용자 시작하기 페이지</a>로 이동하여 브리지 dApp과 상호작용할 수 있도록 MyAlgo 지갑과 MetaMask를 설정하여 시작하십시오.
-</p>
+최종 사용자는 Cardano 메인넷에서 브리지 주소로 ADA를 전송하여 Milkomeda C1사이드 체인으로 래핑된 ADA를 받을 수 있습니다. [최종사용자 시작하기 페이지](./algorand/for-end-users)로 이동하여 브리지 dApp과 상호작용할 수 있도록 MyAlgo 지갑과 MetaMask를 설정하여 시작하십시오.
 
-<h2 spaces-before="0">
-  <a href="./algorand/for-developers/">개발자 전용</a>
-</h2>
+## [개발자 전용](./algorand/for-developers/)
 
-<p spaces-before="0">
-  수수료 및 가스를 위해 ADA를 래핑하는 Milkomeda C1 사이드체인의 메인넷 버전 외에도 개발자는 Milkomeda Devnet을 방문하여 Cardano Testnet의 자산을 래핑하고 수수료 및 가스용으로 래핑된 테스트 ADA를 사용하여Milkomeda C1 Devnet 사이드체인에 스마트계약을 배포할 수도 있습니다. 다음 페이지에서 Flint 지갑을 설정하고 Cardano Testnet 포셋에서 테스트 ADA를 가져옵니다.
-</p>
+수수료 및 가스를 위해 ADA를 포장하는 Milkomeda C1 사이드체인의 메인넷 버전 외에도 개발자는 **Milkomeda Devnet**을 방문하여 Cardano Testnet의 자산을 포장하고 수수료 및 가스용으로 래핑된 테스트 ADA를 사용하여 Milkomeda C1 Devnet 사이드체인에 스마트계약을 배포할 수도 있습니다. 다음 페이지에서 Flint 지갑을 설정하고 Cardano Testnet 포셋에서 테스트 ADA를 가져옵니다.
