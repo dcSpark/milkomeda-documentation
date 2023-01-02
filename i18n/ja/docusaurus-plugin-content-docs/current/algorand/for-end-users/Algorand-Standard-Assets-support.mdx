@@ -24,7 +24,7 @@ import unwrappingreqconfirmation from "@site/static/img/unwrappingreqconfirmatio
 
 Algorand標準アセット（ASAs）は、Algorandがサポートするオンチェーン資産で、ネイティブ通貨であるAlgoと同じセキュリティ、互換性、速度を保証するものです。 ASAは、ステーブルコイン、ゲーム内通貨、ロイヤリティ・ポイントなどを表すことができます。 また、収集品のような単一のアセットを表すこともできます。
 
-:::情報
+:::info
 同じ種類の複数の資産であるASAは「Fファンジブル・アセット」と呼ばれ、例えばステーブルコインがそうです。 ユニークであるものは、ノン・ファンジブル・アセットと呼ばれます。 <br /> Learn more about ASAs: https://developer.algorand.org/docs/get-details/asa/
 :::
 
@@ -32,7 +32,7 @@ Algorand標準アセット（ASAs）は、Algorandがサポートするオンチ
 
 ### AlgorandウォレットにASAを追加する方法
 
-:::情報
+:::info
 ASAを受け取るためには、まずアカウントにそのアセットをオプトインする必要があります。 どのアカウントでもAlgorand標準アセットを受け取ることができますが、特定のASAを受け取る可能性がある場合は、まず**その資産にオプトイン**する必要があります。 アセットへの「オプトイン」は、オプトインしたアカウントへの、またはアカウントからの0件のアセット転送にすぎません。 このプロセスでは、資産を譲渡する前に、特定の資産をアカウントに追加することになります。
 :::
 
@@ -70,14 +70,15 @@ ASAを受け取るためには、まずアカウントにそのアセットを�
 
 ### MilkomedaブリッジでのAlgorand標準アセットのラッピング
 
-:::注意
+:::note
 このチュートリアルでは、プロセスを最もよく見せるために、`EURe`というテストネットASAを使用します。 メインネット・アセットをラッピングもしくはアンラッピングしたい場合は、EUReをMilkomeda A1メインネット・ブリッジでサポートされている他のトークンに置き換えて、このチュートリアルを使用してください。 利用可能なアセットの一覧は「[AlgorandブリッジがサポートするASA](algorand-bridge-supported-asa.mdx)」を参照してください。
+:::
 
 Milkomeda A1ブリッジdApp（[https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/)）にアクセスします。 アセットのラッピングを開始するには、「Network Origin（送信元ネットワーク）」ドロップダウン・メニューから「**Algorand to Milkomeda direction（AlgorandからMilkomedaへ）**」を選択します。 次に、「Select Token（トークン選択）」ドロップダウン・メニューから**適切なトークン (EURe) **を選択します。
 
 <img src={EURewrappingchoice} className="img-full" alt="EUReをラッピング" />
 
-:::警告
+::: caution 
 EUReはメインチェーンでの取引手数料の支払いに使われるため、EUReを動かすにはAlgorandウォレットに最低限のALGOトークンが入っている必要があることを覚えておいてください。
 :::
 
@@ -89,7 +90,7 @@ A1ロールアップに転送したい**テストEUReの数を入力**します�
 
 **「Sign and Send（署名して送信）」をクリック**し、MyAlgoウォレットのパスワードを入力し、トランザクションを確認したら、あなたのトークンがブリッジに送られ、ラッピングされ、Milkomeda Algorand A1ロールアップ上のあなたのMetaMaskウォレットに送られます。
 
-:::情報
+::: info 
 転送には合計2回の確認が必要で、約20秒かかります（Algorandが4.5秒、ロールアップのバッチが約14秒）。
 :::
 
@@ -113,13 +114,13 @@ Milkomeda A1ブリッジdApp（[https://algorand-bridge-dev.milkomeda.com/](http
 
 Algorandに戻すテストEUReの数を入力します。 「**Next（次へ）**」をクリックすると、「Estimated Fees（予想手数料）」と「Estimated Wrapping Confirmation Time（予想ラッピング確認時間）」が記載された取引概要が表示されます。
 
-:::注意
+:::caution
 EUReを移動するには、MetaMaskウォレットに最低1つのテスト用milkALGOがある必要があります。milkALGOはアンラッピング時にブリッジ手数料が支払われる通貨だからです。
 :::
 
 「**Sign and Send（署名して送信）**」をクリックすると、あなたのMetaMaskウォレットが表示されます。 あとは、ERC-20の許可を承認する必要があります。
 
-:::情報
+:::info
 ERC20許可を与えるとは、簡単に言うと、ユーザーが他のコントラクト/アドレスにERC20トークンを転送する許可を与えるということです。 つまり、他のアドレスがトークンを使うことを許可するのです。
 :::
 
