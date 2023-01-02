@@ -5,7 +5,7 @@ sidebar_position: 3
 
 # サポート
 
-[Discord](https://discord.com/invite/dcspark)では開発者やコミュニティメンバーが活発にガイダンスやサポートを提供しています。ぜひご参加ください。 また、 [Milkomeda の FAQ](https://dcspark.gitbook.io/milkomeda/details/faq) や [お問い合わせページ](https://www.milkomeda.com/contact) もご活用いただけます。
+[Discord](https://discord.com/invite/dcspark)では開発者やコミュニティメンバーが活発にガイダンスやサポートを提供しています。 また、 [Milkomeda の FAQ](https://dcspark.gitbook.io/milkomeda/details/faq) や [お問い合わせページ](https://www.milkomeda.com/contact) もご活用いただけます。
 
 # Milkomedaのプロジェクト開発状況をフォローする
 
