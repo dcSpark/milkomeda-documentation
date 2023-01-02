@@ -103,7 +103,7 @@ generateMilkomedaMetadata(
 )
 ```
 
-トランザクションのメタデータは2つのパラメーターで構成されます。**プロトコルマジック&EVMアドレス**です。 **テストネット**トランザクションの一般的なメタデータは以下の通りです。
+トランザクションのメタデータは2つのパラメーターで構成されます。 **プロトコルマジック&EVMアドレス**です。 **テストネット**トランザクションの一般的なメタデータは以下の通りです。
 
 ```json
 {
@@ -178,6 +178,18 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
 ```json
 {
   "allowList": ["0x...", "0x..."]
+:::
+
+ベースURLがコードに含まれる場合、以下のエンドポイントのいずれかを使用できます。
+
+- **Stargate address** ([/V1/stargate](https://allowlist-mainnet.flint-wallet.com/v1/stargate))
+- **fullAllowedList** ([/v1/fullAllowedList](https://allowlist-mainnet.flint-wallet.com/v1/fullAllowedList))
+
+メインネットで許可されたEVMアドレスの配列が返されます
+
+```json
+{
+  "allowList": ["0x...", "0x..."]
 }
 ```
 
@@ -189,7 +201,7 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
 
 </Tabs>
 
-Milkomeda REST APIスターゲートエンドポイントを使うと、Devnetとメインネットで同じペイロードのプロパティを取得できます。 以下は、Devnetのペイロードの例です。&#x20;
+Milkomeda REST APIスターゲートエンドポイントを使うと、Devnetとメインネットで同じペイロードのプロパティを取得できます。 以下は、Devnetのペイロードの例です。 &#x20;
 
 ```json
 {
