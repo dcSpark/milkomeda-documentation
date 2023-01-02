@@ -16,7 +16,7 @@ import TabItem from "@theme/TabItem";
 
 ## 整合钱包与 Milkomeda 协议
 
-**1. 下载 _milkomeda-js-sdk 包_**
+**1. 1. 下载 _milkomeda-js-sdk 包_**
 
 您可以在这里找到 [milkomeda-js-sdk 包](https://www.npmjs.com/package/@dcspark/milkomeda-js-sdk)。 这是一个承载Milkomeda部署的静态配置的包。
 
@@ -26,7 +26,7 @@ import TabItem from "@theme/TabItem";
 
 :::
 
-**2. 安装 _milkomeda-js-sdk_ 软件包**
+**2. 2. 安装 _milkomeda-js-sdk_ 软件包**
 
 使用 **npm** 安装包：
 
@@ -40,7 +40,7 @@ npm i @dcspark/milkomeda-js-sdk
 yarn add @dcspark/milkomeda-js-sdk
 ```
 
-**3. 将该软件包导入你的项目中**
+**3. 3. 将该软件包导入你的项目中**
 
 使用 **import**:
 
@@ -103,7 +103,7 @@ generateMilkomedaMetadata(
 )
 ```
 
-交易的元数据由两个参数组成 - **协议魔法& EVM地址** **Testnet**交易的示范性元数据如下。
+交易的元数据由两个参数组成 - **协议魔法& EVM地址** **Testnet**交易的示范性元数据如下。 **Testnet**交易的示范性元数据如下。
 
 ```json
 {
@@ -186,6 +186,12 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
 - **isAddress=0x** ([/v1/isAddressAllowed?address=0x](https://allowlist-mainnet.flint-wallet.com/v1/isAddressAllowed?address=0x))
 
 返回一个boolean值，告知所提供的地址是否被允许进入受限的主网。
+}
+```
+
+- **isAddress=0x** ([/v1/isAddressAllowed?address=0x](https://allowlist-mainnet.flint-wallet.com/v1/isAddressAllowed?address=0x))
+
+返回一个boolean值，告知所提供的地址是否被允许进入受限的主网。
 
 </TabItem>
 
@@ -210,6 +216,8 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
             "minGWei": "1000000000"
         }
     …
+    ]
+}
     ]
 }
 ```
