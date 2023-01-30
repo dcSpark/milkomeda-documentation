@@ -38,10 +38,8 @@ const config = {
       zh: {
         label: "Chinese",
       }
-
     },
   },
-
   themes: [
     // ... Your other themes.
     [
