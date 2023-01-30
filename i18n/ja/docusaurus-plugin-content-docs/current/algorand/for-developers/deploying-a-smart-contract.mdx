@@ -12,7 +12,7 @@ SolidityスマートコントラクトをMilkomeda A1ロールアップにデプ
 
 ![Algorand remix](/img/algorand-remix.png)
 
-すると、新しいSolidityスマートコントラクトのファイル名を入力するように求められます。 ファイル名は任意で設定して構いません。ここでは、ERC-20スマートコントラクトのデプロイを行うため、「Test_ERC20.sol」というファイル名をつけることにしましょう。 ファイル名を入力して、**Enter**を押します。 カーソルが編集パネルに移動するので、Solidityコードを入力します。 コードは以下のとおりです。
+すると、新しいSolidityスマートコントラクトのファイル名を入力するように求められます。 ここでは、ERC-20スマートコントラクトのデプロイを行うため、「Test_ERC20.sol」というファイル名をつけることにしましょう。 ファイル名を入力して、**Enter**を押します。 カーソルが編集パネルに移動するので、Solidityコードを入力します。 コードは以下のとおりです。
 
 ```
 pragma solidity ^0.7.0;
@@ -27,11 +27,11 @@ contract Token is ERC20 {
 }
 ```
 
-次に画面の左側に表示される「**Solidity compiler**（Solidityコンパイラー）」アイコンをクリックして、コンパイラーのバージョンを選択します（この例では**0.7.6+commit.7338295f**を使用しています）。次に、以下のとおり「**Compile Test_ERC20.sol**」をクリックします。
+次に画面の左側に表示される「**Solidity compiler**（Solidityコンパイラー）」アイコンをクリックして、コンパイラーのバージョンを選択します（この例では**0.7.6+commit.7338295f**を使用しています）。 次に、以下のとおり「**Compile Test_ERC20.sol**」をクリックします。
 
 ![Solidityコンパイラー](/img/algorand-solidity-compiler.png)
 
-左側の「**Deploy and run transactions**（トランザクションのデプロイと実行）」アイコンをクリックして、以下のとおり「**Environment**（環境）」プルダウンから「**Injected Web3**」を選択します。 This will bring up the MetaMask screen where you will need to click "**Next**" and then "**Connect**" to connect your A1 wallet with Remix.
+左側の「**Deploy and run transactions**（トランザクションのデプロイと実行）」アイコンをクリックして、以下のとおり「**Environment**（環境）」プルダウンから「**Injected Web3**」を選択します。 MetaMaskの画面が表示されますので、「**Next（次へ）**」をクリックし、「**Connect（接続）**」をクリックして、A1ウォレットとRemixを接続してください。
 
 ![](/img/algorand-solidity-compiler-2.png)
 

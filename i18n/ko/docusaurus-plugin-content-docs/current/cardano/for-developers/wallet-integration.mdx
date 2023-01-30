@@ -118,17 +118,13 @@ generateMilkomedaMetadata(
 generateMilkomedaMetadata("0x000…", milkomedaNetworks["c1-devnet"].protocolMagic);
 ```
 
-:::info
-'0x000...'을 EVM 주소로 바꾸세요.
-:::
+:::info '0x000...'을 EVM 주소로 바꾸세요. :::
 
 ### Milkomeda REST API
 
 Milkomeda 사이드 체인에 대한 데이터를 검색하는 REST API에 대해 _Milkomeda-js-sdk_ 패키지 이외의 것을 도입했습니다.
 
-:::info
-이 예에서는 알기 쉽게 설명하기 위해 Flint 월렛 연계를 사용하고 있습니다.
-:::
+:::info 이 예에서는 알기 쉽게 설명하기 위해 Flint 월렛 연계를 사용하고 있습니다. :::
 
 REST API의 기본 URL은 _milkomeda-js-sdk_를 사용하여 **backendEndpoint** 매개변수로 제공됩니다. 다음 코드를 사용하여 패키지에서 가져올 수 있습니다.
 
@@ -150,9 +146,7 @@ milkomedaNetworks["c1-devnet"].backendEndpoint
 결과: [https://allowlist.flint-wallet.com](https://allowlist.flint-wallet.com)
 :::
 
-기본 URL이 코드에 포함된 경우 다음 엔드포인트 중 하나를 사용할 수 있습니다.
-
-- **Stargate address** ([V1/stargate](https://allowlist.flint-wallet.com/v1/stargate))
+기본 URL이 코드에 포함된 경우 다음 엔드포인트 중 하나를 사용할 수 있습니다. - **Stargate address** ([V1/stargate](https://allowlist.flint-wallet.com/v1/stargate))
 
 </TabItem>
 
@@ -168,14 +162,10 @@ milkomedaNetworks["c1-mainnet"].backendEndpoint
 월렛을 Milkomeda 메인 넷에 연결하려면 두 개의 엔드포인트를 사용하여 네트워크에서 허용된 EVM 주소를 가져와야 합니다. 이 [microservice](https://github.com/dcSpark/allowedlist-service/)의 목적은 Milkomeda 브리지를 사용할 수 있는 주소 목록을 제공하는 것입니다.
 :::
 
-기본 URL이 코드에 포함된 경우 다음 엔드포인트 중 하나를 사용할 수 있습니다.
-
-- **Stargate address** ([/V1/stargate](https://allowlist-mainnet.flint-wallet.com/v1/stargate))
+기본 URL이 코드에 포함된 경우 다음 엔드포인트 중 하나를 사용할 수 있습니다. - **Stargate address** ([/V1/stargate](https://allowlist-mainnet.flint-wallet.com/v1/stargate))
 - **fullAllowedList** ([/v1/fullAllowedList](https://allowlist-mainnet.flint-wallet.com/v1/fullAllowedList))
 
-메인넷에서 허용된 EVM 주소의 배열을 반환합니다.
-
-``json
+메인넷에서 허용된 EVM 주소의 배열을 반환합니다. ``json
 {
    "allowList": ["0x...", "0x..."]
 }
