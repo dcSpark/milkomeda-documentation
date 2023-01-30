@@ -9,7 +9,7 @@ sidebar_position: 2
 
 Taking this into consideration, we recommend all users who would like to deploy their contracts on Milkomeda C1 Sidechain (Testnet), to perform testing on any other EVM-compatible chain instead. The main issue is that to pay the fees on Milkomeda C1 Testnet, one must wrap test assets using Cardano Testnet which may not be possible.
 
-Thanks to Milkomeda C1 EVM-compatibility, such contracts can be deployed on any Ethereum Virtual Machine, so even if a contract is tested elsewhere, it will work on the Milkomeda C1 Sidechain. :::
+Thanks to Milkomeda C1 EVM-compatibility, such contracts can be deployed on any Ethereum Virtual Machine, so even if a contract is tested elsewhere, it will work on the Milkomeda C1 Sidechain.
 
 Milkomeda C1サイドチェーンは、手数料やガスの支払いのベースとなる資産として、MilkADAを使用します。 サイドチェーンにアクセスするには、ADAの入ったCardanoウォレットと、MetaMaskブラウザ拡張機能が必要です。
 
