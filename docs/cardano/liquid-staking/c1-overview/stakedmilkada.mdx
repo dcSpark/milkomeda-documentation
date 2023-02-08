@@ -1,0 +1,16 @@
+---
+title: "StakedMilkADA"
+sidebar_position: 3
+---
+
+You can find the full contract [here]([https://github.com/dcSpark/liquid-staking](https://github.com/dcSpark/liquid-staking/blob/main/src/stakedMilkAda/StakedMilkAda.sol)).
+
+# StakedMilkAda (stMilkAda)
+
+This is an ERC20-like token that's used to represent user' share of the pool. Though it's not a rebase token, it still doesn't fully comply with the  ERC20 standard. It represents and is tied to the underlying asset (MilkAda) staked in the Liquid Staking contract. When transferring tokens via `transfer` or `transferFrom`, the amount specifed (to send) doesn't represent the amount of stMilkAda, but rather the amount of MilkAda as held in ones stake balance in the Liquid Staking pool. This means the amount being sent must not be greater than your staking balance. It then proceeds to convert the value to be sent into the equivalent amount of shares or stMilkAda, sends this value of shares to the recipient, and reduces the sender's stMilkADA balance. At the same time, it reduces the sender's staking balance, while increasing the recpient's staking balance.
+
+We only emit a `Tranfer` event when an explicit transfer occurs between holders. From the ERC20 standard the `Transfer` amount or value in the transfer signature represents the amount of the token sent. Though in the StakedMilkAda contract, while it still represents the amount being sent, it's not the amount of tokens, but the amount of MilkAda. A new event `TransferShares` has been added. This event has the same signature and can be seen as replicating the `Tranfer` event in the ERC20 standard; all that differs is the name.
+
+Example:
+
+Alice has a stake balance of 10 MilkAda, and shares of 10 stMilkAda, abd she wants to send 5 MilkAda to Bob. When she calls `transfer` or `transferFrom` is called on her behalf, we calculate the amount of shares or stMilkAda that is equivalent to 5 MilkAda using the total pooled MilkAda in the staking contract (`getSharesByPooledMilkAda`). Whatever this value returns is the real amount of stMilkAda that should be transferred. We add this value to Bob's stMilkAda balance, and at the same time deduct it from Alice's balance. We also add 5 MilkAda to Bob's staking balance, and deduct 5 MilkAda from Alice's staking balance.
