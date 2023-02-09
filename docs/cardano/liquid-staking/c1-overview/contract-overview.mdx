@@ -46,7 +46,7 @@ The Staking Smart Contract keeps the count of the total *milkADA* deposited. The
 
 Every time the `stake` method is executed, internally a specific amount of shares is minted in favor of the caller. This is due to the double accounting system that shares the Staking Smart Contract and the Staked *milkADA* Token.
 
-In order to calculate the number of shares to be minted, Formula One detailed above is used. In other words, the Staking Smart Contract will keep track of the total deposited in *milkADA* while the Staked *milkADA* Token keeps track of the percentage ownership of each user in relation to the total *milkADA* deposited
+In order to calculate the number of shares to be minted, Formula One detailed above is used. In other words, the Staking Smart Contract will keep track of the total deposited in *milkADA* while the Staked *milkADA* Token keeps track of the percentage ownership of each user in relation to the total *milkADA* deposited.
 
 Note: sending to the liquid staking contract will also call *stake* indirectly
 
@@ -67,7 +67,9 @@ Since rewards are automatically compounding, you do not need to call this functi
 
 *sstMilkADA* is an ERC20 token
 
-*stMilkADA* is fully compatible with the standard ERC20. However, there have been slight modifications to the most known methods from this standard, such as `transfer`, `transferFrom` and `balanceOf`. On top of that, the `mint` and `burn` methods have been protected by roles: only the Staking Smart Contract can call those methods. While it could have been possible to inherit the ERC20 contract from Open Zeppelin, it was more than necessary to only comply with the interface (IERC20) since several methods have custom implementations.
+*stMilkADA* is  is an ERC20-like token -  though it's not a rebase token, it still doesn't fully comply with the ERC20 standard. Modifications have been made to some of its functions, such as `transfer`, `transferFrom` and `balanceOf`. On top of that, the `mint` and `burn` methods have been protected by roles: only the Staking Smart Contract can call those methods. While it could have been possible to inherit the ERC20 contract from Open Zeppelin, it was more than necessary to only comply with the interface (IERC20) since several methods have custom implementations.
+
+We only emit a Tranfer event when an explicit transfer occurs between holders. From the ERC20 standard the Transfer amount or value in the transfer signature represents the amount of the token sent. Though in the StakedMilkAda contract, while it still represents the amount being sent, it's not the amount of tokens, but the amount of MilkAda. A new event (TransferShares) has been added. This event has the same signature and can be seen as replicating the Tranfer event in the ERC20 standard; all that differs is the name.
 
 The main reason for implementing customized complying methods is that there are two account systems within the token: one that is shares-based and another one that represents the equivalence one to one with the amount of Milkada deposited. After staking an X amount of *milkADA*, a Y amount of shares are minted for the user. However, he will only know about the total amount of *milkADA* deposited, which will be represented by the Staked *milkADA* Token that he will see in his wallet balance.
 
@@ -91,6 +93,7 @@ Since there is a double accounting system, aside from updating the number of sha
 
 ```solidity
 function sideEffectTransferMilkAda(...) … {
+    ...
     userDeposit[_from] -= _milkAdaAmount;
     userDeposit[_to] += _milkAdaAmount;
 }
@@ -98,7 +101,7 @@ function sideEffectTransferMilkAda(...) … {
 
 - `mint` and `burn`
 
-As of now, these two methods are protected by specific roles: `MINTER_ROLE` and `BURNER_ROLE`, respectively. In the same fashion as the two methods described above, before calling `mint` or `burn` the input of *milkADA* amount is converted into shares first. 
+As of now, these two methods can only be called by the Liquid Staking contract. In the same fashion as the two methods described above, before calling `mint` or `burn` the input of *milkADA* amount is converted into shares first. 
 	
 The only place where `mint` is called is within the `stake` method of the Staking Smart Contract. Inversely, `burn` is only called whenever the user wants to `unstake` the total *milkADA* deposited.
 
@@ -108,7 +111,7 @@ All these methods are performed with the input of *milkADA* amount, not the shar
 
 ### 4. **accreditToPool**: called by Milkomeda DAO to deposit new rewards
 
-An external party with a specific privilege called `ACCREDITOR_ROLE` would be able to increase the Staking Smart Contract's rewards. Internally, a variable called `totalRewards` keeps the count of it. This method is meant to be called at every epoch with all accrued gains from the Cardano chain.
+This function isn't protected, hence anyone can call this function to increase the Staking Smart Contract's rewards - and rewards are deposited based on an `ROI` value passed to the function. Internally, a variable called `totalRewards` keeps the count of it. This method is meant to be called at every epoch with all accrued gains from the Cardano chain.
 
 Note that this function has no concept of epochs or time passage of the L1. 
 
