@@ -7,7 +7,7 @@ You can find the full contract [here](https://github.com/dcSpark/liquid-staking)
 
 # Contract overview
 
-## sstMilkADA formula
+## stMilkADA formula
 
 Whenever a user stakes, internally, the user has a mapping that represents the percentage ownership a particular user has as a result of his deposit.
 
@@ -65,8 +65,6 @@ Since rewards are automatically compounding, you do not need to call this functi
 
 ### 3. ERC20 interface
 
-*sstMilkADA* is an ERC20 token
-
 *stMilkADA* is  is an ERC20-like token -  though it's not a rebase token, it still doesn't fully comply with the ERC20 standard. Modifications have been made to some of its functions, such as `transfer`, `transferFrom` and `balanceOf`. On top of that, the `mint` and `burn` methods have been protected by roles: only the Staking Smart Contract can call those methods. While it could have been possible to inherit the ERC20 contract from Open Zeppelin, it was more than necessary to only comply with the interface (IERC20) since several methods have custom implementations.
 
 We only emit a Tranfer event when an explicit transfer occurs between holders. From the ERC20 standard the Transfer amount or value in the transfer signature represents the amount of the token sent. Though in the StakedMilkAda contract, while it still represents the amount being sent, it's not the amount of tokens, but the amount of MilkAda. A new event (TransferShares) has been added. This event has the same signature and can be seen as replicating the Tranfer event in the ERC20 standard; all that differs is the name.
@@ -89,7 +87,7 @@ All methods that involve the movements of funds that are executed have as input 
 
 When the methods `transfer` and `transferFrom` are called, the amount of *milkADA* received is converted to shares to make the necessary updates. The Formula One described before comes into play to convert the amount of Milkada to shares. 
 
-Since there is a double accounting system, aside from updating the number of shares one particular account has after the transfer of *milkADA*, it's also required to update the balances of *milkADA* deposited in the Staking Smart Contract. For that reason, these two methods (`transfer` and `transferFrom`) have side effects on the other smart contract. The side effect simply decreases the count of *milkADA* deposited in the sender and adds that exact amount to the count of the receiver.
+Since there is a double accounting system, aside from updating the number of shares one particular account has after the transfer of *milkADA*, it's also required to update the balances of *milkADA* deposited in the Staking Smart Contract. For that reason, these two methods (`transfer` and `transferFrom`) have side effects on the other smart contract (the Liquid Staking contract). The side effect simply decreases the count of *milkADA* deposited in the sender and adds that exact amount to the count of the receiver.
 
 ```solidity
 function sideEffectTransferMilkAda(...) … {
