@@ -65,6 +65,8 @@ Since rewards are automatically compounding, you do not need to call this functi
 
 ### 3. ERC20 interface
 
+sstMilkADA is an ERC20 token.
+
 *stMilkADA* is  is an ERC20-like token -  though it's not a rebase token, it still doesn't fully comply with the ERC20 standard. Modifications have been made to some of its functions, such as `transfer`, `transferFrom` and `balanceOf`. On top of that, the `mint` and `burn` methods have been protected by roles: only the Staking Smart Contract can call those methods. While it could have been possible to inherit the ERC20 contract from Open Zeppelin, it was more than necessary to only comply with the interface (IERC20) since several methods have custom implementations.
 
 We only emit a Tranfer event when an explicit transfer occurs between holders. From the ERC20 standard the Transfer amount or value in the transfer signature represents the amount of the token sent. Though in the StakedMilkAda contract, while it still represents the amount being sent, it's not the amount of tokens, but the amount of MilkAda. A new event (TransferShares) has been added. This event has the same signature and can be seen as replicating the Tranfer event in the ERC20 standard; all that differs is the name.
