@@ -36,7 +36,7 @@ Algorand標準アセット（ASAs）は、Algorandがサポートするオンチ
 ASAを受け取るためには、まずアカウントにそのアセットをオプトインする必要があります。 どのアカウントでもAlgorand標準アセットを受け取ることができますが、特定のASAを受け取る可能性がある場合は、まず**その資産にオプトイン**する必要があります。 アセットへの「オプトイン」は、オプトインしたアカウントへの、またはアカウントからの0件のアセット転送にすぎません。 このプロセスでは、資産を譲渡する前に、特定の資産をアカウントに追加することになります。
 :::
 
-##### EUReをMyAlgoウォレットにオプトインするためのステップバイステップ・ガイド
+##### A Step-By-Step Guide to opt EURe (testnet) into Your MyAlgo Wallet
 
 1. MyAlgoウォレットを開きます。
 
@@ -48,7 +48,7 @@ ASAを受け取るためには、まずアカウントにそのアセットを�
 
 <img src={addingEuretowallet} alt="ウォレットにEURe追加" />
 
-> この特定のASAを見つけるのに苦労している場合、あなたのウォレットがAlgorandのテストネット（_右上隅_）に接続されていることを確認してください。
+> If you are having trouble finding this particular ASA make sure that your Wallet is connected to the Algorand testnet. We used the EURE testnet token to demonstrate the process. Repeat the same process by changing the network to Mainnet if you want to operate on real funds.
 
 4. アカウント内のアセット・リストに値0のEUReが表示されるまで待ちます。
 
@@ -74,7 +74,7 @@ ASAを受け取るためには、まずアカウントにそのアセットを�
 このチュートリアルでは、プロセスを最もよく見せるために、`EURe`というテストネットASAを使用します。 メインネット・アセットをラッピングもしくはアンラッピングしたい場合は、EUReをMilkomeda A1メインネット・ブリッジでサポートされている他のトークンに置き換えて、このチュートリアルを使用してください。 利用可能なアセットの一覧は「[AlgorandブリッジがサポートするASA](algorand-bridge-supported-asa.mdx)」を参照してください。
 :::
 
-Milkomeda A1ブリッジdApp（[https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/)）にアクセスします。 アセットのラッピングを開始するには、「Network Origin（送信元ネットワーク）」ドロップダウン・メニューから「**Algorand to Milkomeda direction（AlgorandからMilkomedaへ）**」を選択します。 次に、「Select Token（トークン選択）」ドロップダウン・メニューから**適切なトークン (EURe) **を選択します。
+Go to the Milkomeda A1 Bridge DApp at [https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/). アセットのラッピングを開始するには、「Network Origin（送信元ネットワーク）」ドロップダウン・メニューから「**Algorand to Milkomeda direction（AlgorandからMilkomedaへ）**」を選択します。 次に、「Select Token（トークン選択）」ドロップダウン・メニューから**適切なトークン (EURe) **を選択します。
 
 <img src={EURewrappingchoice} className="img-full" alt="EUReをラッピング" />
 
@@ -108,14 +108,14 @@ A1ロールアップに転送したい**テストEUReの数を入力**します�
 
 ### MilkomedaブリッジでAlgorand標準アセットをアンラッピングする
 
-Milkomeda A1ブリッジdApp（[https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/)）にアクセスします。 アセットをアンラッピングするために、「Network Origin（送信元ネットワーク）」ドロップダウン・メニューから「**Milkomeda to Algorand ddirection（MilkomedaからAlgorandへ）**」を選択します。 次に、「Select Token（トークン選択）」ドロップダウン・メニューから**適切なトークン (EURe) **を選択します。
+Go to the Milkomeda A1 Bridge DApp at [https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/). アセットをアンラッピングするために、「Network Origin（送信元ネットワーク）」ドロップダウン・メニューから「**Milkomeda to Algorand ddirection（MilkomedaからAlgorandへ）**」を選択します。 次に、「Select Token（トークン選択）」ドロップダウン・メニューから**適切なトークン (EURe) **を選択します。
 
 <img src={ChooseASAtounwrap} className="img-full" alt="アンラッピングするASA選択" />
 
 Algorandに戻すテストEUReの数を入力します。 「**Next（次へ）**」をクリックすると、「Estimated Fees（予想手数料）」と「Estimated Wrapping Confirmation Time（予想ラッピング確認時間）」が記載された取引概要が表示されます。
 
 :::caution
-EUReを移動するには、MetaMaskウォレットに最低1つのテスト用milkALGOがある必要があります。milkALGOはアンラッピング時にブリッジ手数料が支払われる通貨だからです。
+Remember, you must have a minimum of 1 test mALGO in your MetaMask wallet to move EURe as mALGO is the currency in which Bridge fees are paid when unwrapping.
 :::
 
 「**Sign and Send（署名して送信）**」をクリックすると、あなたのMetaMaskウォレットが表示されます。 あとは、ERC-20の許可を承認する必要があります。
@@ -126,7 +126,7 @@ ERC20許可を与えるとは、簡単に言うと、ユーザーが他のコン
 
 <img src={erc20allowance} alt="ASAアンラッピングの確認" />
 
-MetaMaskでERC-20許可が確認された後、dAppはEVMから許可の承認を受けるのを待ちます。
+After ERC-20 Allowance is confirmed in MetaMask the DApp will wait to receive the allowance approval from the EVM.
 
 <img src={tokenerc20allowance} className="img-full" alt="ASAアンラッピングの確認" />
 
@@ -136,6 +136,6 @@ MetaMaskでERC-20許可が確認された後、dAppはEVMから許可の承認�
 
 <img src={unwrappingreqconfirmation} alt="ASAアンラッピングの確認" />
 
-ASAアンラッピング手順の最後のステップでは、アンラッピング要求を処理するために、1 MILKALGOアンラッピング手数料をバリデーターに支払う必要があります。
+In the last step of the ASA unwrapping procedure a 1 mALGO unwrapping fee must be paid to the validators to process the unwrapping request.
 
 **おめでとうございます！**これでMilkomeda AlgorandロールアップからAlgorandへASAのラッピングを解除することができました！
