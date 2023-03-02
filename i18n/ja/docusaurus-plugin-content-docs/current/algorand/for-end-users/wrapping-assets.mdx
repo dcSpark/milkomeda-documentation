@@ -9,19 +9,20 @@ import wrapsuccess from "@site/static/img/wrapsuccess.png";
 
 # 資産のラッピング
 
-**Algorand（メインチェーン）からMilkomeda A1ロールアップにアセットを転送**するためには、専用のブリッジdAppを使用する必要があります。 A1ロールアップにアセットをラッピングするには、Milkomeda A1ブリッジdApp（[https://algorand-bridge.milkomeda.com/](https://algorand-bridge.milkomeda.com/)）にアクセスしてください。
+In order to **transfer assets from Algorand (mainchain) to the Milkomeda A1 Rollup**, you need to use dedicated Bridge DApp. A1ロールアップにアセットをラッピングするには、Milkomeda A1ブリッジdApp（[https://algorand-bridge.milkomeda.com/](https://algorand-bridge.milkomeda.com/)）にアクセスしてください。
 
-アセット・ラッピングを開始するには、「Network Origin（送信元ネットワーク）」ドロップダウン・メニューから**AlgorandからMilkomeda**への方向を選択します。 次に、「Select Token（トークン選択）」ドロップダウン・メニューから、ラッピングしたいトークン（このチュートリアルでは、ALGOを使用します）を選択します。
-
+アセット・ラッピングを開始するには、「Network Origin（送信元ネットワーク）」ドロップダウン・メニューから**AlgorandからMilkomeda**への方向を選択します。 次に、「Select Token（トークン選択）」ドロップダウン・メニューから、ラッピングしたいトークン（このチュートリアルでは、ALGOを使用します）を選択します。 :::note  
+To facilitate the process of bridging testnet assets, first you need to switch the network in DApp's navbar to the desired network for bridging. Additionally, you also need to change the network in your Metamask to the same network as selected in the DApp.
+:::
 <img src={dappselectorigin} className="img-full" alt="ラッピングの確認" />
 
 次に、MyAlgoウォレットとMetaMaskウォレットにログインします。
 
-1. 送信元側の「Connect Wallet（ウォレット接続）」をクリックすると、MyAlgoウォレット（最近Peraウォレットもサポートされました）が、パスワードの入力とdAppに接続するアカウントの確認を要求します。 利用可能なALGOの残高は、「Select Token（トークン選択）」欄の下に表示されます。
+1. Click “Connect Wallet” on the Origin side and your MyAlgo wallet (we recently added support for Pera wallet too) will require you to enter your password and confirm which account to connect to the DApp. 利用可能なALGOの残高は、「Select Token（トークン選択）」欄の下に表示されます。
 
 2. dAppの送信先側にある「Connect Wallet（ウォレット接続）」をクリックすると、Metamaskウォレットはネットワークを（まだ接続していない場合は）Milkomeda A1ネットワークに切り替えるかどうか確認を求めてきます。
 
-A1ロールアップに転送したい**ALGOの数を入力**します（残高全体を送信したい場合は「Max（最大）」をクリックすると、ブリッジが送信できる最大額から取引手数料を差し引いた額を計算します）。
+**Enter how many ALGOs** you want to transfer to the A1 Rollup (if you want to send your whole balance click “Max” to have the bridge calculate the maximum amount you can send minus the transaction fee).
 
 **「Next（次へ）」をクリック**すると、「Estimated Fees（予想手数料）」と「Estimated Wrapping Confirmation Time（予想ラッピング確認時間）」を含む取引概要が表示されます。
 
@@ -29,11 +30,7 @@ A1ロールアップに転送したい**ALGOの数を入力**します（残高�
 
 **「Sign and Send（署名して送信）」をクリック**し、ウォレット・パスワードを入力し、「Confirm（確認）」をクリックしてください。 あなたのトークンがブリッジに送られ、ラッピングされ、Milkomeda Algorand A1ロールアップのあなたのMetaMaskウォレットに送られるのを見守りましょう。 パスワードの確認に約20秒かかる場合があります。
 
-:::info
-Remember that transactions from the Rollup are written to the Algorand blockchain itself. So one confirmation is for sending funds from the wallet to the bridge address and the second confirmation is for the rollup batch transaction on Algorand.
-
-
-:::
+:::info Remember that transactions from the Rollup are written to the Algorand blockchain itself. So one confirmation is for sending funds from the wallet to the bridge address and the second confirmation is for the rollup batch transaction on Algorand.
 
 送信に必要な確認は全部で2回で、約20秒かかります（Algorandでは4.5秒、Rollupのバッチでは約14秒かかります）。 トランザクションが確認されると、送金されたMilkALGOはMetaMaskのMilkomeda Algorandウォレットに表示されるはずです。
 
@@ -45,4 +42,4 @@ Remember that transactions from the Rollup are written to the Algorand blockchai
 
 **おめでとうございます！**あなたは今、Ethereumエコシステム以外の最初のロールアップにあなたのトークンをラッピングしました！
 
-さて、Milkomeda A1 Algorandロールアップで使用するためにALGOをMilkALGOにラッピングすることに成功したので、次のステップは、Milkomeda A1ロールアップからAlgorandへの資産の移動です。
+Now that we have successfully wrapped ALGO into mALGO, for use on the Milkomeda A1 Algorand Rollup, let's see how to move assets from Milkomeda A1 Rollup to Algorand.
