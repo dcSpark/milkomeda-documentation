@@ -1,11 +1,15 @@
 # エンドユーザー向け
-
-**Milkomedaは、EVMの機能を非EVMのブロックチェーンに提供することで、ブロックチェーンの相互運用性を向上させるために設計されたプロトコルです。**これは、EVMが動作するロールアップなどのレイヤー2（L2）スケーリング・ソリューションを構築し、これをパーミッションレス・ブリッジを介して非EVMブロックチェーンのレイヤー1（L1）に接続することで実現します。
+:::info
+Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Algorand blockchain.
+:::  
+**Milkomeda is a protocol designed to improve blockchain interoperability by delivering EVM capabilities to non-EVM blockchains.** This is done by building layer 2 (L2) scaling solutions such as rollups, on which the EVM operates, and connecting these to the non-EVM blockchains, layer 1 (L1), via a permission-less bridge.
 
 ロールアップは「レイヤー2」のチェーンと表現されます。 ロールアップは「レイヤー2」のチェーンと表現されます。レイヤー2とは、レイヤー1またはメインチェーンと呼ばれる既存のブロックチェーンの上に存在するため、レイヤー1のネイティブでビルトインされたプロパティを利用できることを意味します。
 
-**Milkomeda A1ロールアップは、料金やガスの支払いにMilkALGOをベース・アセットとして使用します。**ロールアップにアクセスするには、MetaMaskウォレットと同様に、いくつかの$ALGOを持つAlgorandのネイティブ・ウォレットが必要です。
+**The Milkomeda A1 Rollup uses mALGO as its base asset for paying fees and gas.** To access the A1 Rollup Mainnet, you will need a Algorand native wallet with some $ALGO, as well as the EVM-Compatible wallet such as MetaMask.
 
-次のページでは、MyAlgoウォレットの作成、Milkomeda A1アドレスの取得のためのMetaMaskの設定、そして最後にMilkomeda AlgorandロールアップでMilkALGOに変換するためのALGOを送信する手順を説明します。 このチュートリアルでは、アンラッピングと呼ばれるプロセスでAlgorandに資金を戻す方法も学びます。 さらに、Algorand 標準アセット（ASA）とは何か、そしてこれらの資産をメインチェーン（Algorand）とロールアップ（Milkomeda）の間で移動するために準備する必要があることについても説明します。
+In the following pages we will walk through the steps to create a MyAlgo wallet, configure MetaMask to get a Milkomeda A1 Mainnet address, and, finally, to send ALGOs to be converted into mALGO on Milkomeda Algorand Rollup. このチュートリアルでは、アンラッピングと呼ばれるプロセスでAlgorandに資金を戻す方法も学びます。
 
-最初のステップは、Algorand上にネイティブ・ウォレットを設定することです。 MyAlgoウォレットを使用します（Peraウォレットを設定することもでき、これを使用するとスマートフォンを使用してdAppと対話することができます）。 次のページに移動して、手順を開始しましょう。
+In addition, we'll talk about what **Algorand Standard Assets (ASAs)** are and what you need to do to prepare to move these assets between the mainchain (Algorand) and the Rollup (Milkomeda).
+
+最初のステップは、Algorand上にネイティブ・ウォレットを設定することです。 In this tutorial we will use the MyAlgo wallet (you can also configure Pera Wallet, and with this you can interact with the DApp using a smartphone). 次のページに移動して、手順を開始しましょう。
