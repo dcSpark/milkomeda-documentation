@@ -9,35 +9,31 @@ import addressBar from "@site/static/img/address-bar-link.png";
 import searchBox from "@site/static/img/search-box-blockscout.png";
 
 # Unwrapping Assets
-
-Unwrapping asset can be performed either within the Flint wallet or through the Milkomeda Cardano Unwrap Bridge.
+When it comes to unwrapping assets in the Milkomeda Cardano Sidechain (C1) ecosystem, there are two main options: using the [Flint Wallet](https://flint-wallet.com/) or the [Milkomeda Cardano Unwrap Bridge](https://cardano-bridge.milkomeda.com/bridge). In this tutorial, we'll guide you through both options so you can choose the one that works best for you.
 
 ## Flint Wallet
+To perform the asset unwrapping, use the **SEND** function on the wallet screen.
 
 ![Flint Homescreen](/img/flint-home-screen.png)
 
-To perform the asset unwrapping, use the **SEND** function on the wallet screen.
+To begin, toggle on the **Milkomeda Mode (Beta)** and choose Milkomeda C1 asset from the token select dropdown. Next, input the recipient's Cardano address in the designated box, followed by the desired amount. Lastly, click on the **CONTINUE** button to proceed to the confirmation screen.
 
 ![Flint Input](/img/unwrappingflintinput.png)
 
-
-Select the asset from the Milkomeda chain in the first input box, and enable the **Milkomeda Mode (Beta)** toggle. Then enter the destination Cardano address in the second input box, the Receiver’s address, and finally the desired amount. To continue to the confirmation screen, press **CONTINUE**.
-
-  
+The confirmation screen provides an opportunity to review critical details, including the "from" and "to" addresses, as well as the network fee. It's worth noting that the total fee comprises both the base fee and Milkomeda fee since the transaction occurs on both the Milkomeda C1 chain and Cardano. Take a moment to double-check the information before proceeding.
 
 ![Confirm Transaction](/img/unwrapping-confirm-transaction.png)
 
-On the confirmation screen one can check the “from” and the “to” addresses and the network fee. Notice here that the total fee is broken down into base fee and Milkomeda fee, since there will a transaction both on the Milkomeda C1 chain and on Cardano.
-
-After entering the wallet password and pressing the **SEND** button, the transaction(s) will be sent.
+After entering the wallet spending password and pressing the **SEND** button, the transaction(s) will be sent.
 
 
 ![Transaction Submitted](/img/unwrapping-transaction-submitted.png)
 
-For more info, the user can either follow the link to view the transaction on the Blockscount explorer on the confirmation screen or navigate to the “Activity” section on the footer to see the transaction in the list. Clicking on the transaction will show two links, one to view the transaction on the explorer on the Milkomeda chain and another for Cardano.
+If you need more information, there are two ways to access it. You can follow the link on the confirmation screen to view the transaction on Blockscount explorer or navigate to the "Activity" section in the footer to find the transaction on the list. Clicking on the transaction will provide two links, one for viewing the transaction on the Milkomeda chain explorer and the other for Cardano.
 
 
 ![Transaction List](/img/unwrapping-transaction-list.png)
+
 
 ## Milkomeda Cardano Unwrap Bridge
 
@@ -106,5 +102,5 @@ The unwrapping process is now complete. After waiting for the necessary transact
 ![Flint transactions page](/img/flint-transactions.png)
 
 :::info
-To check the available list of tokens that can be unwrapped, go to [**Cardano Bridge Supported Native Assets**](./cardano-bridge-supported-native-assets) section.
+To check the available list of tokens that can be unwrapped, go to [**Cardano Bridge Supported Native Assets**](https://bridge-explorer.milkomeda.com/cardano-mainnet/tokens) tab in Bridge Explorer.
 :::
