@@ -9,7 +9,7 @@ const config = {
   title: "Milkomeda",
   //  tagline: 'Getting started',
   url: "https://dcspark.github.io",
-  baseUrl: "/milkomeda-documentation/",
+  baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.svg",
@@ -69,6 +69,22 @@ const config = {
           // Remove this to remove the "edit this page" links.
           // editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
+        pages: {
+          path: 'src/pages',
+          routeBasePath: '/',
+          include: ['**/*.{js,jsx,ts,tsx,md,mdx}'],
+          exclude: [
+            '**/_*.{js,jsx,ts,tsx,md,mdx}',
+            '**/_*/**',
+            '**/*.test.{js,jsx,ts,tsx}',
+            '**/__tests__/**',
+          ],
+          mdxPageComponent: '@theme/MDXPage',
+          //remarkPlugins: [require('remark-math')],
+          rehypePlugins: [],
+          beforeDefaultRemarkPlugins: [],
+          beforeDefaultRehypePlugins: [],
+        },        
         blog: false,
         // blog: {
         //   showReadingTime: true,
@@ -113,13 +129,31 @@ const config = {
           //   type: "doc",
           //   docId: "intro",
           //   position: "left",
-          //   label: "Tutorial",
+          //   label: "Home",
           // },
-          // { to: "/blog", label: "Blog", position: "left" },
+          {
+            type: 'docSidebar',  // docSidebar
+            position: 'left',
+            sidebarId: 'developers', // foldername
+            label: 'Developers',     // navbar title
+          },
+          {
+            type: 'docSidebar',  // docSidebar
+            position: 'left',
+            sidebarId: 'use_milkomeda', // foldername
+            label: 'Use Milkomeda',     // navbar title
+          },
+          {
+            type: 'docSidebar',  // docSidebar
+            position: 'left',
+            sidebarId: 'programs', // foldername
+            label: 'Programs',     // navbar title
+          },
           // {
-          //   href: "https://github.com/facebook/docusaurus",
-          //   label: "GitHub",
-          //   position: "right",
+          //   type: "doc",
+          //   docId: "intro",
+          //   position: "left",
+          //   label: "Programs",
           // },
         ],
       },
