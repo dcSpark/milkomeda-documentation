@@ -9,6 +9,19 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('../fonts/Manrope-Regular.ttf');
+}
+
+.img-center {
+  display: flex;
+  justify-content: center;
+  width: 100%,
+  }
+
+
 :root {
   --ifm-color-primary: #356ddb;
   --ifm-color-primary-dark: #356ddb;
@@ -28,6 +41,8 @@
   --ifm-navbar-padding-horizontal: 16px;
   --tabs-bg-active: white;
   --tabs-text-inactive: rgb(156 163 175);
+  --ifm-font-family-base: 'Manrope';
+  
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
