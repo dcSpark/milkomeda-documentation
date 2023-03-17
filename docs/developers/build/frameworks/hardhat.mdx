@@ -1,0 +1,92 @@
+---
+sidebar_position: 1
+description: This description will override the default.
+---
+
+
+# Hardhat
+
+Initialize a Hardhat project in an empty folder:
+
+```bash
+yarn init
+yarn add --dev hardhat
+npx hardhat
+```
+
+
+Create a contract in the contracts folder
+
+Compile the contract:
+
+```bash
+npx hardhat compile
+```
+
+
+Edit hardhat.config.js to add the desired Milkomeda chain and your funded test account:
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="c1" label="C1" default>
+
+```
+require("@nomicfoundation/hardhat-toolbox");
+
+const TESTNET_API_KEY = "<PRIVATE_KEY>";
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: "0.8.17",
+  networks: {
+    c1_testnet: {
+      url: `https://rpc-devnet-cardano-evm.c1.milkomeda.com`,
+      accounts: [TESTNET_API_KEY]
+    }
+  }  
+};
+```
+
+
+  </TabItem>
+  <TabItem value="a1" label="A1">
+    This is a banana 🍌
+  </TabItem>
+  <TabItem value="c1-testnet" label="C1 Testnet">
+    This is an orange 🍊
+  </TabItem>
+  <TabItem value="a1-testnet" label="A1 Testnet">
+    This is a banana 🍌
+  </TabItem>
+</Tabs>
+
+
+
+
+
+Create a file named deploy.js in the scripts folder:
+
+```
+const hre = require("hardhat");
+
+async function main() {
+    const WinnerDraw = await hre.ethers.getContractFactory("WinnerDraw");
+    const winnerDraw = await WinnerDraw.deploy();
+    await winnerDraw.deployed();
+    console.log(`WinnerDraw contract deployed to ${winnerDraw.address}`);
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
+```
+
+Run the deployment script on C1 testnet:
+
+```
+npx hardhat run scripts/deploy.js --network c1_testnet
+```

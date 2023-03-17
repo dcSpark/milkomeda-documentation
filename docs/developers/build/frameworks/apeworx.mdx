@@ -1,0 +1,62 @@
+
+# ApeworX
+
+Plugins are core to ApeworX’s architecture and to add a new network, it has to be bundled into a plugin. Luckily, dcspark has developed a plugin (ape-milkomeda)  to allow Apeworx to connect to A1 and C1, mainnet and testnet.
+
+Download is available at…
+
+Steps
+Install the ape-milkomeda plugin to have the milkomeda chains available in the ApeworX network list.
+
+Either download the repo and install from source:
+
+```
+git glone https://github.com/dcspark/ape-milkomeda
+cd ape-milkomeda
+pip install .
+```
+
+or install from the pypi repository (I have finished plugin but it’s only on my pc):
+
+```
+pip install ape-milkomeda
+```
+
+
+Initialize an ape project in an empty folder:
+
+```
+ape init
+```
+
+Copy the WinnerDraw.sol to the contracts folder.
+Compile the contract:
+
+```
+ape compile
+```
+
+Import your account to ApeworX account list:
+
+```
+ape accounts import <ALIAS>
+```
+
+(you will be prompted for the private key and a passphrase to encrypt it)
+
+
+Create a file names deploy.py in the scripts folder:
+
+```
+from ape import project, accounts
+
+def main():
+    signer = accounts.load('test')
+    winnerDraw = signer.deploy(project.WinnerDraw)
+```
+
+Run the deployment script on C1 testnet:
+
+```
+ape run deploy --network milkomeda:c1-testnet
+```

@@ -1,0 +1,29 @@
+# Forge
+
+Initialize an ape project in an empty folder:
+
+```bash
+forge init .
+```
+
+
+Compile the contract:
+
+```bash
+forge build
+```
+
+Create a file named .env with the private key of the funded account:
+
+```
+PRIVATE_KEY=<PRIVATE_KEY>
+```
+
+Run the deployment script on C1 testnet:
+
+```bash
+source .env
+forge create --legacy --rpc-url  https://rpc-devnet-cardano-evm.c1.milkomeda.com --private-key $PRIVATE_KEY src/WinnerDraw.sol:WinnerDraw
+```
+
+(Notice the -–legacy is necessary since milkomeda chains have not yet implemented EIP-1559)
