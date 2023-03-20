@@ -1,0 +1,98 @@
+---
+sidebar_label: "Canonical Smart Contracts"
+sidebar_position: 4
+---
+
+import img1 from "@site/static/img/integrate_canonical_sc/image1.png";
+
+
+# How to integrate Canonical Smart Contracts
+
+
+## Context
+
+Bridges are an essential part of the Milkomeda ecosystem, as they allow users to move different assets from Cardano and Algorand to Milkomeda C1 and A1 so they can enjoy the benefits of the Layer 2 solutions. However, the existence of multiple bridges to bridge the sames assets, results in the fragmentation of assets since each bridge will have its own version of the wrapped asset.
+
+Taking USDC as an example, the Celer Bridge will wrap the asset as ceUSDC while Multichain will wrap the asset as multiUSDC, although both tokens represent the same asset.
+
+This creates two perfectly identified but undesirable issues, which are liquidity fragmentation of each bridged asset and poor user experience, especially for new users who are less knowledgeable about the reason and meaning of the different variants of the wrapped tokens.
+
+On the issue of liquidity fragmentation, this can refer to fragmentation across different DEXes, which is not necessarily undesirable nor avoidable, but more importantly, it can also refer to the fragmentation of liquidity between the different wrapped alternatives of the same asset.
+
+The following table shows a snapshot of the TVL for pairs of USDC/mADA across different DEXes at some moment in January 2023. 
+
+
+| Pair | OCCAMX | MuesliSwap | milkySwap | Blueshift* |
+|---|---|---|---|---|
+| sUSDC / mADA | $216,122 | $35,765 | | |
+|ceUSDC / mADA | $15,089 | $13,684 | $3,591 | $5,251 |
+| multiUSDC / mADA | $25,807 | | $22,914 | $8,808 |
+
+*Blueshift has multiasset pools and not pairs
+
+The important thing to note is that each individual pool will obviously be smaller than the sum, which means that a user swapping ceUSDC/mADA on any given pool, will experience a higher slippage than if the liquidity was concentrated in one single pool of USDC/mADA.
+
+On the issue of user experience, a meaningful example would be a user that wants to swap mADA for some USDC on OccamX. He will be presented will the following results to choose from if selecting a token and filtering by USDC:
+
+
+   <img
+     src={img1}
+     className="img-full"
+     alt=""
+   />
+
+
+There is no issue with the UI/UX of OccamX and the problem here is that the user would have to choose which of the versions of the assets that he wants.
+
+Another aspect that normally comes about when thinking about blockchain bridges is the possibility of hacks. Users of a given bridge, and that hold its wrapped assets, have exposure to that particular, and the choice of one bridge versus another can turn out to be a bad one whenever there is a hack. But what if users could be indifferent to the particular bridge they chose when bridging their assets?
+
+
+## Canonical Smart Contracts
+
+A proposed solution for the issues listed above are Canonical Smart Contracts, which allow different versions of a given asset to be merged into one canonical version.
+
+Canonical Smart Contracts for token merger are essentially two contracts, the TokenMerger implemented through an ERC1967Proxy and is ownable, and the CanonicalToken, an ERC20 that serves as the canonical version of fragmented ERC20 and that can only be minted by the TokenMerger contract (the proxy).
+
+In short, the TokenMerger acts as a conversion contract between the different versions of a given asset - let’s call them Fragmented Tokens - and the Canonical version of that same asset. The TokenMerger has a whitelist for each asset of the Fragmented Tokens that are allowed to be converted.
+
+This would allow a single version of the asset to exist, in order to solve the issues of liquidity fragmentation among different tokens and therefore also solving the poor user experience.
+
+As for the problem arising from user exposure to a given bridge, the Canonical Smart Contracts aim to mitigate that problem by “diversifying” that risk. By having each Canonical version of an asset backed by several bridges, any hack on an individual bridge will only impact the canonical contract in its’ relative proportion. Let’s imagine there is a cap of 1,000,000 USDC for USDC as an asset and there are 5 bridges of equal size. The max amount of exposure per bridge is 200k. So if one bridge gets hacked then 1 USDC is going to be worth 0.8 USDC.
+
+The diversification by itself is already a risk mitigator but the Canonical Smart Contract goes one step further. Each end action has a small fee associated with it, which tops up a treasury account per canonical asset in the TokenMerger. This balance will act as “insurance” in case of a hack.
+
+
+## The TokenMerger
+
+The TokenMerger is a canonical converter smart contract that holds a whitelist of fragmented assets (ERC20s) coming from different bridges, and that can be submitted by users to then receive a canonical version of the asset. Every conversion charges a commission which is being collected to the `commissionTreasury`. The main contract is only the implementation contract and should be used with the `TokenMergerProxy`.
+
+The TokenMergerProxy is initiated with the implementation contract, an admin which can be a multisig contract, the blockstoWait parameter, which is the number of blocks that have to be mined before the conversion protocol is activated, and two parameters related to the commissions (percentage and decimals).
+
+
+```javascript
+contract TokenMergerProxy is ERC1967Proxy {
+    constructor(
+        address implementation,
+        address admin,
+        uint256 blocksToWait,
+        uint256 commissionPercentage,
+        address sanctionsList
+    )
+        ERC1967Proxy(
+            implementation,
+            abi.encodeWithSignature(
+                "initialize(uint256,uint256,address)",
+                blocksToWait,
+                commissionPercentage,
+                sanctionsList
+            )
+        )
+    {
+        _changeAdmin(admin);
+    }
+}
+```
+
+The TokenMerger stores the main information in an array and two mappings.
+
+(...)
