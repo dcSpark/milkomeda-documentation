@@ -1,0 +1,63 @@
+---
+sidebar_position: 1
+---
+
+import { changeNetwork } from './networks'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Networks
+
+Milkomeda is a groundbreaking new protocol that brings EVM capabilities to non-EVM blockchains. As development progresses, Milkomeda will expand to offer L2 solutions (rollups) for several major blockchains including Cardano, Solana, and Algorand. Currently we have an EVM-based sidechain connected to Cardano - Milkomeda C1 and EVM-based Rollup connected to Algorand - Milkomeda A1.
+
+
+## Add Milkomeda Chains to Metamask
+
+
+<Tabs>
+  <TabItem value="c1" label="C1 Mainnet" default>
+
+**Network Name:** Milkomeda Cardano (C1)<br></br>
+**RPC URL:** https://rpc-mainnet-cardano-evm.c1.milkomeda.com<br></br>
+**Chain ID:** 2001<br></br>
+**Currency Symbol:** milkADA<br></br>
+**Block Explorer URL:** https://explorer-mainnet-cardano-evm.c1.milkomeda.com    
+
+<button onClick={() => changeNetwork('c1')}  className='button button--secondary'>Add C1 to Metamask</button>
+
+  </TabItem>
+  <TabItem value="c1-testnet" label="C1 Testnet">
+
+**Network Name:** Milkomeda Cardano Testnet<br></br>
+**RPC URL:** https://rpc-devnet-cardano-evm.c1.milkomeda.com<br></br>
+**Chain ID:** 200101<br></br>
+**Currency Symbol:** milkTADA<br></br>
+**Block Explorer URL:** https://explorer-devnet-cardano-evm.c1.milkomeda.com<br></br>
+
+<button onClick={() => changeNetwork('c1_testnet')}  className='button button--secondary'>Add C1 Testnet to Metamask</button>
+
+  </TabItem>
+  <TabItem value="a1" label="A1 Mainnet">
+
+**Network Name:** Milkomeda Algorand mainnet<br></br>
+**RPC URL:** https://rpc-mainnet-algorand-rollup.a1.milkomeda.com<br></br>
+**Chain ID:** 2002<br></br>
+**Currency Symbol:** milkAlgo<br></br>
+**Block Explorer URL:** https://explorer-mainnet-algorand-rollup.a1.milkomeda.com<br></br>
+
+<button onClick={() => changeNetwork('a1')}  className='button button--secondary'>Add A1 to Metamask</button>
+
+  </TabItem>
+  <TabItem value="a1-testnet" label="A1 Testnet">
+
+**Network Name:** Milkomeda Algorand Testnet<br></br>
+**RPC URL:** https://rpc-devnet-algorand-rollup.a1.milkomeda.com<br></br>
+**Chain ID:** 200202<br></br>
+**Currency Symbol:** milkTALGO<br></br>
+**Block Explorer URL:** https://testnet-algorand-rollup.a1.milkomeda.com<br></br>
+
+<button onClick={() => changeNetwork('a1_testnet')}  className='button button--secondary'>Add A1 Testnet to Metamask</button>
+
+  </TabItem>
+</Tabs>
+
