@@ -21,3 +21,4 @@ yarn-error.log*
 
 # Crowdin
 # website/i18n
+.vercel
