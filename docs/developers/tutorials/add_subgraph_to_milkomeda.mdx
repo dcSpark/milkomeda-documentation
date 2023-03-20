@@ -1,0 +1,122 @@
+# Adding subgraph to Milkomeda
+
+Requirements:
+- Postgres DATABASE
+- IPFS
+- Subgraph Node
+- Local Ganache
+
+
+Docker
+
+```
+version: '3'
+services:
+  ipfs:
+    image: ipfs/go-ipfs:v0.10.0
+    ports:
+      - '5001:5001'
+    volumes:
+      - ./data/ipfs:/data/ipfs
+  postgres:
+    image: postgres
+    ports:
+      - '5432:5432'
+    command:
+      [
+        "postgres",
+        "-cshared_preload_libraries=pg_stat_statements"
+      ]
+    environment:
+      POSTGRES_USER: thegraph
+      # POSTGRES_PASSWORD: 
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: graph-node-dev
+      PGDATA: "/var/lib/postgresql/data"
+      POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+
+  graph-node:
+    image: graphprotocol/graph-node:6499d38
+    ports:
+      - '8000:8000'
+      - '8001:8001'
+      - '8020:8020'
+      - '8030:8030'
+      - '8040:8040'
+    depends_on:
+      - ipfs
+      - postgres
+    extra_hosts:
+      - 192.168.80.1:host-gateway
+    environment:
+      postgres_host: postgres
+      postgres_user: thegraph
+      # postgres_pass: let-me-in
+      postgres_db: graph-node-dev
+      ipfs: 'ipfs:5001'
+      ethereum: 'mainnet:https://rpc-devnet-cardano-evm.c1.milkomeda.com'
+      GRAPH_LOG: info
+      # ethereum: 'milkomeda:https://rpc-devnet-algorand-rollup.a1.milkomeda.com'
+```
+
+
+
+
+
+Manual
+
+step 1: create a postgresql user thegraph and a db e.g. graph-node-dev
+
+
+CREATE DATABASE "graph-node-dev"
+  WITH ENCODING='UTF8'
+  LC_COLLATE='C'
+  LC_CTYPE='C'
+  TEMPLATE=template0;
+
+
+create extension pg_trgm;
+create extension pg_stat_statements;
+create extension btree_gist;
+create extension postgres_fdw;
+grant usage on foreign data wrapper postgres_fdw to thegraph;
+
+GRANT ALL PRIVILEGES ON DATABASE "graph-node-dev" to thegraph;
+
+step 2: install ipfs and other stuff required from here https://github.com/graphprotocol/graph-node#running-a-local-graph-node
+
+
+step 3: run ipfs daemon and then thegraph using
+
+ipfs daemon
+
+
+cargo run -p graph-node --release -- \
+  --postgres-url postgresql://thegraph:thegraph@localhost:5432/graph-node-dev \
+  --ethereum-rpc "Milkomeda C1 Devnet":"archive":https://rpc-devnet-cardano-evm.c1.milkomeda.com \
+  --ipfs 127.0.0.1:5001
+
+
+step 4: clone the required subgraph e.g. compound-v2-graph https://github.com/compound-finance/compound-v2-subgraph
+nvm use 14 (it requires node 14 afaik)
+modify subgraph.yaml and add Milkomeda C1 Devnet (or whatever name we used in the previous graph-node execution. Also use the contract address deployment
+
+
+
+
+Docker
+
+
+
+
