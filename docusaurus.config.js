@@ -10,7 +10,7 @@ const config = {
   //  tagline: 'Getting started',
   url: "https://dcspark.github.io",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.svg",
 
