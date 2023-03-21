@@ -178,7 +178,22 @@ npx hardhat run scripts/deploy.ts --network ganache
 
 ## Configure Subgraph
 
-In the root folder, create a file named `subgraph.yaml` with the required config
+TODO: (install packages)
+
+
+```
+yarn add @graphprotocol/graph-cli @graphprotocol/graph-ts
+```
+
+
+To deploy a subgraph to our local graph-node we will need three files:
+- `subgraph.yaml` - for the subgraph parameters
+- `schema.graphql` - to define the subgraph entities
+- `mappings.ts` - to define the indexing logic. Basically how the blockchain events get mapped to the entities
+
+There are several ways to store these files, but we will create `subgraph.yaml` in the root folder of our project and then create a folder called `subgraph` for the `schema.graphql` and `mappings.ts`
+
+First, create a file named `subgraph.yaml` with the required config:
 
 ```yaml
 specVersion: 0.0.5
@@ -248,7 +263,7 @@ main().catch((error) => {
 ```
 
 
-Now let's create our `schema.graphql` in a folder called `subgraph`.
+Now let's create our `schema.graphql` in the `subgraph` folder.
 
 ```
 type StoredValue @entity {
@@ -265,6 +280,7 @@ type User @entity {
 ```
 
 We are creating two entities, the StoredValue and the User.
+
 
 We'll also create a file called `mappings.ts` in the `subgraph` folder.
 
@@ -292,73 +308,115 @@ export function handleChangeNumber(event: ChangeNumber): void {
 }
 ```
 
+TODO: (create typings)
 
 ```
 graph codegen --output-dir subgraph/types/
 ```
 
+TODO: (create & deploy subgraph)
 
 
+```
+graph create milkomeda/subgraph_tutorial --node http://127.0.0.1:8020
 
-
-
-
-
-
-
-
-
-
-
-```bash
-yarn add @graphprotocol/graph-ts
+graph deploy milkomeda/subgraph_tutorial --ipfs http://localhost:5001  --node http://localhost:8020 --output-dir artifacts/subgraph -l 0.1
 ```
 
 
 
-Manual
+After successfully creating and deployment of the subgraph, a link will be shown in the terminal to access the GraphQL frontend interface. It should be something like [http://localhost:8000/subgraphs/name/milkomeda/subgraph_tutorial](http://localhost:8000/subgraphs/name/milkomeda/subgraph_tutorial)
 
-step 1: create a postgresql user thegraph and a db e.g. graph-node-dev
+At the moment, if you query all records of the entity User and StoredValue, the results will be empty, because there have been to transactions to be indexed.
+
+The query to get all results would be:
+
+```
+{
+  users {
+    id
+  }
+  storedValues {
+    id
+    oldValue
+    newValue
+    caller {
+      id
+    }
+  }
+}
+```
+
+And the results would be:
+
+```
+{
+  "data": {
+    "users": [],
+    "storedValues": []
+  }
+}
+```
+
+But now let's call the contract to store a new value. Create a file names `callContract.ts` in the scripts folder with the following. We can read the contract address from the `subgraph.yaml` file just to be sure we are using the same contract.
+
+```javascript
+const hre = require("hardhat");
+const yaml = require('js-yaml');
+const fs = require('fs');
+
+async function main() {
+    const FILENAME = 'subgraph.yaml'
+    let doc = yaml.load(fs.readFileSync(FILENAME, 'utf-8'));
+    const contractAddress = doc.dataSources[0].source.address;
+
+    const storage = await hre.ethers.getContractAt("Storage", contractAddress);
+    const res = await storage.store(5);
+    console.log("Trx hash:", res.hash);
+}
+
+main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
+```
+
+Then, run:
+
+```
+npx hardhat run scripts/callContract.ts --network ganache
+```
+
+If we run the query again, the event emitted be the contract call should have been indexed. And here is the result:
+
+```
+{
+  "data": {
+    "users": [
+      {
+        "id": "0x1e59ce931b4cfea3fe4b875411e280e173cb7a9c"
+      }
+    ],
+    "storedValues": [
+      {
+        "id": "1679441122",
+        "oldValue": "0",
+        "newValue": "5",
+        "caller": {
+          "id": "0x1e59ce931b4cfea3fe4b875411e280e173cb7a9c"
+        }
+      }
+    ]
+  }
+}
+```
 
 
-CREATE DATABASE "graph-node-dev"
-  WITH ENCODING='UTF8'
-  LC_COLLATE='C'
-  LC_CTYPE='C'
-  TEMPLATE=template0;
+## Deploying a Subgraph for Milkomeda Chains
 
+After testing that our contract and subgraph are working well together, we can deploy to a testnet.
+The changes required to deploy to Milkomeda A1 Testnet, for example, are very simple.
 
-create extension pg_trgm;
-create extension pg_stat_statements;
-create extension btree_gist;
-create extension postgres_fdw;
-grant usage on foreign data wrapper postgres_fdw to thegraph;
-
-GRANT ALL PRIVILEGES ON DATABASE "graph-node-dev" to thegraph;
-
-step 2: install ipfs and other stuff required from here https://github.com/graphprotocol/graph-node#running-a-local-graph-node
-
-
-step 3: run ipfs daemon and then thegraph using
-
-ipfs daemon
-
-
-cargo run -p graph-node --release -- \
-  --postgres-url postgresql://thegraph:thegraph@localhost:5432/graph-node-dev \
-  --ethereum-rpc "Milkomeda C1 Devnet":"archive":https://rpc-devnet-cardano-evm.c1.milkomeda.com \
-  --ipfs 127.0.0.1:5001
-
-
-step 4: clone the required subgraph e.g. compound-v2-graph https://github.com/compound-finance/compound-v2-subgraph
-nvm use 14 (it requires node 14 afaik)
-modify subgraph.yaml and add Milkomeda C1 Devnet (or whatever name we used in the previous graph-node execution. Also use the contract address deployment
-
-
-
-
-Docker
-
-
-
-
+From the current setup, ...
