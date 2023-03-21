@@ -1,0 +1,220 @@
+---
+sidebar_label: "EVM-Based dApp on Algorand TS"
+sidebar_position: 2
+---
+
+
+
+import img1 from "@site/static/img/evm_based_dapp_algorand/image1.png";
+import img2 from "@site/static/img/evm_based_dapp_algorand/image2.png";
+import img3 from "@site/static/img/evm_based_dapp_algorand/image3.png";
+import img4 from "@site/static/img/evm_based_dapp_algorand/image4.png";
+import img5 from "@site/static/img/evm_based_dapp_algorand/image5.png";
+import img6 from "@site/static/img/evm_based_dapp_algorand/image6.png";
+import img7 from "@site/static/img/evm_based_dapp_algorand/image7.png";
+import img8 from "@site/static/img/evm_based_dapp_algorand/image8.png";
+import img9 from "@site/static/img/evm_based_dapp_algorand/image9.png";
+import img10 from "@site/static/img/evm_based_dapp_algorand/image10.png";
+
+
+
+# EVM-Based dApp on Algorand With Milkomeda A1
+
+In this article, we will show how simple it is to deploy an EVM-based dApp on Algorand-Milkomeda A1, using mostly Typescript.
+
+Milkomeda is a new protocol that brings EVM capabilities to non-EVM blockchains. At the time of writing, there are L2 solutions for Algorand, through the EVM-based Rollup Algorand-Milkomeda A1, and Cardano, through the EVM-based sidechain Cardano-Milkomeda C1.
+
+The A1 Rollup uses wrapped ALGOs (milkALGOs) as its base currency, which can be easily bridged using the Milkomeda permission-less bridge. Users can wrap their ALGOs and other Algorand native assets (ASAs) onto the A1 Rollup with a few simple steps. This enables them to use their milkALGOs to interact with the EVM-based dApps deployed on the A1 Rollup.
+
+## Setup an Algorand Wallet
+
+There are several wallets one can use in Algorand. For an almost complete list, I point readers to the discover > wallets section on the Algorand Developer portal, but in this example, we will use Pera Wallet.
+
+Pera Wallet is a self-custodial wallet, giving you complete control of your crypto. All wallet information is kept securely on your devices. It helps users interact directly with the Algorand blockchain while handling their own private keys by either storing them securely and encrypted in their local browser or by using a Ledger hardware wallet.
+
+To set up a wallet:
+
+1. Visit https://web.perawallet.app/ and select “Create an account”
+1. Choose a passcode to encrypt your accounts locally, only on the device you are using
+1. Choose an account name
+1. You should now have an Algorand address like the following image:
+
+   <img
+     src={img1}
+     className="img-full"
+     alt="Pera Wallet"
+   />
+
+
+## Get Some Testnet ALGO
+
+Now, go to Settings and change to “Testnet” in Node Settings, and then visit the Algorand Testnet Dispenser (https://testnet.algoexplorer.io/dispenser) and paste your newly created account address to get some testnet ALGOs.
+
+   <img
+     src={img2}
+     className="img-full"
+     alt="Algo Explorer"
+   />
+
+
+You should now be able to see ten testnet ALGOs in your Pera Wallet wallet.
+
+
+## Add the Milkomeda Algorand Testnet to Metamask
+In Metamask, go to Settings > Networks > Add Networks and fill in the following information:
+
+:::info
+**Network Name:** Milkomeda Algorand Testnet<br></br>
+**New RPC URL:** https://rpc-devnet-algorand-rollup.a1.milkomeda.com<br></br>
+**Chain ID:** 200202<br></br>
+**Currency Symbol (Optional):** milkTALGO<br></br>
+**Block Explorer URL (Optional):** https://testnet-algorand-rollup.a1.milkomeda.com
+:::
+
+
+## Create a Dummy EVM Account To Test
+
+To test the bridging of wrapped ALGOs to Milkomeda, let’s create a dummy EVM account with a simple Javascript snippet.
+
+```javascript
+var ethers = require('ethers');  
+var crypto = require('crypto');
+
+var id = crypto.randomBytes(32).toString('hex');
+var privateKey = "0x"+id;
+console.log("SAVE BUT DO NOT SHARE THIS:", privateKey);
+
+var wallet = new ethers.Wallet(privateKey);
+console.log("Address: " + wallet.address);
+```
+
+This will generate a private key which you can now use to import the account into Metamask.
+
+**IMPORTANT:** Please do not use an account generated like this for real funds. The randomness of the proposed process is insufficient to ensure the security of your funds.
+
+
+## Bridge Testnet ALGO to Milkomeda A1
+
+Go to the Milkomeda A1 bridge page https://algorand-bridge-dev.milkomeda.com/ and follow these steps:
+
+1. Select “Devnet” in top right select box
+1. On Network Origin, select “Algorand to Milkomeda”
+1. On Token, select “ALGO” and enter desired amount
+1. Click “Connect Wallet” Algorand, select Pera Wallet and enter your password
+1. Click “Connect Wallet” Metamask to connect to your EVM address on A1
+1. Click “Next,” then “Sign and Send”
+1. Enter your “Pera Wallet” password again to sign the transaction
+
+If all went well, you will see the following screen and should now see your bridged ALGOs in Metamask. Following the link will show the transaction on the A1 Bridge Explorer.
+
+   <img
+     src={img3}
+     className="img-full"
+     alt="Confirmation"
+   />
+
+
+## Compile and Deploy to Milkomeda A1 a SimpleStorage Contract Written in Solidity Using Hardhat
+
+In a new working folder, initialize and install Hardhat
+
+```bash
+yarn init -y
+yarn add hardhat
+npx hardhat
+```
+
+Now let’s create a very simple Solidity contract. In the contracts folder, create a file called `Storage.sol`, and add the following solidity code:
+
+```
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.0;
+
+contract Storage {
+    uint256 number;
+
+    function store(uint256 num) public {
+        number = num;
+    }
+
+    function retrieve() public view returns (uint256){
+        return number;
+    }
+}
+```
+
+
+Run the following command from the root of the created working directory to compile the contract:
+
+```bash
+npx hardhat compile
+```
+
+Create a `.env` file with the private key created above.
+
+```
+PRIVATE_KEY=<PRIVATE_KEY>
+```
+
+Edit `hardhat.config.js` to add Milkomeda A1 Testnet chain and your funded test account:
+
+```
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: "0.8.17",
+  networks: {
+    a1_testnet: {
+      url: `https://rpc-devnet-algorand-rollup.a1.milkomeda.com`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
+    }
+  }  
+};
+```
+
+Update the file named `deploy.ts` in the scripts folder:
+
+
+```javascript
+import { ethers } from "hardhat";
+
+async function main() {
+    const Storage = await hre.ethers.getContractFactory("Storage");
+    const storage = await Storage.deploy();
+    await storage.deployed();
+    console.log(`Storage contract deployed to ${storage.address}`);
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
+```
+
+
+Run the deployment script on A1 Testnet:
+
+```bash
+npx hardhat run scripts/deploy.ts --network a1_testnet
+```
+
+Output:
+```
+Storage contract deployed to 0x9f605216F1dC2DEe5F6C282B1d0A15De2868362A
+```
+
+The contract has been deployed, and you can check the transaction on the A1 Milkomeda Devnet explorer:
+
+https://explorer-devnet-algorand-rollup.a1.milkomeda.com/tx/0x9f605216F1dC2DEe5F6C282B1d0A15De2868362A
+
+   <img
+     src={img7}
+     className="img-full"
+     alt="Explorer"
+   />
+
+
+To interact with the smart contract, let’s create a separate file called **callContract.ts** in the scripts directory and add the following code:
+
