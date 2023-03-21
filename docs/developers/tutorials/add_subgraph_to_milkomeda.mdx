@@ -1,17 +1,73 @@
-# Adding subgraph to Milkomeda
+# Adding subgraph to Milkomeda A1 and C1
 
-Requirements:
-- Postgres DATABASE
-- IPFS
-- Subgraph Node
-- Local Ganache
+In this tutorial we will learn how to deploy a subgraph for smart contracts on Milkomeda A1 and C1.
+
+We will first go through the steps of creating a subgraph in a local environment so that we can test and develop our smart contract and once we are happy with the result, we will deploy it on a testnet.
+
+## Creating a Smart Contract to be indexed
+
+For our smart contract we will use a simple example of a Simple Storage contract with one single event that gets emitted every time the number is changed.
+Let's create a Hardhat dev environment to create and deploy our contract.
+
+```
+yarn init -y
+yarn add hardhat
+npx hardhat
+```
+
+In the `contracts` folder, we'll create a file named `Storage.sol` with the following:
 
 
-Docker
+```javascript
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.0;
+
+contract Storage {
+    uint256 number;
+
+    event ChangeNumber(
+        uint256 timestamp,
+        uint256 oldValue,
+        uint256 newValue,
+        address caller
+    );     
+
+    function store(uint256 num) public {
+        uint prevNumber = number;
+        number = num;
+        emit ChangeNumber(block.timestamp, prevNumber, number, msg.sender);
+    }
+
+    function retrieve() public view returns (uint256){
+        return number;
+    }
+}
+```
+
+The parameters of the event is what will be indexed by the subgraph. The event will simple record the timestamp, the previous number, the new number and the contract caller.
+
+
+To compile the contract run:
+
+```
+npx hardhat compile
+```
+
+
+## Local Subgraph environment
+
+To run a graph node locally, we'll use Docker to run a ganache, ipfs, postgres and a graph-node containers.
 
 ```
 version: '3'
 services:
+  ganache:
+    image: trufflesuite/ganache:v7.5.0
+    command: -m "test test test test test test test test test test test junk" 
+              -a 5
+              --wallet.hdPath "m/44'/60'/0'"
+    ports:
+      - 127.0.0.1:8545:8545
   ipfs:
     image: ipfs/go-ipfs:v0.10.0
     ports:
@@ -28,26 +84,15 @@ services:
         "-cshared_preload_libraries=pg_stat_statements"
       ]
     environment:
-      POSTGRES_USER: thegraph
-      # POSTGRES_PASSWORD: 
-      POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_DB: graph-node-dev
+      POSTGRES_USER: graph-node
+      POSTGRES_PASSWORD: let-me-in
+      POSTGRES_DB: graph-node
       PGDATA: "/var/lib/postgresql/data"
       POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
-
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    ports:
-      - "5050:80"
-
   graph-node:
-    image: graphprotocol/graph-node:6499d38
+    image: graphprotocol/graph-node
     ports:
       - '8000:8000'
       - '8001:8001'
@@ -61,16 +106,213 @@ services:
       - 192.168.80.1:host-gateway
     environment:
       postgres_host: postgres
-      postgres_user: thegraph
-      # postgres_pass: let-me-in
-      postgres_db: graph-node-dev
+      postgres_user: graph-node
+      postgres_pass: let-me-in
+      postgres_db: graph-node
       ipfs: 'ipfs:5001'
-      ethereum: 'mainnet:https://rpc-devnet-cardano-evm.c1.milkomeda.com'
+      ethereum: 'ganache:http://ganache:8545'
       GRAPH_LOG: info
-      # ethereum: 'milkomeda:https://rpc-devnet-algorand-rollup.a1.milkomeda.com'
+```
+
+Start the containers by running:
+
+```
+docker compose up
 ```
 
 
+To be able to deploy to the local ganahache chain in docker container, we'll have to add it to the `hardhat.config.ts`. We will also already add the Milkomeda A1 Testnet.
+The private key for Ganache is for one of the funded accounts in the ganacha chain.
+
+```javascript
+import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
+require("dotenv").config();
+
+const config: HardhatUserConfig = {
+  solidity: "0.8.18",
+  networks: {
+    a1_testnet: {
+      url: `https://rpc-devnet-algorand-rollup.a1.milkomeda.com`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
+    },
+    ganache: {
+      url: 'http://localhost:8545',
+      chainId: 1337,
+      accounts: ['0xdd23ca549a97cb330b011aebb674730df8b14acaee42d211ab45692699ab8ba5']
+    }
+  }  
+};
+
+export default config;
+```
+
+Now we'll create a deployment script (`deploy.ts`) in the `scripts` folder:
+
+
+```javascript
+import { ethers } from "hardhat";
+
+async function main() {
+    const Storage = await hre.ethers.getContractFactory("Storage");
+    const storage = await Storage.deploy();
+    await storage.deployed();
+    console.log(`Storage contract deployed to ${storage.address}`);
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
+```
+
+
+To deploy the contract to the ganache chain, run:
+
+```
+npx hardhat run scripts/deploy.ts --network ganache
+```
+
+
+
+
+## Configure Subgraph
+
+In the root folder, create a file named `subgraph.yaml` with the required config
+
+```yaml
+specVersion: 0.0.5
+description: Milkomeda Subgraph Tutorial
+schema:
+  file: ./subgraph/schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Storage
+    network: ganache
+    source:
+      address: ''
+      abi: Storage
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./subgraph/mapping.ts
+      entities:
+        - Values
+        - User
+      abis:
+        - name: Storage
+          file: ./artifacts/contracts/Storage.sol/Storage.json
+      eventHandlers:
+        - event: 'ChangeNumber(uint256,uint256,uint256,address)'
+          handler: handleChangeNumber
+```
+
+The important parts to take notice are:
+- GraphQL schema, which we will be creating next
+- Network name that we define in the environment variables of the graph-node container, in this case "ganache"
+- Source/address of the deployed smart contract
+- ABI for the smart contract
+- Mapping file, which we will create
+- Entities
+- Event handlers
+
+
+First let's tweak our deployment script so that the contract address gets updated in the `subgraph.yaml` for each deployment.
+
+```javascript
+import { ethers } from "hardhat";
+const fs = require('fs');
+const yaml = require('js-yaml');
+
+const FILENAME = 'subgraph.yaml'
+const changeAddress = (address) => {
+   let doc = yaml.load(fs.readFileSync(FILENAME, 'utf-8'));
+   doc.dataSources[0].source.address = address
+   fs.writeFileSync(FILENAME, yaml.dump(doc));
+}
+
+async function main() {
+    const Storage = await hre.ethers.getContractFactory("Storage");
+    const storage = await Storage.deploy();
+    await storage.deployed();
+    console.log(`Storage contract deployed to ${storage.address}`);
+    changeAddress(storage.address)
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
+```
+
+
+Now let's create our `schema.graphql` in a folder called `subgraph`.
+
+```
+type StoredValue @entity {
+  id: ID!
+  oldValue: BigInt!
+  newValue: BigInt!
+  caller: User!
+}
+
+type User @entity {
+  id: ID!
+  values: [StoredValue!]! @derivedFrom(field: "caller")
+}
+```
+
+We are creating two entities, the StoredValue and the User.
+
+We'll also create a file called `mappings.ts` in the `subgraph` folder.
+
+```javascript
+import {  ChangeNumber } from "./types/Storage/Storage";
+import { User, StoredValue } from "./types/schema";
+
+export function handleChangeNumber(event: ChangeNumber): void {
+
+  // USER
+  let userId = event.params.caller.toHex()
+  let user = User.load(userId)
+
+  if (!user) {
+    user = new User(userId)
+    user.save()
+  } 
+
+  // VALUE
+  let token = new StoredValue(event.params.timestamp.toString())
+  token.oldValue = event.params.oldValue
+  token.newValue = event.params.newValue
+  token.caller = userId
+  token.save()  
+}
+```
+
+
+```
+graph codegen --output-dir subgraph/types/
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```bash
+yarn add @graphprotocol/graph-ts
+```
 
 
 
