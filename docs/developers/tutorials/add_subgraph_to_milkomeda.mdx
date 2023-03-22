@@ -57,6 +57,7 @@ npx hardhat compile
 ## Local Subgraph environment
 
 To run a graph node locally, we'll use Docker to run a ganache, ipfs, postgres and a graph-node containers.
+Here is the necessary `docker-compose.yml` file:
 
 ```
 version: '3'
@@ -389,7 +390,7 @@ Then, run:
 npx hardhat run scripts/callContract.ts --network ganache
 ```
 
-If we run the query again, the event emitted be the contract call should have been indexed. And here is the result:
+If we run the query again, the event emitted from the contract call should have been indexed. And here is the result:
 
 ```
 {
@@ -419,4 +420,65 @@ If we run the query again, the event emitted be the contract call should have be
 After testing that our contract and subgraph are working well together, we can deploy to a testnet.
 The changes required to deploy to Milkomeda A1 Testnet, for example, are very simple.
 
-From the current setup, ...
+From the current setup, we only need to change two things:
+1. The `ethereum` environment variable in the docker-compose should now point to the Milkomeda A1 Testnet RPC:
+
+```
+      ethereum: 'milkomeda:https://rpc-devnet-algorand-rollup.a1.milkomeda.com'
+```
+
+2. The network name for the contract in the dataSources in the `subgraph.yaml' file should be updated to "milkomeda", since we changed the name in the graph-node environments variable.
+
+```
+dataSources:
+  - kind: ethereum/contract
+    name: Storage
+    network: milkomeda
+```
+
+Stop the docker containers, delete the previous data (the `data`folder) to be sure, and run `docker compose up` again with the new config.
+
+Now we can deploy our smart contract to Milkomeda A1 Testnet (we had already added the chain to `hardhat.config.ts`).
+
+```
+npx hardhat run scripts/deploy.ts --network a1_testnet
+```
+
+And create and deploy the subgraph to the new containers:
+
+```
+graph create milkomeda/subgraph_tutorial --node http://127.0.0.1:8020
+graph deploy milkomeda/subgraph_tutorial --ipfs http://localhost:5001  --node http://localhost:8020 --output-dir artifacts/subgraph -l 0.1
+```
+
+
+Call the contract to store a value:
+
+```
+npx hardhat run scripts/callContract.ts --network a1_testnet
+```
+
+Finally, we can query our subgraph and it will have indexed the events from Milkomeda A1 Testnet.
+
+
+```
+{
+  "data": {
+    "users": [
+      {
+        "id": "0xcd9e29b0b51ac983b59bf7c8ecf57bcc430e8dd3"
+      }
+    ],
+    "storedValues": [
+      {
+        "id": "1679443522",
+        "oldValue": "0",
+        "newValue": "5",
+        "caller": {
+          "id": "0xcd9e29b0b51ac983b59bf7c8ecf57bcc430e8dd3"
+        }
+      }
+    ]
+  }
+}
+```
