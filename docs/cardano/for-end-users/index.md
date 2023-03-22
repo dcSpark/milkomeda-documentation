@@ -1,6 +1,6 @@
 ---
 sidebar_label: "For End Users"
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # For End Users
