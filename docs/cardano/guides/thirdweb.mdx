@@ -1,0 +1,496 @@
+# Thirdweb with Milkomeda
+
+import img1 from "@site/static/img/thirdweb_tutorial/image1.png";
+import img2 from "@site/static/img/thirdweb_tutorial/image2.png";
+import img3 from "@site/static/img/thirdweb_tutorial/image3.png";
+import img4 from "@site/static/img/thirdweb_tutorial/image4.png";
+import img5 from "@site/static/img/thirdweb_tutorial/image5.png";
+import img6 from "@site/static/img/thirdweb_tutorial/image6.png";
+import img7 from "@site/static/img/thirdweb_tutorial/image7.png";
+import img8 from "@site/static/img/thirdweb_tutorial/image8.png";
+import img9 from "@site/static/img/thirdweb_tutorial/image9.png";
+import img10 from "@site/static/img/thirdweb_tutorial/image10.png";
+import img11 from "@site/static/img/thirdweb_tutorial/image11.png";
+import img12 from "@site/static/img/thirdweb_tutorial/image12.png";
+import img13 from "@site/static/img/thirdweb_tutorial/image13.png";
+import img14 from "@site/static/img/thirdweb_tutorial/image14.png";
+import img15 from "@site/static/img/thirdweb_tutorial/image15.png";
+import img16 from "@site/static/img/thirdweb_tutorial/image16.png";
+
+
+This guide will show you how to deploy a simple smart contract to Milkomeda C1, an EVM-based sidechain connected to Cardano.
+
+
+By the end, you'll learn how to create and deploy a very simple voting smart contract and create a web application to interact with it. We will use Thirdweb which makes the whole process very easy and straightforward by providing boilerplate code and packages to take care of several steps.
+
+
+Let's get started!
+
+## Creating a Smart Contract
+Thirdweb provides a CLI to create development environment based on a few templates. To set up the environment, run the following:
+
+```bash
+npx thirdweb@latest create contract
+```
+
+Answer the questions to set up your development environment
+1. **Project name?** milkomeda-voting
+1. **Framework to use?** We’ll use Hardhat
+1. **Name of Smart Contract?** Let’s call it SimpleVoting
+1. **Type of contract?** Empty Contract
+
+Smart contracts in Solidity won’t be the focus of this article so we will use a contract that allows the creating of proposals (strings) that can be voted on.
+
+Delete all files in the contracts folder and create a new one named “SimpleVoting.sol” and paste the following code.
+
+```
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleVoting {
+    uint public counter = 0;
+
+    struct Ballot {
+        string proposal;
+    }
+
+    mapping(uint => Ballot) private _ballots;
+    mapping(uint => mapping(bool => uint)) private _tally;
+    mapping(uint => mapping(address => bool)) public hasVoted;
+    address public owner;
+
+    constructor () {
+        owner = msg.sender;
+    }
+
+    function createBallot(string memory proposal_) external {
+        require(msg.sender == owner, "Only owner can create proposal");
+        _ballots[counter] = Ballot(proposal_);
+        counter++;
+    }
+
+    function cast(
+        uint ballotIndex_, bool vote
+    ) external {
+        require(!hasVoted[ballotIndex_][msg.sender], "Address already vote for proposal");
+        _tally[ballotIndex_][vote]++;
+        hasVoted[ballotIndex_][msg.sender] = true;
+    }
+
+    function results(uint ballotIndex_) external view returns (uint[2] memory result) {
+        result = [_tally[ballotIndex_][true], _tally[ballotIndex_][false]];
+    }
+
+    function getBallotByIndex(
+        uint index_
+    ) external view returns (Ballot memory ballot) {
+        ballot = _ballots[index_];
+    }
+}
+```
+
+## Deploying the Smart Contract
+
+
+Now we can easily deploy the contract using the Thirdweb dashboard by running the following:
+
+```bash
+npx thirdweb@latest deploy
+```
+
+<img
+  src={img1}
+  className="img-full"
+  alt="Thirdweb Deployment"
+/>
+
+This will create a link to open up the Thirdweb dashboard, where we will have to perform a few steps.
+
+<img
+  src={img2}
+  className="img-full"
+  alt="Connect Chain"
+/>
+
+First, connect your wallet using one of the available options. We will use Metamask and we’ll assume that Milkomeda A1 Testnet is already configured and there is an account with test funds (mTADA). 
+
+If that is not the case, please refer to the [doc on configuring Metamask](../for-developers/configuring-metamask-for-devs.mdx) and [obtaining test ADA](../for-developers/obtaining-test-ada.mdx).
+
+ <img
+  src={img3}
+  className="img-full"
+  alt="Choose Wallet"
+/>
+
+ Next, we’ll select the network to deploy to. However, Milkomeda C1 Testnet will not be listed by default, but we can click on Configure Networks to add it. There we can simply type Milkomeda in the search input and the 4 chains will be available to choose from: A1 and C1, mainnet and testnet. 
+
+ <img
+  src={img4}
+  className="img-full"
+  alt="Milkomeda Chains"
+/>
+
+ After selecting Milkomeda C1 Testnet, the chain parameters will already be filled in and we only need to click “Add Network”.
+
+
+ <img
+  src={img5}
+  className="img-full"
+  alt="Milkomeda Chains"
+/>
+
+Now we can click on “Deploy Now” and two transactions will be sent, one to deploy the contract on Milkomeda C1 Testnet and a second one to add the contract to the Thirdweb dashboard. The second transaction will actually only be signed by metamask and is a gassless transaction.
+
+ <img
+  src={img6}
+  className="img-full"
+  alt="Deploy Now"
+/>
+
+You should now be able to see the deployed contract listed on your dashboard. 
+
+ <img
+  src={img7}
+  className="img-full"
+  alt="Deployed Contracts"
+/>
+
+Quite a lot of information is available on the contract like the source code and ABI, an interface to call read and write contract methods, a list of the contract events, and more. You can explore these settings by entering the contract in the dashboard.
+
+We won’t actually need to do anything else there to build our Dapp, but just to try it out, let’s go to the Explorer tab in our contract, choose the “createBallot” method, enter a proposal in the field, and click “Execute”.
+
+ <img
+  src={img8}
+  className="img-full"
+  alt="Contracts Info"
+/>
+
+## Creating the DApp
+
+```
+npx thirdweb@latest create app
+```
+
+We will choose a name for the DApp project (and folder), for blockchain we’ll choose EVM, with the Vite framework and Typescript language. 
+
+
+ <img
+  src={img9}
+  className="img-full"
+  alt="Create React App"
+/>
+
+
+This will prepare boilerplate code for a React site with a Connect button already configured. We just need to run `yarn dev` to see the following page on the browser.
+
+
+ <img
+  src={img10}
+  className="img-full"
+  alt="Frontend"
+/>
+
+One first change that is needed is to add the Milkomeda C1 Testnet to the list of available chains. To do that, we’ll edit the “src/main.tsx” and import the chain from “@thirdweb-dev/chains” and add it to the ThirdWebProvider.
+
+```javascript
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import "./styles/globals.css";
+import { MilkomedaC1Testnet } from '@thirdweb-dev/chains'
+
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(
+  <React.StrictMode>
+    <ThirdwebProvider activeChain={MilkomedaC1Testnet}>
+      <App />
+    </ThirdwebProvider>
+  </React.StrictMode>
+);
+```
+
+Now we’ll make some simple changes to the boilerplate to personalize our DApp somewhat. We’ll change the title to read “Milkomeda with thirdweb!”, we’ll delete the paragraph below the title and remove the cards below the connect button. We will however use the CSS classes from the boilerplate for our components.
+
+
+<img
+  src={img11}
+  className="img-full"
+  alt="Frontend"
+/>
+
+
+Then we’ll set the deployment contract address by adding a `.env` file with:
+
+```
+VITE_CONTRACT_ADDRESS=<CONTRACT_ADDRESS>
+```
+
+To prevent accidentally leaking env variables to the client, only variables prefixed with VITE_ are exposed to your Vite-processed code.
+
+Next, we will create a component to show the information on the current proposal vote. Create a file called `ActiveProposal.tsx` with the following content:
+
+```javascript
+import React from 'react'
+import { useContractRead, useContract  } from "@thirdweb-dev/react";
+
+const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
+
+function ActiveProposal() {
+    const { contract } = useContract(contractAddress);
+    const { data: counter } = useContractRead(contract, "counter");
+    const { data: info } = useContractRead(contract, "getBallotByIndex", counter-1);
+
+  return (
+    <div className="card">
+    <h2>Active Proposal: { counter?.toString()}</h2>
+    <p>
+        Proposal: {info ? JSON.stringify(info[0],2) : ''} 
+    </p>
+  </div>
+)}
+
+export default ActiveProposal
+```
+
+We are reading the contract address from the `.env` file, creating an instance of the contract, and reading the value from the public counter variable in our smart contract.
+
+The API of the imported packages from Thirdweb are very similar and are based on wagmi, but notice that we didn’t provide the ABI for the contract. This is because Thirdweb can read that information if it’s a contract deployed through Thirdweb and available on your dashboard.
+
+<img
+  src={img12}
+  className="img-full"
+  alt="Frontend"
+/>
+
+
+Now we can import the component into `App.tsx`, delete the existing tags inside the grid and insert this component there.
+
+```javascript
+       <div className="grid">
+         <ActiveProposal />
+       </div>
+
+```
+
+
+To be able to create proposals, we are going to create a component just for that.
+
+
+```javascript
+import {  useContractRead, useContract, useAddress, Web3Button } from "@thirdweb-dev/react";
+import { useState } from 'react'
+
+const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
+
+export default function CreateProposal() {
+  const [proposal, setProposal] = useState('Is the sun round?')
+  const address = useAddress();
+  const { contract } = useContract(contractAddress);
+  const { data: contractOwner } = useContractRead(contract, "owner");
+
+  return (<>
+  { address == contractOwner ?
+    <div className="card">
+      <h2>Create Proposal</h2>
+      <label>Proposal</label>
+      <div className="connect">
+        <input value={proposal} onChange={(val) => setProposal(val.target.value)} />
+      </div>
+      <Web3Button
+        contractAddress={contractAddress}
+        action={(contract) => contract.call("createBallot", proposal)}
+      >
+        Create
+      </Web3Button>
+    </div>: <></>
+  }
+  </>)
+}
+```
+
+Here we are using the `useAddress` hook to get the connected wallet address, so that we can conditionally show the component if the connected wallet is the owner of the contract.
+
+Then we are using the component `Web3Button` that allows us to pass the contract address, a function name and the required arguments. In this case we will call the `createBallot` function with the proposal string as input.
+
+<img
+  src={img13}
+  className="img-full"
+  alt="Create Proposal"
+/>
+
+But now we need a way to be able to vote on the proposals. We don't need to add much code to our `ActiveProposal` component to achieve that, since we can import and use here the `Web3Button` component to make the contract calls.
+
+Let's add the following `div` to the bottom of the card in `ActiveProposal`
+
+```javascript
+import { useContractRead, useContract, Web3Button  } from "@thirdweb-dev/react";
+
+(...)
+
+
+    <div>
+    <Web3Button
+      contractAddress={contractAddress}
+      onError={(error) => alert(error)}
+      action={(contract) => contract.call("cast", counter, 1)}
+    >
+      Agree
+    </Web3Button>
+    <Web3Button
+      contractAddress={contractAddress}
+      action={(contract) => contract.call("cast", counter, 0)}
+    >
+      Disagree
+    </Web3Button>
+    </div>
+```
+
+<img
+  src={img14}
+  className="img-full"
+  alt="Voting Buttons"
+/>
+
+Great, users can now vote! But how can se see the results? Let's add a component for that. 
+
+Create the file `src/components/Results.tsx` with the following code:
+
+```javascript
+import React from 'react'
+import { useContractRead, useContract  } from "@thirdweb-dev/react";
+
+const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
+
+function Results() {
+    const { contract } = useContract(contractAddress);
+    const { data: counter, isLoading, error } = useContractRead(contract, "counter");
+    const { data: result } = useContractRead(contract, "results", counter );
+
+  return (
+    <div className="card">
+    <h2>Results for {counter?.toString()}</h2>
+    <div className="connect">
+     {result ? result[0].toString(): ''} - 
+     {result ? result[1].toString(): ''}
+    </div>
+</div>
+)}
+
+export default Results
+```
+
+<img
+  src={img15}
+  className="img-full"
+  alt="Results"
+/>
+
+
+Bonus: Let's replace the simple numbers showing the result with a graph, using graphjs
+
+After importing some additional dependencies:
+
+```bash
+yarn add chart.js react-chartjs-2
+```
+
+We are going to create a `Chart.tsx` component with the following:
+
+```javascript
+import React, { useState, useEffect } from 'react'
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+function Chart({result}) {
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      },
+    }
+  };
+
+  const labels = ['Agree', 'Disagree'];
+  const [data, setData] = useState({
+    labels,
+    datasets: [{
+      data: [0,0],
+      backgroundColor: ['#0ea5e9', '#f213a4'],
+    }],
+  })
+
+  useEffect(() => {
+    setData({labels, datasets: [{
+        data: result?.map(item => item.toString()),
+        backgroundColor: ['#0ea5e9', '#f213a4'],
+      }],
+    })
+  }, [result])
+  return <Bar options={options} data={data} />;
+}
+
+export default Chart
+```
+
+And import it into `Results.tsx`
+
+
+```javascript
+import React from 'react'
+import { useContractRead, useContract  } from "@thirdweb-dev/react";
+import Chart from './Chart';
+
+const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS
+
+function Results() {
+    const { contract } = useContract(contractAddress);
+    const { data: counter, isLoading, error } = useContractRead(contract, "counter");
+    const { data: result } = useContractRead(contract, "results", counter );
+
+  return (
+    <div className="card">
+    <h2>Results for {counter?.toString()}</h2>
+    <div className="connect">
+     <Chart result={result} />
+    </div>
+</div>
+)}
+
+export default Results
+```
+
+Here is the final result.
+
+
+<img
+  src={img16}
+  className="img-full"
+  alt="Results"
+/>
+
+
+
+We have create and deployed a smart contract on Milkomeda C1 Testnet with a lot of the boilerplate taken care of by Thirdweb. Building the DApp to interact with our smart contract was also very simple. With the provided React hooks, we did not need to provide ABI and reading and calling the smart contract was done with very few lines of code.
+
+
+
