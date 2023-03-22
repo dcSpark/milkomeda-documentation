@@ -1,0 +1,295 @@
+# Using WAGMI with Milkomeda
+
+import img1 from "@site/static/img/wagmi_tutorial/image1.png";
+import img2 from "@site/static/img/wagmi_tutorial/image2.png";
+import img3 from "@site/static/img/wagmi_tutorial/image3.png";
+import img4 from "@site/static/img/wagmi_tutorial/image4.png";
+
+
+Unlike a traditional application in the web2 world, where the backend code runs on centralized servers, a dApp (Decentralized Application) has its backend code running on a blockchain.
+A dApp can have frontend code and user interfaces written in any language and deployed on any server or servers to interact with the backend logic.
+
+In this article, we will develop a simple Storage smart contract, deploy it on Milkomeda C1 testnet, and interact with it using a frontend built with React, Wagmi, and Rainbowkit.
+
+:::info
+
+You can choose to follow allong completing the coding steps or download the full code for this tutorial by running:
+
+```bash
+npx degit nhaga/tutorial-milkomeda-wagmi tutorial-milkomeda-wagmi
+```
+:::
+
+
+We first start by writing our Smart Contract in Solidity.
+
+
+## Create and Deploy the Smart Contract
+
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Storage {
+    uint256 private value;
+    event ValueChanged(uint256 newValue);
+
+    constructor() {}
+
+    function retrieve() public view returns (uint256) {
+        return value;
+    }
+
+    function store(uint256 newValue) public {
+        value = newValue;
+        emit ValueChanged(newValue);
+    }
+
+}
+```
+
+Our smart contract couldn’t be more simple. We define a private variable of type uint256 named `value` and define its respective getter (`retrieve`) and setter (`store`) functions.
+
+To compile and deploy our smart contract, we will use Hardhat by following the steps below:
+
+
+
+1. Initialize a Hardhat project in an empty folder:
+
+```bash
+yarn init
+yarn add --dev hardhat
+```
+
+2. Bootstrap the project by running the following command and choosing javascript:
+
+```
+npx hardhat
+```
+
+3. Create a file named **SimpleStorage.sol** in the contracts folder, containing the code above.
+4. Compile the contract:
+
+```bash
+npx hardhat compile
+```
+
+5. Edit **hardhat.config.js** to add the C1 testnet and your funded test account. Refer to the Milkomeda docs for information on how to get testnet funds.
+
+```javascript
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: "0.8.17",
+  networks: {
+    c1_testnet: {
+      url: `https://rpc-devnet-cardano-evm.c1.milkomeda.com`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
+    }
+  }  
+};
+```
+
+
+6. Replace the contents of deploy.js in the scripts folder:
+
+```javascript
+const hre = require("hardhat");
+
+async function main() {
+    const Storage = await hre.ethers.getContractFactory("Storage");
+    const storage = await Storage.deploy();
+    await storage.deployed();
+    console.log(`Storage contract deployed to ${storage.address}`);
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
+```
+
+
+7. Run the deployment script on C1 testnet:
+
+```bash
+npx hardhat run scripts/deploy.js --network c1_testnet
+``` 
+
+If successful, you should see an output with the address of the deployed contract and we can now create a frontend to interact with it.
+
+## Create Frontend
+
+We will use the recommended create-wagmi command line interface to set up a new wagmi app using TypeScript and install the required dependencies:
+
+```bash
+yarn create wagmi
+```
+
+(Choose Vite (React), then Rainbowkit and Public RPC)
+
+
+Enter the created folder, run `yarn dev` and you will get a link to open the development site in your browser. 
+
+By default, only Ethereum mainnet will be available so let’s change that to add Milkomeda C1 testnet. Create a file named **milkomeda.ts** in the folder, with the following:
+
+```
+const milkomedaC1Testnet = {
+    id: 200_101,
+    name: 'Milkomeda C1 Testnet',
+    network: 'milkomedac1test',
+    iconUrl: 'https://dcspark.github.io/milkomeda-documentation/img/favicon.svg',
+    iconBackground: '#000',
+    nativeCurrency: {
+      decimals: 18,
+      name: 'milkTADA',
+      symbol: 'milkTADA',
+    },
+    rpcUrls: {
+      default: {
+        http: ['https://rpc-devnet-cardano-evm.c1.milkomeda.com'],
+      },
+    },
+    blockExplorers: {
+      default: { name: 'BlockScout', url: 'https://explorer-devnet-cardano-evm.c1.milkomeda.com' },
+    },
+    testnet: true,
+};
+
+
+export { milkomedaC1Testnet }
+```
+
+
+Now let’s add it to the file wagmi.ts by importing the new defined chain and changing the configureChains call to:
+
+```
+import { milkomedaC1Testnet } from './milkomeda'
+
+const { chains, provider, webSocketProvider } = configureChains(
+  [mainnet, milkomedaC1Testnet, ],
+  [
+    publicProvider(),
+  ],
+)
+```
+
+We can connect the account through Metamask and we should now see a chain selector in the connect button:
+
+<img
+  src={img1}
+  className="img-full"
+  alt="Chain Connector"
+/>
+
+By clicking on the chain, we will now be able to choose Milkomeda C1 Testnet.
+
+<img
+  src={img2}
+  className="img-full"
+  alt="Switch Networks"
+/>
+
+Apart from Metamask, we can also connect through WalletConnect. By default, Rainbow and Coinbase wallet will also be available, but it is possible to disable or specify a custom list.
+
+<img
+  src={img3}
+  className="img-full"
+  alt="Wallet Selector"
+/>
+
+:::note
+Not an essential step, but we can edit the App.tsx file to remove the Account component since the ens elements are only relevant for Ethereum mainnet.
+:::
+
+Now let’s connect to the Smart Contract to read and write to the value variable. We’ll create a new file named Storage.tsx in the components folder and add the following:
+
+```javascript
+import { useContractRead } from 'wagmi'
+import StorageInfo from '../../../artifacts/contracts/SimpleStorage.sol/Storage.json'
+
+function Storage() {
+    const CONTRACT_ADDRESS = "0x32273C07E64a134D05b5Ec5e794c91bC7498Ff8f"
+
+    const { data } = useContractRead({
+        address: CONTRACT_ADDRESS,
+        abi: StorageInfo.abi,
+        functionName: 'retrieve',
+        watch: true
+      })
+
+  return (
+    <>
+    <div>Storage Value: {data?.toString()}</div>
+    </>
+  )
+}
+
+export default Storage
+```
+
+Here we are pointing to the json file that was created by hardhat when compiling the smart contract, which contains the abi (you might have to enable esModuleInterop in tsconfig.json). Also, we hardcoded the address of the deployed contract. Most importantly, we are using the useContractRead wagmi hook to get the value from the retrieve function in the contract.
+
+
+Now we will add hooks to change the value in the smart contract. For this, we will use usePrepareContractWrite, and useContractWrite hooks and create an input and a button to send a new value to the setter function.
+
+
+After adding to the imports:
+
+```javascript
+import { useContractRead, usePrepareContractWrite, useContractWrite } from 'wagmi'
+import { useState } from "react";
+```
+
+We will add the following to the Storage component function:
+
+```javascript
+    const [inputValue, setInputValue] = useState("0")
+
+    const { config } = usePrepareContractWrite({
+        address: CONTRACT_ADDRESS,
+        abi: StorageInfo.abi,
+        args: [inputValue],
+        functionName: 'store',
+      })    
+
+    const { write } = useContractWrite(config)
+```
+
+Then add the html elements:
+
+```
+        <input value={inputValue} 
+            onChange={(event) => {
+                setInputValue(event.target.value)
+            }}/>
+        <button disabled={!write} onClick={() => write?.()}>Store</button>
+```
+
+
+Finally, add the newly created component to the App.tsx file:
+
+
+```javascript
+(...)
+import Storage from './components/Storage'
+(...)
+      <ConnectButton />
+      <Storage />
+(...)
+
+```
+
+
+Now we can edit the value in the input box, press the button and we will be prompted to sign the transaction to write the new value to the smart contract. Because the watch option in the useContractRead hook is set to true, the value with automatically be updated.
+
+
+And that is it. We now have a fully functional dApp that connects to Milkomeda C1 Testnet, reads from our Smart Contract, and is also able to write to it.
+
+<img
+  src={img4}
+  className="img-full"
+  alt="Full dApp"
+/>
