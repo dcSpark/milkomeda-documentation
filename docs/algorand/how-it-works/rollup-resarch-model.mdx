@@ -28,11 +28,17 @@ Designing protocols secure under rational participants, where clients and valida
 
 Determining what security means for the Milkomeda rollup under the aforementioned model:
 
-- Liveness: Any transaction submitted on the rollup becomes stable within a security parameter $$u$$ blocks.
-- Bridging: Any participant of the L1 can enter or exit the rollup upon request within a security parameter $w$ blocks, according to the state that an honest rollup client reports.
+- **Liveness:** Any transaction submitted on the rollup becomes stable, i.e., is executed on the rollup by an honest client, within $u$ blocks, where $u$ is the liveness security parameter.
+- **Bridging:** Any participant of the L1 can enter or exit the rollup upon request within $w$ blocks, where $w$ is a security parameter, according to the state that an honest rollup client reports.
 
-Bridging encompasses the safety of the rollup, ensuring that no party loses money, and implies that any party that wishes to exit the rollup will leave it in the state that corresponds to the sequence of relevant transactions, meaning the rollup parties will not gain or lose money when bridging to the blockchain. Liveness expresses that the rollup ledger will make progress.
+Bridging encompasses the safety of the rollup. It expresses that no party loses money, i.e., any transaction that is executed on the rollup will remain confirmed at any future time. Bridging also implies that any party that wishes to exit the rollup will leave it in the state that corresponds to the sequence of relevant transactions, meaning the rollup parties will not gain or lose money when bridging to the blockchain. 
+
+Bridging, in addition, encompasses a liveness notion, as for the rollup to be functional and make meaningful progress, parties must be able to join and leave on demand. Liveness, on the other hand, expresses that the rollup ledger will make progress, thus transactions submitted in the rollup will be eventually executed. Note that both liveness and bridging security parameters can be expressed in time units when the network is synchronous. However, the L1 may be operating in partial synchrony (e.g., Algorand), in which case we have no liveness guarantees. For this reason, we express the liveness and bridging security parameters for the rollup in blocks.
+
+
 
 ### Our approach
 
-To show the desired properties, determining the individual protocols and their corresponding desiderata, and proving the three desired properties: liveness and bridging for the composition of the protocols. The proposed design enables a clear separation of liveness and bridging. We will first show that during an epoch, the rollup remains live and later show that at the end/beginning of each epoch, bridging is satisfied. The desiderata hold under an honest supermajority of stake, and then examine under which conditions or assumptions we can relax the honesty assumption and prove the desiderata under rational parties.
+To show the desired properties, we will first determine the individual protocols and their corresponding desiderata, and subsequently, we will prove the three desired properties:  liveness and bridging for the composition of the protocols. 
+In particular, the proposed design enables a clear separation of liveness and bridging hence we will first show that during an epoch the rollup remains live [Validators Election](validators-election.md) and later we will show that at the end/beginning of each epoch bridging is satisfied [Safe Exit Alternatives](safe-exit.md).
+We will show the desiderata hold under an honest supermajority of stake, and then examine under which conditions or assumptions we can relax the honesty assumption and prove the desiderata under rational parties.

@@ -1,0 +1,313 @@
+---
+sidebar_label: "Validators Election"
+sidebar_position: 3
+---
+
+# Validators Election
+
+The complete research paper is available [here](https://milkomeda.com/Milkomeda%20Rollup.pdf)
+
+In this section, we isolate the validator election process from the rest of the protocol and treat it initially as a separate component.
+We propose a novel proof-of-stake auction for the validator election.
+In particular, we first define the setting and then determine the  desired properties for a proof-of-stake auction, i.e., an auction that correlates the staked amounts to validator slots that operate the rollup. Finally, we present a novel auction mechanism and prove it satisfies our desired properties.
+
+## Setting
+
+There exist $n$ parties $$[P_0, \dots, P_n]$$. Each party $P_i$ holds an amount $S_i$ (stake) which is publicly known at the start of the execution to all other parties.
+
+The execution comprises "epochs". Each epoch consists of $e$ slots where each slot corresponds to the generation of a block in the underlying L1.
+
+All parties that are awarded at least one slot via the auction are eligible to take part in two mechanisms:
+
+1. the ***safe exit*** protocol which enables clients to exit the rollup -- in other words, an L2 to L1 bridge. Participation in the safe exit protocol may yield rewards if the party acts correctly, or slash its stake if the party misbehaves.
+2. the ***sequencer election*** protocol, where each party assigned in a slot, namely the sequencer, is collecting and publishing on-chain the rollup data. A correct sequencer is rewarded with revenue $r$. 
+
+Note that all rewards are assigned at the end of the epoch and are given in the native token.
+    
+### Locking the Stake & Delegation
+
+Before each auction, a party can choose one of the following participation options:
+- participate in the auction directly;
+- ***delegate*** their participation rights to another party;
+- not participate in the auction ***at all***.
+
+If a party chooses to participate, either directly or via delegation, their funds (stake) are temporarily locked (at least until the end of the auction).
+
+After the stakeholders lock their stake, each party $P_i$ is associated with an amount of stake that is either 0 if the party opted with delegation or equal to the sum of the delegated stake to this party. We abuse the notation 
+$S_i$ to express the total amount of stake with which the party $P_i$ participates in the auction, including the delegated stake to $P_i$. With $s_i$ we denote the proportional stake $P_i$ owns, that is $s_i=\frac{S_i}{\sum_{j=1}^n S_j}$, where $n$ is the parties that participate in the auction -- i.e., excluding the delegators.
+
+### Auction characteristics
+The auction has the following characteristics: i) a number $-s$ of ***indivisible, identical*** items (i.e., the slots) is auctioned; ii) each party iii) each party can only bid once and its bid is committing (e.g., locks an amount of funds on-chain); iv) each bid becomes public instantly. 
+
+***Identical items.*** For simplicity, we assume that all slots in an epoch are identical. 
+This assumption is very strong as the order of slots is, in fact,  critical for the liveness of the rollup. If
+the adversary manages to acquire more than  $u$ consecutive slots -- via biasing the randomness or successful grinding attacks -- he may effectively censor transactions in the rollup, violating the liveness property. 
+In this case, the bundle of consecutive slots will infinitely increase the utility of the adversary. 
+To address these attack vectors without incorporating them into the utility function, we later introduce a property for the auction, namely unpredictability, that guarantees that any PPT adversary cannot bias or predict the auction outcome in a meaningful manner. Due to this property, we can assume that the items of the auction are identical.
+
+## Auction Properties
+
+The  overarching goal of the allocation mechanism should ensure that the parties are allocated a fraction of the slots that is on average equal to their staking percentage.
+Towards that end, definitions 1, 2, 4, 5 and 6 distill the necessary properties that the slot auction mechanism should satisfy.
+
+First, market clearance guarantees that all items are allocated to parties. In the validator election setting, this ensures that each slot will be assigned a validator.
+Second, symmetry guarantees that the items will be allocated solely based on the stakes of the parties and not their public keys.
+Third, unpredictability ensures that an adversary cannot predict the outcome of the auction beforehand, and thus cannot grind on potential keys and/or divisions of its stake that may result in acquiring consecutive slots (liveness attack). 
+Finally, Sybil and collusion resilience guarantee that the auction mechanism is not vulnerable to Sybil and collusion attacks, respectively. 
+Intuitively, a party cannot increase its allocated items by combining its stake with other parties (collusion-resilience) or splitting its stake across multiple "fake" identities (Sybil-resilience).
+
+An allocation rule is an algorithm $\mathbf{A}$ that, given as input the stake percentages of the parties $\mathbf{s}=\{s_1,s_2, \dots, s_n \} \in \mathbb{R}$  and a random seed $r$, returns a two-dimensional matrix of random variables $Y_{i, j}$ that denotes the allocation of the items. In particular, $Y_{i, j} = 1$ if item $j \in -s$ is allocated to validator $P_i$. 
+
+**Definition 1** (Market Clearing)
+    The allocation rule should allocate exactly $I$ items, $\sum_{\forall i} \sum_{\forall j} Y_{i,j} = I$.
+
+**Definition 2** (Symmetry)
+    An allocation rule is symmetric if for every permutation $\pi$ on any stake distribution $\mathbf{s}$ resulting in $Y'$, it holds $Pr[Y_{i,j}=1]=Pr[Y'_{\pi(i),j}=1]$.
+
+A symmetric allocation rule also ensures that two parties with the same stake win a slot with the same probability. 
+
+**Definition 3** (Slot Symmetry)
+    An allocation rule is slot-symmetric if any two slots are equally likely to be allocated to a party: $\forall \party_i, \forall j \neq j' \in I, Pr[Y_{i,j}=1]=Pr[Y_{i,j'}=1].$ 
+\end{definition}
+% \begin{definition}[Randomness]\label{def:random}
+% For any item $i \in -s$, the probability of being allocated to party $\party_j$ is $\stakePercentage_j$, in other words $\Pr[ Y_{i, j} = 1 ]= \stakePercentage_j$.
+% \end{definition}
+\begin{corollary}
+    A symmetric allocation rule of identical items is also slot-symmetric. 
+\end{corollary}
+
+\begin{definition}[Unpredictability]\label{def:unpredictability}
+Before the allocation of the auction on-chain, any PPT adversary must not be able to distinguish between two (plausible) allocations that are sampled from the same stake distribution.
+Formally, 
+% Before the allocation of the auction on-chain, the following must hold true for any PPT adversary:
+given any pair of allocations $Y_{i,j}$ and $Y'_{i,j}$ with $\lVert \left( \sum_{i} (Y_{i,j} - Y'_{i,j}) \right)_j \rVert_{\infty} < \epsilon$, an adversary cannot distinguish
+between the two outcomes with probability greater than $1/2 - f(\epsilon)$.
+% \za{can remove the formally if we are not certain...not sure that for now, we need the formality.}
+\end{definition}
+
+
+\begin{definition}[Sybil Resilience]\label{def:sybil-resilience}
+    % An allocation is Sybil resilient if: 
+    For every stake distribution $\mathbf{\stakePercentage}$ and every stake distribution $\mathbf{\stakePercentage'}$ that can be derived from $\mathbf{\stakePercentage}$ by replacing a party $P_i$ with stake percentage $\stakePercentage_i$ by a set $\mathcal{P'}$ of parties with total stake percentage at most $\stakePercentage_i$, the total expected items allocated to the parties $\mathcal{P'}$ (denoted by $Y'$) is at most that of party $P_i$ in the initial stake distribution (denoted by $Y$):
+    \[  \sum_{i \in \mathcal{P'}} \sum_{j \in -s } Y'_{i,j}\leq \sum_{j \in -s } Y_{i,j}
+    \]
+   %%%%---old sybil resilience----%%%%
+        % A coalition $\coalition$ of a set of parties $\{P_1, P_2, \dots, P_j\}$, for any $j \in [n]$, with stake percentages $\stakePercentage_1, \stakePercentage_2, \dots, \stakePercentage_j $ respectively, should be allocated ***on expectation} at most $\sum_{i=1}^j \stakePercentage_i \cdot -s$ items.
+\end{definition}
+
+
+\begin{definition}[Collusion Resilience]\label{def:collusion-resilience}
+    % An allocation is collusion resilient if: 
+    For every stake distribution $\mathbf{\stakePercentage}$ and every stake distribution $\mathbf{\stakePercentage'}$ that can be derived from $\mathbf{\stakePercentage}$ by replacing a set $\mathcal{P}$ of parties by a new party $\party_{i'}$ with stake percentage at most $\stakePercentage_{i'} \leq \sum_{i \in \mathcal{P}} \stakePercentage_i$, the total expected items allocated to  the party $\party_{i'}$ under $\stakePercentage'$ (denoted by $Y'$) is at most the total expected items  of the parties $\mathcal{P'}$ (denoted by $Y$):
+    \[\sum_{j \in -s } Y'_{i',j} \leq \sum_{i \in \mathcal{P}} \sum_{j \in -s } Y_{i,j} 
+    \]
+\end{definition}
+
+Proving that a mechanism is symmetric and market clearing is typically a direct result of the definitions.
+However, proving that the mechanism satisfies Sybil resilience and collusion resilience can be significantly trickier. 
+To make the analysis more straightforward, we define a third property, ***fairness} (Definition~\ref{def:expectation}). Intuitively, fairness guarantees that each individual party is allocated their fair share of items, which is equal to their stake percentage. 
+Following closely the results of \cite{chen2019axiomatic}, Lemma~\ref{lem:fairness-sybil-equivalence} shows that fairness is equivalent to Sybil and collusion resilience in any symmetric and market clearing mechanism.
+% Following, Lemma~\ref{lem:fairness-sybil-equivalence} shows that the two notions of Sybil resilience and fairness are equivalent. 
+Therefore, to guarantee Sybil and collusion resilience, it suffices to show that a mechanism allocates to each party an average number of items equal to its staking percentage.
+
+\begin{definition}[Fairness]\label{def:expectation}
+    The mechanism should allocate to party $P_i$ ***on expectation} $\stakePercentage_i \cdot -s$ items.
+    % $ \stakePercentage_i \cdot -s = \sum_{j \in -s } Y_{i,j}$, for every $P_i$.
+\end{definition}
+
+% \ma{Relevant concepts in the literature for a theoretical justification of the above properties: ``Nash Social Welfare'', ``Enfy-free up to 1 item (EF1)'', e.g.~\url{https://arxiv.org/pdf/1607.01569.pdf}, \url{https://dl.acm.org/doi/10.1145/3355902}, \url{https://arxiv.org/pdf/2012.03766.pdf}. However, none of those works consider any notions of sybil-resilience.}
+
+\begin{lemma}\label{lem:fairness-sybil-equivalence}
+    A market clearing allocation mechanism (cf. Definitions and \ref{def:clearing}) is symmetric, Sybil resilient, and collusion resilient (cf. Definitions~\ref{def:symmetry}, \ref{def:sybil-resilience} and \ref{def:collusion-resilience}) if and only if it is fair (cf. Definition~\ref{def:expectation}).
+\end{lemma}
+\begin{proof}
+% \za{is the adaptation staightforward?}
+The proof of the lemma is similar to the proof of the uniqueness of the proportional allocation rule for block rewards presented in \cite{chen2019axiomatic} (Theorem 1). It is straightforward to adapt the proof to show that any allocation mechanism is fair if and only if it is market clearing, symmetric, Sybil-resilient, and collusion-resilient.
+    
+    \iffalse
+    Each party $\party$ has power $\stakePercentage_{\party}$, such that $\sum_{\party \in \mathbb{P}} \stakePercentage_{\party} = 1$.
+    A coalition $\coalition$, which is formed by two parties $P_1, P_2$, has aggregate power $\stakePercentage_{\coalition} = \stakePercentage_1 + \stakePercentage_2$ (the proof can be easily extended for coalitions of arbitrary size).
+    Over a specific period of time, $I$ items are auctioned in total and the stake distribution among parties is unchanged. 
+
+    Def.~\ref{def:expectation} $\Rightarrow$ Def.~\ref{def:sybil-resilience}: 
+    Proof by contradiction. 
+    Assume that the coalition $\coalition$ of parties $P_1, P_2$ is allocated on expectation $g_{\coalition} \cdot I > \stakePercentage_{\coalition} \cdot I$ items, so Sybil resilience is violated, and that fairness holds. 
+    Due to fairness, each party $P$ is allocated on expectation $\stakePercentage_P \cdot I$ items. 
+    The parties in the set $\mathbb{P}' = \mathbb{P} \setminus \{ P_1, P_2 \}$ are allocated (in aggregate) $\sum_{P \in \mathbb{P}'} \stakePercentage_P \cdot I$ items. 
+    However, since $(g_{\coalition} + \sum_{P \in \mathbb{P}'} \stakePercentage_P) > (\stakePercentage_{\coalition} + \sum_{P \in \mathbb{P}'} \stakePercentage_P) = 1$, the clearing property would be violated. 
+    Therefore, by contradiction, the fairness property cannot hold.
+
+    Def.~\ref{def:sybil-resilience} $\not \Rightarrow$ Def.~\ref{def:expectation}: 
+    Proof by contradiction.
+    Assume that a party $\party$ is allocated on expectation $g_{\party} \cdot I > \stakePercentage_{\party} \cdot I$ items, so fairness is violated, and that Sybil resilience holds. 
+    We consider a single-party coalition $\coalition$ which consists only of party $\party$.
+    The coalition is indistinguishable from the single party, therefore $\coalition$ will be allocated $g_{\party} \cdot I > \stakePercentage_{\party} = \stakePercentage_{\coalition}$ items, so Sybil resilience is violated.
+    \fi
+\end{proof}
+
+Sybil and collusion resilience (and its equivalent, fairness) is a core property to guarantee proportional representation and, eventually, security against adversarial takeovers.
+However, requiring the ***expected} items per party to be equal to their power is not necessarily enough to make the allocation mechanism appealing. 
+For instance, consider Bitcoin's reward allocation mechanism. In Bitcoin, a party produces a block on each round of execution with probability proportional to its power. Thus, ***on expectation in the long term}, each party produces a proportion of blocks equal to their power. However, in the short term, a party with small power will typically not produce any blocks.
+This is particularly problematic when considering temporal discounting~\cite{Reed2011}, that is the tendency to disfavor rare or delayed rewards.
+In Bitcoin, this arguably translates into the formation of mining pools, which promise slightly lower, but more frequent, rewards to smaller miners.
+
+In our setting, to make the allocation more appealing, we define the ***concentration property} (Definition~\ref{def:lower}).
+This property sets a lower limit to the number of items each party is allocated per auction, which is equal to the floor of its (stake-based) proportion.
+For instance, if a party controls $1.7$\% of power, it should receive at least $1$\% of all items ***in all cases} --- and possibly more items with some probability.
+Consequently, the income rate (in terms of items) for each party is steadier and the variance depends only on the decimal part of its stake percentage. Nonetheless, we will treat concentration as optional, since it is not a prerequisite for preventing a malicious party from acquiring a disproportionate amount of items (in the scope of the entire execution).
+
+\begin{definition}[(Optional) Concentration]\label{def:lower}
+    The mechanism should allocate to party $P_i$ ***at least} $\lfloor \stakePercentage \cdot -s \rfloor$ items.
+\end{definition}
+
+A correlated notion that captures the behavior of miners in the Bitcoin network is risk-neutrality and risk-averseness. In the former, the miners' utility is proportional to their expectation of rewards, while in the latter, the miners' utility is a strictly concave function of the expected rewards. However, this approach rules out the proportional allocation rule for risk-averse parties~\cite{chen2019axiomatic}. In contrast, our concentration property captures the desired behavior of bidders and at the same time allows for a more flexible design space. 
+
+###}
+To summarize, the properties our allocation mechanism must satisfy are: ***market clearance (Def.~\ref{def:clearing}), unpredictability, (Def.~\ref{def:unpredictability}), fairness (Def.~\ref{def:expectation}), and concentration (Def.~\ref{def:lower}).} We will also show, ***slot-symmetry (Def.~\ref{def:slot-symmetry})} as we will need it in the next section. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%----- AUCTION MECHANISM-----%%%%%%%%%%%%%%%%%%%
+\subsection{Proof-of-stake auction}~\label{sec:algorithm}
+
+In this section, we present our solution that consists of two components: (a)~a functionality that maps a vector of reals to a vector of integers with the same expectation on the sum  and a corresponding algorithm that implements it; (b) an allocation algorithm that distributes the items to the bidders such that the desired properties are satisfied.
+
+###Random Sampling Functionality (RSF) $\mathcal{F}(\vec{x})$}
+An RSF is a function that, given $n$ non-negative real
+numbers $x_i$ which sum to a ***positive integer}
+$x = \sum_{i = 1}^n x_i \in \mathbb{Z}^+$,
+outputs a random
+vector of non-negative integers $\vec{V} \in \Nat^n$,
+such that: 
+i) $\expect[V_i] = x_i$, and
+ii) $\sum_{i = 1}^n V_i = x$.
+
+###Allocation Algorithm $\mathcal{A}$}
+The inputs to $\mathcal{A}$ are as follows:
+\begin{itemize}
+    - $I$: the number of items;
+    - $n$: the number of parties;
+    - $\stakePercentage_i$: the stake percentage of party $P_i$ , s.t. $\sum_{i=1}^n \stakePercentage_i = 1$. 
+\end{itemize}
+$\mathcal{A}$ operates as follows:
+\begin{enumerate}
+    - Deterministically allocate 
+        $\lfloor \stakePercentage_i \cdot I \rfloor$ 
+        items to each bidder $P_i$.
+        Let $x = I - \sum_{i = 1}^n \left\lfloor \stakePercentage_i \cdot I \right \rfloor$ 
+        be the remaining, unallocated items. 
+    - Call a Random Functionality $\mathcal{F}$ 
+        sub-routine with input a vector $\vec{x}$ of $n$ values, 
+        where $x_i = \stakePercentage_i \cdot I - \lfloor \stakePercentage_i \cdot I \rfloor$. 
+        For each value $V_i$ in the output of $\mathcal{F}$, 
+        assign $V_i$ extra items to bidder $P_i$.
+\end{enumerate}
+
+###Interval Sampling Algorithm}
+We now realize the random functionality $\mathcal{F}$ via the following algorithm $\mathcal{S}$.
+The input to $\mathcal{S}$ is (as with $\mathcal{F}$):
+\begin{itemize}
+    - $\vec{x}$: a vector of $n$ real numbers $[x_1, x_2, \dots, x_n]$.
+\end{itemize}
+$\mathcal{S}$ operates as follows:
+\begin{enumerate}
+    - Consider an interval of the real line which
+        consists of the concatenation of $n$ intervals
+        each of length $x_i$. In other words, split the
+        interval $[0, x]$, where $x = \sum_{i = 1}^n x_i$,
+        into $n$ parts like 
+        $I_1 = (0, x_1], I_2 = (x_1, x_1 + x_2], \dots, I_n = (x - x_n, x]$.
+    - For each integer $j \in \{1, \dots, x\}$, sample $P_j$ uniformly at random
+        on the interval $(0, x]$.
+    - Let $Y_{i, j}$ be the indicator random variable
+        of the event that $P_j \in I_i$.
+    - Define $V_i = \sum_{j = 1}^x Y_{i, j}$ 
+        for all $i \in [n]$.
+    - Output $\vec{V} = (V_1, V_2, \ldots, V_n)$.
+\end{enumerate}
+
+\begin{lemma}
+    The interval sampling algorithm $\mathcal{S}$ implements a random sampling functionality $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+For every sample $P_j$, the probability of sampling a number on the $i$-th
+interval at any stage is exactly $x_i / x$.
+Therefore, by linearity of expectation, for each vector position $i$ it holds that:
+\[ \expect[V_i] = \sum_{j = 1}^x \expect[Y_{i, j}]
+= \sum_{j = 1}^x \Pr[Y_{i, j} = 1]
+= \sum_{j = 1}^x \frac{x_i}{x}
+= x \cdot \frac{x_i}{x} = x_i
+\]
+so the first RSF condition holds.
+
+Regarding the second RSF condition, for the entire vector $\vec{V}$ it holds:
+\[ \sum_{i = 1}^n V_i = \sum_{i = 1}^n \sum_{j = 1}^x Y_{i, j}
+= \sum_{j = 1}^x  \sum_{i = 1}^n Y_{i, j}
+= \sum_{j = 1}^x 1 = x\]
+\end{proof}
+
+###Random seed (r).}
+Our allocation mechanism needs some source of randomness to realize the Interval Sampling Algorithm. We propose to use the underlying blockchain to acquire a shared random seed among the participants. In particular, we propose that $r$ is set as the VRF solution included in the block generated exactly after the end of the auction. The reason we chose this value is that it is unbiasable and unpredictable by any participant in the auction.
+
+%%%%%%%%%%%%%%%%%%%%%%%----- ANALYSIS-----%%%%%%%%%%%%%%%%%%%
+\subsection{Analysis}\label{pos-analysis}
+
+We now prove our proposed solution described in Section~\ref{sec:algorithm} satisfies the desired properties of Section~\ref{sec:properties}.
+
+\begin{theorem}\label{thm:clearing}
+    Algorithm $\mathcal{A}$ satisfies the market clearing property (Definition~\ref{def:clearing}).
+\end{theorem}
+\begin{proof}
+    The number of items that the algorithm allocates is as follows.
+    
+    First, $\mathcal{A}$ by definition allocates $x = \sum_{i=1}^n \lfloor \stakePercentage_i \cdot I \rfloor$ items.
+    
+    Second, $\mathcal{A}$ calls the random functionality $\mathcal{F}(\vec{x})$ with input the remaining items $y = I - \sum_{i=1}^n \lfloor \stakePercentage_i \cdot I \rfloor$. 
+    By definition of $\mathcal{F}$, i.e., since $\sum_{i=1}^n V_i = x$, these are all allocated.
+    
+    Therefore, in total $x + y = \sum_{i=1}^n \lfloor \stakePercentage_i \cdot I \rfloor + I - \sum_{i=1}^n \lfloor \stakePercentage_i \cdot I \rfloor = I$ items are allocated by $\mathcal{A}$.
+\end{proof}
+
+\begin{theorem}\label{thm:unpredict}
+    Algorithm $\mathcal{A}$ satisfies the unpredictability property (Definition~\ref{def:symmetry}).
+\end{theorem}
+\begin{proof}[Sketch proof]
+The unpredictability of the algorithm depends solely on the selection of the random seed $r$. Assuming that the auction participants have no influence on the underlying blockchain, hence they cannot affect the random values produced by the L1, the random seed is unpredictable and unbiasable because it is produced after the bids are placed and it is not affected/correlated with the operations of the L2. 
+
+
+We note here, that even if the stakeholders that bid for slots in the rollup are also validators for the L1, they cannot know in advance the random seed as the outcome of the VRF cannot be precomputed. 
+
+In general, we assume there is always a way to extract from the L1 unpredictable and unbiasable randomness because otherwise, the L1 proof of stake consensus suffers similar problems.
+% \za{ more formal?}
+ \end{proof}
+
+ \begin{theorem}\label{thm:slot-symmetry}
+    Algorithm $\mathcal{A}$ satisfies the slot-symmetry property (Definition~\ref{def:slot-symmetry}).
+\end{theorem}
+\begin{proof}
+    Given an unbiasable and unpredictable random seed (Theorem~\ref{thm:unpredict}), the algorithm assigns the validators to slots uniformly at random, therefore each party is assigned to each slot with equal probability. Thus, slot-symmetry is satisfied in algorithm $\mathcal{A}$ -- even if the slots are not ``identical'' items.
+\end{proof}
+
+\begin{theorem}\label{thm:fairness}
+    Algorithm $\mathcal{A}$ satisfies the fairness property (Definition~\ref{def:expectation}).
+\end{theorem}
+
+\begin{proof}
+    Each party $P_i$ is allocated by algorithm $\mathcal{A}$ the following items.
+
+    First, it gets $\lfloor \stakePercentage_i \cdot I \rfloor$ items (deterministically).
+    
+    Second, it gets (on expectation) $\stakePercentage_i \cdot I - \lfloor \stakePercentage_i \cdot I \rfloor$ items.
+    
+    Therefore, on expectation, on each auction a party $P_i$ is allocated $\lfloor \stakePercentage_i \cdot I \rfloor + \stakePercentage_i \cdot I - \lfloor \stakePercentage_i \cdot I \rfloor = \stakePercentage_i \cdot I$, so the fairness property holds.
+\end{proof}
+
+\begin{theorem}\label{thm:concentration}
+    Algorithm $\mathcal{A}$ satisfies the concentration property (Definition~\ref{def:lower}).
+\end{theorem}
+\begin{proof}
+    The property is satisfied directly by the algorithm's definition as, in its first step, 
+allocates $\lfloor \stakePercentage_i \cdot I \rfloor$ items to each party $P_i$.
+\end{proof}
+
+

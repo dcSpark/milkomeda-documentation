@@ -5,10 +5,10 @@ sidebar_position: 1
 
 # How It Works
 
-In this section, we will explain how the Milkomeda Rollup protocol for Algorand works.
+In this section, we will explain how the Milkomeda Rollup protocol for Algorand works. It's important to notice that multiple parts of the protocol are still under development, and this documentation will be updated as the protocol evolves.
 
 The following sections are available:
 
-- [Architecture](architecture.md)
+<!-- - [Architecture](architecture.md) -->
 - [Data Availability](data-availability.md)
-- [State Transition Function](state-transition-function.md)
+<!-- - [State Transition Function](state-transition-function.md) -->
