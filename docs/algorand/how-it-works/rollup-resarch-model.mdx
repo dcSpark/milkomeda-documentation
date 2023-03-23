@@ -1,0 +1,38 @@
+---
+sidebar_label: "Rollup Research Model"
+sidebar_position: 2
+---
+
+# Rollup Research Model
+
+The complete research paper is available [here](https://milkomeda.com/Milkomeda%20Rollup.pdf).
+
+## Assumptions
+
+### System model
+Parties can lock their money in the Milkomeda rollup to continue the execution off-chain, referred to as clients. For the secure operation of the rollup, parties can participate as validators by locking stake in the rollup contract, responsible for the correct protocol execution, and enabling clients to exit the rollup in the correct state. The protocol proceeds in rounds determined by the underlying blockchain.
+
+### Network model
+Assuming a partially synchronous communication model, with a fixed upper bound on the communication delay, and arbitrarily long periods of asynchrony followed by long enough periods of synchrony.
+
+### Cryptographic assumptions
+Making the usual cryptographic assumptions, that secure communication channels, digital signatures, and PKI exist.
+
+### Threat model
+Assuming the adversary respects the cryptographic and network assumptions, cannot break cryptography, can reorder messages but cannot drop them, and may control up to 1/3 of the validators and any client. The adversary is slowly adaptive with respect to the validators.
+
+### Incentives
+Designing protocols secure under rational participants, where clients and validators are allowed to collude with each other.
+
+## Desired properties
+
+Determining what security means for the Milkomeda rollup under the aforementioned model:
+
+- Liveness: Any transaction submitted on the rollup becomes stable within a security parameter $$u$$ blocks.
+- Bridging: Any participant of the L1 can enter or exit the rollup upon request within a security parameter $w$ blocks, according to the state that an honest rollup client reports.
+
+Bridging encompasses the safety of the rollup, ensuring that no party loses money, and implies that any party that wishes to exit the rollup will leave it in the state that corresponds to the sequence of relevant transactions, meaning the rollup parties will not gain or lose money when bridging to the blockchain. Liveness expresses that the rollup ledger will make progress.
+
+### Our approach
+
+To show the desired properties, determining the individual protocols and their corresponding desiderata, and proving the three desired properties: liveness and bridging for the composition of the protocols. The proposed design enables a clear separation of liveness and bridging. We will first show that during an epoch, the rollup remains live and later show that at the end/beginning of each epoch, bridging is satisfied. The desiderata hold under an honest supermajority of stake, and then examine under which conditions or assumptions we can relax the honesty assumption and prove the desiderata under rational parties.
