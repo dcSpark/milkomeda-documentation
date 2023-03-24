@@ -1,6 +1,6 @@
 ---
 sidebar_label: "エンドユーザー向け"
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # エンドユーザー向け
