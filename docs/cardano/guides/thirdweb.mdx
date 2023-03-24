@@ -17,8 +17,12 @@ import img14 from "@site/static/img/thirdweb_tutorial/image14.png";
 import img15 from "@site/static/img/thirdweb_tutorial/image15.png";
 import img16 from "@site/static/img/thirdweb_tutorial/image16.png";
 
+:::info
+Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Cardano blockchain.
+:::
 
-This guide will show you how to deploy a simple smart contract to Milkomeda C1, an EVM-based sidechain connected to Cardano.
+
+This guide will show how to deploy a simple smart contract to Milkomeda C1, an EVM-based sidechain connected to Cardano.
 
 
 By the end, you'll learn how to create and deploy a very simple voting smart contract and create a web application to interact with it. We will use Thirdweb which makes the whole process very easy and straightforward by providing boilerplate code and packages to take care of several steps.
@@ -90,7 +94,6 @@ contract SimpleVoting {
 ```
 
 ## Deploying the Smart Contract
-
 
 Now we can easily deploy the contract using the Thirdweb dashboard by running the following:
 
@@ -353,7 +356,7 @@ import { useContractRead, useContract, Web3Button  } from "@thirdweb-dev/react";
   alt="Voting Buttons"
 />
 
-Great, users can now vote! But how can se see the results? Let's add a component for that. 
+Great, users can now vote! But how can we see the results? Let's add a component for that. 
 
 Create the file `src/components/Results.tsx` with the following code:
 
@@ -388,7 +391,7 @@ export default Results
 />
 
 
-Bonus: Let's replace the simple numbers showing the result with a graph, using graphjs
+Bonus: Let's replace the simple numbers showing the result with a graph, using the graphjs library.
 
 After importing some additional dependencies:
 
@@ -490,7 +493,6 @@ Here is the final result.
 
 
 
-We have create and deployed a smart contract on Milkomeda C1 Testnet with a lot of the boilerplate taken care of by Thirdweb. Building the DApp to interact with our smart contract was also very simple. With the provided React hooks, we did not need to provide ABI and reading and calling the smart contract was done with very few lines of code.
-
-
+We have created and deployed a smart contract on Milkomeda C1 Testnet with a lot of the boilerplate taken care of by Thirdweb. 
+Building the DApp to interact with our smart contract was also very simple. With the provided React hooks, we did not need to provide ABI and reading and calling the smart contract was done with very few lines of code.
 

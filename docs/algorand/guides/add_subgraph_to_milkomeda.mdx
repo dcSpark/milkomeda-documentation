@@ -1,5 +1,9 @@
 # Adding a subgraph to A1
 
+:::info
+Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Algorand blockchain.
+:::
+
 In this guide we will learn how to deploy a subgraph for smart contracts on Milkomeda A1, using TheGraph.
 
 Milkomeda chains are still not supported on The Graph's decentralized network, but one can run his own Graph Node to index any EVM-compatible network.
@@ -458,7 +462,7 @@ Call the contract to store a value:
 npx hardhat run scripts/callContract.ts --network a1_testnet
 ```
 
-Finally, we can query our subgraph and it will have indexed the events from Milkomeda A1 Testnet.
+We can now query our subgraph and it will have indexed the events from Milkomeda A1 Testnet.
 
 
 ```
@@ -482,3 +486,12 @@ Finally, we can query our subgraph and it will have indexed the events from Milk
   }
 }
 ```
+
+
+This guide explained how to **deploy a subgraph** for smart contracts on **Milkomeda A1** using TheGraph. 
+
+After creating a smart contract for testing and development, we set up a local subgraph environment using Docker to run a ganache, ipfs, postgres, and a graph-node containers.
+Then, we created a deployment script to deploy the contract to the ganache chain and we explained how to configure subgraph using The Graph CLI.
+
+Finally, we ajusted to setup to deploy and index the Smart Contract on the Milkomeda A1 chain.
+

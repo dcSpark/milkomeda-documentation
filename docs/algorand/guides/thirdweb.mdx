@@ -1,5 +1,9 @@
 # Thirdweb with Milkomeda
 
+:::info
+Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Algorand blockchain.
+:::
+
 import img1 from "@site/static/img/thirdweb_tutorial/image1.png";
 import img2 from "@site/static/img/thirdweb_tutorial/image2.png";
 import img3 from "@site/static/img/thirdweb_tutorial/image3.png";
@@ -18,7 +22,7 @@ import img15 from "@site/static/img/thirdweb_tutorial/image15.png";
 import img16 from "@site/static/img/thirdweb_tutorial/image16.png";
 
 
-This guide will show you how to deploy a simple smart contract to Milkomeda A1, an EVM-based rollup connected to Cardano.
+This guide will show how to deploy a simple smart contract to Milkomeda A1, an EVM-based rollup connected to Cardano.
 
 
 By the end, you'll learn how to create and deploy a very simple voting smart contract and create a web application to interact with it. We will use Thirdweb which makes the whole process very easy and straightforward by providing boilerplate code and packages to take care of several steps.
@@ -353,7 +357,7 @@ import { useContractRead, useContract, Web3Button  } from "@thirdweb-dev/react";
   alt="Voting Buttons"
 />
 
-Great, users can now vote! But how can se see the results? Let's add a component for that. 
+Great, users can now vote! But how can we see the results? Let's add a component for that. 
 
 Create the file `src/components/Results.tsx` with the following code:
 
@@ -388,7 +392,7 @@ export default Results
 />
 
 
-Bonus: Let's replace the simple numbers showing the result with a graph, using graphjs
+Bonus: Let's replace the simple numbers showing the result with a graph, using the graphjs library.
 
 After importing some additional dependencies:
 
