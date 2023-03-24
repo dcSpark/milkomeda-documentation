@@ -1,6 +1,6 @@
 ---
 sidebar_label: "给终端用户"
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # 给终端用户
