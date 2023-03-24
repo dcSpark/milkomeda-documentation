@@ -9,8 +9,8 @@ In this section, we will explain how the Milkomeda Rollup protocol for Algorand 
 
 The following sections are available:
 
-- [Data Availability](data-availability.md)
-- [Rollup Research Model](rollup-research-model.md)
-- [Validators Election](validators-election.md)
-- [Sequencer Election](sequencer-election.md)
-- [Safe Exit Alternatives (Research)](safe-exit-alternatives.md)
+- [Data Availability](data-availability.mdx)
+- [Rollup Research Model](rollup-research-model.mdx)
+- [Validators Election](validators-election.mdx)
+- [Sequencer Election](sequencer-election.mdx)
+- [Safe Exit Alternatives (Research)](research-safe-exit-alternatives.mdx)
