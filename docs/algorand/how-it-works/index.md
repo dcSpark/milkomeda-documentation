@@ -9,6 +9,8 @@ In this section, we will explain how the Milkomeda Rollup protocol for Algorand 
 
 The following sections are available:
 
-<!-- - [Architecture](architecture.md) -->
 - [Data Availability](data-availability.md)
-<!-- - [State Transition Function](state-transition-function.md) -->
+- [Rollup Research Model](rollup-research-model.md)
+- [Validators Election](validators-election.md)
+- [Sequencer Election](sequencer-election.md)
+- [Safe Exit Alternatives (Research)](safe-exit-alternatives.md)
