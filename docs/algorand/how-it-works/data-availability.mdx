@@ -11,15 +11,19 @@ In order for Milkomeda to be implemented as a rollup on Algorand, we need to sol
 
 ### Background
 
-At the time of this research and the implementation of the DA solution on top of Algorand Box Storage wasn't available. Currently, the team is working on a solution that will allow us to store large amounts of data on Algorand using Box Storage which also can work with the implementation of fraud proofs.
+At the time of this research and the implementation of the DA solution on top of Algorand, Box Storage wasn't available. Currently, the team is working on a solution that will allow us to store large amounts of data on Algorand using Box Storage which will be compatible with our implementation of fraud proofs.
 
 ## A Naive Transaction Note Approach
 
-Algorand has transaction notes (similar to metadata in other systems) which allow up to 1 kb of data to be included in a given transaction. Furthermore, Algorand allows up to 16 transactions to be grouped together such that all 16 txs must all be included in a block at the same time for any one of them to be considered valid.
+Algorand has transaction notes (similar to metadata in other systems) which allow up to 1 kb of data to be included in a given transaction. Furthermore, Algorand allows up to 16 transactions to be grouped together atomically, such that all 16 txs must all be included in a block at the same time for any one of them to be considered valid.
 
 As such, we have the ability to post rollup batches onto Algorand by compressing and partitioning the batch into 16 pieces (up to 1kb each), and posting all of said data as one group of 16 transactions. Once the transactions are accepted in a block, the batch is considered sequenced and finalized (because Algorand has instant finality).
 
-The batches can be read from the transaction note data from the block, by deconstructing the grouped transactions into their notes, rebuilding the batch from it’s 16 parts, and then submitting said batch data to the rollup node to update the current state of the rollup from the node’s perspective. Rather straightforward all in all.
+Batches can be read and used to update the L2 state with the following steps:
+1. Read the transaction group from a block
+2. Get the note for each transaction in the group
+3. Rebuild the batch data from each of the 16 parts
+4. Input the reconstructed batch data into the rollup node
 
 This approach however has a major limitation; a batch has a maximum size of 16kb. To see why this is a problem, we have randomly selected a few Optimism batches (just the input data) submitted on chain on Ethereum, and run the numbers to arrive at a rough theoretical throughput of the rollup if confined to 16kb per batch.
 
@@ -38,7 +42,7 @@ This approach however has a major limitation; a batch has a maximum size of 16kb
 
 This means that assuming we can't squish down the batch size any more than what Optimism is already doing, and assuming only one valid batch is posted per block, the maximum throughput of the rollup going down this route on Algorand is 6.33 txs/second.
 
-Theoretically multiple batchers can post batches in a single block, however with the first version of our rollups the invalid batches are simply ignored. This means that if a bad actor submits the same tx to two different batchers and they both include the tx, only the first batch will be valid. Thus unless we create a protocol on top to address this, we must assume that only a single batch per block will be posted.
+Theoretically multiple batchers can post batches in a single block, however with the first version of our rollup, the invalid batches are simply ignored. This means that if a bad actor submits the same tx to two different batchers and they both include the tx, only the first batch will be valid. Thus, unless we create a protocol on top to address this, we must assume that only a single batch per block will be posted.
 
 The game theory of batchers coordinating to not have their batches conflict doesn’t play well since your best strategy is to include all of the high tx fee transactions yourself and pay a higher tx fee on the L1 to get your batch included. Theoretically batchers can try to coordinate off chain and ignore user txs who send the same tx to multiple batchers, but batchers can simply ignore this and then batches will have collisions (bad acting batchers can effectively cancel out any other posted batches by feeding other batchers txs that the rogue batcher is also including, thereby potentially invalidating their batches if the rogue batcher gets included first).
 
@@ -47,13 +51,13 @@ As such, this naive approach leaves a lot to be desired because of the 16kb limi
 ## Basic Merkelized Batch Proposal Approach
 
 What the batchers aim to achieve when they post a batch on chain is a guaranteed deterministic sequencing of the batch in the rollup history and availability of said data. This is why posting a batch as a group of txs rather than separate transactions is useful, because you guarantee that the whole batch is available (because all of the batch data is posted at once). Grouping transactions however limits us to 16kb batches.
-As such we must create a protocol which allows a batcher to post their batch in numerous distinct grouped Algorand transactions, yet still guarantee sequencing and data availability.
+As such, we must create a protocol which allows a batcher to post their batch in numerous distinct grouped Algorand transactions, yet still guarantee sequencing and data availability.
 
 To achieve this we will be separating the sequencing of the batches from ensuring the batch data is available (and thereby validating and finalizing the batch as well). We will dub these as the “batch proposal phase” and the “batch availability phase”. In this basic merkelized batch proposal approach, we assume there is a single batcher (or multiple trusted batchers who rotate in order) to keep things simple and focus on the underlying mechanics first.
 
 ### Batch Proposal Phase
 
-In the batch proposal phase the batcher must post some piece of data that will “propose” a batch to be added to the sequenced rollup history. To some degree one can understand a proposed batch to be akin to an unconfirmed transaction. It is propagated out, however it is still unclear if said batch will be finalized because it may be invalid (in our context invalid means either the txs in the batch are straight up invalid/fail, or the full batch data was never made available/posted on chain).
+In the batch proposal phase, the batcher must post some piece of data aka “propose” a batch to be added to the sequenced rollup history. To some degree, one can understand a proposed batch to be akin to an unconfirmed transaction. It is propagated out, however it is still unclear if said batch will be finalized because it may be invalid (in our context, invalid means either the txs in the batch are straight up invalid/fail, or the full batch data was never made available/posted on chain).
 
 In practice, what the batcher does to prepare a batch is to split it up into smaller groupings of txs. These groupings of txs are then used to create a merkle tree of the entire batch. Of note, these groupings of txs need to be limited in size such that it is also possible to fit the grouping + it’s merkle proof in under 16kb.
 
@@ -65,7 +69,7 @@ When this batch proposal transaction is included in a block, the batch has been 
 
 Once a batch has been proposed, we enter into the batch availability phase. In effect we have a proposal for a new batch which intends to be sequenced into the rollup history, and now we have to ensure that the data is actually available for all of the rollup nodes to be able to read the batch.
 
-With the merkle root of the batch on-chain, the batcher now has 6 blocks to post all of the batch data. The batcher will post one or more grouped Algorand transactions where each group of transactions has a rollup grouping + merkle proof in the transaction notes. (Easiest way to do this will be to have the 1st algorand transaction in the group hold the merkle proof, and the rest of the 15 hold the actual rollup grouping)
+With the merkle root of the batch on-chain, the batcher now has 6 blocks to post all of the batch data. The batcher will post one or more grouped Algorand transactions, where each group of transactions has a rollup grouping + merkle proof in the transaction notes. (Easiest way to do this will be to have the 1st Algorand transaction in the group hold the merkle proof, and the rest of the 15 hold the actual rollup grouping)
 
 During this phase if any batch proposals are submitted, they are simply ignored. If the batcher fails to post all of the batch data within the next 6 blocks, then the batch is considered invalid and ignored (this moves the rollup back to the batch proposal phase).
 
@@ -75,9 +79,9 @@ Now that the batch is verified to be available, it then moves on to batch valida
 
 ### Batch Validation
 
-The rollup node now takes the batch which has been verified to be available, and validates if the transactions in the batch are all valid (this happens 100% off chain, not on Algorand).
+The rollup node now takes the batch which has been verified to be available, and validates if the transactions in the batch are all valid (this happens 100% locally, not on Algorand).
 
-If the batch of transactions are all valid, then they are applied to the state of the rollup. As such the rollup progresses forward one batch.
+If the batch of transactions are all valid, then they are applied to the state of the rollup. As such, the rollup progresses forward one batch.
 
 If a single one of the transactions are invalid/fail, then the batch is ignored because it is an invalid state transition. Even though the batch was verified to be ready to be added to the sequenced rollup history and the data was made available, the actual contents of the batch were invalid, and as such it is ignored.
 
@@ -98,11 +102,11 @@ After the 2 blocks have passed, one of the batch proposals is pseudo-randomly se
 
 The batch availability phase proceeds just as expected, wherein the selected batch submitter must post all of the groupings + merkle proofs of their batch in the next 6 blocks. If they fail to do this (or if during batch validation the batch is invalid), the batch is ignored and the protocol returns to the batch proposal phase.
 
-Depending on the complexity of the implementation, if specific batchers repeatedly keep failing to submit the data of batches they submit, it would be wise to stake slash them for attempting to DoS the system or simply failing to ensure their software is working properly.
+Depending on the complexity of the implementation, if specific batchers repeatedly keep failing to submit the data of batches they submit, it would be wise to stake slash them for attempting to DoS the system or for simply failing to ensure their software is working properly.
 
 ## Basic and Advanced Merkelized Batch Proposal Throughput
 
-In this section we will take a look at some rough estimates of the potential TPS of both the basic and advanced merkelized batch proposal approaches assuming we fill 100% of space of all of the blocks during the batch availability phase. Do note, according to (this post)[https://www.algorand.com/resources/algorand-announcements/algorand-2021-performance] by Silvio Micali, the block size will increase 5x and the block time will decrease from 4.5s -> 2.5s. We will take a look at the potential TPS for both current and future circumstances.
+In this section, we will take a look at some rough estimates of the potential TPS of both the basic and advanced merkelized batch proposal approaches assuming we fill 100% of space of all of the blocks during the batch availability phase. Do note, according to (this post)[https://www.algorand.com/resources/algorand-announcements/algorand-2021-performance] by Silvio Micali, the block size will increase 5x and the block time will decrease from 4.5s -> 2.5s. We will take a look at the potential TPS for both current and future circumstances.
 
 ### Current Algorand Throughput (as of August 2022)
 
@@ -152,11 +156,11 @@ In this section we will take a look at some rough estimates of the potential TPS
 
 ## Data Availability (v1) Conclusion
 
-The naive transaction note approach is extremely limited due to the 16kb limit. A max TPS of 6.33 is insufficient for our needs and would likely cause us to take a reputational hit even if it was a first step due to how limited the throughput would be.
+The naive transaction note approach is extremely limited due to the 16kb limit. A max TPS of 6.33 is insufficient for our needs, and thus was never actually implemented.
 
 Using the merkelized batch proposal approach, the max TPS is between 263 to 3073 txs/second (depending on which variant, and before or after Algorand improves their base throughput). This represents a 41.5x to 485.5x improvement over the naive approach.
 
-For Milkomeda we will likely start out with the basic merkelized batch proposal approach, and move towards the advanced approach over time. The basic approach provides us with the majority of the benefits, however is simpler and as such is more centralized as a tradeoff.
+Milkomeda started with the basic merkelized batch proposal approach, and will move towards the advanced approach over time. The basic approach provides it with the majority of the benefits, however is simpler and as such is more centralized as a tradeoff.
 
 Nonetheless, existing rollup approaches are all primarily limited to a single batcher/roller/sequencer on Ethereum, so this is a tradeoff that is not uncommon. Furthermore we have a clear path to expanding the protocol to support further batchers (you can find our research in the next sections), allowing us to keep building towards a more decentralized future.
 
