@@ -1,0 +1,148 @@
+---
+sidebar_label: Safe Exit Alternatives (Research)
+sidebar_position: 5
+---
+
+# Safe Exit Alternatives (Research)
+
+The complete research paper is available [here](https://milkomeda.com/Milkomeda%20Rollup.pdf).
+
+**_Clarification_** This is a complementary research done to explorer other posibilidies for the safe exit protocol. The current goal to be implement for the Algorand EVM Rollup is a fraud proof system.
+
+In this section, we investigate potential protocols for implementing the safe exit. 
+
+First, we provide an ideal safe exit protocol and prove the liveness and bridging properties of the ideal protocol.
+
+Then in Section 5.2, we provide a realization  of the ideal protocol under the assumption of an honest supermajority among the elected validators.
+
+In Section 5.3 we examine the case where the validators are rational, and indicate that designing a safe exit protocol under rational validators may be impossible.
+
+In the remaining sections, we discuss possible ways to circumvent the implied impossibility and design a safe exit protocol secure under rational validators.
+
+## Ideal Safe Exit
+
+A safe exit protocol has the following functionality: it takes as input the request of a  client $C$ to exit the rollup along with the ordered rollup transactions $T$, and returns a state $t_C$. $t_C$ is the correct state that $C$ can leave the rollup, i.e., the state that would be derived by any correct executor of all transactions $T$ with respect to $C$. 
+
+Suppose there is an oracle $O$ that realizes the aforementioned functionality, that is, $O(C, T)= t_C$, where $C$ is an existing client of the rollup, $T$ the rollup ledger (ordered list of transactions), and $t_C$ is a state that is consistent with the language of the L1.
+Whenever a client wants to exit the rollup, the client calls the safe exit oracle and exits the rollup in the returned state.
+
+Given this oracle, we will show next that the Milkomeda rollup is secure under our model.
+In the following sections, we will discuss various directions to realize such an oracle.
+
+**Security analysis.**
+We now show that given a safe exit oracle $O$, the Milkomeda rollup is secure, meaning it satisfies  liveness and bridging.
+
+**Theorem 11**
+    Given a safe exit oracle $O$, the Milkomeda rollup satisfies bridging for $w=e$.
+
+**Proof**
+ Any participant can enter the rollup at the beginning of a new epoch. Moreover, any client that wants to leave the rollup may call the safe exit oracle at the end of each epoch. The oracle always returns the state of the client that an honest client would report, i.e., in accordance with the rollup ledger $T$.\
+ Hence, bridging is satisfied for  $w=e$.
+
+**Theorem 12**
+    Given a safe exit oracle $O$, the Milkomeda rollup satisfies liveness.
+**Proof**
+Directly derived from Theorem 10, as the safe exit protocol does not affect the liveness of the rollup.
+
+## Safe exit under honesty assumptions
+
+We first show a simple way to realize a safe exit oracle under honest supermajority assumption. We then discuss the case where $1/3$ of the validators are honest. 
+
+**The protocol.**
+A simple safe exit protocol that satisfies the desiderata is as follows: When a client wants to exit the rollup at the end of an epoch, the client must provide the smart contract with at least $2/3$ of the validators' signatures. Then, the client can exit the rollup on that state. 
+This protocol realizes the safe exit oracle.
+
+### Honest supermajority
+
+It is straightforward to see that assuming an honest supermajority, i.e., 2/3 of all validators, guarantees liveness and bridging. 
+
+**Liveness**
+Liveness is guaranteed as long as one honest validator is chosen to act as a sequencer within $u$ blocks. Assuming 2/3 honest validators makes the probability of breaking liveness (i.e., electing malicious validators for $u$ consecutive blocks) reasonably small (cf. Theorem 10).
+
+We note that proving liveness in this setting is straightforward as no argumentation for rational validators is necessary.
+
+**Bridging**
+Bridging is satisfied as the protocol always returns the correct exit state upon request within $e$ blocks.
+Specifically, since 2/3 of the validators are honest, they will always sign exit transactions correctly (i.e., allowing users to exit the rollup with the correct amounts of funds) and, equivalently, the malicious (1/3) validators cannot produce a valid signed exit transaction.
+
+### Honest 1/3
+
+Assuming 1/3 of all validators are honest guarantees liveness but does not guarantee bridging. 
+
+**Liveness.**
+Liveness is guaranteed if an honest validator is elected as sequencer within $u$ blocks. 
+Since now $1/3$ of all validators are honest, meaning that $1/3$ of all the sequencers are honest either the probability of violating liveness increases (but not significantly -- cf. Lemma 3) or the security parameter $u$ must increase (to maintain the same level of security). In any case, liveness will be satisfied.
+
+**Bridging.**
+Bridging, however, is not guaranteed. Specifically, since the honest validators control only 1/3 of the votes for the exit protocol, a coalition of more than 1/3 (up to 2/3) of validators can block (i.e., not sign) any exit transaction they choose. Nonetheless, a valid exit transaction _has to_ be signed by at least one honest validator. Therefore, no malicious coalition can violate the correctness conditions for exiting, i.e., a party cannot exit the protocol with more than the appropriate funds. 
+Interestingly, the safety aspect of bridging cannot be violated but instead the liveness aspect of bridging may.
+
+## Impossibility of rational security without fraud-proofs
+
+In this section, we show that bridging the rollup with the L1, i.e., designing a safe exit protocol, that is secure under rational validators is _impossible without any notion of fraud or validity proofs_. 
+
+The challenge lies in the fact that the rollup operations are not recognizable by the L1 language and thus the L1 consensus participants, which we will call the L1-validators, cannot verify if a state is correct or not according to the rollup state transitions (aka transactions). 
+For instance, the Milkomeda rollup allows for EVM computations while the underlying chain it is deployed on (e.g., Algorand) is not EVM-compatible, hence the Algorand validators cannot evaluate the  exiting state of a Milkomeda client.
+
+Naturally, the first idea is to leverage the validators to vote on the exit state of a rollup client (as described in Section 5.2), encourage them to participate via rewards, and disincentivize them to cheat via slashing. However, the slashing must be initiated either by the client exiting the rollup (cheater) or the other validators, and the scheme should be secure, such that no party loses money, e.g., via bribery attacks. 
+In this section, we show that any scheme that only relies on monetary incentives, rewards, and punishments, is not secure under rational validators. 
+
+**Bridging attack.**
+Suppose there is a safe exit protocol, where the realization of the safe exit oracle is done by the elected validators or a subset thereof, denoted $V$. This means that the correct state for any address that exits the rollup is determined by the set $V$ under a pre-specified rule $R$, denoted $R_V$. For instance, the correct exiting state may be the output of a consensus among the $V$ validators, or the state that is signed by the majority of $V$, etc. All these are different rules that realize the safe exit oracle,  $R_V(C, T)=t_C$ for any client $C$ that wants to exit the rollup.
+
+Note now that there is no way to prove fraud or validity of an exit state to the underlying L1. This means that the "truth" is indeed determined by the rule $R_V$ and no one can dispute it, since the fraud is not provable. Allowing disputes that cannot be verified creates the opposite problem of disputing truthful statements. Therefore, the set $V$ has total control over the "truth" of the rollup, i.e., the exit state of any client.
+This means that the validators $V$ can create a multisig address and a smart contract on-chain that divides the earnings of this address equally among them. Then, they may enter with this address the rollup as client $C$. This must be allowed otherwise the bridging property is violated. 
+Then, $C$ requests to exit the rollup with all the money of the rollup $M$ (or any maximum amount allowed). Regardless of the selected rule, the set $V$ outputs $t_C=M$ in total agreement and exits the rollup with the total amount. Note that, no one can prove fraud occurred, hence  the validators will leave with their stake intact as well as their share of the rollup money.
+
+This attack demonstrates that a naive realization of the safe exit protocol under rational parties is vulnerable to bridging attacks. Moreover, it is indicated that no protocol can be secure without some notion of validity-proof or fraud-proof if the exit rule is determined solely by the validators of the rollup. The intuition behind this impossibility stems from the typical operation of rollups that inherit their safety from the blockchain. Removing this guarantee leaves the rollup vulnerable to bridging attacks. This fact also indicates that possible solutions may involve the L1-validators either via the L1 consensus or by creating some notion of fraud-proof that is understandable to the L1. 
+In the next sections, we explore various such directions to bypass this impossibility.
+
+## Safe exit via witness encryption
+
+In this section, we explore the idea of using witness encryption to circumvent the impossibility of Section 5.3. 
+
+Consider an NP language $\\mathcal{L} \\subset {0, 1}^\*$ with an efficient witness relation $R$ (by definition, statement $x \\in \\mathcal{L} \\Leftrightarrow \\exists w: R(x, w) = 1$). A witness encryption scheme allows one to encrypt a message in $\\mathcal{M}$ with a statement such that it can be decrypted with a corresponding witness:
+
+$\\forall m \\in \\mathcal{M}, \\Pr[\text{Dec}(\text{Enc}(x, m), w) = m] = 1$
+
+For our application, we set $x_{P, R}$ to be \`\`there exists a series of actions under which $P$ has committed fraud against $R$'' (for a suitable definition of "fraud", expressed in EVM) -- a witness would be such a fraudulent series of actions. When joining the rollup, $P$ encrypts her private key (which carries her coins at the AVM level) with $R$'s public key and then witness-encrypts the resulting ciphertext under $x_{P, R}$ to obtain $C$. $C$ is sent to $R$, who can decrypt it and punish $P$ only if the latter commits fraud.
+
+At a high level, the exit protocol is as follows. A party $P$ asks to exit. This starts a timelock, within which other parties may prove fraud. If the timelock expires, $P$ can unilaterally exit the rollup with its fair share of coins. The low-level exit mechanism is to be determined but can copy existing rollups and/or commit-chains in a straightforward manner.
+
+Open problems:
+
+-   Avoid the need for one witness encryption per counterparty while still ensuring that the defrauded party is the one to be compensated with the fraudster's coins. Otherwise, $O(n^2)$ ciphertexts are exchanged and interaction with all existing parties is needed when new party joins.
+-   Ensure that the encrypter encrypts the correct thing -- some kind of "verifiable" witness encryption is needed for this.
+
+## From EVM to AVM
+
+One possible avenue is to investigate the differences between the expressiveness of EVM and AVM. The goal here would be to build a mechanism that extracts, from EVM-based contracts, AVM-compatible fraud proofs. This would allow to circumvent the impossibility of Section 5.3 and provide an incentive mechanism for safe exit. This is one of the currently leading directions of research. Nonetheless, such a mechanism would not be generic, i.e., L1-agnostic like the other alternatives, but would be tailored to AVM-compatible ledgers.
+
+## Leveraging Ethereum
+
+One possible solution to the design of a safe exit oracle is to leverage Ethereum. 
+This solution demands the rollup operators/validators hold stake in both the rollup's L1, e.g., Algorand, and Ethereum. 
+The initial auction would take place as described in Sections 3, 4 in the main chain of the rollup, let this be Algorand. Then, the sequencers will publish their data as described in Section 4 on the Algorand blockchain. At the end of the epoch though, the elected validators will be asked to lock their stake in Ethereum and in case anyone exits on a fraudulent state a fraud-proof will be submitted within a timelock on Ethereum and slash the validators responsible for the fraud. 
+The exact design for this solution is still to be determined. 
+
+There are many open problems such as:
+
+-   Determine and minimize the relayed information across chains. 
+-   Determine the minimum number of parties in the rollup that must act as light clients on Ethereum. Can we improve this by leveraging other techniques, such as super-light clients?
+-   At the current design the validators must hold stake in both chains, which is a heavy requirement. Can we enable some type of loan in a secure manner in order to accommodate the liquidity on Ethereum, and if slashed claim their funds on Algorand?
+
+## Leveraging the L1-validators
+
+In this section, we describe a solution that circumvents our impossibility by involving the L1-validators in the rollup operation.
+
+In contrast to the proposed solutions so far, the sequencers must now verify the transactions, so only valid rollup transitions are included.
+The L1-validators only include valid rollup transactions, hence they also validate the ordering of the sequencer.
+If the sequencer and the L1-validator both commit fraud, the next L1-validator will fork out the block of the malicious L1-validator. 
+Hence, the current L1-validator  will not include fraudulent/invalid rollup transactions. Instead, the L1-validator  will slash the sequencer and claim his reward.
+
+Some remarks and open questions on this approach are:
+
+-   This solution changes altogether the proposed construction as the sequencer is now responsible for publishing only valid data and therefore may tamper with the bridging of the rollup. In our constructions so far the sequencer could only interfere with liveness, which allowed a clear separation of operations and a simpler analysis.
+-   To prove that the next L1-validator will fork out the fraud block of the main chain in a rational setting, we have to show that the expected reward will drop if at least one future L1-validator  is honest and may fork out his block.
+-   The slashing of a sequencer awards the L1-validator his stake in case of fraud. However, if the protocol is designed naively other L1-validators will exclude the current block to get the slashed amount themselves. This is the same problem with transactions with very high fees. To address this issue, we demand the sequencer be able to publish only on a specific block height and subsequently get punished by only one specific L1-validator.
+-   This approach meddles with the main consensus incentives. Is it enough to assume the underlying chain has an honest majority or shall we study the existing incentives of the chain? Are there any major issues or attack vectors introduced by our involvement?
