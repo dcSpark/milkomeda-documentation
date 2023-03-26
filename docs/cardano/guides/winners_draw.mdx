@@ -1,0 +1,425 @@
+#  Prize Draw Smart-Contract Tutorial
+
+:::info
+Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Cardano blockchain.
+:::
+
+Random draws and giveaways are common events that many web3 organizations host, but ensuring the fairness and transparency of the selection process can be challenging. **In this tutorial, we will walk through the process of developing a simple smart contract that can be used to conduct a random draw and store the results on a blockchain.** Specifically, we will develop a smart contract that can be used to determine the winners of a prize draw and store the results where everyone can see and verify.
+
+**We will build this example in solidity and use it to show how to deploy a smart contract on a Milkomeda C1 chain.**
+
+The smart contract will be built using Solidity and will include a boolean to verify if the draw has taken place or not, a fixed size array of 10 (winners), and a function that can only be called by the contract deployer to run the draw. This function will generate 10 random numbers between 1 and the total number of entries in the draw, and store them in the array. The 10 random numbers would define the winners from a pre-published ordered list of entries.
+
+To help you follow along with this tutorial, we will briefly show you how to deploy the contract using popular blockchain development tools like Hardhat, Foundry, and Apeworx. By the end of this tutorial, you will have a functional smart contract that can be used for conducting a fair and transparent prize draw.
+
+## Random Numbers on EVM
+
+Explaining random numbers is beyond the scope of the piece, but it’s important to know that computers, being deterministic machines, cannot generate true random numbers. The can only generate pseudo random numbers, ie, numbers that when generated in sequence, appear to be statistically random, despite having been produced by a completely deterministic and repeatable process.
+
+Our choice of random number generator will be the Linear Congruential Generator (LCG), which uses a linear equation to generate a sequence of numbers that appear to be random. The equation used by an LCG is of the form:
+
+```
+Xn+1 = (a.Xn + c) % m
+```
+
+Where:
+- Xn is the current number in the sequence, 
+- a is the multiplier, 
+- c is the increment,
+- m is the modulus. 
+
+The seed value X0 is used as the initial value for the sequence. LCGs are one of the oldest and best-known pseudo random numbers generators and are often used in simulations and modeling. However, LCGs have a period that is determined by the modulus m, and if a and c are not chosen carefully, the sequence may not have enough randomness and can be predicted after a short period. 
+
+In any case, for our simple smart contract the parameters a,c and m will actually be stored where everyone can see, so we will rely on the initial value (seed) to guarantee randomness of the sequence of 10 numbers. The chosen values will be the ones used in C language for the function rand:
+- a=1103515245, 
+- c=12345,
+- m=2^31;
+
+
+Additionally, we will tweak our random generator somewhat to get numbers between two integers. Let’s say we have 300 respondents to the survey, then we want to generate random numbers between 1 and 300. To achieve that we will scale the results in order of the desired min and max values.
+
+```
+(((max - min + 1) + min)  * (( a * Xn + c) % m )) / m
+```
+
+We don’t need to overengineer the random number generator and for this particular use case, this algorithm will do. If we plot a histogram from a million draws, we will observe a uniform-like distribution which is what we intend. Each result has an close to equal probability of being drawn.
+
+
+## Simple Smart Contract to draw winners
+
+The smart contract will be written in solidity, and although it could be optimized, hopefully, the different parts will be simple to understand. We will create a file called WinnerDraw.sol.
+
+
+We start off by defining some constants and our constructor, which has the most basic of access controls. It saves the contract deployer in the owner variable.
+
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract WinnerDraw {
+    bool drawFinalized;
+    address owner;
+    uint[10] public winners;
+
+    uint a = 1103515245;
+    uint c = 12345;
+    uint m = 2**31;
+
+    constructor () {
+        owner = msg.sender;
+    }
+```
+
+Then, our function for the scaled Linear Congruential Generator.
+
+```javascript
+    function scaledLinearCongruentialGenerator(uint x, uint mn, uint mx) public view returns (uint) {
+        return ( ((mx - mn + 1) + mn)  * (( a * x + c) % m )) / m  ;
+    }
+```
+
+
+We define a function to execute the draw, that checks if the caller is the contract owner and whether the draw has already been executed. If all the checks pass, the function will generate 10 random numbers between the supplied parameters min and max, and store them. Also the boolean drawFinalized will be set to true.
+:::note
+One thing to note here is the seed used to start the sequence of 10 numbers is the integer of the hashed block timestamp and difficulty, scaled by the m parameters.  A word of caution here is that the inputs for the seed could be manipulated by a block producer (validator) who could determine at least one of the winners (because the seed influences the deterministic sequence), but for this simple example, we will choose to believe that all block producers are honest. 
+:::
+```javascript
+    function executeDraw(uint min, uint max) public returns (uint[10] memory array) {
+      require(msg.sender == owner, "Only owner can execute draw");
+      require(!drawFinalized, "Draw already executed");
+      uint x = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % m;
+      for(uint i = 0; i< 10 ; i++){
+            array[i] = (i==0) 
+             ? scaledLinearCongruentialGenerator(x, min, max) 
+             : scaledLinearCongruentialGenerator(array[i-1], min, max);
+            winners[i] = array[i];
+      }        
+      drawFinalized = true;
+    }
+```
+
+Finally, we provide a getter function to make it easier to retrieve the array of winners.
+
+```javascript
+    function getWinners() public view returns (uint[10] memory result) {
+        for(uint i = 0; i<br 10 ; i++){        
+            result[i] = winners[i];
+        }
+    }
+```
+
+## Deploy and Test Contract on Milkomeda C1 Testnet
+
+Now that we have written our smart contract, let’s see how we could use four different development tools, Hardhat, Foundry, Brownie and Apeworx, to deploy it on the Milkomeda C1 Testnet.
+
+Installing and using these tools will not be the focus here, and what we want to highlight is how to set up these frameworks to work with the Milkomeda C1.
+
+Also, the steps for deploying on C1, mainnet or testnet, are exactly the same, considering one is using a funded account, so we will use C1 Testnet for this example. Please refer to the [milkomeda docs](https://dcspark.github.io/milkomeda-documentation/cardano/for-developers/obtaining-test-ada) to get funds on testnet.
+
+
+>**Network Name:** Milkomeda Cardano Testnet<br></br>
+>**RPC URL:** https://rpc-devnet-cardano-evm.c1.milkomeda.com<br></br>
+>**Chain ID:** 200101<br></br>
+>**Block Explorer URL:** https://explorer-devnet-cardano-evm.c1.milkomeda.com<br></br>
+
+
+
+### Hardhat
+
+Steps:
+1. Initialize a Hardhat project in an empty folder:
+
+```bash
+yarn init
+yarn add --dev hardhat
+```
+
+2. Copy the WinnerDraw.sol to the contracts folder
+3. Compile the contract:
+
+```bash
+npx hardhat compile
+```
+
+4. Edit hardhat.config.js to add the C1 testnet and your funded test account:
+
+```
+require("@nomicfoundation/hardhat-toolbox");
+
+const TESTNET_API_KEY = "<PRIVATE_KEY>";
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: "0.8.17",
+  networks: {
+    c1_testnet: {
+      url: `https://rpc-devnet-cardano-evm.c1.milkomeda.com`,
+      accounts: [TESTNET_API_KEY]
+    }
+  }  
+};
+```
+
+5. Create a file named deploy.js in the scripts folder:
+
+```
+const hre = require("hardhat");
+
+async function main() {
+    const WinnerDraw = await hre.ethers.getContractFactory("WinnerDraw");
+    const winnerDraw = await WinnerDraw.deploy();
+    await winnerDraw.deployed();
+    console.log(`WinnerDraw contract deployed to ${winnerDraw.address}`);
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
+```
+
+6. Run the deployment script on C1 testnet:
+
+```bash
+npx hardhat run scripts/deploy.js --network c1_testnet
+```
+
+### Foundry
+
+Steps:
+
+1. Initialize an ape project in an empty folder:
+
+```bash
+forge init .
+```
+
+2. Copy the **WinnerDraw.sol** to the contracts folder.
+3. Compile the contract:
+
+```bash
+forge build
+```
+
+4. Create a file named `.env` with the private key of the funded account:
+
+```
+PRIVATE_KEY=<PRIVATE_KEY>
+```
+
+5. Run the deployment script on C1 testnet:
+
+```bash
+source .env
+forge create --legacy --rpc-url  https://rpc-devnet-cardano-evm.c1.milkomeda.com --private-key $PRIVATE_KEY src/WinnerDraw.sol:WinnerDraw
+```
+
+:::info
+Notice the `--legacy` is necessary since milkomeda chains have not yet implemented EIP-1559
+:::
+
+
+### Apeworx
+
+
+Plugins are core to ApeworX’s architecture and to add a new network, it has to be bundled into a plugin. Luckily, dcspark has developed a plugin (ape-milkomeda)  to allow Apeworx to connect to C1, mainnet and testnet.
+
+
+Steps
+
+1. Install the ape-milkomeda plugin to have the milkomeda chains available in the ApeworX network list.
+
+Either download the repo and install from source:
+
+```bash
+git glone https://github.com/dcspark/ape-milkomeda
+cd ape-milkomeda
+pip install .
+```
+
+or install from the pypi repository:
+
+```bash
+pip install ape-milkomeda
+```
+
+
+2. Initialize an ape project in an empty folder:
+
+```bash
+ape init
+```
+
+3. Copy the **WinnerDraw.sol** to the contracts folder.
+4. Compile the contract:
+
+```bash
+ape compile
+```
+
+5. Import your account to ApeworX account list:
+
+```
+ape accounts import <ALIAS>
+```
+
+(you will be prompted for the private key and a passphrase to encrypt it)
+
+
+6. Create a file names deploy.py in the scripts folder:
+
+```python
+from ape import project, accounts
+
+def main():
+    signer = accounts.load('test')
+    winnerDraw = signer.deploy(project.WinnerDraw)
+```
+
+7. Run the deployment script on C1 testnet:
+
+```bash
+ape run deploy --network milkomeda:c1-testnet
+```
+
+
+
+###  Brownie
+
+Brownie is currently in maintenance mode and ApeworX should be it’s successor, but in any case we will lease here the steps to set it up.
+
+Steps:
+
+1. Initialize a brownie project in an empty folder: 
+
+```bash
+brownie init
+```
+
+2. Copy the **WinnerDraw.sol** to the contracts folder.
+3. Compile the contract:
+
+```
+brownie compile
+```
+
+4. Add the Milkomeda C1 testnet list of networks in brownie:
+
+```
+brownie networks add Milkomeda milkomeda-cardano-testnet chainid=200101 explorer=https://explorer-devnet-cardano-evm.c1.milkomeda.com host=https://rpc-devnet-cardano-evm.c1.milkomeda.com name="Milkomeda C1 Testnet"
+```
+
+
+5. Create a file named brownie-config.yml in the root of the project with the following content:
+
+```yaml
+dotenv: .env
+wallets:
+  - dummy: ${PRIVATE_KEY}
+```
+
+
+6. Create a file named .env with the private key of the funded account:
+
+```
+PRIVATE_KEY=<PRIVATE_KEY>
+```
+
+
+7. Create a file named deploy.py in the scripts folder:
+
+```python
+from brownie import WinnerDraw, accounts, config
+
+def main():
+    signer = accounts.add(config['wallets'][0]['dummy'])
+    WinnerDraw.deploy({"from": signer})
+```
+
+
+8. Run the deployment script on C1 testnet:
+
+```
+brownie run scripts/deploy.py --network milkomeda-cardano-testnet
+```
+
+
+
+## Calling the Smart Contract
+
+To call the deployed smart contract let’s use Foundry and ApeworX, to have one example of each language, Javascript and Python, and since these two frameworks have the least verbose code for calls, it’s easier to show the steps. Basically we will call the “executeDraw” function and the check the winners.
+
+Foundry has an amazing command-line tool called cast for making Ethereum RPC calls. You can check the documentation [here](https://book.getfoundry.sh/reference/cast/cast-send).
+
+With cast, we can call the getWinners function with the following command:
+
+```bash
+cast call 0xf89fe1c87759b7E55Ca6d90666761e0b188A46F1 "getWinners()(uint[10])" --rpc-url https://rpc-devnet-cardano-evm.c1.milkomeda.com
+```
+
+Which would return an array of zeros since the draw hasn’t been executed yet.
+
+```
+[0,0,0,0,0,0,0,0,0,0]
+```
+
+Now we can call the executeDraw function:
+
+```bash
+cast send --legacy --private-key $PRIVATE_KEY 0xf89fe1c87759b7E55Ca6d90666761e0b188A46F1 --rpc-url https://rpc-devnet-cardano-evm.c1.milkomeda.com "executeDraw(uint min, uint max)" 1 300
+```
+
+If we check get the winners stored in the contract again, we now have:
+
+```
+[292,14,58,242,106,141,136,266,207,111]
+```
+
+
+Now, let’s run the same steps in ApeworX. First, we will deploy the smart contract again, since the draw on the previous one was already executed in Foundry.
+
+In our ApeworX project we created above, let’s save a file named call.py with the following content (the contract address is hardcoded here):
+
+```python
+from ape import project, accounts
+
+def main():
+    winnerDraw = project.WinnerDraw.at('0x6469886bC2E5243d30333E06dAF0c1157ACc4d4D')
+    print("Stored Winners:", winnerDraw.getWinners())
+```
+
+This will show an array of zeros because the draw has not been executed:
+
+```
+Stored Winners: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+```
+
+But after calling the executeDraw function (can only by run by contract deployer):
+
+```python
+    signer = accounts.load('test')
+    winnerDraw.executeDraw(1, 300, sender=signer)
+    print("Stored Winners:", winnerDraw.getWinners())
+```
+
+We will get an array of (pseudo) random numbers between 1 and 300:
+
+```
+Stored Winners: [170, 107, 296, 31, 279, 110, 158, 57, 87, 212]
+```
+
+Now, if we call the executeDraw function again it will revert:
+
+```python
+    winnerDraw.executeDraw(1, 300, sender=signer)
+```
+
+ERROR: (ContractLogicError) Draw already executed
+
+And if another account calls the executeDraw function, it will revert:
+
+```python
+    winnerDraw.executeDraw(1, 300, sender=another_user)
+```
+
+ERROR: (ContractLogicError) Only owner can execute draw
