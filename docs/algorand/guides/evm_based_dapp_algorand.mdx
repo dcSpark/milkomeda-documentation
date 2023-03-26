@@ -24,15 +24,11 @@ import img10 from "@site/static/img/evm_based_dapp_algorand/image10.png";
 Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Algorand blockchain.
 :::
 
-In this guide, we will show how simple it is to deploy an EVM-based dApp on Algorand-Milkomeda A1, using mostly Python.
-
-Milkomeda is a new protocol that brings EVM capabilities to non-EVM blockchains. At the time of writing, there are L2 solutions for Algorand, through the EVM-based Rollup Algorand-Milkomeda A1, and Cardano, through the EVM-based sidechain Cardano-Milkomeda C1.
-
-The A1 Rollup uses wrapped ALGOs (milkALGOs) as its base currency, which can be easily bridged using the Milkomeda permission-less bridge. Users can wrap their ALGOs and other Algorand native assets (ASAs) onto the A1 Rollup with a few simple steps. This enables them to use their milkALGOs to interact with the EVM-based dApps deployed on the A1 Rollup.
+In this guide, we will show how simple it is to deploy an EVM-based DApp on Milkomeda Algorand Rollup using mostly Python.
 
 ## Setup an Algorand Wallet
 
-There are several wallets one can use in Algorand. For an almost complete list, I point readers to the discover > wallets section on the Algorand Developer portal, but in this example, we will use Pera Wallet.
+There are several wallets one can use in Algorand. For an almost complete list, we point readers to the discover > wallets section on the [Algorand Developer portal](https://developer.algorand.org/), but in this example, we will use [Pera Wallet](https://perawallet.app/).
 
 Pera Wallet is a self-custodial wallet, giving you complete control of your crypto. All wallet information is kept securely on your devices. It helps users interact directly with the Algorand blockchain while handling their own private keys by either storing them securely and encrypted in their local browser or by using a Ledger hardware wallet.
 
@@ -52,7 +48,7 @@ To set up a wallet:
 
 ## Get Some Testnet ALGO
 
-Now, go to Settings and change to “Testnet” in Node Settings, and then visit the Algorand Testnet Dispenser (https://testnet.algoexplorer.io/dispenser) and paste your newly created account address to get some testnet ALGOs.
+Now, go to Settings and change to “Testnet” in Node Settings, and then visit the [Algorand Testnet Dispenser](https://testnet.algoexplorer.io/dispenser) and paste your newly created account address to get some testnet ALGOs.
 
    <img
      src={img2}
@@ -96,22 +92,23 @@ print('eth addr: 0x' + addr.hex())
 
 This will generate a private key which you can now use to import the account into Metamask.
 
-**IMPORTANT:** Please do not use an account generated like this for real funds. The randomness of the proposed process is insufficient to ensure the security of your funds.
-
+:::info
+**Important:** Please do not use an account generated like this for real funds. The randomness of the proposed process is insufficient to ensure the security of your funds.
+:::
 
 ## Bridge Testnet ALGO to Milkomeda A1
 
-Go to the Milkomeda A1 bridge page https://algorand-bridge-dev.milkomeda.com/ and follow these steps:
+Go to the [Milkomeda A1 bridge DApp](https://algorand-bridge-dev.milkomeda.com/) and follow these steps:
 
-1. Select “Devnet” in top right select box
-1. On Network Origin, select “Algorand to Milkomeda”
-1. On Token, select “ALGO” and enter desired amount
-1. Click “Connect Wallet” Algorand, select Pera Wallet and enter your password
-1. Click “Connect Wallet” Metamask to connect to your EVM address on A1
-1. Click “Next,” then “Sign and Send”
-1. Enter your “Pera Wallet” password again to sign the transaction
+>1. Select “Devnet” in top right select box
+>1. On Network Origin, select “Algorand to Milkomeda”
+>1. On Token, select “ALGO” and enter desired amount
+>1. Click “Connect Wallet” Algorand, select Pera Wallet and enter your password
+>1. Click “Connect Wallet” Metamask to connect to your EVM address on A1
+>1. Click “Next,” then “Sign and Send”
+>1. Enter your “Pera Wallet” password again to sign the transaction
 
-If all went well, you will see the following screen and should now see your bridged ALGOs in Metamask. Following the link will show the transaction on the A1 Bridge Explorer.
+Assuming the previous steps were executed successfully, you should now be able to see your bridged ALGOs in Metamask. Following the link will show the transaction on the [A1 Bridge Explorer](https://bridge-explorer.milkomeda.com/algorand-devnet).
 
    <img
      src={img3}
@@ -219,7 +216,9 @@ wallets:
 ```
 
 
-Now, we have everything ready to deploy our Storage smart contract on Milkomeda A1. In the scripts folder, create a file named deploy.py, and add the following code:
+Now, we have everything ready to deploy our Storage smart contract on Milkomeda A1.** 
+
+In the scripts folder, create a file named deploy.py, and add the following code:
 
 ```python
 from brownie import Storage, accounts, config
@@ -249,9 +248,8 @@ The output should be:
    />
 
 
-The contract has been deployed, and you can check the transaction on the A1 Milkomeda Devnet explorer:
+The contract has been deployed, and you can check the transaction on the [A1 Milkomeda Devnet EVM Explorer](https://explorer-devnet-algorand-rollup.a1.milkomeda.com/tx/0x881eaedcdbe6b965d77bf84383d5e4235bb46aeeaaedffddc385ed4ed1b59909):
 
-https://explorer-devnet-algorand-rollup.a1.milkomeda.com/tx/0x881eaedcdbe6b965d77bf84383d5e4235bb46aeeaaedffddc385ed4ed1b59909
 
    <img
      src={img7}
@@ -289,8 +287,7 @@ We then call the retrieve method on our contract to read the stored value in the
 brownie run scripts/call.py --network milkomeda-algorand-testnet
 ```
 
-The output should be something like this:
-
+The expected output will resemble the following format:
    <img
      src={img8}
      className="img-full"
@@ -298,9 +295,7 @@ The output should be something like this:
    />
 
 
-And we are done! We have deployed and interacted with a contract on Milkomeda A1, so in a way, we have used an EVM-based smart contract on Algorand.
-
-This tutorial could be easily adapted to any EVM-compatible chain, so it’s not necessarily Algorand-specific, but it goes to show how seamless it can be to port an existing EVM dApp to Algorand.
+**Congratulations, the contract deployment and interaction on Milkomeda A1 have been completed successfully. This way, we have been able to utilize an EVM-based smart contract on the Algorand blockchain.**
 
 
 ## Bonus - Compile the Same Contract Using Vyper and Deploy Using web3py
@@ -393,9 +388,7 @@ Until this point, the code would produce the following output:
 
 
 
-and we can look up the transaction or the deployed contract on the A1 devnet explorer:
-
-https://explorer-devnet-algorand-rollup.a1.milkomeda.com/address/0x39013492b1bC84D9dF64d79e67D99f71F71BDA8B
+and we can look up the transaction or the deployed contract on the [A1 Devnet EVM Explorer](https://explorer-devnet-algorand-rollup.a1.milkomeda.com/address/0x39013492b1bC84D9dF64d79e67D99f71F71BDA8B)
 
 Now to interact with the contract, we can call the retrieve function to get the stored value, change the value with the store function and then retrieve the value again.
 
@@ -423,7 +416,7 @@ stored_value = deployed_contract.functions.retrieve().call()
 print("New stored value in contract:", stored_value)
 ```
 
-and the output would be:
+The expected output will resemble the following format:
 
 
    <img
@@ -432,8 +425,7 @@ and the output would be:
      alt="Deploy Web3"
    />
 
+In this guide, we learned how to deploy a Solidity smart contract on Milkomeda A1, an EVM-compatible rollup on Algorand. First, we set up an Algorand wallet, obtained testnet ALGO, and bridged them to Milkomeda A1. Then, we compiled and deployed a simple Solidity contract called Storage to Milkomeda A1 using the Python-based development framework Brownie.
 
 
-We showed how to deploy an EVM-based decentralized application (dApp) on Algorand-Milkomeda A1 using Python. 
-After setting up an Algorand wallet and getting testnet ALGOs, we went through bridging the testnet ALGO to Milkomeda A1. 
-Finally, we compiled and deployed a simple Solidity contract called Storage to Milkomeda A1 using Brownie.
+

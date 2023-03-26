@@ -4,11 +4,11 @@
 Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Algorand blockchain.
 :::
 
-In this guide we will learn how to deploy a subgraph for smart contracts on Milkomeda A1, using TheGraph.
+This guide will walk you through the process of deploying a subgraph for smart contracts on Milkomeda A1 using [TheGraph](https://thegraph.com/en/).
 
-Milkomeda chains are still not supported on The Graph's decentralized network, but one can run his own Graph Node to index any EVM-compatible network.
+While Milkomeda chains are not currently supported on TheGraph's decentralized network, it is possible to run your own Graph Node to index any EVM-compatible network.
 
-We will first go through the steps of creating a subgraph in a local environment so that we can test and develop our smart contract and, once we are happy with the result, we will deploy it on a Milkomeda A1 Testnet.
+To start, we will guide you through the steps of creating a subgraph in a local environment so you can test and develop your smart contract. Once you are satisfied with the result, we will show you how to deploy it on a Milkomeda A1 Testnet.
 
 ## Creating a Smart Contract to be indexed
 
@@ -62,7 +62,7 @@ npx hardhat compile
 
 ## Local Subgraph environment
 
-To run a graph node locally, we'll use Docker to run a ganache, ipfs, postgres and a graph-node containers.
+To run a graph node locally, we'll use Docker to run a ganache, IPFS, postgres and a graph-node containers.
 Here is the necessary `docker-compose.yml` file:
 
 ```
@@ -129,7 +129,7 @@ docker compose up
 
 
 To be able to deploy to the local ganahache chain in docker container, we'll have to add it to the `hardhat.config.ts`. We will also already add the Milkomeda A1 Testnet.
-The private key for Ganache is for one of the funded accounts in the ganacha chain.
+The private key for Ganache is for one of the funded accounts in the ganache chain.
 
 ```javascript
 import { HardhatUserConfig } from "hardhat/config";
@@ -330,7 +330,7 @@ graph deploy milkomeda/subgraph_tutorial --ipfs http://localhost:5001  --node ht
 
 
 
-After successfully creating and deployment of the subgraph, a link will be shown in the terminal to access the GraphQL frontend interface. It should be something like [http://localhost:8000/subgraphs/name/milkomeda/subgraph_tutorial](http://localhost:8000/subgraphs/name/milkomeda/subgraph_tutorial)
+After successfully creating and deployment of the subgraph, a link will be shown in the terminal to access the GraphQL frontend interface.
 
 At the moment, if you query all records of the entity User and StoredValue, the results will be empty, because there have been to transactions to be indexed.
 
@@ -490,7 +490,7 @@ We can now query our subgraph and it will have indexed the events from Milkomeda
 
 This guide explained how to **deploy a subgraph** for smart contracts on **Milkomeda A1** using TheGraph. 
 
-After creating a smart contract for testing and development, we set up a local subgraph environment using Docker to run a ganache, ipfs, postgres, and a graph-node containers.
+After creating a smart contract for testing and development, we set up a local subgraph environment using Docker to run a ganache, IPFS, postgres, and a graph-node containers.
 Then, we created a deployment script to deploy the contract to the ganache chain and we explained how to configure subgraph using The Graph CLI.
 
 Finally, we ajusted to setup to deploy and index the Smart Contract on the Milkomeda A1 chain.

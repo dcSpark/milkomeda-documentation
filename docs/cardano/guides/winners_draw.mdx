@@ -1,18 +1,16 @@
-#  Simple Random results in Smart Contracts
+#  Prize Draw Smart-Contract Tutorial
 
 :::info
 Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Cardano blockchain.
 :::
 
-Milkomeda ran a survey last week asking several questions to understand users’ perceptions of its products and services. The results were quite positive and a summary can be found in the following Twitter post link
+Random draws and giveaways are common events that many web3 organizations host, but ensuring the fairness and transparency of the selection process can be challenging. **In this tutorial, we will walk through the process of developing a simple smart contract that can be used to conduct a random draw and store the results on a blockchain.** Specifically, we will develop a smart contract that can be used to determine the winners of a prize draw and store the results where everyone can see and verify.
 
-One bonus for answering the survey was entering into a draw for the chance to be one of the lucky winners of a prize of 400 ADA each. 
+**We will build this example in solidity and use it to show how to deploy a smart contract on a Milkomeda C1 chain.**
 
-We thought the draw provides an interesting use case for a simple smart contract that we can use to not only determine the winners but also to store the result where everyone can see and verify. We will build this example in solidity and use it to show how to deploy a smart contract on a Milkomeda chain.
+The smart contract will be built using Solidity and will include a boolean to verify if the draw has taken place or not, a fixed size array of 10 (winners), and a function that can only be called by the contract deployer to run the draw. This function will generate 10 random numbers between 1 and the total number of entries in the draw, and store them in the array. The 10 random numbers would define the winners from a pre-published ordered list of entries.
 
-In summary, the smart contract will be deployed with a boolean to verify if the draw has taken place or not, a fixed size array of 10 (winners), and a function that can only be called by the contract deployer to run the draw by generating 10 random numbers between 1 and the total numbers of answers of the survey, and storing them in the array. The 10 random numbers would define the winners from a pre-published ordered list of entries.
-
-We will then briefly show how to deploy the contract using Hardhat, Foundry and Apeworx.
+To help you follow along with this tutorial, we will briefly show you how to deploy the contract using popular blockchain development tools like Hardhat, Foundry, and Apeworx. By the end of this tutorial, you will have a functional smart contract that can be used for conducting a fair and transparent prize draw.
 
 ## Random Numbers on EVM
 
@@ -24,9 +22,18 @@ Our choice of random number generator will be the Linear Congruential Generator 
 Xn+1 = (a.Xn + c) % m
 ```
 
-Where Xn is the current number in the sequence, a is the multiplier, c is the increment and m is the modulus. The seed value X0 is used as the initial value for the sequence. LCGs are one of the oldest and best-known pseudo random numbers generators and are often used in simulations and modeling. However, LCGs have a period that is determined by the modulus m, and if a and c are not chosen carefully, the sequence may not have enough randomness and can be predicted after a short period. 
+Where:
+- Xn is the current number in the sequence, 
+- a is the multiplier, 
+- c is the increment,
+- m is the modulus. 
 
-In any case, for our simple smart contract the parameters a,c and m will actually be stored where everyone can see, so we will rely on the initial value (seed) to guarantee randomness of the sequence of 10 numbers. The chosen values will be the ones used in C language for the function rand: a=1103515245, c=12345, and m=2^31;
+The seed value X0 is used as the initial value for the sequence. LCGs are one of the oldest and best-known pseudo random numbers generators and are often used in simulations and modeling. However, LCGs have a period that is determined by the modulus m, and if a and c are not chosen carefully, the sequence may not have enough randomness and can be predicted after a short period. 
+
+In any case, for our simple smart contract the parameters a,c and m will actually be stored where everyone can see, so we will rely on the initial value (seed) to guarantee randomness of the sequence of 10 numbers. The chosen values will be the ones used in C language for the function rand:
+- a=1103515245, 
+- c=12345,
+- m=2^31;
 
 
 Additionally, we will tweak our random generator somewhat to get numbers between two integers. Let’s say we have 300 respondents to the survey, then we want to generate random numbers between 1 and 300. To achieve that we will scale the results in order of the desired min and max values.
@@ -73,9 +80,9 @@ Then, our function for the scaled Linear Congruential Generator.
 
 
 We define a function to execute the draw, that checks if the caller is the contract owner and whether the draw has already been executed. If all the checks pass, the function will generate 10 random numbers between the supplied parameters min and max, and store them. Also the boolean drawFinalized will be set to true.
-
+:::note
 One thing to note here is the seed used to start the sequence of 10 numbers is the integer of the hashed block timestamp and difficulty, scaled by the m parameters.  A word of caution here is that the inputs for the seed could be manipulated by a block producer (validator) who could determine at least one of the winners (because the seed influences the deterministic sequence), but for this simple example, we will choose to believe that all block producers are honest. 
-
+:::
 ```javascript
     function executeDraw(uint min, uint max) public returns (uint[10] memory array) {
       require(msg.sender == owner, "Only owner can execute draw");
@@ -101,19 +108,19 @@ Finally, we provide a getter function to make it easier to retrieve the array of
     }
 ```
 
-## Deploy and Test Contract on C1 and A1 Testnets
+## Deploy and Test Contract on Milkomeda C1 Testnet
 
-Now that we have written our smart contract, let’s see how we could use four different development tools, Hardhat, Foundry, Brownie and Apeworx, to deploy it on the Milkomeda testnets.
+Now that we have written our smart contract, let’s see how we could use four different development tools, Hardhat, Foundry, Brownie and Apeworx, to deploy it on the Milkomeda C1 Testnet.
 
-Installing and using these tools will not be the focus here, and what we want to highlight is how to set up these frameworks to work with the milkomeda chains.
+Installing and using these tools will not be the focus here, and what we want to highlight is how to set up these frameworks to work with the Milkomeda C1.
 
-Also, the steps for deploying on C1 or A1, mainnet or testnet, are exactly the same, considering one is using a funded account, so we will use C1 Testnet for this example. Please refer to the milkomeda docs here for a walkthrough on the details of each chain, and how to get funds on testnet.
+Also, the steps for deploying on C1, mainnet or testnet, are exactly the same, considering one is using a funded account, so we will use C1 Testnet for this example. Please refer to the [milkomeda docs](https://dcspark.github.io/milkomeda-documentation/cardano/for-developers/obtaining-test-ada) to get funds on testnet.
 
 
-**Network Name:** Milkomeda Cardano Testnet<br></br>
-**RPC URL:** https://rpc-devnet-cardano-evm.c1.milkomeda.com<br></br>
-**Chain ID:** 200101<br></br>
-**Block Explorer URL:** https://explorer-devnet-cardano-evm.c1.milkomeda.com<br></br>
+>**Network Name:** Milkomeda Cardano Testnet<br></br>
+>**RPC URL:** https://rpc-devnet-cardano-evm.c1.milkomeda.com<br></br>
+>**Chain ID:** 200101<br></br>
+>**Block Explorer URL:** https://explorer-devnet-cardano-evm.c1.milkomeda.com<br></br>
 
 
 
@@ -215,9 +222,8 @@ Notice the `--legacy` is necessary since milkomeda chains have not yet implement
 ### Apeworx
 
 
-Plugins are core to ApeworX’s architecture and to add a new network, it has to be bundled into a plugin. Luckily, dcspark has developed a plugin (ape-milkomeda)  to allow Apeworx to connect to A1 and C1, mainnet and testnet.
+Plugins are core to ApeworX’s architecture and to add a new network, it has to be bundled into a plugin. Luckily, dcspark has developed a plugin (ape-milkomeda)  to allow Apeworx to connect to C1, mainnet and testnet.
 
-Download is available at…
 
 Steps
 
@@ -231,7 +237,7 @@ cd ape-milkomeda
 pip install .
 ```
 
-or install from the pypi repository (I have finished plugin but it’s only on my pc):
+or install from the pypi repository:
 
 ```bash
 pip install ape-milkomeda
