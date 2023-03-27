@@ -75,7 +75,7 @@ const oracle = new ethers.Contract("0x47a7d67e89E5714456b9af39703C1dc62203002A",
 
 After importing the `ethers` and `dotenv` package, we’re importing the `Oracle.json` that contains the ABI and setting up a provider, signer and an instance of the oracle contract. Notice we are using the rpc URL and deployment address for Milkomeda C1 Testnet.
 
-To get the price feed for DJED from the oracle we need to call the readData() function, like so:
+To get the price feed for USD from the oracle we need to call the readData() function, like so:
 
 ```javascript
 const getPriceFeed = async () => {
@@ -304,7 +304,7 @@ The result in the terminal should be:
 
 ## Summary 
 
-In this guide, we explored the Milkomeda Open Oracle, a standard and SDK that enables reporters to sign key-value pairs, such as price feeds. We demonstrated two methods for fetching prices: (i) querying price data from the oracle contract using Javascript/Typescript, and (ii) implementing the oracle interface to call the price feed for our own smart contract.
+In this guide, we explored the Milkomeda Open Oracle, a decentralized oracle service that provides a price feed. We demonstrated two methods for fetching the data: (i) querying price data from the oracle contract using Javascript/Typescript, and (ii) implementing the oracle interface to call the price feed for our own smart contract.
 
 It's crucial to note that acceptance of the terms of service is mandatory for the calling address; otherwise, the call will fail.
 
