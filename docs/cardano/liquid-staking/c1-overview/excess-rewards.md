@@ -15,7 +15,7 @@ The Milkomeda bridge adds rewards to the LiquidStaking contract via the `accredi
 #### Example
 `accreditToPool` is called with an `ROI` of 40(%) and a value of 100 MilkAda was sent in the transaction. 60 MilkAda will be added to the contract as rewards, while the leftover 40 MilkAda will be excess rewards that can be withdrawn by the bridge.
 
-This function (`accreditToPool`) has no access control - anyone can call this it, but the excess rewards can only be wothdrawn by the Milkomeda Bridge.
+This function (`accreditToPool`) has no access control - anyone can call this it, but the excess rewards can only be withdrawn by the Milkomeda Bridge.
 
 # Excess rewards
 
