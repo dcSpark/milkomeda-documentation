@@ -1,0 +1,315 @@
+---
+sidebar_label: "Milkomeda Open Oracle"
+---
+
+# Milkomeda Open Oracle Developer guide
+
+:::info
+Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Cardano blockchain.
+:::
+
+
+##  Introduction
+
+Milkomeda Open Oracle is a decentralized oracle service with a minimal governance system. It permits multiple owners to post data, and the majority of the current owners can add or remove owners. One of its fundamental services is the Price Feed, which offers precise and real-time price data for the USD/ADA pricefeeds. 
+
+Sources are checked every ~10 seconds, outliers are removed if the prices they provide differ from the mean by more than 2 standard deviations and the mean of the remaining prices is calculated as the final value. If the new mean price differs from the last price posted on the blockchain by more than 1%, the new mean price is posted and the price is updated on the blockchain.
+
+Developers have two options to fetch prices from the oracle contract. They can integrate the oracle interface into their smart contracts, allowing them to access on-chain data updated at regular intervals. Alternatively, developers can call the oracle contract directly with Javascript/Typescript to use the price feed on a DApp frontend.
+
+In this guide, we will provide an example of each alternative, requiring the Milkomeda Open Oracle's ABI, which is accessible [here](https://raw.githubusercontent.com/dcSpark/milkomeda-guides/open_oracle/javascript/Oracle.json), and the contract's deployment address, found in the following table.
+
+
+| Milkomeda C1 | Open Oracle Deployment address |
+|---|---|
+| Mainnet | 0xc531410f61FA22e19048D406EDE3361b3de5c386 |
+| Testnet | 0x47a7d67e89E5714456b9af39703C1dc62203002A |
+
+It is crucial to note that to leverage the capabilities of the Milkomeda Open Oracle, the caller of the read function must agree to the terms of service, which are accessible [here](https://ext-oracle-disclaimer.milkomeda.com/disclaimer.pdf).  This is a one-time requirement (per address), and we will provide guidance on how to accomplish that in this guide.
+
+For the purposes of this tutorial, we will be utilizing the Milkomeda C1 Testnet. However, the implementation process is identical on the C1 Mainnet, and the only adjustment necessary would be the deployment address.
+
+
+:::tip
+
+You can choose to follow allong completing the coding steps or download the full code for this tutorial by running:
+
+```
+npx degit dcspark/milkomeda-guides#open_oracle oracle_guide
+```
+:::
+
+## Calling Price Feed using Javascript
+
+To call the price feed using Javascript, we will use the `ethers` (^6) package, under the assumption that the Terms of Service have not yet been accepted, indicating that the contract is being called for the first time from our address.
+
+Let’s create a new javascript project with a script that can be called from the command line. This can easily be adapted to be used for a frontend in a browser.
+Navigate to a new folder where you want to create your project.In a new folder, create an empty project and add the ethers and dotenv packages.
+
+```bash
+yarn init -y
+yarn add ethers dotenv
+```
+
+Navigate to the root directory of your project. Create a .env file with the private key for the account you intend to use:
+
+```
+PRIVATE_KEY=<PRIVATE_KEY>
+```
+
+NOTE: Remember to keep your private key safe from prying eyes. It is recommended to use a new separate account just for testing purposes.
+
+Now let’s create a file named “callPriceFeed.js” and add the imports and initial setup.
+
+```javascript
+const ethers = require("ethers");
+require("dotenv").config();
+const abi = require('./Oracle.json').abi
+
+const rpcURL = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
+const provider = new ethers.JsonRpcProvider(rpcURL)
+const signer = new ethers.Wallet( `0x${process.env.PRIVATE_KEY}`, provider )
+const oracle = new ethers.Contract("0x47a7d67e89E5714456b9af39703C1dc62203002A", abi, signer)
+```
+
+
+After importing the `ethers` and `dotenv` package, we’re importing the `Oracle.json` that contains the ABI and setting up a provider, signer and an instance of the oracle contract. Notice we are using the rpc URL and deployment address for Milkomeda C1 Testnet.
+
+To get the price feed for USD from the oracle we need to call the readData() function, like so:
+
+```javascript
+const getPriceFeed = async () => {
+    const price = await oracle.readData()
+    console.log("Price:", ethers.formatEther(price))
+}
+
+getPriceFeed()
+```
+
+However, if you are running the readData function for the first time, the transaction will fail because, although it is a read function, it requires the caller of the function to have accepted the Term of Service. That acceptance is stored in the smart contract as a mapping and can be queried by calling the acceptedTermsOfService function and providing an address.
+
+```javascript
+oracle.acceptedTermsOfService(signer.address)
+.then(resp => console.log("Accepted Terms of Service:", resp))
+```
+
+Making this call should output “Accepted Terms of Service: false” which means that calling the readData() function will fail.
+
+
+
+
+
+In the `getPriceFeed` function of our script, we can add a test to check if the terms of service have been accepted and call the accept function if needed. Let’s add that to the `getPriceFeed` function.
+
+We will also add a function call to retrieve the description of the price feed:
+
+```javascript
+oracle.description().then(resp => console.log("Description:", resp))
+```
+
+The final script will look like this:
+
+
+```javascript
+const ethers = require("ethers");
+require("dotenv").config();
+const abi = require('./Oracle.json').abi
+
+const rpcURL = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
+const provider = new ethers.JsonRpcProvider(rpcURL)
+const signer = new ethers.Wallet( `0x${process.env.PRIVATE_KEY}`, provider )
+const oracle = new ethers.Contract("0x47a7d67e89E5714456b9af39703C1dc62203002A", abi, signer)
+
+
+// oracle.acceptedTermsOfService(signer.address)
+// .then(resp => console.log("Accepted Terms of Service:", resp))
+
+oracle.description()
+.then(resp => console.log("Description:", resp))
+
+
+const getPriceFeed = async () => {
+    const accepted = await oracle.acceptedTermsOfService(signer.address)
+    if (!accepted) {
+        console.log("Accepting ToS...")
+        const tx = await oracle.acceptTermsOfService();
+        await tx.wait();    
+    }
+    const price = await oracle.readData()
+    console.log("Price:", ethers.formatEther(price))
+}
+
+getPriceFeed()
+```
+
+Running node CallPriceFeed for the first time will output the following lines (the price will probably be different):
+
+**
+Description: ADA/USD<br></br>
+Accepting ToS...<br></br>
+Price: 2.8398199554148265
+**
+
+Subsequent calls to the function, from the same address, will only show the description and the price since the call to `acceptedTermsOfService(address)` will return true.
+
+
+:::info
+
+The result from the price feed,  approx 2.84 (formatted from 18 decimals), is the amount of USD in ADA. Readers are probably used to seeing the price of ADA in USD, which would be the inverse of the result.
+
+USD/ADA = 2.8398199554148265
+
+ADA/USD = 1 / (USD/ADA) = 1 / 2.8398199554148265 = 0.352135
+:::
+
+
+## Integrate Milkomeda Open Oracle into your Smart Contracts using Hardhat
+
+To use the oracle in our smart contract, we need to interact with the oracle contract on the relevant chain while ensuring that our smart contract accepts the terms of service.
+
+For testing purposes, we can use Hardhat, a development environment that enables us to compile, deploy, and test smart contracts in a local environment.
+
+To set up Hardhat, create a new folder, initialize a JavaScript project, and install Hardhat by executing the following commands in your terminal:
+
+```bash
+yarn init -y
+yarn add -D hardhat
+```
+
+Once Hardhat is installed, we need to initialize a new Hardhat project:
+
+```bash
+npx hardhat init
+```
+
+This will create a new Hardhat project with a basic directory structure and some example files.
+
+Next, we need to create a new smart contract that will use the Milkomeda Open Oracle. Let's call it PriceFeedContract.sol.
+
+Create a new file called PriceFeedContract.sol in the contracts directory of your project. Then, add the following code:
+
+```javascript
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface IOracle {
+    function readData() external view returns (uint256);
+    function acceptTermsOfService() external;
+}
+
+contract PriceFeedContract {
+    IOracle public oracle;
+ 
+    constructor() {
+        oracle = IOracle(0x47a7d67e89E5714456b9af39703C1dc62203002A);
+        oracle.acceptTermsOfService();
+    }
+
+    function getPrice() public view returns (uint256 data) {
+        data = oracle.readData();
+    }
+}
+```
+
+This smart contract uses a hardcoded deployment address for the oracle on Milkomeda C1 Testnet. When the contract is deployed, the acceptTermsOfService function is called for the contract address in the constructor.
+
+The contract has one function, `getPrice`, which retrieves the latest price data and returns it as an integer.
+
+To interact with the oracle, we added the interface for the two required functions.
+
+Now that we have our smart contract, we need to deploy it to the Milkomeda C1 Testnet. To do this, we will use Hardhat's deployment script. 
+
+In the scripts directory of your project, create a new file called deploy.js. Then, add the following code:
+
+```javascript
+const hre = require("hardhat");
+
+async function main() {
+  const Feed = await hre.ethers.getContractFactory("PriceFeedContract");
+  const feed = await Feed.deploy();
+
+  await feed.deployed();
+  console.log(
+    `PriceFeedContract deployed to ${feed.address}`
+  );
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+```
+
+This code uses the `ethers.js` library to deploy our `PriceFeedContract` and logs the address of the deployed contract to the console.
+
+To deploy the contract on C1 Testnet, we will create a .env file with the private key of our deployment address:
+
+```
+PRIVATE_KEY=<PRIVATE_KEY>
+```
+
+And we will change the hardhat.config.js by import our account and adding the C1 Testnet to the networks:
+
+
+```javascript
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: "0.8.18",
+  networks: {
+    c1_testnet: {
+      url: `https://rpc-devnet-cardano-evm.c1.milkomeda.com`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
+    }
+  }
+};
+```
+
+Now we can deploy our contract. Run the following command in your terminal:
+
+```bash
+npx hardhat run scripts/deploy.js --network c1_testnet
+```
+
+Now that we have deployed our contract, we can call it from another smart contract or from a web3-enabled application. 
+To call the getPrice function from another smart contract, you can simply import the PriceFeedContract and call the getPrice function, but let’s see an example of how to call it from a Hardhat script.
+
+Create a file in the scripts folder called “callPriceFeed.js” and add the code below:
+
+```javascript
+const hre = require("hardhat");
+
+const getPrice = async () => {
+    const address = '0x7839D8C1EB9d719Fcf842E968022Ca239451223c'
+    const feed = await hre.ethers.getContractAt("PriceFeedContract", address);
+
+    const price = await feed.getPrice()
+    console.log(`USD/ADA: ${hre.ethers.utils.formatEther(price)}`)
+}
+  
+getPrice()
+```
+
+Now run it by running the following:
+
+```
+npx hardhat run scripts/call.js --network c1_testnet
+```
+
+The result in the terminal should be:
+
+**USD/ADA: 2.8398199554148265**
+
+## Summary 
+
+In this guide, we explored the Milkomeda Open Oracle, a decentralized oracle service that provides a price feed. We demonstrated two methods for fetching the data: (i) querying price data from the oracle contract using Javascript/Typescript, and (ii) implementing the oracle interface to call the price feed for our own smart contract.
+
+It's crucial to note that acceptance of the terms of service is mandatory for the calling address; otherwise, the call will fail.
+
+
+
+
+
+
