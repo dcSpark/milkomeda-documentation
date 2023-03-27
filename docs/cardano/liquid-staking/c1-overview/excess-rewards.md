@@ -22,4 +22,4 @@ This function (`accreditToPool`) has no access control - anyone can call this it
 ```solidity
 function withdrawExcessRewards() external
 ```
-The Milkomeda Bridge can call this function (`withdrawExcessRewards`) to withdraw the excess rewards. This function calls the bridge function `sendReward` and passing in the value of excess rewards, to the accumulated excess rewards to the bridge. Only the bridge can call this function.
+The Milkomeda Bridge has the capability to call the withdrawExcessRewards function in order to withdraw excess rewards. When called, this function will in turn call the sendReward function of the bridge, sending the excess rewards accumulated in the LiquidStaking contract. It is important to note that only the bridge can call this function, as it is meant to be used solely by the bridge for withdrawing excess rewards from the LiquidStaking contract.
