@@ -413,7 +413,7 @@ npx hardhat makeRequest --network c1_testnet
 npx hardhat latestRequest --network c1_testnet
 ```
 
-The first tasks makes the request and the second one checks the result of the latest request. The output should look something like this:
+The first task makes the request and the second one checks the result of the latest request. The output should look something like this:
 
 ```
 Latest Request: [
@@ -424,7 +424,7 @@ Latest Request: [
 ]
 ```
 
-There is a `requestId`, but the `randomNumber` is zero. That's because the callback has still not been made with the result. Let's add another task to check the status of the latest request.
+There is a `requestId` but the `randomNumber` is zero. That's because the callback has still not been made with the result. Let's add another task to check the status of the latest request.
 
 Knowing the `requestId` we can query the hashmap `waitingFulfillment` which will store a boolean if the contract is waiting for the fulfillment of a certain request.
 
@@ -454,7 +454,7 @@ which would output the status of the request with `requestId` provided as a para
 Waiting for fulfillment: true
 ```
 
-If the result if true, you will have to wait a bit more for the callback to be made and check again after a few seconds. If the result is `true`, the callback was made to the smart contract and you can check the latest request again by running that task again:
+If the result if `true`, you will have to wait a bit more for the callback to be made and check again after a few seconds. If the result is `false`, the callback was made to the smart contract and you can check the latest request again by running that task again:
 
 
 ```
@@ -479,7 +479,7 @@ This was a lot of code, so let's review the steps that were performed.
 Using Hardhat, we created and deployed a requester smart contract, that inherited from `RrpRequesterV0` of the `@api3/airnode-protocol` package, on Milkomeda C1 Testnet, passing the address of the `_airnodeRrp` for that particular chain.
 This smart contract has two important functions, one to make the request and one to receive the callback with the response. We wrote some hardhat tasks to make the requests and check for response and the status of the response. After the callback is made to our smart contract, in reponse to our request, we will have received a **random number**.
 
-It is important underline that we used a testnet (Milkomeda C1 Testnet) and the **ANU Quantum Random Numbers** are only available on testnets, but the only changes required in the steps above would be the passing of the `_airnodeRrp` address relevant for Milkomeda C1 Mainnet in the contract deployment and then settings the appropriate parameters for the **ANU Quantum Random Numbers** provider when setting the parameters inside the contract with the `setRequestParameters` function.
+It is important underline that we used a testnet (Milkomeda C1 Testnet) and the **ANU Quantum Random Numbers** are only available on mainnets, but the only changes required in the steps above would be the passing of the `_airnodeRrp` address relevant for Milkomeda C1 Mainnet in the contract deployment and then settings the appropriate parameters for the **ANU Quantum Random Numbers** provider when setting the parameters inside the contract with the `setRequestParameters` function.
 
 
 
