@@ -1,6 +1,6 @@
 ---
 sidebar_label: "帮助"
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # 帮助

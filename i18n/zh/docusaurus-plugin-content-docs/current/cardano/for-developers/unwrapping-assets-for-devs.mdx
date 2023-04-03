@@ -3,24 +3,98 @@ sidebar_label: '解开包装资产'
 sidebar_position: 5
 ---
 
+import tokenSelection from "@site/static/img/token-selection.png";
+import blockchainConfirmation from "@site/static/img/blockchain-confirmation.png";
+import addressBar from "@site/static/img/address-bar-link.png";
+import searchBox from "@site/static/img/search-box-blockscout.png";
+
 # 解开包装资产
+When it comes to unwrapping assets in the Milkomeda Cardano Sidechain (C1) ecosystem, there are two main options: using the [Flint Wallet](https://flint-wallet.com/) or the [Milkomeda Cardano Unwrap Bridge](https://cardano-bridge.milkomeda.com/bridge). In this tutorial, we'll guide you through both options so you can choose the one that works best for you.
 
-Milkomeda Cardano Unwrap Bridge是一个将资产从Milkomeda Cardano Testnet转移到Cardano主网的工具。 按照以下步骤，解开milkTADA的包装，在你的Cardano Testnet钱包中收到tADA。
+## Flint Wallet
+To perform the asset unwrapping, use the **SEND** function on the wallet screen.
 
-首先，访问 [Milkomeda Cardano Unwrap Bridge for Devnet](https://devnet-cardano-bridge.milkomeda.com/bridge) 并连接您的 MetaMask 钱包。
+![Flint Homescreen](/img/flint-home-screen.png)
 
-![](/img/bridge-connect-metamask.png)
+To begin, toggle on the **Milkomeda Mode (Beta)** and choose Milkomeda C1 asset from the token select dropdown. Next, input the recipient's Cardano address in the designated box, followed by the desired amount. Lastly, click on the **CONTINUE** button to proceed to the confirmation screen.
 
-![](/img/bridge-connect-metamask-tada-confirm-1.png)
+![Flint Input](/img/unwrappingflintinput.png)
 
-![](/img/bridge-connect-metamask-tada-confirm-2.png)
+The confirmation screen provides an opportunity to review critical details, including the "from" and "to" addresses, as well as the network fee. It's worth noting that the total fee comprises both the base fee and Milkomeda fee since the transaction occurs on both the Milkomeda C1 chain and Cardano. Take a moment to double-check the information before proceeding.
 
-接下来，输入要解开的milkADA的数量，并在 「收件人」栏贴上你的Cardano Testnet钱包地址。 然后，点击「下一步」按钮。
+![Confirm Transaction](/img/unwrapping-confirm-transaction.png)
 
-![](/img/bridge-enter-tada-amount.png)
+After entering the wallet spending password and pressing the **SEND** button, the transaction(s) will be sent.
 
-在 MetaMask 中确认操作。
 
-![](/img/bridge-unwrap-tada-confirm.png)
+![Transaction Submitted](/img/unwrapping-transaction-submitted.png)
 
-在等待必要的交易确认约3至5分钟后，你应该在你的Cardano Testnet钱包中看到未包装的tADA。
+If you need more information, there are two ways to access it. You can follow the link on the confirmation screen to view the transaction on Blockscount explorer or navigate to the "Activity" section in the footer to find the transaction on the list. Clicking on the transaction will provide two links, one for viewing the transaction on the Milkomeda chain explorer and the other for Cardano.
+
+
+![Transaction List](/img/unwrapping-transaction-list.png)
+
+## Milkomeda Cardano Unwrap Bridge
+
+To move assets from Milkomeda C1 sidechain back to Cardano, you can also use the Milkomeda Cardano Unwrap Bridge. 按照以下步骤，解开milkADA的包装，在你的Cardano mainnet钱包中收到ADA。 &#x20;
+
+首先，访问 [Milkomeda Cardano Unwrap Bridge](https://cardano-bridge.milkomeda.com/bridge) 并连接您的 MetaMask 钱包。
+
+![连接MetaMask](/img/connect-metamask.png)
+
+![连接钱包](/img/connect-wallet.png)
+
+_点击_ 「下一步」
+
+![连接 Milkomeda 网络](/img/connect-milkomeda.png)
+
+_连接到 Milkomeda C1 侧链_
+
+:::警告 记住在你的钱包中选择适当的网络。 <br /> 只连接到您信任的网站。 请确保网站URL如下：https://cardano-bridge.milkomeda.com :::
+
+接下来，输入要解包的milkADA的数量，或点击箭头选择不同的资产解包，并在「收件人」栏贴上你的Cardano钱包地址。 然后，点击「下一步」按钮。
+
+<img className="img-full" src={tokenSelection} />
+
+点击 「确认」来签名交易，解包MetaMask的资产。
+
+![设置MetaMask](/img/confirm-metamask.png)
+
+接着，等待区块链确认。
+
+<img className="img-full" src={blockchainConfirmation} alt="区块链确认" />
+
+:::info
+
+你可以在[Cardanoscan](https://cardanoscan.io) explorer中检查交易细节，以了解更多信息。
+
+:::
+
+在这个阶段，你的浏览器的地址栏将包含一些关于解包交易的信息。 下图显示了一个例子。
+
+<img className="img-full" src={addressBar} alt="地址栏链接" />
+
+地址栏中的这些元素的含义如下：
+
+- EVM 解包交易 ID
+- 未包装的代币金额
+- 被解开的代币的名称
+
+要查询有关解包交易的更多详细信息，请进入[Milkomeda Blockscout explorer](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/)，将EVM解包交易ID贴上 到搜索框中，如下图所示。
+
+<img className="img-full" src={searchBox} alt="Blockscout中的搜索框" />
+
+<a
+  href="https://explorer-mainnet-cardano-evm.c1.milkomeda.com/tx/0xf21f79d02f9af4935adbb913f915cf217ad8f3402ea1edf0af4e5913a58792ab/internal-transactions"
+  target="_blank"
+  rel="noreferrer noopener"
+  className="text-center block mb-4"
+>
+  查询示例交易
+</a>
+
+现在解包过程已经完成。 在等待必要的交易确认后，你应该在你的Cardano Mainnet钱包中看到解开的资产。
+
+![Flint 交易页面](/img/flint-transactions.png)
+
+:::info To check the available list of tokens that can be unwrapped, go to [**Cardano Bridge Supported Native Assets**](https://bridge-explorer.milkomeda.com/cardano-mainnet/tokens) tab in Bridge Explorer. :::

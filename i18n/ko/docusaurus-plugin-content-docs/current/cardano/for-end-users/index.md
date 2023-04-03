@@ -1,6 +1,6 @@
 ---
 sidebar_label: "최종사용자용"
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # 최종사용자용

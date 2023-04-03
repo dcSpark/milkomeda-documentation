@@ -4,7 +4,7 @@
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.Cardano": {
-    "message": "Cardano",
+    "message": "Cardano (EVM Sidechain)",
     "description": "The label for category Cardano in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Cardano.link.generated-index.description": {
@@ -20,7 +20,7 @@
     "description": "The label for category For End Users in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Algorand": {
-    "message": "Algorand",
+    "message": "Algorand (EVM Rollup)",
     "description": "The label for category Algorand in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.Algorand.link.generated-index.description": {

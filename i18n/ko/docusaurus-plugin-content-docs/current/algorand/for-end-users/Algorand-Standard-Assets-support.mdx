@@ -36,7 +36,7 @@ Now let's go over how to add an Algorand Standard Asset to a native Algorand Wal
 To be able to receive any ASA you first need to opt-in your account for the asset. Any account can receive Algorand Standard Assets, but a potential recipient of a specific ASA must first **opt-in to the asset** so that the account holder cannot be sent assets without professing a prior desire to receive that asset. "Opting In" to an asset is simply an asset transfer of 0 to and from the opting-in account. In this process you are adding a specific asset to your account before transferring it.
 :::
 
-##### A Step-By-Step Guide to opt EURe into Your MyAlgo Wallet
+##### A Step-By-Step Guide to opt EURe (testnet) into Your MyAlgo Wallet
 
 1. Open your MyAlgo wallet.
 
@@ -48,7 +48,7 @@ To be able to receive any ASA you first need to opt-in your account for the asse
 
 <img src={addingEuretowallet} alt="adding EURe to Wallet" />
 
-> If you are having trouble finding this particular ASA make sure that your Wallet is connected to the Algorand testnet (_in the upper right corner_).
+> If you are having trouble finding this particular ASA make sure that your Wallet is connected to the Algorand testnet. We used the EURE testnet token to demonstrate the process. Repeat the same process by changing the network to Mainnet if you want to operate on real funds.
 
 4. Wait until EURe with a value of 0 appears in the list of assets in your account.
 
@@ -74,7 +74,7 @@ Once you've received your testnet Euros you are ready to start interacting with 
 In this tutorial, in order to best show the process, we will use the tesnet ASA that is `EURe`. If you want to wrap/unwrap mainnet assets - use this tutorial by replacing EURe with any other token supported by Milkomeda A1 mainnet bridge. A list of available assets can be found in: [Algorand Bridge Supported ASA](algorand-bridge-supported-asa.mdx)
 :::
 
-Go to the Milkomeda A1 Bridge dApp at [https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/). To start wrapping your assets, choose **Algorand to Milkomeda** direction from the "Network Origin" dropdown menu. Then **select the appropriate token (EURe)** from the "Select Token" dropdown menu.
+Go to the Milkomeda A1 Bridge DApp at [https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/). To start wrapping your assets, choose **Algorand to Milkomeda** direction from the "Network Origin" dropdown menu. Then **select the appropriate token (EURe)** from the "Select Token" dropdown menu.
 
 <img src={EURewrappingchoice} className="img-full" alt="Wrapping EURe" />
 
@@ -108,14 +108,14 @@ Click **Add Token** to be able to view your wrapped ASA in your MetaMask wallet.
 
 ### Unwrapping Algorand Standard Assets with the Milkomeda Bridge
 
-Go to the Milkomeda A1 Bridge dApp at [https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/). To start unwrapping your assets, choose the **Milkomeda to Algorand** direction from the "Network Origin" dropdown menu. Then **select the appropriate token (EURe)** from the "Select Token" dropdown menu.
+Go to the Milkomeda A1 Bridge DApp at [https://algorand-bridge-dev.milkomeda.com/](https://algorand-bridge-dev.milkomeda.com/). To start unwrapping your assets, choose the **Milkomeda to Algorand** direction from the "Network Origin" dropdown menu. Then **select the appropriate token (EURe)** from the "Select Token" dropdown menu.
 
 <img src={ChooseASAtounwrap} className="img-full" alt="Choose ASA to unwrap" />
 
 Enter how many test EURe you want to transfer back to Algorand. **Click “Next”** to view a transaction summary, complete with “Estimated Fees” and an “Estimated Wrapping Confirmation Time”.
 
 :::caution
-Remember, you must have a minimum of 1 test milkALGO in your MetaMask wallet to move EURe as milkALGO is the currency in which Bridge fees are paid when unwrapping.
+Remember, you must have a minimum of 1 test mALGO in your MetaMask wallet to move EURe as mALGO is the currency in which Bridge fees are paid when unwrapping.
 :::
 
 **Click “Sign and Send”**, and your MetaMask Wallet will show-up. Now you need to approve an ERC-20 allowance.
@@ -126,7 +126,7 @@ Giving ERC20 allowance simply means that the user grants another contract/addres
 
 <img src={erc20allowance} alt="Confirm ASA unwrapping" />
 
-After ERC-20 Allowance is confirmed in MetaMask the dApp will wait to receive the allowance approval from the EVM.
+After ERC-20 Allowance is confirmed in MetaMask the DApp will wait to receive the allowance approval from the EVM.
 
 <img src={tokenerc20allowance} className="img-full" alt="Confirm ASA unwrapping" />
 
@@ -136,6 +136,6 @@ In our scenario we are approving the transfer of ERC20 tokens (e.g. EURe) by the
 
 <img src={unwrappingreqconfirmation} alt="Confirm ASA unwrapping" />
 
-In the last step of the ASA unwrapping procedure a 1 MILKALGO unwrapping fee must be paid to the validators to process the unwrapping request.
+In the last step of the ASA unwrapping procedure a 1 mALGO unwrapping fee must be paid to the validators to process the unwrapping request.
 
 **Congratulations!** You’ve just unwrapped your ASA from the Milkomeda Algorand Rollup back to the Algorand!

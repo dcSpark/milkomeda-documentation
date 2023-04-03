@@ -1,0 +1,154 @@
+---
+sidebar_label: Sequencer Election
+sidebar_position: 4
+---
+
+# Sequencer Election
+
+The complete research paper is available [here](https://milkomeda.com/Milkomeda%20Rollup.pdf)
+
+In this section, we leverage the auction designed previously to elect sequencers for each epoch. We define the desired properties of the sequencer election, describe the reward mechanism,  determine the utility function of the sequencers, and show that the desiderata are met under rational validators that aim to maximize their utility.
+
+## The Model
+
+There exist $n$ parties $[P_0, \dots, P_n]$ that want to participate in the rollup execution. 
+The execution comprises "epochs". Each epoch consists of $e$ slots where each slot corresponds to the generation of a block in the underlying L1. 
+
+Each slot shall be assigned to a party called the sequencer that is responsible for periodically publishing the rollup data on the L1, typically for a reward. 
+The sequencers are responsible for the liveness of the rollup.
+
+Each party $P_i$ has a valuation $V_i$ for participating in the rollup; this valuation expresses the willingness of the party to become sequencer, and its monetary value depends on the mechanism design, i.e., what \`\`price'' does the party pay to participate as sequencer. We denote the valuation percentage of party $P_i$ by $v_i =\\dfrac{V_i}{\\sum_{j=1}^n V_j}$. The parties' valuations are not publicly known. Instead, what is publicly known at the beginning of each epoch, are the stakes reported by the parties: $s_i$ and $s_i$ denote the stake amount and stake percentage of party $P_i$, respectively.
+
+**_Threat model._**
+We consider all parties to be rational, aiming to maximize their utility function as will be defined later in Section 4.4. We further assume an adversary may control up to $1/3$ of the total valuation of all the parties that want to participate in the rollup. This means that the adversary may control more than $1/3$ of the sequencers if the mechanism is not truthful, meaning that the parties report stakes that do not correspond to their true valuation for participation in the rollup.
+
+## Desired Properties
+
+The sequencers of the Milkomeda rollup are responsible for periodically publishing the rollup data, therefore for the liveness of the rollup. 
+To ensure the liveness threshold is not violated, even under our threat model (a hybrid model of a static adversary corrupting up to $1/3$ of the stake valuation while the rest is rational) we must show the following properties: slot clearance, truthfulness, egalitarianism, and individual rationality.
+
+Slot clearance ensures that all slots will be assigned a unique sequencer, and therefore the mechanism has the possibility to always make progress as fast as possible. Note that this property is not necessary as an absolute; if some slots are left empty or multiple sequencers are allocated to some slots the protocol may still make progress, just slower. Imposing slot clearance may minimize the liveness parameter ($u$) during synchrony. But to guarantee liveness a relaxed probabilistic notion of slot clearance is strictly necessary (much like chain growth for the blockchain).  
+
+**Definition 9** (Slot clearance)
+The mechanism allocates exactly one party to each slot.
+
+Truthfulness encapsulates that the parties should report (via bidding) their true valuations on the rollup participation.
+Egalitarianism on the other hand, conveys that parties are awarded fairly according to their reported bids, which implies that they are elected sequencers proportionally to their bids and that long-range attacks (e.g., acquiring more than $u$ consecutive slots) are not possible. 
+Intuitively truthfulness in combination with egalitarianism guarantee that the stake valuations correspond to uniformly distributed valuation-proportional slots; meaning that the security threshold on the valuations is transferred to the number of elected sequencers which are securely distributed in the epoch. Hence, the adversary cannot gain a stake-disproportional advantage which may lead to a liveness violation.
+
+**Definition 10** (Truthfulness)
+    Parties report their true valuation for the rollup participation, i.e., $V_i = s_i$, for all $i\\in [n]$.
+
+**Definition 11** (Egalitarianism)
+Parties are rewarded (on expectation) proportionally to their self-reported stake percentage $s_i$.
+
+Individual rationality captures that the dominant strategy of a rational validator is to be active during all its slots as a sequencer and help the rollup make progress by publishing the data on-chain. This property ensures that rational sequencers will not go idle, enabling the adversary to violate liveness.
+
+**Definition 12** (Individual rationality)
+ Parties benefit from being sequencers, i.e., the rewards minus the costs of participation should be positive.
+The rewards minus the costs are typically expressed through the utility function of a party. By participation costs we do not mean the operating costs of the rollup (running the execution and publishing data on-chain); we consider these costs already calculated in the reward and willingness of parties to take part in the protocol. Instead, with operating costs we mean any potential monetary cost incurred by the mechanism, e.g., opportunity costs from long-term locked stake.
+
+## Sequencer Reward Mechanism
+
+We now describe the exact protocol that realizes the sequencer election.
+At the beginning of each epoch, parties publicly lock their stake on the rollup-auction smart contract; this stake ($s$) corresponds to their bid. 
+Then, we leverage the allocation mechanism described in Section 3.3, to  elect validators and allocate them to slots. 
+After the auction is over, all parties' stakes are unlocked, whether they are validators or not.
+
+During each slot, the corresponding uniquely assigned validator called the sequencer, is responsible for batching the rollup data and publishing them on-chain. The rollup data do not have to be valid -- the sequencer simply publishes an order. Hence, a malicious sequencer can only choose which data to include or stay inactive.
+
+At the end of the epoch, the validators (or sequencers -- used interchangeably) are called to lock up a specific amount of stake for each assigned slot. This amount is determined via a typical second-price auction (VCG mechanism for multi-item auctions), in order to guarantee incentive compatibility, i.e., that the parties will report as their stake-bid their truthful valuation.
+For each slot, if the sequencer locks the necessary stake ($S'$) and promptly published rollup data within its slot (i.e., in the block the sequencer was assigned to), the validator will be awarded the sequencer reward $r$; otherwise, the sequencer will _not_ be awarded the reward $r$, _even if it acted correctly at its slot._
+
+Apart from receiving the sequencers' rewards, locking the required stake at the end of the epoch enables the validators to participate in the safe exit protocol. Nevertheless, we will not examine this aspect of the mechanism in this section.
+
+## Utility Function
+
+The utility function of a party depends on the following:
+
+-   The opportunity cost of the stake to be locked at the end of the epoch, $s'$. We denote this opportunity cost for party $P_i$ by $q \\cdot s'\_i$, where  $q$ is a global, constant factor that expresses the opportunity cost of locking up one unit of funds for a bounded time period.
+-   The expected sequencer rewards to be awarded at the end of the epoch, denoted by $r \\cdot k$, where $k$ is the number of slots during which party $P_i$ was active. $k$ may be at most equal to the number of slots the party was awarded from the allocation algorithm in this epoch.
+-   Whether a validator may acquire more than $u$ consecutive slots, effectively violating the liveness bound. In this case, we consider the utility of a party infinite.
+
+In short, the utility of a party $P_i$ is 
+
+![Utility of a party](/img/utility_of_party.png)
+
+**Unlocking the stake.**
+The auction mechanism should guarantee that the parties bid truthfully, meaning they lock the maximum amount of stake they are willing to "maintain" during an epoch for their participation in the rollup.
+We note that the stake is not locked during the epoch and thus the opportunity cost of the stakeholder is very low: the only requirements are to be able to lock a specific amount per slot at the end of the epoch to collect the rewards, and of course, that these rewards are more beneficial to the stakeholder than the operating costs of being a sequencer. We further note that unlocking the funds encourages much larger participation of stakeholders in the rollup which significantly enhances the rollup security.
+Potential drawbacks are discussed later in Section 4.6.
+
+**Utility from participation in safe exit protocol.**
+We do not consider in this section the dual functionality of validators as both sequencers and safe exit validators. In particular, in this protocol, we only examine the fair and randomized allocation of stakeholders in rollup slots. Next, we will show that these properties guarantee the liveness of the rollup while bridging demands the design of a safe exit protocol that is incentive compatible and not manipulable by an adversary. We will address the safe exit in Section 5.
+
+## Analysis
+
+In this section, we prove our proposed sequencer mechanism satisfies the desired properties under our threat model, and conclude the section by proving the liveness of the Milkomeda rollup that employs our design.
+
+**Theorem 6.** The mechanism satisfies slot clearance.
+
+**Proof**
+    This property is directly derived from the market clearance property of the auction mechanism, see Theorem~\\ref{thm:clearing}.
+
+**Theorem 7.** The mechanism satisfies truthfulness.
+    The mechanism satisfies truthfulness.
+
+**Proof**
+ The parties' utility can be increased if their locked stake at the end of the epoch decreases. However, to determine this locked stake, a VCG mechanism is used. Hence, the stake of a slot does not depend on the bid of this slot's sequencer and thus the parties cannot increase their utility by misreporting their valuation. 
+
+**Theorem 8.** The mechanism satisfies individual rationality.
+    The mechanism satisfies individual rationality.
+
+**Proof**
+    To show that parties may only benefit from being active, it is enough to show that 
+    $r \\cdot k - q \\cdot s'\_i>0$.
+    We know that $r \\cdot k > q \\cdot s_i$, since the mechanism is truthful (Theorem 7) and the party $P_i$ wants to participate in the auction. Moreover, from VCG we have that $s_i \\geq s'\_i$, hence $r \\cdot k > q \\cdot s'\_i$.
+
+**Lemma 3**
+    In a slot-symmetric mechanism, a party with stake percentage $s_i$ ($\<1/3$) may be awarded $k$  consecutive out of $e$ total slots with probability $(e-k)\\cdot  s_i^k$. 
+**Proof**
+By the slot-symmetry property (Theorem 3), each slot is equally likely to be assigned to any validator, 
+$\\forall P_i, \\forall j \\neq j' \\in I, Pr\[Y_{i,j}=1]=Pr[Y_{i,j'}=1]=s_i$.
+Hence, the probability of a party $P_i$ with stake $s_i$ to have the consecutive slots $1,2, \\dots, k$ is $s_i^k$.
+Applying union bound to take into account all possible consecutive slots, we have that the  probability of party $P_i$ to have any $k$ consecutive slots is $(e-k)\\cdot s_i^k$.
+
+**Theorem 9.** The mechanism satisfies liveness.
+**Proof**
+Suppose our mechanism is not egalitarian, i.e.,  there is at least one party $P_i$ that is awarded an amount of rewards that is not proportional to their bid $s_i$. 
+There are two cases: a) the party is awarded less than its fair share, or b) the party is awarded more than its fair share. 
+
+The parties are awarded a reward $r$ per slot they have won in the slot auction and they were active (see utility function -- equation 1). Furthermore, from the fairness property of the auction (Theorem 4), each party is assigned an average number of slots that is proportional to their stake. Therefore, if active on all slots, a party's expected reward is proportional to their bid $s_i$.
+So case (a) can only occur if the party was inactive in one or more of their assigned sequencer slots; contradicts individual rationality (Theorem 8).
+
+For case (b), a party can only increase their rewards more than their fair share by acquiring $k>u$ consecutive slots from the auction (see equation 1). 
+By Lemma 3,  the probability of a party $P_i$ with stake $s_i\< 1/3$ to have $k$ consecutive slots is $(e-k)\\cdot  s_i^k$.
+
+Thus, the parties are rewarded proportionally to their self-reported stake percentage $s_i$, and our mechanism is egalitarian.    
+
+**Liveness.**
+Next, we show that the Milkomeda rollup that employs the sequencer mechanism described in Section 4.3 satisfies liveness.
+
+**Theorem 10.**
+    The Milkomeda rollup satisfies liveness  with probability $1-(e-u)\\cdot  a^u$, where $e \\in \\mathbb{N}$ is the number of slots in an epoch, $a \\in[0,1]$ the adversarial threshold, and $u \\leq e$ the liveness security parameter.
+**Proof**
+    To show the Milkomeda rollup satisfies liveness we must show that there is a finite upper bound of blocks $u$ on the L1 within which a transaction that is submitted in the rollup will be included on-chain and thus executed.
+
+We assume that active (or correct) sequencers will include all pending transactions. 
+ Since rational validators will always be active due to individual rationality (Theorem 8), it is enough to bound the expected number of slots for having a correct sequencer. 
+With any adversary controlling less than half the stake, the expected number of slots for having a correct sequencer is two, while bounding the existence of a correct sequencer with a probability dependent on the epoch length $e$ can be derived by Lemma 3. 
+We note that from the same lemma we can deduce that for large enough security parameter $u$ (dependent on $e$), no party can control more than $u$ consecutive slots, so liveness will not be violated.
+
+## Elective features and alternatives
+
+**Fully-adaptive adversaries.**
+To defend against fully adaptive adversaries, we can employ VRFs for the sequencer election, among the validators that are responsible for each epoch. In particular, we may employ the cryptographic sortition of Algorand [GHM+17]. However, this solution means that there will be some empty slots and some with multiple leaders which may require more rigorous analysis to show liveness.
+
+**Locking the stake.**
+In our proposal, the stakeholders lock their stakes only during the auction and at the final stage of each epoch. This feature allows stakeholders to participate in the rollup with very low opportunity cost and hence motivates the participation of all L1 stakeholders.
+However, this design choice bears some drawbacks. 
+
+First, it enables an adversary to loan stake to break the security threshold; this attack is out of the scope of this work, as rational agents would never loan such amounts but instead participate in the protocol themselves. Nevertheless, it is an attack vector that can be mitigated if the validators keep their stake locked during the entire epoch.
+
+Second, entering and exiting the rollup is only allowed during the change of an epoch where the safe exit protocol operates. This allows us to separate totally the liveness from the bridging of the protocol, which makes our analysis under rational players more approachable. We can, however, design a protocol where parties may leave and join the rollup on demand and not only during specific time periods. We anticipate that this approach would require sequencers to play an active role in the bridging of the protocol. In this case, the stake should be locked throughout the execution for accountability purposes and 
+a composable incentive analysis of the sequencer and safe exit protocols would be needed to show bridging.

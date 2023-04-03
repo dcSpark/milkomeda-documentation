@@ -1,6 +1,6 @@
 ---
 sidebar_label: "문의하기"
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # 문의하기

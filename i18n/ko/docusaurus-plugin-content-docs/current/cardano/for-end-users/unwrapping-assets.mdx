@@ -9,8 +9,35 @@ import addressBar from "@site/static/img/address-bar-link.png";
 import searchBox from "@site/static/img/search-box-blockscout.png";
 
 # 자산 래핑 풀기
+When it comes to unwrapping assets in the Milkomeda Cardano Sidechain (C1) ecosystem, there are two main options: using the [Flint Wallet](https://flint-wallet.com/) or the [Milkomeda Cardano Unwrap Bridge](https://cardano-bridge.milkomeda.com/bridge). In this tutorial, we'll guide you through both options so you can choose the one that works best for you.
 
-자산을 Milkomeda C1 사이드체인에서 Cardano로 되돌리려면 Milkomeda Cardano Unwrap Bridge를 사용합니다. 아래 단계에 따라 milkADA의 래핑을 풀고 Cardano 메인넷 지갑에서 ADA를 받으세요. &#x20;
+## Flint Wallet
+To perform the asset unwrapping, use the **SEND** function on the wallet screen.
+
+![Flint Homescreen](/img/flint-home-screen.png)
+
+To begin, toggle on the **Milkomeda Mode (Beta)** and choose Milkomeda C1 asset from the token select dropdown. Next, input the recipient's Cardano address in the designated box, followed by the desired amount. Lastly, click on the **CONTINUE** button to proceed to the confirmation screen.
+
+![Flint Input](/img/unwrappingflintinput.png)
+
+The confirmation screen provides an opportunity to review critical details, including the "from" and "to" addresses, as well as the network fee. It's worth noting that the total fee comprises both the base fee and Milkomeda fee since the transaction occurs on both the Milkomeda C1 chain and Cardano. Take a moment to double-check the information before proceeding.
+
+![Confirm Transaction](/img/unwrapping-confirm-transaction.png)
+
+After entering the wallet spending password and pressing the **SEND** button, the transaction(s) will be sent.
+
+
+![Transaction Submitted](/img/unwrapping-transaction-submitted.png)
+
+If you need more information, there are two ways to access it. You can follow the link on the confirmation screen to view the transaction on Blockscount explorer or navigate to the "Activity" section in the footer to find the transaction on the list. Clicking on the transaction will provide two links, one for viewing the transaction on the Milkomeda chain explorer and the other for Cardano.
+
+
+![Transaction List](/img/unwrapping-transaction-list.png)
+
+
+## Milkomeda Cardano Unwrap Bridge
+
+To move assets from Milkomeda C1 sidechain back to Cardano, you can also use the Milkomeda Cardano Unwrap Bridge. 아래 단계에 따라 milkADA의 래핑을 풀고 Cardano 메인넷 지갑에서 ADA를 받으세요. &#x20;
 
 우선 [Milkomeda Cardano Unwrap Bridge](https://cardano-bridge.milkomeda.com/bridge)로 이동하여 MetaMask 지갑을 연결합니다.
 
@@ -71,4 +98,4 @@ _Milkomeda C1 사이드체인에 연결_
 
 ![Flint 거래 페이지](/img/flint-transactions.png)
 
-:::info 래핑을 해제할 수 있는 토큰 목록은 '**Cardano Bridge에서 지원하는 네이티브 애셋**< /a>' 섹션을 확인하세요. :::
+:::info To check the available list of tokens that can be unwrapped, go to [**Cardano Bridge Supported Native Assets**](https://bridge-explorer.milkomeda.com/cardano-mainnet/tokens) tab in Bridge Explorer. :::
