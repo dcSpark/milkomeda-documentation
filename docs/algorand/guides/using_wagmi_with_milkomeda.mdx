@@ -1,25 +1,25 @@
 # Using WAGMI with Milkomeda
 
-import img1 from "@site/static/img/wagmi_tutorial/image1.png";
-import img2 from "@site/static/img/wagmi_tutorial/image2.png";
+import img1 from "@site/static/img/wagmi_tutorial/image1_a1.png";
+import img2 from "@site/static/img/wagmi_tutorial/image2_a1.png";
 import img3 from "@site/static/img/wagmi_tutorial/image3.png";
-import img4 from "@site/static/img/wagmi_tutorial/image4.png";
+import img4 from "@site/static/img/wagmi_tutorial/image4_a1.png";
 
 :::info
-Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Cardano blockchain.
+Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Algorand blockchain.
 :::
 
 
 Compared to a typical web2 application where the backend code is executed on centralized servers, a DApp (Decentralized Application) runs its backend code on a blockchain. The frontend code and user interfaces of a DApp can be written in any language and deployed on any server or servers to interact with the backend logic.
 
-This article will guide you through the process of **developing a simple Storage smart contract**, deploying it on Milkomeda C1 testnet, and accessing it using a frontend built with React, Wagmi, and Rainbowkit.
+This article will guide you through the process of **developing a simple Storage smart contract**, deploying it on Milkomeda A1 testnet, and accessing it using a frontend built with React, Wagmi, and Rainbowkit.
 
 :::tip
 
 You can choose to follow allong completing the coding steps or download the full code for this tutorial by running:
 
-```bash
-npx degit dcspark/milkomeda-guides#wagmi_c1 guide-wagmi-c1
+```
+npx degit dcspark/milkomeda-guides#wagmi_a1 guide-wagmi-a1
 ```
 :::
 
@@ -77,7 +77,7 @@ npx hardhat
 npx hardhat compile
 ```
 
-5. Edit **hardhat.config.js** to add the C1 testnet and your funded test account. Refer to the [Milkomeda docs](http://localhost:3000/milkomeda-documentation/cardano/for-developers/obtaining-test-ada) for information on how to get testnet funds.
+5. Edit **hardhat.config.js** to add the A1 testnet and your funded test account. Refer to the [Milkomeda docs](../for-developers/obtaining-test-algo) for information on how to get testnet funds.
 
 ```javascript
 require("@nomicfoundation/hardhat-toolbox");
@@ -87,8 +87,8 @@ require("dotenv").config();
 module.exports = {
   solidity: "0.8.17",
   networks: {
-    c1_testnet: {
-      url: `https://rpc-devnet-cardano-evm.c1.milkomeda.com`,
+    a1_testnet: {
+      url: `https://rpc-devnet-algorand-rollup.a1.milkomeda.com`,
       accounts: [`0x${process.env.PRIVATE_KEY}`]
     }
   }  
@@ -115,10 +115,10 @@ main().catch((error) => {
 ```
 
 
-7. Run the deployment script on C1 testnet:
+7. Run the deployment script on A1 testnet:
 
 ```bash
-npx hardhat run scripts/deploy.js --network c1_testnet
+npx hardhat run scripts/deploy.js --network a1_testnet
 ``` 
 
 After a successful deployment, you should see an output containing the address of the deployed contract. With this completed, we can proceed to create a frontend interface to interact with the contract.
@@ -136,43 +136,43 @@ yarn create wagmi
 
 Enter the created folder, run `yarn dev` and you will get a link to open the development site in your browser. 
 
-By default, only Ethereum mainnet will be available so let’s change that to add Milkomeda C1 testnet. Create a file named **milkomeda.ts** in the folder, with the following:
+By default, only Ethereum mainnet will be available so let’s change that to add Milkomeda A1 testnet. Create a file named **milkomeda.ts** in the folder, with the following:
 
 ```
-const milkomedaC1Testnet = {
-    id: 200_101,
-    name: 'Milkomeda C1 Testnet',
-    network: 'milkomedac1test',
+const milkomedaA1Testnet = {
+    id: 200_202,
+    name: 'Milkomeda A1 Testnet',
+    network: 'milkomedaa1test',
     iconUrl: 'https://dcspark.github.io/milkomeda-documentation/img/favicon.svg',
     iconBackground: '#000',
     nativeCurrency: {
       decimals: 18,
-      name: 'milkTADA',
-      symbol: 'milkTADA',
+      name: 'mTALGO',
+      symbol: 'mTALGO',
     },
     rpcUrls: {
       default: {
-        http: ['https://rpc-devnet-cardano-evm.c1.milkomeda.com'],
+        http: ['https://rpc-devnet-algorand-rollup.a1.milkomeda.com'],
       },
     },
     blockExplorers: {
-      default: { name: 'BlockScout', url: 'https://explorer-devnet-cardano-evm.c1.milkomeda.com' },
+      default: { name: 'BlockScout', url: 'https://testnet-algorand-rollup.a1.milkomeda.com' },
     },
     testnet: true,
 };
 
 
-export { milkomedaC1Testnet }
+export { milkomedaA1Testnet }
 ```
 
 
 Now let’s add it to the file wagmi.ts by importing the new defined chain and changing the configureChains call to:
 
 ```
-import { milkomedaC1Testnet } from './milkomeda'
+import { milkomedaA1Testnet } from './milkomeda'
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [mainnet, milkomedaC1Testnet, ],
+  [mainnet, milkomedaA1Testnet, ],
   [
     publicProvider(),
   ],
@@ -187,7 +187,7 @@ By connecting our account through Metamask, we should now be able to see a chain
   alt="Chain Connector"
 />
 
-By clicking on the chain, we will now be able to choose Milkomeda C1 Testnet.
+By clicking on the chain drop-down, we will now be able to switch network to Milkomeda A1 Testnet.
 
 <img
   src={img2}
@@ -285,7 +285,7 @@ import Storage from './components/Storage'
 
 We can now modify the value in the input box, click the button, and will be prompted to sign the transaction to write the new value to the Smart Contract. As the watch option in the useContractRead hook is set to true, the value will automatically update.
 
-**With that, we now have a fully functional dApp that connects to the Milkomeda C1 Testnet, can read from our Smart Contract, and is also capable of writing to it.**
+**With that, we now have a fully functional dApp that connects to the Milkomeda A1 Testnet, can read from our Smart Contract, and is also capable of writing to it.**
 <img
   src={img4}
   className="img-full"
@@ -293,7 +293,7 @@ We can now modify the value in the input box, click the button, and will be prom
 />
 
 
-This guide provided a step-by-step explanation of how to develop a basic Storage Smart Contract and deploy it on the Milkomeda C1 Testnet using Hardhat. It also outlined how to create a frontend that interfaces with the contract, utilizing React, Wagmi, and Rainbowkit.
+This guide provided a step-by-step explanation of how to develop a basic Storage Smart Contract and deploy it on the Milkomeda A1 Testnet using Hardhat. It also outlined how to create a frontend that interfaces with the contract, utilizing React, Wagmi, and Rainbowkit.
 
 
 
