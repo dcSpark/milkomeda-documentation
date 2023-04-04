@@ -1,0 +1,487 @@
+# Quantum Random Numbers from API3
+
+import img1 from "@site/static/img/qrng/image1.png";
+
+If you're here solely for the purpose of generating QRNGs on Milkomeda C1 using API3, skip the introduction and head straight to the next section, that covers this topic.
+
+## Introduction
+
+:::info
+Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Cardano blockchain.
+:::
+
+
+Smart contracts normally rely on an external oracle service for random number generation because their deterministic virtual machine cannot generate truly random numbers. Regular computers are also unable to generate truly random numbers and typically use pseudorandom number generation methods to generate random-looking numbers. However, **quantum random number generation (QRNG)** is a method that can generate truly random numbers based on quantum phenomena and is considered **the gold standard for randomness**.
+
+The **Australian National University (ANU)** is one of the leading research universities in Australia, and also the provider of the well-known and widely used Quantum Random Numbers API, which is powered by novel research done by the ANU quantum optics group.
+
+
+API3 and The Australian National University Quantum Optics Group bring truly random numbers based on quantum mechanics to smart contracts at no charge with **API3 QRNG**.
+
+
+API3 QRNG is built on Airnode RRP, and as a result is provider-agnostic, with the ANU Quantum Random Numbers being just one of the available providers. Visit this [link](https://docs.api3.org/qrng/reference/providers.html#airnode-2) for a list of the providers available for the API3 QRNG.
+
+In this guide we **will show how to use the API3 QRNG** to request a random number in a smart contract on **Milkomeda C1 Testnet**, however, the **ANU Quantum Random Numbers** is only available on mainnets, so we will use another provider from the list that is available on Testnets, the **Nodary Random Numbers**. 
+
+
+:::note
+**Nodary** is an independent group within the API3 ecosystem that builds high-impact oracle services. The **Nodary Random Numbers** emulates the QRNG service on testnets using pseudorandom number generation.
+:::
+
+The implementation on the mainnet would remain consistent, with the only variation being the request parameters stored in the smart contract, which direct to the provider within the smart contract.
+
+## How it works
+
+The API3 QRNG service is implemented using the Airnode request–response protocol contract, [AirnodeRrpV0](https://github.com/api3dao/airnode/blob/master/packages/airnode-protocol/contracts/rrp/AirnodeRrpV0.sol), to acquire a random number.
+
+Upon request, [Airnode](https://docs.api3.org/airnode/v0.9/) calls a designated API operation and acquires a random number, and then delivers it on-chain, via the `AirnodeRrpV0` protocol contract, to a requester.
+
+In the diagram below a requester (smart contract) submits a request for a random number to` AirnodeRrpV0`. Airnode gathers the request from the `AirnodeRrpV0` protocol contract, gets the random number from an API operation, and sends it back to AirnodeRrpV0. Once received, `AirnodeRrpV0` performs a callback to the requester with the random number.
+
+<div className="image-center">
+<img
+ style={{width: "400px" }}
+  src={img1}
+  className="img-full"
+  alt="API QRNG"
+/>
+</div>
+
+:::info Gas Costs
+
+Using the QRNG service is free, meaning there is no subscription fee. There is a gas cost incurred on-chain when Airnode places the random number on-chain in response to a request, which the requester needs to pay for.
+
+:::
+
+
+## Creating the Smart Contract
+
+
+To make requests for random numbers, we will create a requester smart contract, that calls the QRNG service using the request–response protocol (RRP) implemented by the on-chain `AirnodeRrpV0` contract.
+Our contract will inherit [RrpRequesterV0.sol](https://github.com/api3dao/airnode/blob/master/packages/airnode-protocol/contracts/rrp/requesters/RrpRequesterV0.sol) which is part of the NPM [@api3/airnode-protocol](https://www.npmjs.com/package/@api3/airnode-protocol) package.
+
+
+:::tip
+
+You can choose to follow allong completing the coding steps or download the full code for this tutorial by running:
+
+```
+npx degit dcspark/milkomeda-guides#qrng guide-qrng
+```
+:::
+
+
+
+Here is the smart contract:
+
+```javascript
+//SPDX-License-Identifier: MIT
+pragma solidity 0.8.9;
+import "@api3/airnode-protocol/contracts/rrp/requesters/RrpRequesterV0.sol";
+
+contract QrngExample is RrpRequesterV0 {
+    event RequestedUint256(bytes32 indexed requestId);
+    event ReceivedUint256(bytes32 indexed requestId, uint256 response);
+
+    address public airnode;
+    bytes32 public endpointIdUint256;
+    address public sponsorWallet;
+    mapping(bytes32 => bool) public waitingFulfillment;
+
+    struct LatestRequest { 
+      bytes32 requestId;
+      uint256 randomNumber;
+    }
+    LatestRequest public latestRequest;
+
+    constructor(address _airnodeRrp) RrpRequesterV0(_airnodeRrp) {}
+
+    function setRequestParameters(
+        address _airnode,
+        bytes32 _endpointIdUint256,
+        address _sponsorWallet
+    ) external {
+        airnode = _airnode;
+        endpointIdUint256 = _endpointIdUint256;
+        sponsorWallet = _sponsorWallet;
+    }
+
+    function makeRequestUint256() external {
+        bytes32 requestId = airnodeRrp.makeFullRequest(
+            airnode,
+            endpointIdUint256,
+            address(this),
+            sponsorWallet,
+            address(this),
+            this.fulfillUint256.selector,
+            ""
+        );
+        waitingFulfillment[requestId] = true;
+        latestRequest.requestId = requestId;
+        latestRequest.randomNumber = 0;
+        emit RequestedUint256(requestId);
+    }
+
+    function fulfillUint256(bytes32 requestId, bytes calldata data)
+        external
+        onlyAirnodeRrp
+    {
+        require(
+            waitingFulfillment[requestId],
+            "Request ID not known"
+        );
+        waitingFulfillment[requestId] = false;
+        uint256 qrngUint256 = abi.decode(data, (uint256));
+        // Do what you want with `qrngUint256` here...
+        latestRequest.randomNumber = qrngUint256;
+        emit ReceivedUint256(requestId, qrngUint256);
+    }
+}
+
+```
+
+The two most important functions are specific to requesting and receiving a random number from the QRNG service:
+- `makeRequestUint256()` calls `airnodeRrp.makeFullRequest()` to request a random number, which in turn returns a requestId. The requestId is stored in the mapping `waitingFulfillment` for reference in the callback function.
+- `fulfillUint256` is the callback to receive the random number from the QRNG service. The callback contains the requestId returned by the initial request and the data, which contains the random number. The requestId is verified and removed from the mapping `waitingFulfillment`.
+
+The additional function `setRequestParameters` is used to set the provider parameters for the requests.
+
+For testing purposes, we will use Hardhat, a development environment that enables us to compile, deploy, and test smart contracts in a local environment.
+
+To set up Hardhat, create a new folder, initialize a JavaScript project, and install Hardhat by executing the following commands in your terminal:
+
+```shell
+yarn init -y
+yarn add -D hardhat
+```
+
+Once Hardhat is installed, we need to initialize a new Hardhat project.:
+
+```shell
+npx hardhat init
+```
+
+This will create a new Hardhat project with a basic directory structure and some example files.
+
+
+
+Because our smart contract will inherit from `RrpRequesterV0`, we will need to import the `@api3/airnode-protocol` npm package.
+
+```
+yarn add @api3/airnode-protocol
+```
+
+
+Let's edit the `hardhat.config.js` file to change the solidity compiler version and add the **Milkomeda C1 Testnet** chain.
+
+
+```javascript
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: "0.8.9",
+  networks: {
+    c1_testnet: {
+      url: `https://rpc-devnet-cardano-evm.c1.milkomeda.com`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
+    }
+  }  
+};
+```
+
+This config includes the account we will use to sign transactions, which will be imported from a private key in a `.env` file, like so:
+
+```
+PRIVATE_KEY=<PRIVATE_KEY>
+```
+
+
+Now create the file `QrngExample.sol` in the `contracts` folder and compile the smart contract:
+
+```
+npx hardhat compile
+```
+
+## Deployment
+
+:::warning Deploy to a testnet only
+
+Do not use the `QrngExample.sol` contract in production. It lacks adequate security features. You can deploy on a testnet to get random numbers from the **Nodary RNG API**, which has equivalent usage as **ANU Quantum Random Numbers** available on mainnets.
+:::
+
+
+To deploy our example smart contract, we will need to pass the `_airnodeRrp` address as parameter. 
+
+Use the following address for **Milkomeda C1 Testnet**, but the full list of addresses for mainnets and testnets if available [here](https://docs.api3.org/qrng/reference/chains.html).
+
+
+```
+0xa0AD79D995DdeeB18a14eAef56A549A04e3Aa1Bd
+```
+
+Use the following a script, with the `_airnodeRrp` value hardcoded for **Milkomeda C1 Testnet**, to deploy the contract:
+
+```javascript
+const hre = require("hardhat");
+
+const AIRNODE_RRP = "0xa0AD79D995DdeeB18a14eAef56A549A04e3Aa1Bd"
+
+async function main() {
+    const QrngExample = await hre.ethers.getContractFactory("QrngExample");
+    const qrng = await QrngExample.deploy(AIRNODE_RRP);
+    await qrng.deployed();
+    console.log(`QrngExample contract deployed to ${qrng.address}`);
+}
+
+main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});
+```
+
+Run the script:
+
+```
+npx hardhat run scripts/deploy.js --network c1_testnet
+```
+
+## Setting the Parameters
+
+Before making a request, there are a few parameters that must be set in the smart contract, as they determine which Airnode endpoint will be called and define the wallet that will pay the gas costs for the response.
+
+Let's recall the `setRequestParameters` function in our `QrngExample` smart contract:
+
+```javascript
+    function setRequestParameters(
+        address _airnode,
+        bytes32 _endpointIdUint256,
+        address _sponsorWallet
+    ) external {
+        airnode = _airnode;
+        endpointIdUint256 = _endpointIdUint256;
+        sponsorWallet = _sponsorWallet;
+    }
+```
+
+We will have to call this function with the following parameters:
+- `_airnode` - The address that belongs to the Airnode that will be called to get the QRNG data via its endpoints
+- `_endpointIdUint256` - The Airnode endpoint ID that returns one random number of type uint256
+- `_sponsorWallet` - A wallet derived from the requester's contract address, the Airnode address, and the Airnode xpub. **The wallet is used to pay gas costs to acquire a random number.**
+
+
+The values for the first two parameters that refer to **Nodary Random Numbers**, shown in the table below, are available [here](https://docs.api3.org/qrng/reference/providers.html#airnode-2).
+
+| parameter | value |
+|---|---|
+| airnode | `0x6238772544f029ecaBfDED4300f13A3c4FE84E1D` |
+| endpointIdUint256 | `0xfb6d017bb87991b7495f563db3c8cf59ff87b09781947bb1e417006ad7f55a78` |
+
+
+The sponsor wallet must be derived using the command derive-sponsor-wallet-address from the Admin CLI. Use the value of the sponsor wallet address that the command outputs.
+
+To derive this wallet, run:
+
+```shell
+npx @api3/airnode-admin derive-sponsor-wallet-address \
+  --airnode-xpub xpub6CuDdF9zdWTRuGybJPuZUGnU4suZowMmgu15bjFZT2o6PUtk4Lo78KGJUGBobz3pPKRaN9sLxzj21CMe6StP3zUsd8tWEJPgZBesYBMY7Wo \
+  --airnode-address 0x6238772544f029ecaBfDED4300f13A3c4FE84E1D \
+  --sponsor-address <DEPLOYMENT_ADDRESS_OF_QrngExample.sol>
+```
+which would output something like this:
+
+```
+Sponsor wallet address: 0xd517a7117B354f5FE24d73B465aECf05B6E2D177
+```
+
+
+
+To set the parameters, we can create a task in `hardhat.config.js` file. We will also hardcode the deployment address of our contract, since we will be using it for several additional tasks.
+
+
+
+```javascript
+
+const DEPLOYMENT_ADDRESS = "0x4BdD38D514600835202fE75958058DE687666855"
+
+task("setParams", "Sets the parameters for testnets")
+.addParam("account", "The sponsor account's address")
+.setAction(async (taskArgs) => {
+
+  const AIRNODE = "0x6238772544f029ecaBfDED4300f13A3c4FE84E1D"
+  const ENDPOINT_ID = "0xfb6d017bb87991b7495f563db3c8cf59ff87b09781947bb1e417006ad7f55a78"
+  
+  const qrng = await hre.ethers.getContractAt("QrngExample", DEPLOYMENT_ADDRESS);
+  const res = await qrng.setRequestParameters(AIRNODE, ENDPOINT_ID, taskArgs.account);
+  console.log("Trx hash:", res.hash);
+});
+```
+
+We have hardcoded the `_airnode` and `_endpointIdUint256` parameters for the **Nodary Random Numbers** provider, and we will pass the **sponsor wallet** as a parameter.
+To execute this task, run:
+
+
+
+```
+npx hardhat setParams --account <SPONSOR_WALLET_ADDRESS> --network c1_testnet
+```
+
+
+
+Next, be sure to fund the public address of the **sponsor wallet** that the command outputs with enough testnet currency. The funds are used to pay gas costs for the Airnode's response.
+
+To fund the wallet, let's add the following task to `hardhat.config.js`
+
+```javascript
+task("fundSponsor", "Sends 0.1 to sponsor wallet")
+.addParam("account", "The sponsor account's address")
+.setAction(async (taskArgs) => {
+  console.log(`Funding sponsor wallet: ${taskArgs.account}`)
+  const [owner] = await ethers.getSigners();
+  const tx = await owner.sendTransaction({
+      to: taskArgs.account,
+      value: ethers.utils.parseEther("0.1"), 
+    });
+  tx.wait()
+  const balance = await hre.ethers.provider.getBalance(taskArgs.account);
+  console.log("Balance:", ethers.utils.formatEther(balance))
+});
+```
+
+Now run it with the following command:
+
+```
+npx hardhat fundSponsor --account <SPONSOR_WALLET_ADDRESS> --network c1_testnet
+```
+
+
+:::warning Designated Sponsor Wallets
+
+Sponsors should not fund a sponsor wallet with more than they can trust the Airnode with, as the Airnode controls the private key to the sponsor wallet. The deployer of such Airnode undertakes no custody obligations, and the risk of loss or misuse of any excess funds sent to the sponsorWallet remains with the sponsor.
+
+:::
+
+
+## Make a Request
+
+Each request made will use the parameters that were set by the `setRequestParameters` function. These parameters can be changed at any time and subsequent requests will use the newer parameter set.
+
+To make a request, we will call the `makeRequestUint256` function, which doesn't take any parameters.
+
+```javascript
+    function makeRequestUint256() external {
+        bytes32 requestId = airnodeRrp.makeFullRequest(
+            airnode,
+            endpointIdUint256,
+            address(this),
+            sponsorWallet,
+            address(this),
+            this.fulfillUint256.selector,
+            ""
+        );
+        waitingFulfillment[requestId] = true;
+        latestRequest.requestId = requestId;
+        latestRequest.randomNumber = 0;
+        emit RequestedUint256(requestId);
+    }
+```
+
+We will create two hardhat tasks, one to call this function and one to return it's status. Add the following to `hardhat.config.js`:
+
+
+```javascript
+task("makeRequest", "Request a random number")
+.setAction(async () => {
+  const qrng = await hre.ethers.getContractAt("QrngExample", DEPLOYMENT_ADDRESS);
+  const tx = await qrng.makeRequestUint256();
+  tx.wait()
+});
+
+task("latestRequest", "Get latest Request")
+.setAction(async () => {
+  const qrng = await hre.ethers.getContractAt("QrngExample", DEPLOYMENT_ADDRESS);
+  const latestRequest = await qrng.latestRequest()
+  console.log("Latest Request:", latestRequest);
+});
+```
+
+Let's run both of the tasks:
+
+```
+npx hardhat makeRequest --network c1_testnet
+npx hardhat latestRequest --network c1_testnet
+```
+
+The first task makes the request and the second one checks the result of the latest request. The output should look something like this:
+
+```
+Latest Request: [
+  '0x2bf606d9c8f63731682b3ce40d407e1e2b432c61bfe1a6d0e3ba24d73ccc38ef',
+  BigNumber { value: "0" },
+  requestId: '0x2bf606d9c8f63731682b3ce40d407e1e2b432c61bfe1a6d0e3ba24d73ccc38ef',
+  randomNumber: BigNumber { value: "0" }
+]
+```
+
+There is a `requestId` but the `randomNumber` is zero. That's because the callback has still not been made with the result. Let's add another task to check the status of the latest request.
+
+Knowing the `requestId` we can query the hashmap `waitingFulfillment` which will store a boolean if the contract is waiting for the fulfillment of a certain request.
+
+Add another task to `hardhat.config.js`:
+
+```javascript
+task("fulfillStatus", "Check request status")
+.addParam("request", "ID of the request")
+.setAction(async (taskArgs) => {  
+  const qrng = await hre.ethers.getContractAt("QrngExample", process.env.DEPLOYMENT_ADDRESS);
+  const status = await qrng.waitingFulfillment(taskArgs.request)
+  console.log("Waiting for fulfillment:", status);
+});
+```
+
+and we can check if a request is pending by running:
+
+```
+npx hardhat fulfillStatus \
+  --request 0x2bf606d9c8f63731682b3ce40d407e1e2b432c61bfe1a6d0e3ba24d73ccc38ef  \
+  --network c1_testnet
+```
+
+which would output the status of the request with `requestId` provided as a parameter:
+
+```
+Waiting for fulfillment: true
+```
+
+If the result is `true`, you will have to wait a bit more for the callback to be made and check again after a few seconds. If the result is `false`, the callback was made to the smart contract and you can check the latest request again by running that task again:
+
+
+```
+npx hardhat latestRequest --network c1_testnet
+```
+
+The result should now contain a random number:
+
+```
+Latest Request: [
+  '0x2bf606d9c8f63731682b3ce40d407e1e2b432c61bfe1a6d0e3ba24d73ccc38ef',
+  BigNumber { value: "30026336249748184315323488636922905478731033197723847904867675146980257848180" },
+  requestId: '0x2bf606d9c8f63731682b3ce40d407e1e2b432c61bfe1a6d0e3ba24d73ccc38ef',
+  randomNumber: BigNumber { value: "30026336249748184315323488636922905478731033197723847904867675146980257848180" }
+]
+```
+
+## Summary
+
+This was a lot of code, so let's review the steps that were performed.
+
+Using Hardhat, we created and deployed a requester smart contract, that inherited from `RrpRequesterV0` of the `@api3/airnode-protocol` package, on Milkomeda C1 Testnet, passing the address of the `_airnodeRrp` for that particular chain.
+This smart contract has two important functions, one to make the request and one to receive the callback with the response. We wrote some hardhat tasks to make the requests and check for response and the status of the response. After the callback is made to our smart contract, in reponse to our request, we will have received a **random number**.
+
+It is important to underline that we used a testnet (Milkomeda C1 Testnet) and the **ANU Quantum Random Numbers** are only available on mainnets, but the only changes required in the steps above would be the passing of the `_airnodeRrp` address relevant for Milkomeda C1 Mainnet in the contract deployment and then settings the appropriate parameters for the **ANU Quantum Random Numbers** provider when setting the parameters inside the contract with the `setRequestParameters` function.
+
+If you're interested in learning more about QRNG from API3, visit the [official documentation](https://api3.org/QRNG) for additional information
+
+
+
