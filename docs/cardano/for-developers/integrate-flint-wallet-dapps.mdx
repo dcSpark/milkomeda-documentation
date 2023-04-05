@@ -81,7 +81,7 @@ After a web application establishes a connection with Flint, it can request the 
 ```js
 {
     from: "0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8",
-    to: "0xac03bb73b6a9e108530aff4df5077c2b3d481e5a",
+    to: "Oxaf645481cff54495568b1136539a6426c52d470f',
     gasLimit: "21000",
     maxFeePerGas: "100",
     maxPriorityFeePerGas: "20",
@@ -98,12 +98,11 @@ const result = await provider.request({
     method: 'eth_sendTransaction',
     params: [
         {
-        from: accounts[0],
-        to: '0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb',
-        value: '0x0',
-        gasLimit: '0x5028',
-        gasPrice: '0x2540be400',
-        type: '0x0',
+            from: accounts[0],
+            to: 'Oxaf645481cff54495568b1136539a6426c52d470f',
+            value: '0x0',
+            gasLimit: '0x5028',
+            gasPrice: '0x2540be400',
         },
     ],
 });
