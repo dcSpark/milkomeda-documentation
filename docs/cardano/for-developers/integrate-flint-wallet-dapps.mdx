@@ -81,12 +81,11 @@ After a web application establishes a connection with Flint, it can request the 
 ```js
 {
     from: "0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8",
-    to: "Oxaf645481cff54495568b1136539a6426c52d470f',
-    gasLimit: "21000",
-    maxFeePerGas: "100",
-    maxPriorityFeePerGas: "20",
-    nonce: "0",
-    value: "100000"
+    to: "Oxaf645481cff54495568b1136539a6426c52d470f",
+    value: "100000",
+    gas: "0xbd93",
+    // 'data' is optional. In case you're interacting with a deployed smart contract and 'to' address would be the smart contract address.
+    data: "0x095ea7b3000000000000000000000000ced91cb4ce1a24b2117db780d91f654",
 }
 ```
 
@@ -101,8 +100,7 @@ const result = await provider.request({
             from: accounts[0],
             to: 'Oxaf645481cff54495568b1136539a6426c52d470f',
             value: '0x0',
-            gasLimit: '0x5028',
-            gasPrice: '0x2540be400',
+            gas: '0xbd93',
         },
     ],
 });
