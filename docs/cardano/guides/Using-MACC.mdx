@@ -18,7 +18,7 @@ import img12 from "@site/static/img/macc/macc12.png";
 import img13 from "@site/static/img/macc/macc13.png";
 import img14 from "@site/static/img/macc/macc14.png";
 import img15 from "@site/static/img/macc/macc15.png";
-
+import img16 from "@site/static/img/macc/infographic.png";
 
 # Using Milkomeda's Asset Consolidation Contracts (MACC)
 
@@ -62,7 +62,12 @@ Suppose we establish a Asset Consolidation Contracts for mUSD (Canonical asset).
 
 The Milkomeda Assets Consolidation Contracts aim to mitigate the problem of user exposure to a specific bridge by diversifying the risk. The risk diversification is achieved by having each Canonical version of an asset backed by multiple bridges. In case of a hack or exploit on an individual bridge resulting in the depegging of a corresponding Fragmented Asset, MACC will pause the conversion to Canonical asset from that specific token to prevent further losses for users and to avoid off-ramping hacked assets. To protect users who converted their assets to the Canonical Token before a hack, our treasury will cover the potential depegging of the Canonical Token.
 
-**Following infographics aims to show how MACC and Treasury works:** (TBD)
+**Following infographics aims to show how MACC and Treasury works:**
+<img
+  src={img16}
+  className="img-full"
+  alt="Macc-info"
+/>
 
 Users can convert back to any Fragmented asset (e.g. ceUSDC) on a daily basis, provided that the specific token has achieved sufficient liquidity and has not been impacted by a hack on its corresponding bridge.
 
@@ -167,7 +172,7 @@ To initiate the conversion process, you will need to accept two transactions. Th
   alt="Set spending cap"
 />
 
->3.2 Step 2: Confirm the conversion transaction in your Metamask wallet. 
+>3.2 Confirm the conversion transaction in your Metamask wallet. 
 
 <img
   src={img8}
