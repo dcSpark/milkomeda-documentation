@@ -9,14 +9,15 @@ import { changeNetwork } from '../../networks'
 
 ## Public Endpoints
 
-Milkomeda C1 has https endpoints available for users to connect to for Mainnet and Testnet
-
+Milkomeda C1 offers **HTTPS** and **WebSocket** endpoints for both Mainnet and Testnet, which are publicly accessible to users and developers.
 
 
 ### Mainnet
 > **Network Name:** Milkomeda Cardano (C1)
 >
-> **New RPC URL:** https://rpc-mainnet-cardano-evm.c1.milkomeda.com
+> **HTTPS RPC URL:** https://rpc-mainnet-cardano-evm.c1.milkomeda.com
+>
+> **WebSocket RPC URL:** wss://rpc-mainnet-cardano-evm.c1.milkomeda.com
 >
 > **Chain ID:** 2001
 >
@@ -30,7 +31,9 @@ Milkomeda C1 has https endpoints available for users to connect to for Mainnet a
 ### Testnet
 > **Network Name:** Milkomeda Cardano Testnet
 >
-> **New RPC URL:** https://rpc-devnet-cardano-evm.c1.milkomeda.com
+> **HTTPS RPC URL:** https://rpc-devnet-cardano-evm.c1.milkomeda.com
+>
+> **WebSocket RPC URL:** wss://rpc-devnet-cardano-evm.c1.milkomeda.com
 >
 > **Chain ID:** 200101
 >
@@ -45,7 +48,7 @@ Milkomeda C1 has https endpoints available for users to connect to for Mainnet a
 ## Bridge & Explorers
 
 - [Blockscout Explorer](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/) - Blockscout is a tool for inspecting and analyzing EVM based blockchains
-- [Milkomeda Bridge](https://cardano-bridge.milkomeda.com/) - a UI to bridge between Cardano and Milkomeda C1
+- [Milkomeda Bridge](https://cardano-bridge.milkomeda.com/) - a UI to bridge from Milkomeda C1 (sidechain) to Cardano (mainchain)
 - [Milkomeda Bridge Explorer](https://bridge-explorer.milkomeda.com/cardano-mainnet) - a tool to analyze bridge transactions
 
 
@@ -68,4 +71,6 @@ Mainnet
 | USDC | USD Coin | 0xB44a9B6905aF7c801311e8F4E76932ee959c663C |
 | USDT | Tether USD | 0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844 |
 
-
+For a complete list of tokens that can be transferred between Milkomeda C1 and Cardano, please refer to the following links for both the devnet and mainnet:
+- [devnet](https://bridge-explorer.milkomeda.com/cardano-mainnet/tokens)
+- [mainnet](https://bridge-explorer.milkomeda.com/cardano-devnet/tokens)
