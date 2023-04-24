@@ -13,6 +13,9 @@ At the confirmation screen, enter your wallet password and click "**Send**".
 
 ![](/img/flint-wrap-tada-confirm.png)
 
+:::caution
+Before performing any wrapping, ensure that the destination address on the EVM side can receive the tokens you intend to transfer. If you attempt to send tokens to a smart contract address that lacks a receive function or doesn’t support the specific token being sent, the transaction will become stuck.
+:::
 The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred MilkTADA should be visible in your Milkomeda Cardano Testnet wallet in MetaMask.
 
 :::info A note on transaction fees
