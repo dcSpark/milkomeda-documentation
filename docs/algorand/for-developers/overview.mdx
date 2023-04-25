@@ -1,0 +1,71 @@
+---
+sidebar_position: 0
+---
+
+import { changeNetwork } from '../../networks'
+
+# Milkomeda A1 Overview
+
+
+## Public Endpoints
+
+Milkomeda A1 offers **HTTPS** and **WebSocket** endpoints for both Mainnet and Testnet, which are publicly accessible to users and developers.
+
+
+
+### Mainnet
+> **Network Name:** Milkomeda Algorand (A1)
+>
+> **HTTPS RPC URL:** https://rpc-mainnet-algorand-rollup.a1.milkomeda.com
+>
+> **WebSocket RPC URL:** wss://rpc-mainnet-algorand-rollup.a1.milkomeda.com/ws
+>
+> **Chain ID:** 2002
+>
+> **Currency Symbol:** milkAlgo
+>
+> **Block Explorer URL:** https://explorer-mainnet-algorand-rollup.a1.milkomeda.com
+> <button onClick={() => changeNetwork('a1')}  className='button button--secondary'>Add A1 Mainnet to Metamask</button>
+
+
+
+### Testnet
+> **Network Name:** Milkomeda Algorand Testnet
+>
+> **New RPC URL:** https://rpc-devnet-algorand-rollup.a1.milkomeda.com
+>
+> **WebSocket RPC URL:** wss://rpc-devnet-algorand-rollup.a1.milkomeda.com/ws
+>
+> **Chain ID:** 200202
+>
+> **Currency Symbol:** milkTALGO
+>
+> **Block Explorer URL:** https://testnet-algorand-rollup.a1.milkomeda.com
+> <button onClick={() => changeNetwork('a1_testnet')}  className='button button--secondary'>Add A1 Testnet to Metamask</button>
+
+
+
+
+## Bridge & Explorers
+
+- [Blockscout Explorer](https://explorer-mainnet-algorand-rollup.a1.milkomeda.com/) - Blockscout is a tool for inspecting and analyzing EVM based blockchains
+- [Milkomeda Bridge](https://algorand-bridge.milkomeda.com/mainnet) - a UI to bridge between Algorand and Milkomeda A1
+- [Milkomeda Bridge Explorer](https://bridge-explorer.milkomeda.com/algorand-mainnet) - a tool to analyze bridge transactions
+
+
+## Wallets that support A1
+
+- [Metamask](https://metamask.io/) - MetaMask is a popular self-custodial wallet. A safe and simple way to access blockchain applications and web3
+
+## Token Addresses
+
+| Symbol | Name | Address |
+|---|---|---|
+| WALGO | 	Wrapped ALGO | 0xaF86E6c5Fd9dAf53e5100ed38BaB2572609fCA27 |
+| Wrapped Ether  | WETH | 0x592786E04c47844Aa3B343b19eF2f50A255a477F |
+| USDC | USD Coin | 0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D  |
+| USDT | Tether USD | 0xfA9343C3897324496A05fC75abeD6bAC29f8A40f |
+
+For a complete list of tokens that can be transferred between Milkomeda C1 and Cardano, please refer to the following links for both the devnet and mainnet:
+- [devnet](https://bridge-explorer.milkomeda.com/algorand-devnet/tokens)
+- [mainnet](https://bridge-explorer.milkomeda.com/algorand-mainnet/tokens)

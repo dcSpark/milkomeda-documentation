@@ -1,0 +1,153 @@
+---
+sidebar_label: "Creating a Gnosis Safe on Milkomeda"
+sidebar_position: 4
+---
+
+import img1 from "@site/static/img/Safe_guide/safeimg1.png";
+import img2 from "@site/static/img/Safe_guide/safeimg2.png";
+import img3 from "@site/static/img/Safe_guide/safeimg3.png";
+import img4 from "@site/static/img/Safe_guide/safeimg4.png";
+import img5 from "@site/static/img/Safe_guide/safeimg5.png";
+import img6 from "@site/static/img/Safe_guide/safeimg6.png";
+import img7 from "@site/static/img/Safe_guide/safeimg7.png";
+import img8 from "@site/static/img/Safe_guide/safeimg8.png";
+import img9 from "@site/static/img/Safe_guide/safeimg9.png";
+import img10 from "@site/static/img/Safe_guide/safeimg10.png";
+import img11 from "@site/static/img/Safe_guide/safeimg11.png";
+import img12 from "@site/static/img/Safe_guide/safeimg12.png";
+
+# Creating a Gnosis Safe on Milkomeda
+
+:::info
+Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Cardano blockchain.
+:::
+
+Milkomeda C1 now has an instance of Safe (previously Gnosis Safe), a highly secure and tested multisig wallet smart contract. Safe is the most trusted decentralized custody protocol and collective asset management platform on Ethereum and the EVM-based networks.
+
+This integration enables Milkomeda C1 users to access audited and secure multisig services, significantly reducing the risk of unauthorized access or theft. **This guide will walk you through the steps required to set up a Safe on the Milkomeda C1 network** (available both on Milkomeda C1 Mainnet and Devnet), providing you with the ability to securely manage your digital assets.
+
+## Setting Up a Safe Multisig Wallet
+
+To connect to the Milkomeda implementation of Safe, you need to have a MetaMask wallet set up (or other supported web3 EVM-Compatible wallet). MetaMask is a browser extension that functions as a digital wallet and allows users to interact with decentralized applications on the blockchain. If you don't have MetaMask installed, you can download it from the [official website](https://metamask.io/) and follow the [installation instructions](https://dcspark.github.io/milkomeda-documentation/cardano/for-end-users/configuring-metamask) in our guide.
+
+Once you have your MetaMask wallet set up, you can proceed to the Milkomeda implementation of Safe. This implementation provides users with access to secure and audited multisig services on Milkomeda's novel interoperability solutions. **You can find the Milkomeda implementation of Safe by following [this link](https://safe.milkomeda.com/app/milkomeda-c1-mainnet:0x432F70a4Ba42031eA2D0E6609950540F13eb3E71/home).**
+
+:::note
+Note: In the top right corner of the page the network is set as **Milkomeda C1 Mainnet**. If you want to first test this process on the **Milkomeda C1 Testnet** then you need to choose the desired network from the drop-down.
+:::
+<img
+  src={img1}
+  className="img-full"
+  alt="Switch Safe Networks"
+/>
+
+1. Visit the [Milkomeda implementation of Safe](https://safe.milkomeda.com/) and click the **+ Create new Safe** button.
+
+<img
+  src={img2}
+  className="img-full"
+  alt="Create new Safe"
+/>
+
+2. Click **Connect** and connect your MetaMask (or other compatible web3 wallet).
+
+<img
+  src={img3}
+  className="img-full"
+  alt="Connect your wallet"
+/>
+
+3. **Open your MetaMask wallet.**
+
+If your wallet is not already connected to the Milkomeda C1 Mainnet, you will need to add this network to your wallet. To do this, click on the network dropdown menu in the top center of the MetaMask interface and select "Custom RPC" and [follow our tutorial](https://dcspark.github.io/milkomeda-documentation/cardano/for-end-users/configuring-metamask).
+
+<img
+  src={img4}
+  className="img-full"
+  alt="Switch networks"
+/>
+
+4. Once you have successfully connected your wallet to the Milkomeda implementation of Safe, click on the **continue** button to proceed further.
+
+<img
+  src={img5}
+  className="img-full"
+  alt="Create new Safe step 2"
+/>
+
+5. **Give your new Safe a name** so you can easily identify it.
+
+<img
+  src={img6}
+  className="img-full"
+  alt="Give your Safe a name"
+/>
+
+6. **Add each owner of the Safe and their address.** Your address will pre-populate the first “Owner Address” box. Add your name and then click **+ Add Another Owner** to add more owners.
+
+<img
+  src={img7}
+  className="img-full"
+  alt="Add Safe owners"
+/>
+
+7. Repeat step 6 until all the Owners of your Safe are listed along with their Milkomeda C1 addresses.
+
+<img
+  src={img8}
+  className="img-full"
+  alt="Add all Safe owners"
+/>
+
+8. **Select how many Owners must sign a transaction** for it to be executed by choosing a number from the drop-down menu.
+
+Selecting the number of required owners to sign a transaction is an important step in the setup process for a Safe. When creating a Safe, the user has the ability to specify the minimum number of required owners that must sign off on a transaction before it can be executed. This allows for an added layer of security, as it prevents a single user or malicious actor from executing a transaction without the consent of the other authorized users.
+
+For example, if a user sets the required number of owners to 2, then any transaction that is initiated will require the approval and signature of at least two authorized owners before it can be executed. This ensures that no single individual has complete control over the Safe, and all transactions must be approved by a minimum number of authorized individuals before they can be executed.
+
+:::note
+It's worth noting that the number of required owners can be changed at any time after the Safe is created, giving the user flexibility to adjust the security settings as needed.
+:::
+
+Use the drop-down below where you entered the owners and their addresses to select the number of signers needed to execute a transaction. Once you’re satisfied with your owners and selection, hit **Continue**.
+
+<img
+  src={img9}
+  className="img-full"
+  alt="Select signers"
+/>
+
+:::info
+How many Owners should you select for your Safe? Gnosis Safe have written a Best Practice article for setting up your Safe and it is excellent reading for those making decisions like this. Read it [here](https://help.safe.global/en/articles/4772567-what-safe-setup-should-i-use).
+:::
+
+9. **Review the setup** of your Safe on the final page. If you need to change something click **Back**. Once everything looks good click **Create**.
+
+<img
+  src={img10}
+  className="img-full"
+  alt="Create or edit Safe"
+/>
+
+10.**Confirm the transaction** that creates the Safe in your wallet and wait for the transaction to be confirmed by the blockchain.
+
+<img
+  src={img11}
+  className="img-full"
+  alt="Confirm the transaction"
+/>
+
+## Start using Safe on Milkomeda C1
+
+Congratulations! You have successfully set up your Safe on the Milkomeda C1 network. You can now click on the **Get started** button to enter your Safe and start using a secure and audited multisig wallet on Milkomeda C1. This will enable you to carry out transactions with more security and reliability, giving you peace of mind knowing that your funds are protected by the multisig functionality of Safe.
+
+<img
+  src={img12}
+  className="img-full"
+  alt="Success"
+/>
+
+
+
+
+
