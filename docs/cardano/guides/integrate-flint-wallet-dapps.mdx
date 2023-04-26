@@ -1,0 +1,140 @@
+---
+sidebar_label: "Integrate your Milkomeda C1 DApp with Flint Wallet"
+sidebar_position: 9
+---
+
+# Integrate your Milkomeda C1 DApp with Flint Wallet
+
+## Getting Started with Flint Wallet
+
+Flint browser extension and mobile in-app browser allow seamless interaction with web applications.
+To interact with Flint, developers can access the provider object that is injected into the browser by Flint. This provider object is globally available at `window.evmproviders.flint` and provides access to the latest Flint functionality. This documentation provides comprehensive information on the provider and its functionalities.
+
+To begin integrating Flint in your web3 DApp, you need to first install Flint on your development machine's browser of choice. You can download Flint [here](https://flint-wallet.com/). 
+:::note
+It's important to note that this guide assumes an intermediate level of knowledge in HTML, CSS, and JavaScript.
+:::
+After installing and launching Flint, you'll notice that new browser tabs now have access to a `window.evmproviders.flint` object in the developer console. This object is crucial for your website to interact with Flint.
+For a comprehensive review of the API associated with the `window.evmproviders` object, please refer to its [documentation](https://eips.ethereum.org/EIPS/eip-5749).
+
+### The following tutorial will cover:
+- Detecting the provider
+- Establishing connection
+- Sending Transaction
+
+### Detecting the provider
+
+In order to check whether a user has already installed Flint, a web application should search for the presence of a flint object. Both Flint’s browser extension and mobile in-app browser will inject this object into the window of any web application the user visits.
+If a flint object exists, Milkomeda C1 DApps can utilize the API available at `window.evmproviders.flint` to interact with Flint.
+To determine if Flint has been installed, an application should also look for the `isFlint` flag.
+You can also find more information about flint such as name, description and icon in `window.evmproviders.flint.info`
+
+```js
+const isFlintInstalled = window.evmproviders?.flint
+//If Flint is not installed, we recommend you redirect your users to our website. Altogether, this may look like the following.
+const getProvider = () => {
+    const provider = window?.evmproviders?.flint;
+    if (provider?.isFlint) {
+    return provider;
+    }
+    window.open('https://flint-wallet.com/', '_blank');
+};
+```
+
+### Establishing connection
+
+After detecting the provider, an application can initiate a connection request to Flint. This request prompts the user for permission to share their public key as an indication of their willingness to continue interacting. Prior to making any further requests, such as signing a message or sending a transaction, users must approve the connection request.
+Once permission has been granted for the first time, the web application's domain will be added to the whitelist for future connection requests. Following the establishment of a connection, it's possible to terminate it from both the application and user sides.
+
+
+
+#### Connecting
+
+The default way to connect to Flint is by calling `window.ethereum.request` function.
+
+```js
+const provider = getProvider(); // see "Detecting the Provider"
+try {
+    const accounts = await provider.request({ method: "eth_requestAccounts" });
+    console.log(accounts[0]);
+    // 0x52b4Cd305E1234584cd8cE0ac1af4Ae01Bi4f294d
+} catch (err) {
+    // { code: 4001, message: 'User rejected the request.' }
+}
+```
+
+
+The eth_requestAccounts method returns a Promise, which resolves to an array that contains the connected address in the 0th index. If the user declines the request or closes the pop-up, it will reject (throw when awaited).
+
+#### Disconnecting
+It's not possible to disconnect a user from their connection programmatically once they've established it.
+After establishing a connection, Flint will add the website to a list of "connected apps." The user can manually revoke access through the UI at any time, which will require them to reconnect. Any application added to the user's "connected apps" will be automatically reconnected to by Flint.
+
+
+### Changing Accounts
+
+Flint provider allows to create a confirmation asking to user to switch to the chain with the specified chain ID.
+
+```js
+const provider = getProvider(); // see "Detecting the Provider"
+try {
+    await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x7d1' }],
+    });
+} catch (err) {
+    // handle "switch" errors
+}
+```
+
+You should only call this method in response to a direct user action, such as a button click.
+
+Flint also emits `accountsChanged` and `chainChanged` events when user accepts to switch to the chain so you can listen these events to update your UI.
+
+```js
+window.ethereum.on('accountsChanged', handler: (accounts: Array<string>) => void);
+window.ethereum.on('chainChanged', handler: (chainId: string) => void);
+
+```
+
+:::note
+At this moment, Flint does **NOT** emit `accountsChanged` and `chainChanged` event when users switch between accounts/wallets within Flint wallet.
+This is something that Flint team is currently working on and will be updated in the future.
+
+This means that if a user wants to connect to a different wallet or network, they will need to disconnect within Flint in the settings Connected dapps option, and then reload the DApp.
+
+To help users with this process, you could ask users to switch chain using `wallet_switchEthereumChain`or set clear instructions on how to manage this in your DApp's user interface.
+
+:::
+### Sending Transaction
+
+After a web application establishes a connection with Flint, it can request the user's permission to send transactions on their behalf. To send a transaction, you must have a valid transaction object, which should resemble the following:
+
+```js
+{
+    from: "0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8",
+    to: "Oxaf645481cff54495568b1136539a6426c52d470f",
+    value: "100000",
+    gas: "0xbd93",
+    // 'data' is optional. In case you're interacting with a deployed smart contract and 'to' address would be the smart contract address.
+    data: "0x095ea7b3000000000000000000000000ced91cb4ce1a24b2117db780d91f654",
+}
+```
+
+The transaction object must be signed with the sender's private key to ensure that only the person holding the private key can send transactions from the public address.
+To request Flint to send a transaction to the network, you can use the following code snippet:
+
+```js
+const result = await provider.request({
+    method: 'eth_sendTransaction',
+    params: [
+        {
+            from: accounts[0],
+            to: 'Oxaf645481cff54495568b1136539a6426c52d470f',
+            value: '0x0',
+            gas: '0xbd93',
+        },
+    ],
+});
+```
+
