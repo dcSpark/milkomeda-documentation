@@ -69,11 +69,40 @@ After establishing a connection, Flint will add the website to a list of "connec
 
 
 ### Changing Accounts
-At this moment, Flint does **NOT** emit an accountsChanged event when users switch between accounts/wallets. This is something that we are currently working on and will be updated in the future.
+
+Flint provider allows to create a confirmation asking to user to switch to the chain with the specified chain ID.
+
+```js
+const provider = getProvider(); // see "Detecting the Provider"
+try {
+    await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x7d1' }],
+    });
+} catch (err) {
+    // handle "switch" errors
+}
+```
+
+You should only call this method in response to a direct user action, such as a button click.
+
+Flint also emits `accountsChanged` and `chainChanged` events when user accepts to switch to the chain so you can listen these events to update your UI.
+
+```js
+window.ethereum.on('accountsChanged', handler: (accounts: Array<string>) => void);
+window.ethereum.on('chainChanged', handler: (chainId: string) => void);
+
+```
+
+:::note
+At this moment, Flint does **NOT** emit `accountsChanged` and `chainChanged` event when users switch between accounts/wallets within Flint wallet.
+This is something that we are currently working on and will be updated in the future.
 
 This means that if a user wants to connect to a different wallet or network, they will need to disconnect within Flint in the settings Connected dapps option, and then reload the DApp.
-To help users with this process, provide clear instructions on how to do this in your DApp's user interface.
 
+To help users with this process, you could ask users to switch chain using `wallet_switchEthereumChain`or set clear instructions on how to manage this in your DApp's user interface.
+
+:::
 ### Sending Transaction
 
 After a web application establishes a connection with Flint, it can request the user's permission to send transactions on their behalf. To send a transaction, you must have a valid transaction object, which should resemble the following:
