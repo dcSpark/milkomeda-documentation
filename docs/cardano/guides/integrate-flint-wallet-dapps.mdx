@@ -8,13 +8,16 @@ sidebar_position: 9
 ## Getting Started with Flint Wallet
 
 Flint browser extension and mobile in-app browser allow seamless interaction with web applications.
-To interact with Flint, developers can access the provider object that is injected into the browser by Flint. This provider object is globally available at window.evmproviders.flint and provides access to the latest Flint functionality. This documentation provides comprehensive information on the provider and its functionalities.
+To interact with Flint, developers can access the provider object that is injected into the browser by Flint. This provider object is globally available at `window.evmproviders.flint` and provides access to the latest Flint functionality. This documentation provides comprehensive information on the provider and its functionalities.
 
-To begin developing, you need to first install Flint on your development machine's browser of choice. You can download Flint by following the link provided (https://flint-wallet.com/). It's important to note that this guide assumes an intermediate level of knowledge in HTML, CSS, and JavaScript.
+To begin integrating Flint in your web3 DApp, you need to first install Flint on your development machine's browser of choice. You can download Flint [here](https://flint-wallet.com/). 
+:::note
+It's important to note that this guide assumes an intermediate level of knowledge in HTML, CSS, and JavaScript.
+:::
 After installing and launching Flint, you'll notice that new browser tabs now have access to a `window.evmproviders.flint` object in the developer console. This object is crucial for your website to interact with Flint.
-For a comprehensive review of the API associated with the window.evmproviders object, please refer to its documentation (https://eips.ethereum.org/EIPS/eip-5749)
+For a comprehensive review of the API associated with the `window.evmproviders` object, please refer to its [documentation](https://eips.ethereum.org/EIPS/eip-5749).
 
-The following tutorial will cover:
+### The following tutorial will cover:
 - Detecting the provider
 - Establishing connection
 - Sending Transaction
@@ -22,8 +25,8 @@ The following tutorial will cover:
 ### Detecting the provider
 
 In order to check whether a user has already installed Flint, a web application should search for the presence of a flint object. Both Flint’s browser extension and mobile in-app browser will inject this object into the window of any web application the user visits.
-If a flint object exists, Milkomeda C1 DApps can utilize the API available at window.evmproviders.flint to interact with Flint.
-To determine if Flint has been installed, an application should also look for the isFlint flag.
+If a flint object exists, Milkomeda C1 DApps can utilize the API available at `window.evmproviders.flint` to interact with Flint.
+To determine if Flint has been installed, an application should also look for the `isFlint` flag.
 You can also find more information about flint such as name, description and icon in `window.evmproviders.flint.info`
 
 ```js
@@ -47,7 +50,7 @@ Once permission has been granted for the first time, the web application's domai
 
 #### Connecting
 
-The default way to connect to Flint is by calling window.ethereum.request function.
+The default way to connect to Flint is by calling `window.ethereum.request` function.
 
 ```js
 const provider = getProvider(); // see "Detecting the Provider"
@@ -96,7 +99,7 @@ window.ethereum.on('chainChanged', handler: (chainId: string) => void);
 
 :::note
 At this moment, Flint does **NOT** emit `accountsChanged` and `chainChanged` event when users switch between accounts/wallets within Flint wallet.
-This is something that we are currently working on and will be updated in the future.
+This is something that Flint team is currently working on and will be updated in the future.
 
 This means that if a user wants to connect to a different wallet or network, they will need to disconnect within Flint in the settings Connected dapps option, and then reload the DApp.
 
