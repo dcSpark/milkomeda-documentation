@@ -8,7 +8,7 @@ This guide will walk you through the process of deploying a subgraph for smart c
 
 While Milkomeda chains are not currently supported on TheGraph's decentralized network, it is possible to run your own Graph Node to index any EVM-compatible network.
 
-To start, we will guide you through the steps of creating a subgraph in a local environment so you can test and develop your smart contract. Once you are satisfied with the result, we will show you how to deploy it on a Milkomeda A1 Testnet.
+To start, we will guide you through the steps of creating a subgraph in a local environment so you can test and develop your smart contract. Once you are satisfied with the result, we will show you how to deploy it on a Milkomeda A1 Devnet.
 
 ## Creating a Smart Contract to be indexed
 
@@ -128,7 +128,7 @@ docker compose up
 ```
 
 
-To be able to deploy to the local ganahache chain in docker container, we'll have to add it to the `hardhat.config.ts`. We will also already add the Milkomeda A1 Testnet.
+To be able to deploy to the local ganahache chain in docker container, we'll have to add it to the `hardhat.config.ts`. We will also already add the Milkomeda A1 Devnet.
 The private key for Ganache is for one of the funded accounts in the ganache chain.
 
 ```javascript
@@ -419,13 +419,13 @@ If we run the query again, the event emitted from the contract call should have 
 ```
 
 
-## Deploying a Subgraph for Milkomeda A1 Testnet
+## Deploying a Subgraph for Milkomeda A1 Devnet
 
-After testing that our contract and subgraph are working well together, we can deploy to a testnet.
-The changes required to deploy to Milkomeda A1 Testnet are very simple.
+After testing that our contract and subgraph are working well together, we can deploy to a devnet.
+The changes required to deploy to Milkomeda A1 Devnet are very simple.
 
 From the current setup, we only need to change two things:
-1. The `ethereum` environment variable in the docker-compose should now point to the Milkomeda A1 Testnet RPC:
+1. The `ethereum` environment variable in the docker-compose should now point to the Milkomeda A1 Devnet RPC:
 
 ```
       ethereum: 'milkomeda:https://rpc-devnet-algorand-rollup.a1.milkomeda.com'
@@ -442,7 +442,7 @@ dataSources:
 
 Stop the docker containers, delete the previous data (the `data`folder) to be sure, and run `docker compose up` again with the new config.
 
-Now we can deploy our smart contract to Milkomeda A1 Testnet (we had already added the chain to `hardhat.config.ts`).
+Now we can deploy our smart contract to Milkomeda A1 Devnet (we had already added the chain to `hardhat.config.ts`).
 
 ```
 npx hardhat run scripts/deploy.ts --network a1_testnet
@@ -462,7 +462,7 @@ Call the contract to store a value:
 npx hardhat run scripts/callContract.ts --network a1_testnet
 ```
 
-We can now query our subgraph and it will have indexed the events from Milkomeda A1 Testnet.
+We can now query our subgraph and it will have indexed the events from Milkomeda A1 Devnet.
 
 
 ```

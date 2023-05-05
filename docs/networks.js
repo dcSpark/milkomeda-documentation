@@ -14,7 +14,7 @@ const networks = {
         chainId: `0x${Number(200101).toString(16)}`,
         chainName: "Milkomeda C1 Testnet",
         nativeCurrency: {
-            name: "milkTADA",
+            name: "mTADA",
             symbol: "mTADA",
             decimals: 18
           },
@@ -25,7 +25,7 @@ const networks = {
         chainId: `0x${Number(2002).toString(16)}`,
         chainName: "Milkomeda A1 Mainnet",
         nativeCurrency: {
-            name: "milkAlgo",
+            name: "mALGO",
             symbol: "mALGO",
             decimals: 18
           },
@@ -36,7 +36,7 @@ const networks = {
         chainId: `0x${Number(200202).toString(16)}`,
         chainName: "Milkomeda A1 Testnet",
         nativeCurrency: {
-            name: "milkTALGO",
+            name: "mTALGO",
             symbol: "mTALGO",
             decimals: 18
           },

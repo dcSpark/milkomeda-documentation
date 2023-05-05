@@ -26,7 +26,7 @@ API3 and The Australian National University Quantum Optics Group bring truly ran
 
 API3 QRNG is built on Airnode RRP, and as a result is provider-agnostic, with the ANU Quantum Random Numbers being just one of the available providers. Visit this [link](https://docs.api3.org/qrng/reference/providers.html#airnode-2) for a list of the providers available for the API3 QRNG.
 
-In this guide we **will show how to use the API3 QRNG** to request a random number in a smart contract on **Milkomeda C1 Testnet**, however, the **ANU Quantum Random Numbers** is only available on mainnets, so we will use another provider from the list that is available on Testnets, the **Nodary Random Numbers**. 
+In this guide we **will show how to use the API3 QRNG** to request a random number in a smart contract on **Milkomeda C1 Devnet**, however, the **ANU Quantum Random Numbers** is only available on mainnets, so we will use another provider from the list that is available on Testnets, the **Nodary Random Numbers**. 
 
 
 :::note
@@ -177,7 +177,7 @@ yarn add @api3/airnode-protocol
 ```
 
 
-Let's edit the `hardhat.config.js` file to change the solidity compiler version and add the **Milkomeda C1 Testnet** chain.
+Let's edit the `hardhat.config.js` file to change the solidity compiler version and add the **Milkomeda C1 Devnet** chain.
 
 
 ```javascript
@@ -211,22 +211,22 @@ npx hardhat compile
 
 ## Deployment
 
-:::warning Deploy to a testnet only
+:::warning Deploy to a devnet only
 
-Do not use the `QrngExample.sol` contract in production. It lacks adequate security features. You can deploy on a testnet to get random numbers from the **Nodary RNG API**, which has equivalent usage as **ANU Quantum Random Numbers** available on mainnets.
+Do not use the `QrngExample.sol` contract in production. It lacks adequate security features. You can deploy on a devnet to get random numbers from the **Nodary RNG API**, which has equivalent usage as **ANU Quantum Random Numbers** available on mainnets.
 :::
 
 
 To deploy our example smart contract, we will need to pass the `_airnodeRrp` address as parameter. 
 
-Use the following address for **Milkomeda C1 Testnet**, but the full list of addresses for mainnets and testnets if available [here](https://docs.api3.org/qrng/reference/chains.html).
+Use the following address for **Milkomeda C1 Devnet**, but the full list of addresses for mainnets and devnets if available [here](https://docs.api3.org/qrng/reference/chains.html).
 
 
 ```
 0xa0AD79D995DdeeB18a14eAef56A549A04e3Aa1Bd
 ```
 
-Use the following a script, with the `_airnodeRrp` value hardcoded for **Milkomeda C1 Testnet**, to deploy the contract:
+Use the following a script, with the `_airnodeRrp` value hardcoded for **Milkomeda C1 Devnet**, to deploy the contract:
 
 ```javascript
 const hre = require("hardhat");
@@ -334,7 +334,7 @@ npx hardhat setParams --account <SPONSOR_WALLET_ADDRESS> --network c1_testnet
 
 
 
-Next, be sure to fund the public address of the **sponsor wallet** that the command outputs with enough testnet currency. The funds are used to pay gas costs for the Airnode's response.
+Next, be sure to fund the public address of the **sponsor wallet** that the command outputs with enough devnet currency. The funds are used to pay gas costs for the Airnode's response.
 
 To fund the wallet, let's add the following task to `hardhat.config.js`
 
@@ -481,10 +481,10 @@ Latest Request: [
 
 This was a lot of code, so let's review the steps that were performed.
 
-Using Hardhat, we created and deployed a requester smart contract, that inherited from `RrpRequesterV0` of the `@api3/airnode-protocol` package, on Milkomeda C1 Testnet, passing the address of the `_airnodeRrp` for that particular chain.
+Using Hardhat, we created and deployed a requester smart contract, that inherited from `RrpRequesterV0` of the `@api3/airnode-protocol` package, on Milkomeda C1 Devnet, passing the address of the `_airnodeRrp` for that particular chain.
 This smart contract has two important functions, one to make the request and one to receive the callback with the response. We wrote some hardhat tasks to make the requests and check for response and the status of the response. After the callback is made to our smart contract, in reponse to our request, we will have received a **random number**.
 
-It is important to underline that we used a testnet (Milkomeda C1 Testnet) and the **ANU Quantum Random Numbers** are only available on mainnets, but the only changes required in the steps above would be the passing of the `_airnodeRrp` address relevant for Milkomeda C1 Mainnet in the contract deployment and then settings the appropriate parameters for the **ANU Quantum Random Numbers** provider when setting the parameters inside the contract with the `setRequestParameters` function.
+It is important to underline that we used a devnet (Milkomeda C1 Devnet) and the **ANU Quantum Random Numbers** are only available on mainnets, but the only changes required in the steps above would be the passing of the `_airnodeRrp` address relevant for Milkomeda C1 Mainnet in the contract deployment and then settings the appropriate parameters for the **ANU Quantum Random Numbers** provider when setting the parameters inside the contract with the `setRequestParameters` function.
 
 If you're interested in learning more about QRNG from API3, visit the [official documentation](https://api3.org/QRNG) for additional information
 

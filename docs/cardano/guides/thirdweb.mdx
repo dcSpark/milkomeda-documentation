@@ -122,9 +122,9 @@ This will create a link to open up the Thirdweb dashboard, where we will have to
   alt="Connect Chain"
 />
 
-**First, connect your wallet using one of the available options.** We will use Metamask and we’ll assume that Milkomeda C1 Testnet is already configured and there is an account with test funds (mTADA). 
+**First, connect your wallet using one of the available options.** We will use Metamask and we’ll assume that Milkomeda C1 Devnet is already configured and there is an account with test funds (mTADA). 
 :::tip
-If that is not the case, please refer to the [documentation on configuring Metamask](../for-developers/configuring-metamask-for-devs) and [obtaining test ADA on Milkomeda C1 Testnet](../for-developers/obtaining-test-ada).
+If that is not the case, please refer to the [documentation on configuring Metamask](../for-developers/configuring-metamask-for-devs) and [obtaining test ADA on Milkomeda C1 Devnet](../for-developers/obtaining-test-ada).
 :::
 
  <img
@@ -133,9 +133,9 @@ If that is not the case, please refer to the [documentation on configuring Metam
   alt="Choose Wallet"
 />
 
- **Next, we’ll select the network to deploy to**. However, Milkomeda C1 Testnet will not be listed by default, we can click on Configure Networks to add it. 
+ **Next, we’ll select the network to deploy to**. However, Milkomeda C1 Devnet will not be listed by default, we can click on Configure Networks to add it. 
  
- There we can simply type Milkomeda in the search input and the 4 chains will be available to choose from: C1 and A1, mainnet and testnet. 
+ There we can simply type Milkomeda in the search input and the 4 chains will be available to choose from: C1 and A1, mainnet and devnet. 
 
  <img
   src={img4}
@@ -143,7 +143,7 @@ If that is not the case, please refer to the [documentation on configuring Metam
   alt="Milkomeda Chains"
 />
 
- **After selecting Milkomeda C1 Testnet**, the chain parameters will already be filled in and we only need to click “Add Network”.
+ **After selecting Milkomeda C1 Devnet**, the chain parameters will already be filled in and we only need to click “Add Network”.
 
 
  <img
@@ -153,7 +153,7 @@ If that is not the case, please refer to the [documentation on configuring Metam
 />
 
 **Now we can click on “Deploy Now”** and two transactions will be sent:
-- First to deploy the contract on Milkomeda C1 Testnet, 
+- First to deploy the contract on Milkomeda C1 Devnet, 
 - Second one to add the contract to the Thirdweb dashboard. The second transaction will actually only be signed by metamask and is a gassless transaction.
 
 
@@ -210,7 +210,7 @@ We just need to run `yarn dev` to see the following page on the browser.
   alt="Frontend"
 />
 
-To integrate Milkomeda C1 Testnet into our project, we need to make a minor change. We'll import the chain from "@thirdweb-dev/chains" and add it to the ThirdWebProvider by editing the "src/main.tsx" file.
+To integrate Milkomeda C1 Devnet into our project, we need to make a minor change. We'll import the chain from "@thirdweb-dev/chains" and add it to the ThirdWebProvider by editing the "src/main.tsx" file.
 
 ```javascript
 import React from "react";
@@ -515,7 +515,7 @@ Behold the culmination of our efforts, presenting the final implementation of ou
 
 
 
-In this article, we demonstrated how easy it is to create and deploy a smart contract on Milkomeda C1 Testnet using Thirdweb framework. By leveraging Thirdweb's boilerplate and React hooks, we were able to quickly build a DApp that interacts with our smart contract. The framework allowed us to easily read and call the smart contract without having to provide ABI, significantly reducing the amount of code needed. This demonstrates the ease and effectiveness of utilizing web3 development frameworks for building on Milkomeda C1.
+In this article, we demonstrated how easy it is to create and deploy a smart contract on Milkomeda C1 Devnet using Thirdweb framework. By leveraging Thirdweb's boilerplate and React hooks, we were able to quickly build a DApp that interacts with our smart contract. The framework allowed us to easily read and call the smart contract without having to provide ABI, significantly reducing the amount of code needed. This demonstrates the ease and effectiveness of utilizing web3 development frameworks for building on Milkomeda C1.
 
 
 

@@ -16,7 +16,7 @@ At the confirmation screen, enter your wallet password and click "**Send**".
 :::caution
 Before performing any wrapping, ensure that the destination address on the EVM side can receive the tokens you intend to transfer. If you attempt to send tokens to a smart contract address that lacks a receive function or doesn’t support the specific token being sent, the transaction will become stuck.
 :::
-The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred MilkTADA should be visible in your Milkomeda Cardano Testnet wallet in MetaMask.
+The transfer will require 10 confirmations, which should take approximately **5** minutes. Once the transaction is confirmed, the transferred mTADA should be visible in your Milkomeda Cardano Devnet wallet in MetaMask.
 
 :::info A note on transaction fees
 
@@ -30,15 +30,15 @@ When sending a transaction of this type in Flint Wallet, you can expand the "Net
 
 :::
 
-Now that we have successfully wrapped Test ADA into MilkTADA for use on the Milkomeda Cardano Testnet sidechain, the next step is to deploy a sample smart contract.
+Now that we have successfully wrapped Test ADA into mTADA for use on the Milkomeda Cardano Devnet sidechain, the next step is to deploy a sample smart contract.
 
-:::caution MilkTADA and Wrapped Test ADA
+:::caution mTADA and Wrapped Test ADA
 
-As we have seen, MilkTADA is the base asset used for paying fees and gas on the Milkomeda Cardano Testnet sidechain. When you move Test ADA to Milkomeda, you receive MilkTADA.
+As we have seen, mTADA is the base asset used for paying fees and gas on the Milkomeda Cardano Devnet sidechain. When you move Test ADA to Milkomeda, you receive mTADA.
 
 "Wrapped Test ADA" (wTADA) is a separate ERC20 token that functions the same as WETH on Ethereum.
 
-The contract address for wTADA can be found below. Note that although you can send milkTADA to this address to wrap it, you **shouldn't** send wTADA to this address to unwrap it but rather interact with it using the right method in the smart-contract. wTADA contract address: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
+The contract address for wTADA can be found below. Note that although you can send mTADA to this address to wrap it, you **shouldn't** send wTADA to this address to unwrap it but rather interact with it using the right method in the smart-contract. wTADA contract address: 0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9
 
 If using the Cardano mainnet, find the wADA contract address below.
 
