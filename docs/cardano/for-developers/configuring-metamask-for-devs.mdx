@@ -7,7 +7,7 @@ import puzzleIcon from "@site/static/img/puzzle-icon.png";
 
 # Configuring MetaMask
 
-Now that we have a Cardano testnet wallet and some Test ADA, we need an address on the Milkomeda Cardano Testnet sidechain where we can receive our MilkTADA. For now, we recommend using MetaMask for this step.
+Now that we have a Cardano testnet wallet and some Test ADA, we need an address on the Milkomeda Cardano Devnet sidechain where we can receive our mTADA. For now, we recommend using MetaMask for this step.
 
 First, install [MetaMask for Chrome](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn). Then, click the Chrome Extensions icon <img src={puzzleIcon} className="img-icon" /> and select MetaMask. Within the MetaMask window, click "**Get Started**" and then "**Create a Wallet**". Set a wallet password and click through the rest of the setup screens. When finished, you should have a new empty wallet, as shown below. Select the network dropdown at the top right of the MetaMask screen.
 
@@ -15,17 +15,21 @@ First, install [MetaMask for Chrome](https://chrome.google.com/webstore/detail/m
 
 From the dropdown list, select “**Add Network**” and enter the following:
 
-> Network Name: Milkomeda Cardano Testnet
+> Network Name: Milkomeda Cardano Devnet
 >
 > <p>New RPC URL: https://rpc-devnet-cardano-evm.c1.milkomeda.com</p>
 >
+> WebSocket RPC URL: wss://rpc-devnet-cardano-evm.c1.milkomeda.com
+>
 > Chain ID: 200101
 >
-> Currency Symbol (Optional): milkTADA
+> Currency Symbol (Optional): mTADA
 >
 > <p> Block Explorer URL (Optional): https://explorer-devnet-cardano-evm.c1.milkomeda.com </p>
+ 
+ <button onClick={() => changeNetwork('c1_testnet')}  className='button button--secondary'>Add C1 Devnet to Metamask</button>
 
-If you need a WebSocket endpoint, use the following: wss://rpc-devnet-cardano-evm.c1.milkomeda.com
+<p></p>
 
 :::info
 
@@ -33,14 +37,15 @@ To use the mainnet version of Milkomeda C1, enter the following parameters inste
 
 - Network Name: Milkomeda Cardano (C1)
 - <span>New RPC URL: https://rpc-mainnet-cardano-evm.c1.milkomeda.com</span>
+- WebSocket RPC URL: wss://rpc-mainnet-cardano-evm.c1.milkomeda.com
 - Chain ID: 2001
-- Currency Symbol: milkADA
+- Currency Symbol: mADA
 - <span> Block Explorer URL: https://explorer-mainnet-cardano-evm.c1.milkomeda.com </span>
 
-If you need a WebSocket endpoint, use the following: wss://rpc-mainnet-cardano-evm.c1.milkomeda.com
+<button onClick={() => changeNetwork('c1')}  className='button button--secondary'>Add C1 Mainnet to Metamask</button>
 :::
 
-Click “**Save**”, and you should now see "**Milkomeda Cardano Testnet**" in the network dropdown. Copy your Milkomeda Cardano Testnet wallet address to the clipboard by clicking on the account name, as shown.
+Click “**Save**”, and you should now see "**Milkomeda Cardano Devnet**" in the network dropdown. Copy your Milkomeda Cardano Devnet wallet address to the clipboard by clicking on the account name, as shown.
 
 ![Metamask copy address](/img/metamask-copy-c1-testnet-address.png)
 

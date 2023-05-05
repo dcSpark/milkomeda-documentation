@@ -12,7 +12,7 @@ Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is curr
 
 Compared to a typical web2 application where the backend code is executed on centralized servers, a DApp (Decentralized Application) runs its backend code on a blockchain. The frontend code and user interfaces of a DApp can be written in any language and deployed on any server or servers to interact with the backend logic.
 
-This article will guide you through the process of **developing a simple Storage smart contract**, deploying it on Milkomeda A1 testnet, and accessing it using a frontend built with React, Wagmi, and Rainbowkit.
+This article will guide you through the process of **developing a simple Storage smart contract**, deploying it on Milkomeda A1 Devnet, and accessing it using a frontend built with React, Wagmi, and Rainbowkit.
 
 :::tip
 
@@ -77,7 +77,7 @@ npx hardhat
 npx hardhat compile
 ```
 
-5. Edit **hardhat.config.js** to add the A1 testnet and your funded test account. Refer to the [Milkomeda docs](../for-developers/obtaining-test-algo) for information on how to get testnet funds.
+5. Edit **hardhat.config.js** to add the A1 Devnet and your funded test account. Refer to the [Milkomeda docs](../for-developers/obtaining-test-algo) for information on how to get devnet funds.
 
 ```javascript
 require("@nomicfoundation/hardhat-toolbox");
@@ -115,7 +115,7 @@ main().catch((error) => {
 ```
 
 
-7. Run the deployment script on A1 testnet:
+7. Run the deployment script on A1 Devnet:
 
 ```bash
 npx hardhat run scripts/deploy.js --network a1_testnet
@@ -136,7 +136,7 @@ yarn create wagmi
 
 Enter the created folder, run `yarn dev` and you will get a link to open the development site in your browser. 
 
-By default, only Ethereum mainnet will be available so let’s change that to add Milkomeda A1 testnet. Create a file named **milkomeda.ts** in the folder, with the following:
+By default, only Ethereum mainnet will be available so let’s change that to add Milkomeda A1 devnet. Create a file named **milkomeda.ts** in the folder, with the following:
 
 ```
 const milkomedaA1Testnet = {
@@ -187,7 +187,7 @@ By connecting our account through Metamask, we should now be able to see a chain
   alt="Chain Connector"
 />
 
-By clicking on the chain drop-down, we will now be able to switch network to Milkomeda A1 Testnet.
+By clicking on the chain drop-down, we will now be able to switch network to Milkomeda A1 Devnet.
 
 <img
   src={img2}
@@ -285,7 +285,7 @@ import Storage from './components/Storage'
 
 We can now modify the value in the input box, click the button, and will be prompted to sign the transaction to write the new value to the Smart Contract. As the watch option in the useContractRead hook is set to true, the value will automatically update.
 
-**With that, we now have a fully functional dApp that connects to the Milkomeda A1 Testnet, can read from our Smart Contract, and is also capable of writing to it.**
+**With that, we now have a fully functional dApp that connects to the Milkomeda A1 Devnet, can read from our Smart Contract, and is also capable of writing to it.**
 <img
   src={img4}
   className="img-full"
@@ -293,7 +293,7 @@ We can now modify the value in the input box, click the button, and will be prom
 />
 
 
-This guide provided a step-by-step explanation of how to develop a basic Storage Smart Contract and deploy it on the Milkomeda A1 Testnet using Hardhat. It also outlined how to create a frontend that interfaces with the contract, utilizing React, Wagmi, and Rainbowkit.
+This guide provided a step-by-step explanation of how to develop a basic Storage Smart Contract and deploy it on the Milkomeda A1 Devnet using Hardhat. It also outlined how to create a frontend that interfaces with the contract, utilizing React, Wagmi, and Rainbowkit.
 
 
 
