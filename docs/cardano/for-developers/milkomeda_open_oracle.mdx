@@ -11,7 +11,7 @@ Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is c
 
 ##  Introduction
 
-The Milkomeda Open Oracle (MOO) is a decentralized oracle service for a USD/ADA pricefeed with a minimal governance system. It permits multiple owners to post data, and the majority of the current owners can add or remove owners. 
+The Milkomeda Open Oracle (MOO) is a decentralized oracle service for a USD/ADA pricefeed with a minimal governance system. It enables multiple owners to post data, and the majority of the current owners can add or remove owners. 
 
 Sources are checked every ~10 seconds, outliers are removed if the prices they provide differ from the mean by more than 2 standard deviations and the mean of the remaining prices is calculated as the final value. If the new mean price differs from the last price posted on the blockchain by more than 1%, the new mean price is posted and the price is updated on the blockchain.
 
@@ -26,10 +26,10 @@ In this guide, we will provide an example using Javascript, Python and inside a 
 
 | Milkomeda C1 | Open Oracle Deployment address |
 |---|---|
-| Mainnet | 0x49484Ae8646C12A8A68DfE2c978E9d4Fa5b01D16  |
-| Testnet | 0x... |
+| Mainnet | 0xc531410f61FA22e19048D406EDE3361b3de5c386 |
+| Testnet | 0x47a7d67e89E5714456b9af39703C1dc62203002A |
 
-It is crucial to note that to leverage the capabilities of the Milkomeda Open Oracle, the caller of the read function must agree to the terms of service, which are accessible [here](https://ext-oracle-disclaimer.milkomeda.com/disclaimer.pdf).  This is a one-time requirement (per address), and we will provide guidance on how to accomplish that in this guide.
+It is crucial to note that to consume the feed of the Milkomeda Open Oracle, the caller of the read function must agree to the terms of service, which are accessible [here](https://ext-oracle-disclaimer.milkomeda.com/disclaimer.pdf).  This is a one-time requirement (per address), and we will provide guidance on how to accomplish that in this guide.
 
 For the purposes of this tutorial, we will be utilizing the Milkomeda C1 Testnet. However, the implementation process is identical on the C1 Mainnet, and the only adjustment necessary would be the deployment address.
 
@@ -57,7 +57,7 @@ yarn init -y
 yarn add ethers dotenv
 ```
 
-Navigate to the root directory of your project. Create a .env file with the private key for the account you intend to use:
+Navigate to the root directory of your project. Create a `.env` file with the private key for the account you intend to use:
 
 ```
 PRIVATE_KEY=<PRIVATE_KEY>
@@ -75,7 +75,7 @@ const abi = require('./Oracle.json').abi
 const rpcURL = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
 const provider = new ethers.JsonRpcProvider(rpcURL)
 const signer = new ethers.Wallet( `0x${process.env.PRIVATE_KEY}`, provider )
-const oracle = new ethers.Contract("0x49484Ae8646C12A8A68DfE2c978E9d4Fa5b01D16", abi, signer)
+const oracle = new ethers.Contract("0x47a7d67e89E5714456b9af39703C1dc62203002A", abi, signer)
 ```
 
 
@@ -125,11 +125,7 @@ const abi = require('./Oracle.json').abi
 const rpcURL = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
 const provider = new ethers.JsonRpcProvider(rpcURL)
 const signer = new ethers.Wallet( `0x${process.env.PRIVATE_KEY}`, provider )
-const oracle = new ethers.Contract("0x49484Ae8646C12A8A68DfE2c978E9d4Fa5b01D16", abi, signer)
-
-
-// oracle.acceptedTermsOfService(signer.address)
-// .then(resp => console.log("Accepted Terms of Service:", resp))
+const oracle = new ethers.Contract("0x47a7d67e89E5714456b9af39703C1dc62203002A", abi, signer)
 
 oracle.description()
 .then(resp => console.log("Description:", resp))
@@ -224,17 +220,17 @@ We load an account from the private key in the `.env` and create a connection to
 ```python
 signer = Account.from_key(config['PRIVATE_KEY'])
 
-rpc_url = "https://rpc-mainnet-cardano-evm.c1.milkomeda.com"
+rpc_url = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
 
 
 web3 = Web3(Web3.HTTPProvider(rpc_url))
-print("Connected to Milkomeda C1 Mainnet:", web3.is_connected())
+print("Connected to Milkomeda C1 Testnet:", web3.is_connected())
 ```
 
 The contract address will be hardcoded and we'll read the ABI from the repo.
 
 ```python
-oracle_address = "0x49484Ae8646C12A8A68DfE2c978E9d4Fa5b01D16" # Mainnet
+oracle_address = "0x47a7d67e89E5714456b9af39703C1dc62203002A" # Testnet
 
 res = requests.get("https://raw.githubusercontent.com/DjedAlliance/Oracle-Solidity/main/abi/Aggr3Oracle.json")
 abi = res.json().get('abi')
@@ -291,13 +287,13 @@ config = dotenv_values(".env")
 
 signer = Account.from_key(config['PRIVATE_KEY'])
 
-rpc_url = "https://rpc-mainnet-cardano-evm.c1.milkomeda.com"
+rpc_url = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
 
 web3 = Web3(Web3.HTTPProvider(rpc_url))
-print("Connected to Milkomeda C1 Mainnet:", web3.is_connected())
+print("Connected to Milkomeda C1 Testnet:", web3.is_connected())
 
 
-oracle_address = "0x49484Ae8646C12A8A68DfE2c978E9d4Fa5b01D16" # Mainnet
+oracle_address = "0x47a7d67e89E5714456b9af39703C1dc62203002A" # Testnet
 
 res = requests.get("https://raw.githubusercontent.com/DjedAlliance/Oracle-Solidity/main/abi/Aggr3Oracle.json")
 abi = res.json().get('abi')
@@ -335,7 +331,7 @@ print("Price:", txn / 1e18)
 
 
 **
-Connected to Milkomeda C1 Mainnet: True<br></br>
+Connected to Milkomeda C1 Testnet: True<br></br>
 Description: ADA/USD<br></br>
 Accepting ToS...<br></br>
 Price: 2.4746778588097293
@@ -380,7 +376,7 @@ contract PriceFeedConsumer {
     IOracle public oracle;
  
     constructor() {
-        oracle = IOracle(0x49484Ae8646C12A8A68DfE2c978E9d4Fa5b01D16);
+        oracle = IOracle(0x47a7d67e89E5714456b9af39703C1dc62203002A);
         oracle.acceptTermsOfService();
     }
 
@@ -391,13 +387,13 @@ contract PriceFeedConsumer {
 }
 ```
 
-This smart contract uses a hardcoded deployment address for the oracle on Milkomeda C1 Mainnet. When the contract is deployed, the acceptTermsOfService function is called for the contract address in the constructor.
+This smart contract uses a hardcoded deployment address for the oracle on Milkomeda C1 Testnet. When the contract is deployed, the acceptTermsOfService function is called for the contract address in the constructor.
 
 The contract has one function, `getPrice`, which retrieves the latest price data and returns it as an integer. Here we only return the value of the price feed, but any desired logic that depends on that feed can obvisouly be implemented.
 
 To interact with the oracle, we added the interface for the two required functions.
 
-Now that we have our smart contract, we need to deploy it to the Milkomeda C1 Mainnet. To do this, we will use Hardhat's deployment script. 
+Now that we have our smart contract, we need to deploy it to the Milkomeda C1 Testnet. To do this, we will use Hardhat's deployment script. 
 
 In the scripts directory of your project, create a new file called deploy.js. Then, add the following code:
 
@@ -442,6 +438,11 @@ module.exports = {
     c1: {
       url: `https://rpc-mainnet-cardano-evm.c1.milkomeda.com`,
       accounts: [`0x${process.env.PRIVATE_KEY}`]
+    },
+    },
+    c1_testnet: {
+      url: `https://rpc-devnet-cardano-evm.c1.milkomeda.com`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`]
     }
   }
 };
@@ -450,11 +451,11 @@ module.exports = {
 Now we can deploy our contract. Run the following command in your terminal:
 
 ```bash
-npx hardhat run scripts/deploy.js --network c1
+npx hardhat run scripts/deploy.js --network c1_testnet
 ```
 
 Now that we have deployed our contract, we can call it from another smart contract or from a web3-enabled application. 
-To call the `getPrice´ function from another smart contract, you can simply import the `PriceFeedConsumer´ and call the `getPrice` function, but let’s see an example of how to call it from a Hardhat script.
+To call the `getPrice` function from another smart contract, you can simply import the `PriceFeedConsumer` and call the `getPrice` function, but let’s see an example of how to call it from a Hardhat script.
 
 Create a file in the scripts folder called “callPriceFeed.js” and add the code below:
 
@@ -462,7 +463,7 @@ Create a file in the scripts folder called “callPriceFeed.js” and add the co
 const hre = require("hardhat");
 
 const getPrice = async () => {
-    const address = '0xd7a246726355961197c0E32d7914aDDa3dB3f4E4'
+    const address = '0xD5d35dC8f4e942Ec2B43290c6C2EDA4bab2d2c05'
     const feed = await hre.ethers.getContractAt("PriceFeedConsumer", address);
 
     const price = await feed.getPrice()
@@ -475,12 +476,34 @@ getPrice()
 Now run it by running the following:
 
 ```
-npx hardhat run scripts/call.js --network c1
+npx hardhat run scripts/call.js --network c1_testnet
 ```
 
 The result in the terminal look similar to this (although with a different price)"
 
 **USD/ADA: 2.8398199554148265**
+
+## Invert Price Feed
+
+As explained above, the Milkomeda Open Oracle provides a price feed for the price of USD in ADA, while may time the inverse of this price is desired, i.e. the price of ADA in USD.
+
+With this in mind, another wrapper smart contract with the same interface is provided, and that outputs the price feed of ADA in USD.
+
+To consume this inverted price feed, one needs to acept the terms and conditions of the origin Milkomeda Open Oracle, to be consumed by the wrapper, althought it's a one time process.
+
+
+All the steps detailed above for the two ways of consuming the price feed, either inside a smart contract or calling the oracle with Javascript or Python, would be exactly the same for the wrapper smart contract since it has a common interface, and the only part that would differ is the address.
+
+The following table contains the deployment addresses for the wrapper smart contract.
+
+| Milkomeda C1 | Open Oracle Deployment address |
+|---|---|
+| Mainnet | 0x... |
+| Testnet | 0x... |
+
+
+
+
 
 ## Summary 
 
