@@ -13,21 +13,21 @@ Milkomeda C1 Sidechain is fully operational on Mainnet, which means that it is c
 
 The Milkomeda Open Oracle (MOO) is a decentralized oracle service for a USD/ADA pricefeed with a minimal governance system. It enables multiple owners to post data, and the majority of the current owners can add or remove owners. 
 
-Sources are checked every ~10 seconds, outliers are removed if the prices they provide differ from the mean by more than 2 standard deviations and the mean of the remaining prices is calculated as the final value. If the new mean price differs from the last price posted on the blockchain by more than 1%, the new mean price is posted and the price is updated on the blockchain.
 
 Developers have several options to fetch prices from the oracle contract. They can integrate the oracle interface into their smart contracts, allowing them to access on-chain data updated at regular intervals as input to any logic that the smart contract might have. Alternatively, developers can call the oracle contract directly with languages like Javascript/Typescript to use the price feed on a DApp frontend.
 
-Those interested in going through the Smart Contract, can check out the in the [public repo](https://github.com/DjedAlliance/Oracle-Solidity).
+Those interested in going through the Smart Contract, can check out the in the [public repo](https://github.com/unitedx-finance/A3-Oracle).
 
 The latest version of the oracle is the **Aggregator 3 Oracle (A3O)** contract, that offers the security of not relying on a single price feed for the output, but rather reports the median of the latest 3 data points written by distinct owners.
 
 In this guide, we will provide an example using Javascript, Python and inside a Smart Contract, requiring the Milkomeda Open Oracle's ABI which is accessible [here](https://raw.githubusercontent.com/DjedAlliance/Oracle-Solidity/main/abi/Aggr3Oracle.json), and the contract's deployment address, found in the following table:
 
 
+
 | Milkomeda C1 | Open Oracle Deployment address |
 |---|---|
-| Mainnet | 0xc531410f61FA22e19048D406EDE3361b3de5c386 |
-| Testnet | 0x47a7d67e89E5714456b9af39703C1dc62203002A |
+| Testnet | 0x2a16a70E71D2C6f07F02b221B441a2e35E3d0848 |
+
 
 It is crucial to note that to consume the feed of the Milkomeda Open Oracle, the caller of the read function must agree to the terms of service, which are accessible [here](https://ext-oracle-disclaimer.milkomeda.com/disclaimer.pdf).  This is a one-time requirement (per address), and we will provide guidance on how to accomplish that in this guide.
 
@@ -75,7 +75,7 @@ const abi = require('./Oracle.json').abi
 const rpcURL = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
 const provider = new ethers.JsonRpcProvider(rpcURL)
 const signer = new ethers.Wallet( `0x${process.env.PRIVATE_KEY}`, provider )
-const oracle = new ethers.Contract("0x47a7d67e89E5714456b9af39703C1dc62203002A", abi, signer)
+const oracle = new ethers.Contract("0x2a16a70E71D2C6f07F02b221B441a2e35E3d0848", abi, signer)
 ```
 
 
@@ -99,7 +99,7 @@ oracle.acceptedTermsOfService(signer.address)
 .then(resp => console.log("Accepted Terms of Service:", resp))
 ```
 
-Making this call should output “Accepted Terms of Service: false” which means that calling the readData() function will fail.
+Making this call should output “Accepted Terms of Service: false” which means that calling the `readData()` function will fail.
 
 
 
@@ -107,28 +107,20 @@ Making this call should output “Accepted Terms of Service: false” which mean
 
 In the `getPriceFeed` function of our script, we can add a test to check if the terms of service have been accepted and call the accept function if needed. Let’s add that to the `getPriceFeed` function.
 
-We will also add a function call to retrieve the description of the price feed:
-
-```javascript
-oracle.description().then(resp => console.log("Description:", resp))
-```
-
-
 <details><summary>See the final script</summary>
 <p>
 
 ```javascript
-const ethers = require("ethers");
-require("dotenv").config();
 const abi = require('./Oracle.json').abi
 
 const rpcURL = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
 const provider = new ethers.JsonRpcProvider(rpcURL)
 const signer = new ethers.Wallet( `0x${process.env.PRIVATE_KEY}`, provider )
-const oracle = new ethers.Contract("0x47a7d67e89E5714456b9af39703C1dc62203002A", abi, signer)
+const oracle = new ethers.Contract("0x2a16a70E71D2C6f07F02b221B441a2e35E3d0848", abi, signer)
 
-oracle.description()
-.then(resp => console.log("Description:", resp))
+
+oracle.acceptedTermsOfService(signer.address)
+.then(resp => console.log("Accepted Terms of Service:", resp))
 
 
 const getPriceFeed = async () => {
@@ -157,22 +149,14 @@ getPriceFeed()
 Running `node callPriceFeed.js` for the first time will output the following lines (the price will probably be different):
 
 **
-Description: ADA/USD<br></br>
-Accepting ToS...<br></br>
-Price: 2.8398199554148265
+Accepted Terms of Service: true<br></br>
+Price: 0.352135000000000024
 **
 
 Subsequent calls to the function, from the same address, will only show the description and the price since the call to `acceptedTermsOfService(address)` will return true.
 
 
-:::info
 
-The result from the price feed,  approx 2.84 (formatted from 18 decimals), is the amount of USD in ADA. Readers are probably used to seeing the price of ADA in USD, which would be the inverse of the result.
-
-USD/ADA = 2.8398199554148265
-
-ADA/USD = 1 / (USD/ADA) = 1 / 2.8398199554148265 = 0.352135
-:::
 
 
 ### Price Feed Using Python
@@ -230,7 +214,7 @@ print("Connected to Milkomeda C1 Testnet:", web3.is_connected())
 The contract address will be hardcoded and we'll read the ABI from the repo.
 
 ```python
-oracle_address = "0x47a7d67e89E5714456b9af39703C1dc62203002A" # Testnet
+oracle_address = "0x2a16a70E71D2C6f07F02b221B441a2e35E3d0848" # Testnet
 
 res = requests.get("https://raw.githubusercontent.com/DjedAlliance/Oracle-Solidity/main/abi/Aggr3Oracle.json")
 abi = res.json().get('abi')
@@ -255,8 +239,6 @@ and if not, a call will be made to accept.
 
 
 ```python
-print("Description:", oracle.functions.description().call())
-
 has_accepted = oracle.functions.acceptedTermsOfService(signer.address).call()
 if not has_accepted:
     print("Accepting ToS...")
@@ -278,8 +260,6 @@ Finally, there is call to the `readData()` to retrive the latest price from the 
 <p>
 
 ```python
-import requests
-from dotenv import dotenv_values
 from eth_account import Account
 from web3 import Web3
 
@@ -292,8 +272,7 @@ rpc_url = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
 web3 = Web3(Web3.HTTPProvider(rpc_url))
 print("Connected to Milkomeda C1 Testnet:", web3.is_connected())
 
-
-oracle_address = "0x47a7d67e89E5714456b9af39703C1dc62203002A" # Testnet
+oracle_address = "0x2a16a70E71D2C6f07F02b221B441a2e35E3d0848" # Testnet
 
 res = requests.get("https://raw.githubusercontent.com/DjedAlliance/Oracle-Solidity/main/abi/Aggr3Oracle.json")
 abi = res.json().get('abi')
@@ -307,8 +286,6 @@ def sign_and_send(txn, account):
     receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
     return receipt
 
-
-print("Description:", oracle.functions.description().call())
 
 has_accepted = oracle.functions.acceptedTermsOfService(signer.address).call()
 if not has_accepted:
@@ -332,9 +309,8 @@ print("Price:", txn / 1e18)
 
 **
 Connected to Milkomeda C1 Testnet: True<br></br>
-Description: ADA/USD<br></br>
 Accepting ToS...<br></br>
-Price: 2.4746778588097293
+Price: 0.352135
 **
 
 
@@ -376,7 +352,7 @@ contract PriceFeedConsumer {
     IOracle public oracle;
  
     constructor() {
-        oracle = IOracle(0x47a7d67e89E5714456b9af39703C1dc62203002A);
+        oracle = IOracle(0x2a16a70E71D2C6f07F02b221B441a2e35E3d0848);
         oracle.acceptTermsOfService();
     }
 
@@ -467,7 +443,7 @@ const getPrice = async () => {
     const feed = await hre.ethers.getContractAt("PriceFeedConsumer", address);
 
     const price = await feed.getPrice()
-    console.log(`USD/ADA: ${hre.ethers.utils.formatEther(price)}`)
+    console.log(`ADA/USD: ${hre.ethers.utils.formatEther(price)}`)
 }
   
 getPrice()
@@ -481,27 +457,75 @@ npx hardhat run scripts/call.js --network c1_testnet
 
 The result in the terminal look similar to this (although with a different price)"
 
-**USD/ADA: 2.8398199554148265**
+**ADA/USD: 0.352135000000000024**
 
 ## Invert Price Feed
 
-As explained above, the Milkomeda Open Oracle provides a price feed for the price of USD in ADA, while may time the inverse of this price is desired, i.e. the price of ADA in USD.
 
-With this in mind, another wrapper smart contract with the same interface is provided, and that outputs the price feed of ADA in USD.
+:::info
 
-To consume this inverted price feed, one needs to acept the terms and conditions of the origin Milkomeda Open Oracle, to be consumed by the wrapper, althought it's a one time process.
+The result from the price feed,  approx 2.84 (formatted from 18 decimals), is the amount of USD in ADA. Readers are probably used to seeing the price of ADA in USD, which would be the inverse of the result.
+
+USD/ADA = 2.8398199554148265
+
+ADA/USD = 1 / (USD/ADA) = 1 / 2.8398199554148265 = 0.352135
+:::
+
+The Milkomeda Open Oracle provides a price feed for the price of ADA in USD, while some times the inverse of this price is desired, i.e. the price of USD in ADA.
+
+With this in mind, another smart contract with the same interface is provided, and that outputs the price feed of USD in ADA.
+
+To consume this inverted price feed, the caller address needs to acept the terms and conditions of the Milkomeda Open Oracle, to be consumed by this alternative smart contract, althought it's a one time process.
 
 
-All the steps detailed above for the two ways of consuming the price feed, either inside a smart contract or calling the oracle with Javascript or Python, would be exactly the same for the wrapper smart contract since it has a common interface, and the only part that would differ is the address.
+All the steps detailed above for the two ways of consuming the price feed, either inside a smart contract or calling the oracle with Javascript or Python, would be exactly the same since it has a common interface, and the only part that would differ is the address.
 
-The following table contains the deployment addresses for the wrapper smart contract.
+The following table contains the deployment addresses for the smart contract for the feed of USD in ADA.
 
 | Milkomeda C1 | Open Oracle Deployment address |
 |---|---|
-| Mainnet | 0x... |
-| Testnet | 0x... |
+| Mainnet | 0xc531410f61FA22e19048D406EDE3361b3de5c386 |
+| Testnet | 0x47a7d67e89E5714456b9af39703C1dc62203002A |
 
 
+Calling the inverted price feed with javascript:
+
+
+```javascript
+const ethers = require("ethers");
+require("dotenv").config();
+const abi = require('./Oracle.json').abi
+
+const rpcURL = "https://rpc-devnet-cardano-evm.c1.milkomeda.com"
+const provider = new ethers.JsonRpcProvider(rpcURL)
+const signer = new ethers.Wallet( `0x${process.env.PRIVATE_KEY}`, provider )
+const oracle = new ethers.Contract("0x47a7d67e89E5714456b9af39703C1dc62203002A", abi, signer)
+
+
+oracle.acceptedTermsOfService(signer.address)
+.then(resp => console.log("Accepted Terms of Service:", resp))
+
+
+const getPriceFeed = async () => {
+    const accepted = await oracle.acceptedTermsOfService(signer.address)
+    if (!accepted) {
+        console.log("Accepting ToS...")
+        const tx = await oracle.acceptTermsOfService();
+        await tx.wait();    
+    }
+    const price = await oracle.readData()
+    console.log("Price:", ethers.formatEther(price))
+}
+
+getPriceFeed()
+```
+
+would show an output similar to this:
+
+**
+Accepted Terms of Service: true<br></br>
+Price: 2.8398199554148265
+**
 
 
 
