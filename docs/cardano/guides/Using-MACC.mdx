@@ -2,7 +2,7 @@
 sidebar_label: "Using Milkomeda's Asset Consolidation Contracts (MACC)"
 sidebar_position: 6
 ---
-
+ 
 import img1 from "@site/static/img/macc/macc1.png";
 import img2 from "@site/static/img/macc/macc2.png";
 import img3 from "@site/static/img/macc/macc3.png";
@@ -54,7 +54,7 @@ Canonical Smart Contracts for token merger are essentially two contracts:
 Through the use of Milkomeda Canonical Smart Contracts, it would be possible to consolidate the various versions of a particular asset into a single canonical version. This consolidation would address the issue of liquidity fragmentation among different tokens, resulting in a better user experience. Essentially, a single version of the asset would be used, solving the problem of fragmented liquidity and the poor user experience associated with it.
 
 :::info
-Suppose we establish a Asset Consolidation Contracts for mUSD (Canonical asset). User A transfers 10ceUSDC to this contract and receives 10mUSD in exchange. Next, user B sends 20multiUSDC to the smart contract and receives 20mUSD in return. Previously, users A and B would have been required to deposit their funds in separate liquidity pools, such as ceUSDC/mADA and multiUSDC/mADA. However, by canonizing their assets into mUSD, they can now combine their liquidity in the same pool, mUSD/mADA.
+Suppose we establish a Asset Consolidation Contracts for mUSDC (Canonical asset). User A transfers 10ceUSDC to this contract and receives 10 mUSDC in exchange. Next, user B sends 20multiUSDC to the smart contract and receives 20mUSDC in return. Previously, users A and B would have been required to deposit their funds in separate liquidity pools, such as ceUSDC/mADA and multiUSDC/mADA. However, by canonizing their assets into mUSDC, they can now combine their liquidity in the same pool, mUSDC/mADA.
 :::
 
 ### Treasury
@@ -87,7 +87,7 @@ In addition, each conversion made through MACC incurs a small commission, which 
 To begin using the MACC DApp, you will need an asset that is supported by the platform (currently only bridged USDC), as well as some mADA to cover the network transaction fee. To interact with MACC DApp you can use Metamask, Flint, NuFi or Wallet Connect. 
 
 :::note
-The following article presents a step-by-step guide for using MACC DApp on  Milkomeda C1 devnet, where TKNA (devnet representation of ceUSDC) and TKNB (devnet representation of multiUSDC) represent the fragmented assets that are accepted by the whitelisted bridges, while MRGER is a Canonical Representation (on mainnet - mUSD).
+The following article presents a step-by-step guide for using MACC DApp on  Milkomeda C1 devnet, where TKNA (devnet representation of ceUSDC) and TKNB (devnet representation of multiUSDC) represent the fragmented assets that are accepted by the whitelisted bridges, while MRGER is a Canonical Representation (on mainnet - mUSDC).
 :::
 
 
@@ -142,7 +142,7 @@ Once you have selected the fragmented asset and entered the amount you wish to c
 />
 
 :::note
-On the mainnet deployment, you should see mUSD, which represents the Canonical token of USDC-fragmented assets.
+On the mainnet deployment, you should see mUSDC, which represents the Canonical token of USDC-fragmented assets.
 ::::
 
 Once you enter the desired amount for conversion, the UI will display supplementary information.
