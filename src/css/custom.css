@@ -1,10 +1,4 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
 
-/* You can override the default Infima variables here. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,7 +13,7 @@
   display: flex;
   justify-content: center;
   width: 100%,
-  }
+}
 
 
 :root {
@@ -59,7 +53,35 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   --tabs-bg-active: #1c1c1d;
   --tabs-text-inactive: #bab0b0;
+  --ifm-background-color: #030909 !important;
 }
+
+
+.navbar {
+    background: rgb(1, 10, 18, 0.5);
+    backdrop-filter: blur(20px);
+}
+
+.footer {
+    background: rgb(1, 10, 18, 0.5);
+    backdrop-filter: blur(20px);
+}
+
+
+h1 {
+    background: linear-gradient(90deg, #ffa23d 35%,#a1bbff 65%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    width: max-content;
+    color: transparent;
+}
+
+h2 {
+  color: rgb(255,152,40);
+
+}
+
 
 img {
   @apply max-w-[300px] mb-3;
