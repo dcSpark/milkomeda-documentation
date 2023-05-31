@@ -468,20 +468,34 @@ npx hardhat run scripts/deploy.ts --network c1_testnet
 And create and deploy the subgraph to the new containers:
 
 ```
-graph create milkomeda/subgraph_tutorial_c1 --node http://127.0.0.1:8020
+graph create milkomeda/subgraph_tutorial_c1 --node https://c1-devnet-thegraph.milkomeda.com
 
-graph deploy milkomeda/subgraph_tutorial_c1 --ipfs http://localhost:5001  --node http://localhost:8020 --output-dir artifacts/subgraph -l 0.1
+graph deploy milkomeda/subgraph_tutorial_c1 --ipfs https://ipfs.milkomeda.com  --node https://c1-devnet-thegraph.milkomeda.com --output-dir artifacts/subgraph -l 0.1
 
 ```
 
+Executing there commands should show an output similar to the one below, containing the GraphQL endpoint and a link to a GraphQL queyr frontend: 
+[https://c1-devnet-thegraph.milkomeda.com/subgraphs/name/milkomeda/subgraph_tutorial_c1](https://c1-devnet-thegraph.milkomeda.com/subgraphs/name/milkomeda/subgraph_tutorial_c1)
 
-Call the contract to store a value:
+```bash
+✔ Upload subgraph to IPFS
+
+Build completed: QmS1iG3oaBQuYhAxCtTV1jJApjC6MTjTNzKSYAL5SJUzcc
+
+Deployed to https://c1-devnet-thegraph.milkomeda.com/subgraphs/name/milkomeda/subgraph_tutorial_c1/graphql
+
+Subgraph endpoints:
+Queries (HTTP):     https://c1-devnet-thegraph.milkomeda.com/subgraphs/name/milkomeda/subgraph_tutorial_c1
+```
+
+
+In order to see indexed events, call the contract to store a value. It might take a few minutes until the event gets indexed.
 
 ```
 npx hardhat run scripts/callContract.ts --network c1_testnet
 ```
 
-We can now query our subgraph and it will have indexed the events from Milkomeda C1 Devnet.
+We can now query our subgraph and it will have indexed the events from our contract on Milkomeda C1 Devnet.
 
 
 ```
