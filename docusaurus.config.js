@@ -11,7 +11,7 @@ const config = {
   title: "Milkomeda",
   //  tagline: 'Getting started',
   url: "https://dcspark.github.io",
-  baseUrl: "/milkomeda-documentation/",
+  baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.svg",
