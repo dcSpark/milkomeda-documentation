@@ -111,6 +111,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      colorMode: {
+        defaultMode: 'dark',
+        disableSwitch: true,
+        respectPrefersColorScheme: false,
+      },       
       navbar: {
         title: "Milkomeda",
         logo: {
@@ -122,6 +127,18 @@ const config = {
             type: "localeDropdown",
             position: "right",
           },
+          {
+            type: 'docSidebar',  // docSidebar
+            position: 'left',
+            sidebarId: 'cardano', // foldername
+            label: 'Cardano (EVM Sidechain)',     // navbar title
+          },          
+          {
+            type: 'docSidebar',  // docSidebar
+            position: 'left',
+            sidebarId: 'algorand', // foldername
+            label: 'Algorand (EVM Rollup)',     // navbar title
+          },          
           // {
           //   type: "doc",
           //   docId: "intro",
