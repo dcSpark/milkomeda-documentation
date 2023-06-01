@@ -81,6 +81,18 @@ The smart contracts have a limit on the amount of Fragmented tokens that can be 
 :::
 In addition, each conversion made through MACC incurs a small commission, which is collected and deposited into the Treasury. In the event of a hack on one of the whitelisted bridges, these funds are used to cover the value of the affected assets, helping to maintain the price of the canonical asset and preserving user trust.
 
+#### List of supported Fragmented tokens in MACC:
+
+| Token name                                          | Token Ticker | Contract Address Details                                                                                                                                            | Token Type | Canonical Token Representation |
+| --------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------- |
+| [ceUSDC](https://cbridge.celer.network/)                | ceUSDC         | [0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/address/0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98/transactions) | ERC-20     | mUSDC | 
+| [multiUSDC](https://multichain.org/)                      | multiUSDC           | [0xB44a9B6905aF7c801311e8F4E76932ee959c663C](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/address/0xB44a9B6905aF7c801311e8F4E76932ee959c663C/transactions) | ERC-20     | mUSDC |
+
+#### List of MACC Canonical tokens:
+
+| Token name                                          | Token Ticker | Contract Address Details                                                                                                                                            | Token Type | Fragmented Tokens Allowed |
+| --------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------- |
+| [mUSDC](https://macc.milkomeda.com/convert)                | mUSDC         | [0x063139a927FE02B3a6A5E0d5B48c8BeDFA7de954](https://explorer-mainnet-cardano-evm.c1.milkomeda.com/address/0x063139a927FE02B3a6A5E0d5B48c8BeDFA7de954/transactions) | ERC-20     | ceUSDC, multiUSDC | 
 
 ## A Comprehensive Step-by-Step Guide to the MACC DApp {#step-by-step-guide}
 
