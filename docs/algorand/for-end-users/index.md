@@ -1,3 +1,8 @@
+---
+sidebar_label: "For End Users"
+sidebar_position: 3
+---
+
 # For End-users
 :::info
 Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Algorand blockchain.

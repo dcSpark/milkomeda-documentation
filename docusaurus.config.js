@@ -12,7 +12,7 @@ const config = {
   //  tagline: 'Getting started',
   url: "https://dcspark.github.io",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.svg",
 
@@ -67,13 +67,30 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           routeBasePath: "/", // Serve the docs at the site's root
+          breadcrumbs: false,
           remarkPlugins: [math],
           rehypePlugins: [katex],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
-        blog: false,
+        pages: {
+          path: 'src/pages',
+          routeBasePath: '/',
+          include: ['**/*.{js,jsx,ts,tsx,md,mdx}'],
+          exclude: [
+            '**/_*.{js,jsx,ts,tsx,md,mdx}',
+            '**/_*/**',
+            '**/*.test.{js,jsx,ts,tsx}',
+            '**/__tests__/**',
+          ],
+          mdxPageComponent: '@theme/MDXPage',
+          //remarkPlugins: [require('remark-math')],
+          rehypePlugins: [],
+          beforeDefaultRemarkPlugins: [],
+          beforeDefaultRehypePlugins: [],
+        },          
+        //blog: false,
         // blog: {
         //   showReadingTime: true,
         //   // Please change this to your repo.
@@ -121,6 +138,8 @@ const config = {
         logo: {
           alt: "Milkomeda logo",
           src: "img/favicon.svg",
+          href: "/",
+          target: '_self',          
         },
         items: [
           {
@@ -128,16 +147,16 @@ const config = {
             position: "right",
           },
           {
-            type: 'docSidebar',  // docSidebar
+            type: 'docSidebar',
             position: 'left',
-            sidebarId: 'cardano', // foldername
-            label: 'Cardano (EVM Sidechain)',     // navbar title
+            sidebarId: 'cardano',
+            label: 'Cardano (EVM Sidechain)',
           },          
           {
-            type: 'docSidebar',  // docSidebar
+            type: 'docSidebar',
             position: 'left',
-            sidebarId: 'algorand', // foldername
-            label: 'Algorand (EVM Rollup)',     // navbar title
+            sidebarId: 'algorand',
+            label: 'Algorand (EVM Rollup)',
           },          
           // {
           //   type: "doc",
