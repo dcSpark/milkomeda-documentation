@@ -10,12 +10,12 @@ import cardano from "@site/static/img/brand/c1-white-default.png";
         <h3 class="text-center items-center">
             Getting Started with
         </h3>
-        <img src={algorand} className="img-full" />
+        <img src={cardano} className="img-full" />
     </a>
     <a class="pagination-nav__link pagination-nav__link--next" href="/home/intro">
         <h3 class="text-center">
             Getting Started with
         </h3>
-        <img src={cardano} className="img-full" />
+        <img src={algorand} className="img-full" />
     </a>
 </nav>
