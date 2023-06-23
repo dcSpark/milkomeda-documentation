@@ -1,0 +1,36 @@
+---
+sidebar_position: 1
+---
+
+# Cardano (Mainchain)
+
+The Cardano-side of the protocol has a few different responsibilities:
+
+## Choose which stake pool to delegate to
+
+Currently all ADA will be delegated to a special Milkomeda pool. If the amount of ADA owned by the bridge exceeds what can be delegated to a single pool, the delegation logic can be changed
+
+## Ensure any rewards earned are properly send to the sidechain liquid staking contract
+
+To do this, we do the following:
+
+1. Calculate what the staking rewards will be ahead of the epoch boundary
+1. Transfer that amount of tokens to Milkomeda ahead of time (Caradno has no tx prioritization, so sending too close to the epoch boundary may cause delays)
+1. Right before the epoch boundary, stop processing wrap requests
+1. Deposit the milkADA in Milkomeda from (2) into the liquid staking contract
+1. Unpause the wraping requests
+
+This ensures that no user claims rewards twice. To understand why, here is what a double-claim would look like:
+
+1. Wait until the epoch boundary on Cardano
+2. As soon as the epoch boundary passes, send your funds to Milkomeda
+3. Deposit your funds into the staking contract and hope you got in before the Milkomeda DAO distributes the rewards for that epoch
+
+As the bridge paused wrapping, such an attack is not possible. The cost is pausing the bridge, but transferring the rewards ahead of time should make the pause minimal in length
+
+## Additional goal: keep bridge contract simple
+
+We want to avoid hardcoding the liquid staking into the bridge contract to keep the bridge contract simple. That means
+
+1. No special logic to deposit rewards (reuse wrapped smart contracts where possible)
+2. Do not remove rewards on behalf of smart contracts directly, and instead have a separate dApp that can do it under the same security assumptions as the bridge
