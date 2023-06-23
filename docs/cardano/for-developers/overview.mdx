@@ -2,17 +2,16 @@
 sidebar_position: 0
 ---
 
-import { changeNetwork } from '../../networks'
+import { changeNetwork } from "../../networks";
 
 # Milkomeda C1 Overview
-
 
 ## Public Endpoints
 
 Milkomeda C1 offers **HTTPS** and **WebSocket** endpoints for both Mainnet and Devnet, which are publicly accessible to users and developers.
 
-
 ### Mainnet
+
 > **Network Name:** Milkomeda Cardano (C1)
 >
 > **HTTPS RPC URL:** https://rpc-mainnet-cardano-evm.c1.milkomeda.com
@@ -24,11 +23,16 @@ Milkomeda C1 offers **HTTPS** and **WebSocket** endpoints for both Mainnet and D
 > **Currency Symbol:** mADA
 >
 > **Block Explorer URL:** https://explorer-mainnet-cardano-evm.c1.milkomeda.com
-> <button onClick={() => changeNetwork('c1')}  className='button button--secondary'>Add C1 Mainnet to Metamask</button>
-
-
+>
+> <button
+>   onClick={() => changeNetwork("c1")}
+>   className="button button--secondary"
+> >
+>   Add C1 Mainnet to Metamask
+> </button>
 
 ### Devnet
+
 > **Network Name:** Milkomeda Cardano Devnet
 >
 > **HTTPS RPC URL:** https://rpc-devnet-cardano-evm.c1.milkomeda.com
@@ -40,10 +44,13 @@ Milkomeda C1 offers **HTTPS** and **WebSocket** endpoints for both Mainnet and D
 > **Currency Symbol:** mTADA
 >
 > **Block Explorer URL:** https://explorer-devnet-cardano-evm.c1.milkomeda.com
-> <button onClick={() => changeNetwork('c1_testnet')}  className='button button--secondary'>Add C1 Devnet to Metamask</button>
-
-
-
+>
+> <button
+>   onClick={() => changeNetwork("c1_testnet")}
+>   className="button button--secondary"
+> >
+>   Add C1 Devnet to Metamask
+> </button>
 
 ## Bridge & Explorers
 
@@ -51,29 +58,27 @@ Milkomeda C1 offers **HTTPS** and **WebSocket** endpoints for both Mainnet and D
 - [Milkomeda Bridge](https://cardano-bridge.milkomeda.com/) - a UI to bridge from Milkomeda C1 (sidechain) to Cardano (mainchain)
 - [Milkomeda Bridge Explorer](https://bridge-explorer.milkomeda.com/cardano-mainnet) - a tool to analyze bridge transactions
 
-
 ## Wallets that support C1
 
 - [Flint Wallet](https://flint-wallet.com/) - Flint's lightweight and user-friendly design lets you manage your crypto assets and access the world of DeFi with ease.
 - [NuFi](https://nu.fi/) - Non-custodial wallet for several chains, including Cardano and Milkomeda C1 (+HW wallet support)
 - [Metamask](https://metamask.io/) - MetaMask is a popular self-custodial wallet. A safe and simple way to access blockchain applications and web3
-
+- [Gnosis Safe](https://safe.milkomeda.com/) - Milkomeda has deployed an instance of Gnosis Safe to both the Milkomeda C1 and A1 networks. This deployment of Safe brings secure and battle-tested, multisig wallet smart contracts to the Milkomeda networks. Check out this [guide](https://medium.com/@milkomedafoundation/creating-a-gnosis-safe-on-milkomeda-guide-9cd00b6ea62d) for more information.
 
 ## Token Addresses
 
-
 Milkomeda C1 Mainnet
 
-| Symbol | Name | Address | Bridge |
-|---|---|---|---|
-| wADA | 	Wrapped ADA | 0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9 | - |
-| multiUSDC | USD Coin | 0xB44a9B6905aF7c801311e8F4E76932ee959c663C | Multichain |
-| ceUSDC | USD Coin | 0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98 | Celer |
-| mUSDC | USD Coin | 0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98 | Milkomeda MACC |
-| multiUSDT | Tether USD | 0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844 | Multichain |
-| ceUSDT | Tether USD | 0x3795C36e7D12A8c252A20C5a7B455f7c57b60283 | Celer |
-
+| Symbol    | Name        | Address                                    | Bridge         |
+| --------- | ----------- | ------------------------------------------ | -------------- |
+| wADA      | Wrapped ADA | 0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9 | -              |
+| multiUSDC | USD Coin    | 0xB44a9B6905aF7c801311e8F4E76932ee959c663C | Multichain     |
+| ceUSDC    | USD Coin    | 0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98 | Celer          |
+| mUSDC     | USD Coin    | 0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98 | Milkomeda MACC |
+| multiUSDT | Tether USD  | 0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844 | Multichain     |
+| ceUSDT    | Tether USD  | 0x3795C36e7D12A8c252A20C5a7B455f7c57b60283 | Celer          |
 
 For a complete list of tokens that can be transferred between Milkomeda C1 and Cardano, please refer to the following links for both the mainnet and devnet:
+
 - [mainnet](https://bridge-explorer.milkomeda.com/cardano-mainnet/tokens)
 - [devnet](https://bridge-explorer.milkomeda.com/cardano-devnet/tokens)
