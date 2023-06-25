@@ -3,8 +3,14 @@
   "position": 6,
   "link": {
     "type": "generated-index",
+    "title": "Liquid Staking",
+    "description": "Milkomeda Liquid Staking is a standard for Milkomeda to allow its users to keep earning Layer 1 staking rewards",
+    "keywords": [
+      "guides"
+    ],
+    "image": "/img/addasset.png"
   },
   "customProps": {
     "description": "This description can be used in the swizzled DocCard"
-  }
+  },
 }

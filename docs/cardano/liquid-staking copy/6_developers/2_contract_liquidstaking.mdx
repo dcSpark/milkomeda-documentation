@@ -1,35 +1,12 @@
 ---
-title: "Integration for Developers"
-sidebar_position: 6
+sidebar_position: 2
 ---
 
-You can find the full contract [here](https://github.com/dcSpark/liquid-staking)
+# Contract: LiquidStaking
 
 ## Contract overview
 
-### stMilkADA formula
-
-Whenever a user stakes, internally, the user has a mapping that represents the percentage ownership a particular user has as a result of his deposit.
-
-The following formula is used to calculate the number of shares to receive from an amount of _milkADA_ deposited:
-
-_Formula one_:
-
-```
-_sharesAmount = (totalShares * _milkAdaAmount) / (totalDeposited + totalRewards)
-```
-
-where
-
-- `totalShares`: Total shares created as a result of staking _milkAda_
-- `_milkAdaAmount`: Amount of _milkADA_ that a user is converting to shares
-- `totalDeposited`: Total amount of _milkADA_ deposited in the Staking Smart Contract
-- `totalRewards`: Total amount of rewards deposited by Milkomeda DAO
-- `_sharesAmount`: Amount of shared to received as a result of depositing `_milkAdaAmount`
-
-Once the amount of shares is calculated, the Staking Smart Contracts calls the `mint` function from the token to increase the balance of the user in the same amount.
-
-## Member variables
+### Member variables
 
 The Staking Smart Contract keeps the count of the total _milkADA_ deposited. There are at least three variables that track the movements of _milkADA_ native tokens:
 
@@ -39,9 +16,9 @@ The Staking Smart Contract keeps the count of the total _milkADA_ deposited. The
 
 - `totalRewards`: the total rewards deposited up until this point by the Milkomeda DAO
 
-## Core functions
+### Core functions
 
-### 1. **stake** and **unstake**: transfer to/from _milkADA_ <-> _stMilkADA_
+#### 1. **stake** and **unstake**: transfer to/from _milkADA_ <-> _stMilkADA_
 
 Every time the `stake` method is executed, internally a specific amount of shares is minted in favor of the caller. This is due to the double accounting system that shares the Staking Smart Contract and the Staked _milkADA_ Token.
 
@@ -49,12 +26,12 @@ In order to calculate the number of shares to be minted, Formula One detailed ab
 
 Note: sending to the liquid staking contract will also call _stake_ indirectly
 
-#### Unstaking specifics
+**Unstaking specifics**
 
 1. The amount of _milkADA_ to unstake must be less than what he has in the mapping `userDeposit` (what is shown in their wallet balance). By withdrawing rewards first, an account could potentially have more _milkADA_ to unstake.
 1. Internally, `withdrawRewards` is called on behalf of the user and the additional rewards are deposited to them (needed to calculate the number of shares to burn)
 
-### 2. **withdrawRewards**: withdraw any accumulated stMilkADA rewards (also: see _ableToWithdrawRewards_ for dApps)
+#### 2. **withdrawRewards**: withdraw any accumulated stMilkADA rewards (also: see _ableToWithdrawRewards_ for dApps)
 
 All externally owned accounts (EOA) have the assumption that they are capable of withdrawing rewards
 
@@ -62,7 +39,7 @@ For smart contract accounts, see [claim rewards](./claim-rewards)
 
 Since rewards are automatically compounding, you do not need to call this function every epoch
 
-### 3. ERC20 interface
+#### 3. ERC20 interface
 
 sstMilkADA is an ERC20 token.
 
@@ -107,23 +84,19 @@ The only place where `mint` is called is within the `stake` method of the Stakin
 
 All these methods are performed with the input of _milkADA_ amount, not the shares. The user through `balanceOf` would be able to know the amount of MIlkAda deposited and not the number of minted shares. Hence, it makes sense to work these methods with his _milkADA_ balance.
 
-### 4. **accreditToPool**: called by Milkomeda DAO to deposit new rewards
+#### 4. **accreditToPool**: called by Milkomeda DAO to deposit new rewards
 
 This function isn't protected, hence anyone can call this function to increase the Staking Smart Contract's rewards - and rewards are deposited based on an `ROI` value passed to the function. Internally, a variable called `totalRewards` keeps the count of it. This method is meant to be called at every epoch with all accrued gains from the Cardano chain.
 
 Note that this function has no concept of epochs or time passage of the L1.
 
-### 5. **removeRewardsOnBehalf**: called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards
+#### 5. **removeRewardsOnBehalf**: called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards
 
 See [claim rewards](./claim-rewards)
 
 ## Claiming rewards
 
 You can claim your rewards every epoch (unlike Cardano where you have to wait multiple epochs before your first reward)
-
-As a user, rewards can be claimed through the liquid staking dApp.
-
-### Claiming rewards as a dApp
 
 dApps can also accrue _stMilkADA_ and can claim the staking rewards of any token they've accrued.
 
@@ -166,3 +139,55 @@ There are 2 ways of checking whether or not a contract can claim rewards that we
 Due to both the censorship concerns and the higher initial cost, we chose option (1)
 
 </details>
+
+## stMilkADA formula
+
+Whenever a user stakes, internally, the user has a mapping that represents the percentage ownership a particular user has as a result of his deposit.
+
+The following formula is used to calculate the number of shares to receive from an amount of _milkADA_ deposited:
+
+_Formula one_:
+
+```
+_sharesAmount = (totalShares * _milkAdaAmount) / (totalDeposited + totalRewards)
+```
+
+where
+
+- `totalShares`: Total shares created as a result of staking _milkAda_
+- `_milkAdaAmount`: Amount of _milkADA_ that a user is converting to shares
+- `totalDeposited`: Total amount of _milkADA_ deposited in the Staking Smart Contract
+- `totalRewards`: Total amount of rewards deposited by Milkomeda DAO
+- `_sharesAmount`: Amount of shared to received as a result of depositing `_milkAdaAmount`
+
+Once the amount of shares is calculated, the Staking Smart Contracts calls the `mint` function from the token to increase the balance of the user in the same amount.
+
+## stMilkADA vs sstMilkADA
+
+This contract has two tokens:
+
+| Ticker     | Name                     | Staking rewards  | Denominated in |
+| ---------- | ------------------------ | ---------------- | -------------- |
+| stMilkADA  | Staked Milk ADA          | Manually claimed | milkADA        |
+| sstMilkADA | Share of Staked Milk ADA | Automatic        | Shares         |
+
+The tradeoff is that
+
+- stMilkADA is intuitive to use (denominated in milkADA), but requires manually claiming rewards (so you may not get your rewards if you store your milkADA inside a dApp)
+- sstMilkADA is less intuitive as it is denominated in shares (which we will explain below) and as such its ADA value changes over time
+
+When you deposit milkADA into the contract, internally the contract computes how much of all staked ADA belongs to you and allocates shares appropriately
+
+For example, if there is 45 milkADA locked in contract and you deposit 5 ADA, you will own 5 ADA of (45 + 5) total ADA, so you will have 10% ownership
+
+This 10% ownership is what is meant to be (indirectly) represented by _sstMilkADA_ (to see the formula the defines the amount of `sstMilkADA` given, see [contract overview](./contract-overview))
+
+Many protocols in the past have experimented with automatically rebasing assets (assets where the value of the asset changes automatically overtime) as they can capture behavior like automatic accural of staking rewards. However, these rebasing tokens are historically hard to use with DeFi protocol (ex: most DEXs don't expect the value of a token to suddenly go up during an epoch boundary). To partially address this, _sstMilkADA_ is denominated in shares instead of a rebased _milkADA_ value.
+
+To maintain a simple user experience, _stMilkADA_ provided a token that requires a manual rebase (aka manually claiming accured rewards). This is both more similar to how Cardano works and also more intuitive for users (at the cost of losing the ability to claim your rewards if you send your tokens to a smart contract)
+
+You can find the full contract [here](https://github.com/dcSpark/liquid-staking/blob/main/src/pillage/Pillage.sol)
+
+## Dead Shares
+
+To mitigate against inflation attacks, we stake on initialization of the [Liquid Staking contract](https://github.com/dcSpark/liquid-staking/blob/0cffd0d6bdaff73d67d72983f652e7f152ad8074/src/LiquidStaking/LiquidStaking.sol#L148), creating dead shares. In order to create dead shares, a value (`msg.value` > 0) must be sent when initializating the staking contract. And this value is used to create the first stake in the pool, which is needed to protect against inflation attacks. Creating dead shares doesn't entirely solve this problem, but it reduces the profit that could be made from it .This dead shares is minted to the deployer - it's expected this shares and stake will never be withdrawn, unstaked or redeemed
