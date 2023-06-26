@@ -5,15 +5,16 @@ sidebar_position: 3
 # EVM: Milkomeda C1
 
 
-Milkomeda Liquid Staking protocol is composed of 3 core contracts:
+Milkomeda Liquid Staking protocol is composed of 3 core contracts with specific functions that can only be called from the bridge:
 
 - **LiquidStaking**: The core staking contract.
 
-- **StakedMilADA**:An ERC20 complian token used to represent stakers share of the pool.
+- **StakedMilkADA**:An ERC20-like token used to represent stakers share of the pool.
 
 * **Pillage**: A utility contract to withdraw rewards from smart contract account unable to withdraw their rewards
 
 
+The LiquidStaking Smart Contract is the core contract of the protocol and keeps the count of the total milkADA deposited. Its core functions in the users's perspective are stake, unstake and withdrawRewards, and there are also important functions like accreditToPool and removeRewardsOnBehalf that can only be called by the bridge.
 
 
 

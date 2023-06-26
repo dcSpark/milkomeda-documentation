@@ -3,10 +3,22 @@ title: Introduction
 sidebar_position: 1
 ---
 
-When considering Layer 2 adoption, users tend to value the pros and cons of moving from the Layer 1. The trade-off is normally taking advatange of the scalability of the Layer 2 (speed and cost) while abdicating some of the security of the Layer 1.
+### Staking on Cardano
 
-However, many blockchains nowadays have a reward system for users on their Layer 1 for participating in the staking/governance of the network,
-and it is important that users keep earning these rewards even after they move to the Layer 2 network.
+Staking is an integral part of the Cardano blockchain's consensus mechanism and incentivization system. It allows Cardano holders to participate in the network's operation, secure the blockchain, and earn rewards in the form of additional ADA for their participation. Staking plays a crucial role in maintaining the network's decentralization and security.
+
+With close to three-quarters of the native token (ADA) staked, Cardano is a network with one of the highest staking participation, surpassing even well-known projects like Ethereum.
+
+A stake is a vote for a validator, where holders who stake to a validator join a pool made up of hundreds or thousands of other stakers. The process is called delegating, in which ADA holders delegate their ADA to a certain pool, enabling that pool to reach a higher level of staked ADA, helping everyone to earn a higher yield. Pools with higher staked amounts are more likely to be chosen to build a block and earn rewards.
+
+### Liquid Staking
+
+
+
+When considering Layer 2 adoption, users tend to value the pros and cons of moving from the Layer 1. The trade-off is normally taking advatange of the scalability of the Layer 2 (speed and cost) while letting go of some of the security of the Layer 1.
+
+However, since blockchains nowadays have a reward system for users on their Layer 1 for participating in the staking/governance of the network,
+it is important that users keep earning these rewards even after they move to the Layer 2 network.
 
 The concept of ongoing rewards beyond the layer 1 is highly beneficial for various reasons:
 

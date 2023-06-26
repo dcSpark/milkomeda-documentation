@@ -2,6 +2,11 @@
 sidebar_position: 5
 ---
 
+import stake from "@site/static/img/liquid_staking/stake.png";
+import unstake from "@site/static/img/liquid_staking/unstake.png";
+import claim from "@site/static/img/liquid_staking/claim.png";
+
+
 # Staking for Users
 
 
@@ -23,16 +28,18 @@ The requires steps are:
 1. Go to "Staking" page and "Stake" tab
 1. Enter the desired amount, accept Terms of Use and press "Stake" button
 
-:::warning
-(Screenshots)
-:::
-
+<img
+  src={stake}
+  className="img-full"
+  alt="Staking"
+/>
 
 #### Difference between stMADA vs MADA
 
-:::note
-By default, users get no staking rewards at all and the staking rewards go to the Milkomeda DAO. To receive staking rewards on your asset, users need to stake assets to get stMADA.
-:::
+By default, users get no staking rewards and the staking rewards go to the Milkomeda DAO. To receive staking rewards on your asset, users need to stake assets to get stMADA.
+
+stMADA is the staked version of MilkADA, that accrues staking rewards in the Milkomeda Liquid Staking Protocol
+
 
 
 ### Unstaking
@@ -45,6 +52,11 @@ The requires steps are:
 1. Go to "Staking" page and "Unstake" tab
 1. Enter the desired amount, accept Terms of Use and press "Stake" button
 
+<img
+  src={unstake}
+  className="img-full"
+  alt="Unstaking"
+/>
 
 
 :::note
@@ -54,6 +66,17 @@ Milkomeda is encouraging DEXs, and other protocols to support stMADA 1:1 with MA
 
 
 ### Claiming the rewards
+
+You can claim your rewards every epoch (unlike Cardano where you have to wait multiple epochs before your first reward). As a user, rewards can be claimed through the liquid staking dApp.
+
+
+<img
+  src={claim}
+  className="img-full"
+  alt="Claiming"
+/>
+
+
 
 #### How rewards are calculated and distributed, including information on mainchain epochs.
 

@@ -1,0 +1,39 @@
+---
+sidebar_position: 4
+---
+
+# Contract: Pillage
+
+### Pillaging
+
+Contracts that do not implement the `ableToWithdrawRewards` function (as explained [here](./contract_liquidstaking) forfeit their staking rewards, and these rewards will be pillaged by the Milkomeda DAO.
+
+When an account is Pillaged, its accumulated rewards is removed and the value is automatically staked on behalf of the pillager (Milkomeda DAO).
+
+```solidity
+    function pillage(address _account, bytes32 _transactionId) external {
+        // Ensure the msg.sender is a validator
+        _assertValidator(msg.sender);
+
+        // Add the validator vote, encoding the the data to be executed.
+        // The staking smart contract has a function removeRewardsOnBehalf
+        // that removes the rewards from an account that cannot withdraw rewards
+        // and adds it as a stake for the pillager.
+        Transaction memory transaction = _addTransaction(
+            _transactionId,
+            abi.encodeWithSignature("removeRewardsOnBehalf(address)", _account),
+            stakingSCProxy
+        );
+
+        Status status = _confirmTransaction(_transactionId, transaction);
+        if (status == Status.SUCCESS) {
+            emit Pillaged(_account);
+        }
+    }
+```
+
+#### Example:
+
+Smart contract `A` doesn't implement the `ableToWithdrawRewards` function - they stake 5 MilkADA and have accrued staking rewards of 3 MilkADA. Account `A` is then pillaged by the Milkomeda DAO - its rewards of 3 MilkADA is withdrawn, and staked on behalf of the pillager. Now the Milkomeda DAO has a stake balance of 3 MilkADA, and contract `A` has a stake balance of 5 MilkADA, but reward value of 0.
+
+You can find the full contract [here](https://github.com/dcSpark/liquid-staking/blob/main/src/pillage/Pillage.sol)

@@ -1,0 +1,70 @@
+---
+sidebar_position: 3
+---
+
+# Contract: StakedMilkAda
+
+_stMilkADA_ is is an ERC20-like token - though it's not a rebase token, it still doesn't fully comply with the ERC20 standard. Modifications have been made to some of its functions, such as `transfer`, `transferFrom` and `balanceOf`. On top of that, the `mint` and `burn` methods have been protected by roles: only the Staking Smart Contract can call those methods. While it could have been possible to inherit the ERC20 contract from Open Zeppelin, it was more than necessary to only comply with the interface (IERC20) since several methods have custom implementations.
+
+The contract only emit a Tranfer event when an explicit transfer occurs between holders. From the ERC20 standard the Transfer amount or value in the transfer signature represents the amount of the token sent. Though in the StakedMilkAda contract, while it still represents the amount being sent, it's not the amount of tokens, but the amount of MilkAda. A new event (TransferShares) has been added. This event has the same signature and can be seen as replicating the Tranfer event in the ERC20 standard; all that differs is the name.
+
+The main reason for implementing customized complying methods is that there are two account systems within the token: one that is shares-based and another one that represents the equivalence one to one with the amount of Milkada deposited. After staking an X amount of _milkADA_, a Y amount of shares are minted for the user. However, he will only know about the total amount of _milkADA_ deposited, which will be represented by the Staked _milkADA_ Token that he will see in his wallet balance.
+
+Let's see how the methods are affected:
+
+- `balanceOf`
+
+Returns back the amount of _milkADA_ deposited by the user in the Staking Smart Contract. The token Staked _milkADA_ does not keep the count of the total _milkADA_ deposited. Hence, when the method `balanceOf` is consulted, internally an inter-contract call is executed. The Staking Smart Contract responds to this question and returns the amount of _milkADA_ deposited by a particular user. When the balance is shown, it's portrayed as Staked _milkADA_ Token.
+
+```solidity
+    function balanceOf(
+        address _account
+    ) public view override returns (uint256) {
+        bytes memory returndata = _staticcall(
+            abi.encodeWithSignature("balanceOf(address)", _account),
+            stakingSCProxy
+        );
+
+        return abi.decode(returndata, (uint256));
+    }
+```
+
+- `totalSupply`
+
+Another inter-contract call is necessary to grab the total of _milkADA_ deposited, which is stored in the Staking Smart Contract. In other words, `totalSupply` does not give back the total number of minted shares but rather the total amount of _milkADA_ deposited by all users.
+
+```solidity
+    function totalSupply() public view override returns (uint256) {
+        bytes memory returndata = _staticcall(
+            abi.encodeWithSignature("totalDeposited()"),
+            stakingSCProxy
+        );
+
+        return abi.decode(returndata, (uint256));
+    }
+```
+
+- `transfer` and `transferFrom`
+
+All methods that involve the movements of funds that are executed have as input a specific amount of Milkada Token. After all, the user is only aware of the amount of _milkADA_ deposited represented by Staked _milkADA_ Token.
+
+When the methods `transfer` and `transferFrom` are called, the amount of _milkADA_ received is converted to shares to make the necessary updates. The Formula One described before comes into play to convert the amount of Milkada to shares.
+
+Since there is a double accounting system, aside from updating the number of shares one particular account has after the transfer of _milkADA_, it's also required to update the balances of _milkADA_ deposited in the Staking Smart Contract. For that reason, these two methods (`transfer` and `transferFrom`) have side effects on the other smart contract (the Liquid Staking contract). The side effect simply decreases the count of _milkADA_ deposited in the sender and adds that exact amount to the count of the receiver.
+
+```solidity
+function sideEffectTransferMilkAda(...) … {
+    ...
+    userDeposit[_from] -= _milkAdaAmount;
+    userDeposit[_to] += _milkAdaAmount;
+}
+```
+
+- `mint` and `burn`
+
+As of now, these two methods can only be called by the Liquid Staking contract. In the same fashion as the two methods described above, before calling `mint` or `burn` the input of _milkADA_ amount is converted into shares first.
+The only place where `mint` is called is within the `stake` method of the Staking Smart Contract. Inversely, `burn` is only called whenever the user wants to `unstake` the total _milkADA_ deposited.
+
+- `increaseAllowance`, `decreaseAllowance`, `approve` and `allowance`
+
+All these methods are performed with the input of _milkADA_ amount, not the shares. The user through `balanceOf` would be able to know the amount of MIlkAda deposited and not the number of minted shares. Hence, it makes sense to work these methods with his _milkADA_ balance.

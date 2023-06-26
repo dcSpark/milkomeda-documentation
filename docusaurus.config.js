@@ -3,8 +3,8 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
-const math = require('remark-math');
-const katex = require('rehype-katex');
+const math = require("remark-math");
+const katex = require("rehype-katex");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -39,7 +39,7 @@ const config = {
       },
       zh: {
         label: "Chinese",
-      }
+      },
     },
   },
   themes: [
@@ -47,7 +47,7 @@ const config = {
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
-        docsRouteBasePath: '/',
+        docsRouteBasePath: "/",
         // ... Your options.
         // `hashed` is recommended as long-term-cache of index file is possible.
         hashed: true,
@@ -75,21 +75,21 @@ const config = {
           // editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         pages: {
-          path: 'src/pages',
-          routeBasePath: '/',
-          include: ['**/*.{js,jsx,ts,tsx,md,mdx}'],
+          path: "src/pages",
+          routeBasePath: "/",
+          include: ["**/*.{js,jsx,ts,tsx,md,mdx}"],
           exclude: [
-            '**/_*.{js,jsx,ts,tsx,md,mdx}',
-            '**/_*/**',
-            '**/*.test.{js,jsx,ts,tsx}',
-            '**/__tests__/**',
+            "**/_*.{js,jsx,ts,tsx,md,mdx}",
+            "**/_*/**",
+            "**/*.test.{js,jsx,ts,tsx}",
+            "**/__tests__/**",
           ],
-          mdxPageComponent: '@theme/MDXPage',
+          mdxPageComponent: "@theme/MDXPage",
           //remarkPlugins: [require('remark-math')],
           rehypePlugins: [],
           beforeDefaultRemarkPlugins: [],
           beforeDefaultRehypePlugins: [],
-        },          
+        },
         //blog: false,
         // blog: {
         //   showReadingTime: true,
@@ -118,28 +118,28 @@ const config = {
   ],
   stylesheets: [
     {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css',
-      type: 'text/css',
+      href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css",
+      type: "text/css",
       integrity:
-        'sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X',
-      crossorigin: 'anonymous',
+        "sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X",
+      crossorigin: "anonymous",
     },
   ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
-        defaultMode: 'dark',
+        defaultMode: "dark",
         disableSwitch: true,
         respectPrefersColorScheme: false,
-      },       
+      },
       navbar: {
         title: "Milkomeda",
         logo: {
           alt: "Milkomeda logo",
           src: "img/favicon.svg",
           href: "/",
-          target: '_self',          
+          target: "_self",
         },
         items: [
           {
@@ -147,17 +147,17 @@ const config = {
             position: "right",
           },
           {
-            type: 'docSidebar',
-            position: 'left',
-            sidebarId: 'cardano',
-            label: 'Cardano (EVM Sidechain)',
-          },          
+            type: "docSidebar",
+            position: "left",
+            sidebarId: "cardano",
+            label: "Cardano (EVM Sidechain)",
+          },
           {
-            type: 'docSidebar',
-            position: 'left',
-            sidebarId: 'algorand',
-            label: 'Algorand (EVM Rollup)',
-          },          
+            type: "docSidebar",
+            position: "left",
+            sidebarId: "algorand",
+            label: "Algorand (EVM Rollup)",
+          },
           // {
           //   type: "doc",
           //   docId: "intro",
@@ -220,6 +220,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ["solidity"],
       },
     }),
 };
