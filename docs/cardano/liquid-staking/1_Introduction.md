@@ -18,7 +18,7 @@ A stake is a vote for a validator, where holders who stake to a validator join a
 When considering Layer 2 adoption, users tend to value the pros and cons of moving from the Layer 1. The trade-off is normally taking advatange of the scalability of the Layer 2 (speed and cost) while letting go of some of the security of the Layer 1.
 
 However, since many blockchains have reward systems for users on their Layer 1 for participating in the staking/governance of the network,
-it is important that users keep earning these rewards even after they move to the Layer 2 network.
+it is important that users keep earning these rewards even after they move their funds to the Layer 2 network.
 
 The concept of ongoing rewards beyond the layer 1 is highly beneficial for various reasons:
 
