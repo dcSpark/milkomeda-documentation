@@ -6,7 +6,8 @@ The Layer 1 (L1) blockchain acts as a robust coordination layer, allowing users 
 
 ### Why can't I move all my ADA from the WSC back to the Layer 1?
 
-...
+
+
 
 ### What fees do I pay for using WSC?
 
@@ -17,3 +18,5 @@ The transaction costs can be broken down into these components:
   - 1.0 TADA for unwrapping
 - **Bridge Lock-up** - a temporary deposit of 3 ADA is locked in the bridge. Upon unwrapping, you will receive back the 3 ADA deposit.
 - **EVM fees** - the gas for the transaction on the sidechain
+
+
