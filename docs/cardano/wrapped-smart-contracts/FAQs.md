@@ -1,0 +1,22 @@
+# FAQs
+
+### How do I control my WSC?
+The Layer 1 (L1) blockchain acts as a robust coordination layer, allowing users to execute smart contracts on sidechains or L2 while remaining on the L1 blockchain. While you can have funds in the WSC and transfer them from the L1 to the L2 and from the L2 to the L1, the action is triggered by the Layer 1 address.
+
+
+### Why can't I move all my ADA from the WSC back to the Layer 1?
+
+
+
+
+### What fees do I pay for using WSC?
+
+The transaction costs can be broken down into these components:
+
+- **Bridge Fee** - a fee of 1.1 TADA is paid to the bridge
+  - 0.1 TADA for wrapping
+  - 1.0 TADA for unwrapping
+- **Bridge Lock-up** - a temporary deposit of 3 ADA is locked in the bridge. Upon unwrapping, you will receive back the 3 ADA deposit.
+- **EVM fees** - the gas for the transaction on the sidechain
+
+
