@@ -10,10 +10,17 @@ Until now, users that wanted to interact with Dapps on a Layer 2, had to move th
 This migration process to a Layer 2 chain often involves bridging or wrapping assets from Layer 1 to facilitate interactions with smart contracts on Layer 2. However, this process can be complex, involving multiple steps across different interfaces and requiring more than one wallet. **Milkomeda's Wrapped Smart Contracts (WSC)** present an elegant solution that not only streamlines the user experience by eliminating the need for multiple wallets but also provides a unified interaction flow between Layer 1 and Layer 2.
 
 
-### Understanding Wrapped Smart Contracts
+### How Wrapped Smart Contracts Work
+
+**Externally Owned Accounts (EOAs)** and **Smart Contracts** are both key components of EVM blockchains, but they serve different purposes. An EOA is controlled by an individual or an entity, is controlled with a private key, and is the only type of account that can initiate transactions on EVM chains. Smart contracts can run code to execute predefined functions based on predefined conditions and enable decentralized applications (dApps), but also share some features of EOAs like the ability receive and store crypto and tokens. 
+
+Accounts abstraction is a concept that aims to improve the user experience by abstracting the distinction between EOAs and Smart Contracts to, among other things, enhance the flexibility of the platform.
+
+**Wrapped Smart Contracts (WSC)** use the concept of account abstraction to improve the user experience of interacting with Layer 2s with staying within the safety of the Layer 1.
+
+
 When using WSC, a smart contract is deployed on Milkomeda's Layer 2, bound to the user's specific Layer 1 address. This smart contract serves as an account abstraction, possessing a balance, a nonce, and the ability to execute signed transactions on behalf of the user.
 
-### How It Works
 Users can connect to DApps that support WSC using their Cardano wallets, which will generate an EVM address for them. Unlike an Externally Owned Account (EOA), this address doesn't require users to manage private keys. Instead, users can create transactions on Layer 2 and sign them using their Layer 1 account.
 
 ### Example Usecase: Buying ReserveCoin from the Djed Protocol
@@ -22,16 +29,39 @@ To demonstrate the seamless interaction between Layer 1 and Layer 2, we'll walk 
 
 1. **Connecting a Wallet** - Users can click "Connect your wallet" and choose "Flint WSC" to create a new address with the Wrapped Smart Contract, eliminating the need for multiple wallets.
 
-    ![Select Wallet](/img/wsc/connect_wallets.png)
 
-    ![Connected](/img/wsc/connected.png)
+import img1 from "@site/static/img/wsc/connect_wallets.png";
 
-2. **Initiating the Action** - By clicking on the wallet address in the top right corner, users can access the WSC interface, which displays information and buttons to interact with the contract. Users can see their Layer 1 wallet balance and trigger actions with their WSC Wallet.
 
-    ![Wallet](/img/wsc/wallet.png)
+<img
+  src={img1}
+  className="img-full"
+  alt="Connect Wallets"
+/>
 
-    ![Buy](/img/wsc/buy_reservecoin.png)
 
+By clicking on the wallet address in the top right corner, users can access the WSC interface, which displays information and buttons to interact with the contract. Users can see their Layer 1 wallet balance and trigger actions with their WSC Wallet.
+
+import img2 from "@site/static/img/wsc/wallet.png";
+
+<img
+  src={img2}
+  className="img-full"
+  alt="Wallet"
+/>
+
+
+
+2. **Initiating the Action** - After the wallet is connected, the user can initiate the interaction with the DApp as he normally would. In this case, one would select the required options ("Buy") and input the required amount an then press the "Buy with WSC" button.
+
+
+import img3 from "@site/static/img/wsc/buy_reservecoin.png";
+
+<img
+  src={img3}
+  className="img-full"
+  alt="Buy Reservecoin"
+/>
 
 
 3. **Confirming the Steps**  - The flow differs from using a traditional Layer 2 wallet since the WSC wallet initially has no funds on Layer 2. Users need to complete several interactions:
@@ -64,7 +94,16 @@ Wrapping transaction may take a few minutes (~4m).
 
 A few minutes after signing the transaction, a confirmation will be presented and the user can move to the next step. A link to the bridge transaction for wrapping the assets is also presented.
 
-![Buy](/img/wsc/djed_step1.png)
+import img4 from "@site/static/img/wsc/djed_step1.png";
+
+<img
+  src={img4}
+  className="img-full"
+  alt="Step 1"
+/>
+
+
+
 
 At this point, the assets are now in the WSC on the Layer 2.
 
@@ -79,7 +118,15 @@ The second step is to execute the action on the Layer 2. In this case we are buy
 
 After confirming the transaction, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
 
-![Buy](/img/wsc/djed_step2.png)
+
+import img5 from "@site/static/img/wsc/djed_step2.png";
+
+<img
+  src={img5}
+  className="img-full"
+  alt="Step 2"
+/>
+
 
 After this step, the WSC holds the ReserveCoin.
 
@@ -103,7 +150,15 @@ Because the call to transfer the tokens (ReserveCoin) held in the WSC to the Mai
 
 After confirming the allowance change, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
 
-![Buy](/img/wsc/djed_step3.png)
+
+import img6 from "@site/static/img/wsc/djed_step3.png";
+
+<img
+  src={img6}
+  className="img-full"
+  alt="Step 3"
+/>
+
 
 After this step, the WSC still holds the ReserveCoin.
 
@@ -116,7 +171,16 @@ After this step, the WSC still holds the ReserveCoin.
 
 The final step will transfer the asset (ReserveCoin in this example) to the Layer 1. WSC will seamlessly interact with the Milkomeda Bridge. Once bridge confirmations are complete, the assets will be securely returned to the mainchain wallet.
 
-![Buy](/img/wsc/djed_step4.png)
+
+import img7 from "@site/static/img/wsc/djed_step4.png";
+
+<img
+  src={img7}
+  className="img-full"
+  alt="Step 7"
+/>
+
+
 
 Example:
 Is this example, 50 ReserveCoin will be transferred to the Layer 1 Wallet, while paying 1 TADA in bridge fees. The Initial deposit of 3 TADA will be released
