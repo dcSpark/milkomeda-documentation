@@ -40,3 +40,7 @@ The transaction costs can be broken down into these components:
 </details>
 
 
+- Who pays for the gas of Actor creation on the Layer 2?
+- Can the Actor address be updated?
+- I have lost control of my Layer 1 address. How can I create the WSC
+
