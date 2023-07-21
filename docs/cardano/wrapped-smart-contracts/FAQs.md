@@ -10,13 +10,6 @@ The Layer 1 (L1) blockchain acts as a robust coordination layer, allowing users 
 </details>
 
 
-<details><summary>Why can't I move all my ADA from the WSC back to the Layer 1?</summary>
-<p>
-
-(...)
-
-</p>
-</details>
 
 
 
@@ -40,7 +33,44 @@ The transaction costs can be broken down into these components:
 </details>
 
 
-- Who pays for the gas of Actor creation on the Layer 2?
-- Can the Actor address be updated?
-- I have lost control of my Layer 1 address. How can I create the WSC
+<details><summary>Who pays for the gas of Actor creation on the Layer 2?</summary>
+<p>
 
+The user does not pay any gas for the deployment of the WSC. This cost is supported by...
+
+</p>
+</details>
+
+
+<details><summary>Can the Actor address be updated?</summary>
+<p>
+
+No, the WSC is bound to the user's Layer 1 address.
+
+</p>
+</details>
+
+
+
+<details><summary>
+I have lost control of my Layer 1 address. Can I recover assets that are in the WSC?
+</summary>
+<p>
+
+
+Only the Layer 1 address bound to the WSC can control it.
+
+</p>
+</details>
+
+
+
+
+
+<details><summary>Why can't I move all my ADA from the WSC back to the Layer 1?</summary>
+<p>
+
+(...)
+
+</p>
+</details>
