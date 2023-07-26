@@ -82,7 +82,7 @@ Can I still use my staked assets?
 
 
 <details><summary>
-How can I unstake my assets from Lido?
+How can I unstake my assets from Milkomeda Liquid Staking?
 </summary>
 <p>
 
@@ -108,6 +108,11 @@ Are there any fees associated with using Milkomeda Liquid Staking?
 </details>
 
 
+
+**Liquid Staking vs. Regular Staking**
+Instead of having their crypto locked up in the protocol or network in the case of regular staking, liquid staking users can use their derivative tokens to further participate in DeFi activities to stack their yield on top of regular staking annual percentage returns (APRs).
+
+Liquid staking also ensures greater decentralization in securing the network by lowering the barriers of entry to stake. The more validators present on the network, the more robust and secure the PoS network will be. In the case of post-Merge Ethereum, the minimum stake for a validator node is 32 ETH, which could be a significant sum of money for many retail users. With liquid staking, users can take part in the securing of Ethereum and receive the rewards without having to fork out the entire minimum amount of 32 ETH.
 
 
 

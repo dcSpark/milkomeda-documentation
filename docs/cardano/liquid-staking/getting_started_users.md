@@ -1,38 +1,33 @@
 ---
-sidebar_position: 5
+sidebar_position: 4
 ---
 
 import stake from "@site/static/img/liquid_staking/stake.png";
 import unstake from "@site/static/img/liquid_staking/unstake.png";
 import claim from "@site/static/img/liquid_staking/claim.png";
 
-
 # Staking for Users
 
-
-
+:::danger
+Start with homepage
+:::
 
 ### Wrap your assets (mADA)
 
 To move your funds from Mainnet to Milkomeda C1, pela check out the following [guide](/cardano/for-end-users/obtaining-milkada).
-
-
 
 ### Stake assets to get stMADA
 
 Milkomeda provides a DApp on the following [link](http://localhost:3001/staking) to enable users to stake their assets.
 
 The requires steps are:
+
 1. Go to (https:)
 1. Connecting a wallet (e.g Flint, Metamask, etc)
 1. Go to "Staking" page and "Stake" tab
 1. Enter the desired amount, accept Terms of Use and press "Stake" button
 
-<img
-  src={stake}
-  className="img-full"
-  alt="Staking"
-/>
+<img src={stake} className="img-full" alt="Staking" />
 
 #### Difference between stMADA vs MADA
 
@@ -40,43 +35,29 @@ By default, users get no staking rewards and the staking rewards go to the Milko
 
 stMADA is the staked version of MilkADA, that accrues staking rewards in the Milkomeda Liquid Staking Protocol
 
-
-
 ### Unstaking
 
 The steps to unstake stMADA are basically the opposite of staking. Users can unstake their stMADA using the Milkomeda DApp:
 
 The requires steps are:
+
 1. Go to (https:)
 1. Connecting a wallet (e.g Flint, Metamask, etc)
 1. Go to "Staking" page and "Unstake" tab
 1. Enter the desired amount, accept Terms of Use and press "Stake" button
 
-<img
-  src={unstake}
-  className="img-full"
-  alt="Unstaking"
-/>
-
+<img src={unstake} className="img-full" alt="Unstaking" />
 
 :::note
 Milkomeda is encouraging DEXs, and other protocols to support stMADA 1:1 with MADA, so that the yield bearing version of the token can become the most used asset on the network
 
 :::
 
-
 ### Claiming the rewards
 
 You can claim your rewards every epoch (unlike Cardano where you have to wait multiple epochs before your first reward). As a user, rewards can be claimed through the liquid staking dApp.
 
-
-<img
-  src={claim}
-  className="img-full"
-  alt="Claiming"
-/>
-
-
+<img src={claim} className="img-full" alt="Claiming" />
 
 #### How rewards are calculated and distributed, including information on mainchain epochs.
 
