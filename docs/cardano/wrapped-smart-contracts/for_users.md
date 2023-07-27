@@ -28,9 +28,11 @@ Users can connect to DApps that support WSC using their Cardano wallets, which w
 ## User Guide for EVM dApp Interaction
 
 
-To demonstrate the seamless interaction between Layer 1 and Layer 2, we'll walk through the steps of buying and selling ReserveCoin from the Djed Protocol on Milkomeda's Layer 2 using WSC.
 
 :::note
+To demonstrate the seamless interaction between Layer 1 and Layer 2, we'll walk through the steps of buying and selling ReserveCoin from the Djed Protocol on Milkomeda's Layer 2 using WSC.
+
+
 1. Start EVM dApp Interaction: Begin by accessing the EVM dApp through your preferred web browser or application. Ensure that you have an active connection to the main blockchain network.
 1. Performing Actions: Within the EVM dApp, you'll find various actions and functionalities to explore. Engage with the dApp's interface and choose the action you want to perform. It could be anything from purchasing an in-game item to participating in a decentralized finance (DeFi) transaction.
 1. Transaction Request: Once you select an action, the EVM dApp will prompt you to confirm the transaction. This confirmation step ensures you're aware of the action's details and the associated costs (gas fees).

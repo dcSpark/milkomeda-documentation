@@ -18,13 +18,9 @@ Wrapped Smart Contracts rely on three key components:
 - **Provider** - The front-end library injects the provider object based on [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) into the window.ethereum object. This customized provider includes specific methods like `eth_sendTransaction` or `eth_requestAccounts`, which interact with the Layer 1 wallet and transform the result accordingly.
 
 
-### Flow (TODO: Alternatives...)
+### Protocol Flow
 
-Every single step requires user interaction in the form of a transaction.
-
-- **User Action**: The user initiates an action on an EVM dApp while on the main blockchain. This request is translated into specific parameters for a proxy smart contract.
-- **Proxy Deployment and Execution**: A proxy smart contract, reflecting the user's intent, is deployed on the sidechain. The proxy contract then interacts with the appropriate smart contract on the sidechain to execute the desired action.
-- **Result Processing**: The outcome from the sidechain smart contract execution is relayed back to the user on the main blockchain. The user's state is updated, and they see the results of their action on the dApp, all while staying on the main blockchain.
+The full protocol flow is described below for a user interaction for the first time, where an `Actor` proxy smart contract is deployed and linked the user's L1 address. Subsequent calls from the user will be made to that existing existing `Actor`.
 
 
 import img1 from "@site/static/img/wsc/overview.png";
@@ -56,8 +52,14 @@ import img1 from "@site/static/img/wsc/overview.png";
 9. **Bridge** unwraps the funds back to the **User**
 
 
+:::note
+Subsequent interactions through Wrapped Smart Contracts will skip steps 2 and 3, since the `Actor` will alread be deployed.
+:::
 
-**Note on Gas:** The gas is being paid by the Actor smart contract itself, therefore to execute any transaction the actor needs to have enough balance not only to performa the trasaction but also to pay gas. To fund the **Actor** smart contract the **User** should use bridge or the DApp should prompt the wallet to send the funds to the **Actor** through the **Bridge**.
+:::note
+The gas is being paid by the Actor smart contract itself, therefore to execute any transaction the actor needs to have enough balance not only to performa the trasaction but also to pay gas. To fund the **Actor** smart contract the **User** should use bridge or the DApp should prompt the wallet to send the funds to the **Actor** through the **Bridge**.
+:::
+
 
 
 ### Smart contracts
