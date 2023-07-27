@@ -2,32 +2,41 @@
 sidebar_position: 4
 ---
 
+import homepage from "@site/static/img/liquid_staking/homepage.png";
 import stake from "@site/static/img/liquid_staking/stake.png";
 import unstake from "@site/static/img/liquid_staking/unstake.png";
 import claim from "@site/static/img/liquid_staking/claim.png";
 
 # Staking for Users
 
-:::danger
-Start with homepage
-:::
 
-### Wrap your assets (mADA)
+The Milkomeda Liquid Staking frontend is a secure and user-friendly way for user to perform all actions: staking, unstaking and claiming rewards. Right on the homepage, users can view some stats on Milkomeda Liquid Staking and the supported chains (currently Cardano only).
 
-To move your funds from Mainnet to Milkomeda C1, pela check out the following [guide](/cardano/for-end-users/obtaining-milkada).
 
-### Stake assets to get stMADA
 
-Milkomeda provides a DApp on the following [link](http://localhost:3001/staking) to enable users to stake their assets.
+<img src={homepage} className="img-full" alt="Homepage" />
 
-The requires steps are:
 
-1. Go to (https:)
+
+## Staking mADA
+
+Staking can be performed by navigating to the staking page, that contains the "Stake" and "Unstake" tabs.
+
+On this page users can stake their mADA by folowing these steps:
+
 1. Connecting a wallet (e.g Flint, Metamask, etc)
-1. Go to "Staking" page and "Stake" tab
+1. Select "Stake" tab
 1. Enter the desired amount, accept Terms of Use and press "Stake" button
 
 <img src={stake} className="img-full" alt="Staking" />
+
+This Staking page will also show the user's available mADAcan view their available balance and 
+
+
+:::note
+A prior step to be able to stake on Milkomeda C1 is to wrap ADA from Cardano. To move your funds from Mainnet to Milkomeda C1, pela check out the following [guide](/cardano/for-end-users/obtaining-milkada).
+:::
+
 
 #### Difference between stMADA vs MADA
 

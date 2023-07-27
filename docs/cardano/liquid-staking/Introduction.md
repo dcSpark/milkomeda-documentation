@@ -15,7 +15,9 @@ When users stake their ADA, they cast a vote for a validator and join a pool alo
 
 ### Liquid Staking
 
-
+On some chains, like Ethereum, staking one's asset means that asset will be locked and cannot be used while it's staked, i.e., it's iliquid. **Liquid staking** normally refers to a process that allows users to stake their cryptocurrencies, typically proof-of-stake (PoS) assets, and receive a liquid representation of their staked assets in return.
+ 
+When a user stakes on Cardano, his ADA remains in his wallet (although it will have to remain there for that epoch to receive rewards), but what happens when the user moves his funds to a Layer 2?
 
 In contemplating Layer 2 adoption, users often weigh the advantages and disadvantages of transitioning from Layer 1. While Layer 2 offers improved scalability in terms of speed and cost, there may be some trade-offs in terms of security compared to Layer 1.
 
