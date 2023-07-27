@@ -58,7 +58,7 @@ I have lost control of my Layer 1 address. Can I recover assets that are in the 
 <p>
 
 
-Only the Layer 1 address bound to the WSC can control it.
+The WSC is like an extension of the Layer 1 address on another chain and only the Layer 1 address bound to the WSC can control it. Unfortunately the assets on the WSC cannot be recovered.
 
 </p>
 </details>
@@ -67,10 +67,10 @@ Only the Layer 1 address bound to the WSC can control it.
 
 
 
-<details><summary>Why can't I move all my ADA from the WSC back to the Layer 1?</summary>
+<!-- <details><summary>Why can't I move all my ADA from the WSC back to the Layer 1?</summary>
 <p>
 
 (...)
 
 </p>
-</details>
+</details> -->

@@ -13,7 +13,7 @@ This migration process to a Layer 2 chain often involves bridging or wrapping as
 
 ## How Wrapped Smart Contracts Work
 
-**Externally Owned Accounts (EOAs)** and **Smart Contracts** are both key components of EVM blockchains, but they serve different purposes. An EOA is controlled by an individual or an entity, is controlled with a private key, and is the only type of account that can initiate transactions on EVM chains. Smart contracts can run code to execute predefined functions based on predefined conditions and enable decentralized applications (dApps), but also share some features of EOAs like the ability receive and store crypto and tokens. 
+**Externally Owned Accounts (EOAs)** and **Smart Contracts** are both key components of EVM blockchains, but they serve different purposes. An EOA is managed by an individual or an entity, is controlled with a private key, and is the only type of account that can initiate transactions on EVM chains. Smart contracts can run code to execute functions based on predefined conditions and enable decentralized applications (dApps), but also share some features of EOAs like the ability receive and store crypto and tokens. 
 
 The concept of account abstraction aims to enhance the user experience by blurring the distinction between EOAs and Smart Contracts, among other benefits, to improve the platform's flexibility.
 
@@ -21,7 +21,7 @@ The concept of account abstraction aims to enhance the user experience by blurri
 **Wrapped Smart Contracts (WSC)** leverage the concept of account abstraction to enhance the user experience when interacting with Layer 2 while remaining within the safety of Layer 1.
 
 
-When using WSC, a smart contract is deployed on Milkomeda's Layer 2, bound to the user's specific Layer 1 address. This smart contract serves as an account abstraction, possessing a balance, a nonce, and the ability to execute signed transactions on behalf of the user.
+When using WSC, a smart contract is deployed on Milkomeda's Layer 2, bound to the user's specific Layer 1 address and serves as an account abstraction, possessing a balance, a nonce, and the ability to execute signed transactions on behalf of the user.
 
 Users can connect to DApps that support WSC using their Cardano wallets, which will generate an EVM address for them. Unlike an Externally Owned Account (EOA), this address doesn't require users to manage private keys. Instead, users can create transactions on Layer 2 and sign them using their Layer 1 account.
 
