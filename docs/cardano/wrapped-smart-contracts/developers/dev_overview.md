@@ -1,8 +1,8 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
-# For Developers
+# Overview
 
 Wrapped smart contracts (WSC) are a powerful protocol that enables the execution of Layer 2 smart contracts directly from Layer 1 wallets. This integration is made possible through the provider object, which adheres to the [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) standard, acting as a bridge between the EVM provider and the Layer 1 provider. By using WSC, EVM DApps can seamlessly communicate with Layer 1 wallets and execute transactions on Layer 2 smart contracts.
 
@@ -18,7 +18,7 @@ Wrapped Smart Contracts rely on three key components:
 - **Provider** - The front-end library injects the provider object based on [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) into the window.ethereum object. This customized provider includes specific methods like `eth_sendTransaction` or `eth_requestAccounts`, which interact with the Layer 1 wallet and transform the result accordingly.
 
 
-### Flow
+### Flow (TODO: Alternatives...)
 
 Every single step requires user interaction in the form of a transaction.
 
@@ -27,19 +27,12 @@ Every single step requires user interaction in the form of a transaction.
 - **Result Processing**: The outcome from the sidechain smart contract execution is relayed back to the user on the main blockchain. The user's state is updated, and they see the results of their action on the dApp, all while staying on the main blockchain.
 
 
+import img1 from "@site/static/img/wsc/overview.png";
 
-```mermaid
-graph TD;
-    User-. 1 .->External;
-    Bridge-. 9 .->User;
-    Bridge-. 5 .->ActorProxySC;
-    User-. 4 .->Bridge;
-    ActorProxySC-. 8 .->Bridge;
-    External-. 6 .->ActorProxySC;
-    External-. 2 .->ActorFactorySC;
-    ActorFactorySC-. 3 .->ActorProxySC;
-    ActorProxySC-. 7 .->FinalSC;
-```
+<img src={img1} className="img-full" alt="Connect Wallets" />
+
+
+
 
 
 1. **User** sends request to create **Actor** with the `tx_data`calling **Final SC**, and get the actor address back. `tx_data` is an encoded transaction which the **Actor** will call on the **Final SC**. (The actor address is derived from the L1 address using the `CREATE2` opcode.)

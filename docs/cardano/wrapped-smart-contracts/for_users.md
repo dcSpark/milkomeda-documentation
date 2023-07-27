@@ -25,10 +25,25 @@ When using WSC, a smart contract is deployed on Milkomeda's Layer 2, bound to th
 
 Users can connect to DApps that support WSC using their Cardano wallets, which will generate an EVM address for them. Unlike an Externally Owned Account (EOA), this address doesn't require users to manage private keys. Instead, users can create transactions on Layer 2 and sign them using their Layer 1 account.
 
-## Example Usecase
+## User Guide for EVM dApp Interaction
 
 
 To demonstrate the seamless interaction between Layer 1 and Layer 2, we'll walk through the steps of buying and selling ReserveCoin from the Djed Protocol on Milkomeda's Layer 2 using WSC.
+
+:::note
+1. Start EVM dApp Interaction: Begin by accessing the EVM dApp through your preferred web browser or application. Ensure that you have an active connection to the main blockchain network.
+1. Performing Actions: Within the EVM dApp, you'll find various actions and functionalities to explore. Engage with the dApp's interface and choose the action you want to perform. It could be anything from purchasing an in-game item to participating in a decentralized finance (DeFi) transaction.
+1. Transaction Request: Once you select an action, the EVM dApp will prompt you to confirm the transaction. This confirmation step ensures you're aware of the action's details and the associated costs (gas fees).
+1. Proxy Deployment: Upon confirming the transaction, the EVM dApp will deploy a special smart contract called the "Proxy" on the sidechain. This Proxy represents your intent to carry out the chosen action.
+1. Sidechain Execution: The Proxy smart contract interacts with the appropriate smart contract deployed on the sidechain to execute your desired action. The sidechain provides faster and more cost-efficient processing compared to the main blockchain.
+1. Result Notification: After the execution is completed on the sidechain, the result is relayed back to the main blockchain. You will receive a notification or confirmation of the action's success within the EVM dApp.
+1. Updated User State: Your account's state on the main blockchain is updated based on the results of the sidechain execution. For example, if you bought an in-game item, the item will now be reflected in your inventory.
+1. Seamless Experience: Throughout the process, you stay on the main blockchain, making it a seamless and user-friendly experience. There's no need to switch between different platforms or networks.
+1. Transaction Fees: Keep in mind that every action on the blockchain incurs gas fees to cover the computational resources required for execution. These fees may vary depending on network congestion and complexity of the action. The EVM dApp will display the estimated gas fees before confirming the transaction.
+1. Security and Reliability: The EVM dApp ensures the security and reliability of your interactions by utilizing smart contracts and consensus mechanisms built into the blockchain technology.
+
+Enjoy exploring the decentralized world of EVM dApps and leverage the efficiency of sidechain execution while staying connected to the main blockchain network!
+:::
 
 
 ### Buying ReserveCoin (Djed Protocol)
@@ -82,6 +97,133 @@ import img3 from "@site/static/img/wsc/buy_reservecoin.png";
     1. Unwrapping: Transfer assets back to Layer 1 using the Milkomeda Bridge.
 
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+import img4 from "@site/static/img/wsc/djed_step1.png";
+import img5 from "@site/static/img/wsc/djed_step2.png";
+import img6 from "@site/static/img/wsc/djed_step3.png";
+import img7 from "@site/static/img/wsc/djed_step4.png";
+
+
+
+<Tabs>
+  <TabItem value="apple" label="Step 1" default>
+
+  ### Wrapping: Convert Layer 1 assets to Milkomeda assets to perform actions on Layer 2
+
+The first step is to convert the Mainchain assets into Milkomeda assets, known as wrapping, for them to be available to perform the action on the Layer 2. In this example we will be need 50.9 TADA to buy the Reservecoin and we will need to wrap an additional 4.2 TADA to cover transaction costs.
+
+Example:
+
+|  |  |
+|---|---|
+| Buy ReserveCoin | 50.9 TADA |
+| Bridge fees | 1.1 TADA |
+| Bridge Lock-up | 3 TADA |
+| Estimated EVM fees |  ~0.1 TADA |
+| Total | 55.1 TADA |
+
+
+:::note
+Wrapping transaction may take a few minutes (~4m).
+:::
+
+
+A few minutes after signing the transaction, a confirmation will be presented and the user can move to the next step. A link to the bridge transaction for wrapping the assets is also presented.
+
+
+<img
+  src={img4}
+  className="img-full"
+  alt="Step 1"
+/>
+
+
+
+
+At this point, the assets are now in the WSC on the Layer 2.
+
+
+
+  </TabItem>
+  <TabItem value="step2" label="Step 2">
+
+  ### Execute Action: Execute the desired action on Layer 2
+
+The second step is to execute the action on the Layer 2. In this case we are buying Djed ReserveCoin, so we will be swapping TADA for Djed ReserveCoin (MOR).
+
+After confirming the transaction, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
+
+
+
+<img
+  src={img5}
+  className="img-full"
+  alt="Step 2"
+/>
+
+
+After this step, the WSC holds the ReserveCoin.
+
+
+  </TabItem>
+  <TabItem value="step3" label="Step 3">
+
+ ### Token Allowance: Set an allowance for transferring ReserveCoin from WSC to the Layer 1 wallet
+
+Because the call to transfer the tokens (ReserveCoin) held in the WSC to the Mainchain wallet will triggered by another contract, the user must set an allowance for this transfer in step 3.
+
+After confirming the allowance change, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
+
+
+
+<img
+  src={img6}
+  className="img-full"
+  alt="Step 3"
+/>
+
+
+After this step, the WSC still holds the ReserveCoin.
+
+
+
+
+  </TabItem>
+  <TabItem value="step4" label="Step 4">
+
+### Unwrapping: Transfer assets back to Layer 1 using the Milkomeda Bridge
+
+The final step will transfer the asset (ReserveCoin in this example) to the Layer 1. WSC will seamlessly interact with the Milkomeda Bridge. Once bridge confirmations are complete, the assets will be securely returned to the mainchain wallet.
+
+
+
+<img
+  src={img7}
+  className="img-full"
+  alt="Step 7"
+/>
+
+
+
+Example:
+Is this example, 50 ReserveCoin will be transferred to the Layer 1 Wallet, while paying 1 TADA in bridge fees. 
+
+The Initial deposit of 3 TADA will be released
+
+| | |
+|---|---|
+| Bridge fees | 1 TADA |
+| You'll transfer | 50 RC |
+| Deposit Release | 3 TADA |
+
+
+  </TabItem>
+</Tabs>
+
+
+
 <details><summary>A. Wrapping: Convert Layer 1 assets to Milkomeda assets to perform actions on Layer 2</summary>
 <p>
 
@@ -105,7 +247,6 @@ Wrapping transaction may take a few minutes (~4m).
 
 A few minutes after signing the transaction, a confirmation will be presented and the user can move to the next step. A link to the bridge transaction for wrapping the assets is also presented.
 
-import img4 from "@site/static/img/wsc/djed_step1.png";
 
 <img
   src={img4}
@@ -130,7 +271,6 @@ The second step is to execute the action on the Layer 2. In this case we are buy
 After confirming the transaction, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
 
 
-import img5 from "@site/static/img/wsc/djed_step2.png";
 
 <img
   src={img5}
@@ -162,7 +302,6 @@ Because the call to transfer the tokens (ReserveCoin) held in the WSC to the Mai
 After confirming the allowance change, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
 
 
-import img6 from "@site/static/img/wsc/djed_step3.png";
 
 <img
   src={img6}
@@ -183,7 +322,6 @@ After this step, the WSC still holds the ReserveCoin.
 The final step will transfer the asset (ReserveCoin in this example) to the Layer 1. WSC will seamlessly interact with the Milkomeda Bridge. Once bridge confirmations are complete, the assets will be securely returned to the mainchain wallet.
 
 
-import img7 from "@site/static/img/wsc/djed_step4.png";
 
 <img
   src={img7}
