@@ -29,7 +29,6 @@ Users can connect to DApps that support WSC using their Cardano wallets, which w
 
 
 
-:::note
 To demonstrate the seamless interaction between Layer 1 and Layer 2, we'll walk through the steps of buying and selling ReserveCoin from the Djed Protocol on Milkomeda's Layer 2 using WSC.
 
 
@@ -45,7 +44,6 @@ To demonstrate the seamless interaction between Layer 1 and Layer 2, we'll walk 
 1. Security and Reliability: The EVM dApp ensures the security and reliability of your interactions by utilizing smart contracts and consensus mechanisms built into the blockchain technology.
 
 Enjoy exploring the decentralized world of EVM dApps and leverage the efficiency of sidechain execution while staying connected to the main blockchain network!
-:::
 
 
 ### Buying ReserveCoin (Djed Protocol)
@@ -110,9 +108,9 @@ import img7 from "@site/static/img/wsc/djed_step4.png";
 
 
 <Tabs>
-  <TabItem value="apple" label="Step 1" default>
+  <TabItem value="buy_step1" label="Step 1" default>
 
-  ### Wrapping: Convert Layer 1 assets to Milkomeda assets to perform actions on Layer 2
+  #### Wrapping: Convert Layer 1 assets to Milkomeda assets to perform actions on Layer 2
 
 The first step is to convert the Mainchain assets into Milkomeda assets, known as wrapping, for them to be available to perform the action on the Layer 2. In this example we will be need 50.9 TADA to buy the Reservecoin and we will need to wrap an additional 4.2 TADA to cover transaction costs.
 
@@ -149,9 +147,9 @@ At this point, the assets are now in the WSC on the Layer 2.
 
 
   </TabItem>
-  <TabItem value="step2" label="Step 2">
+  <TabItem value="buy_step2" label="Step 2">
 
-  ### Execute Action: Execute the desired action on Layer 2
+  #### Execute Action: Execute the desired action on Layer 2
 
 The second step is to execute the action on the Layer 2. In this case we are buying Djed ReserveCoin, so we will be swapping TADA for Djed ReserveCoin (MOR).
 
@@ -170,9 +168,9 @@ After this step, the WSC holds the ReserveCoin.
 
 
   </TabItem>
-  <TabItem value="step3" label="Step 3">
+  <TabItem value="buy_step3" label="Step 3">
 
- ### Token Allowance: Set an allowance for transferring ReserveCoin from WSC to the Layer 1 wallet
+ #### Token Allowance: Set an allowance for transferring ReserveCoin from WSC to the Layer 1 wallet
 
 Because the call to transfer the tokens (ReserveCoin) held in the WSC to the Mainchain wallet will triggered by another contract, the user must set an allowance for this transfer in step 3.
 
@@ -193,9 +191,9 @@ After this step, the WSC still holds the ReserveCoin.
 
 
   </TabItem>
-  <TabItem value="step4" label="Step 4">
+  <TabItem value="buy_step4" label="Step 4">
 
-### Unwrapping: Transfer assets back to Layer 1 using the Milkomeda Bridge
+#### Unwrapping: Transfer assets back to Layer 1 using the Milkomeda Bridge
 
 The final step will transfer the asset (ReserveCoin in this example) to the Layer 1. WSC will seamlessly interact with the Milkomeda Bridge. Once bridge confirmations are complete, the assets will be securely returned to the mainchain wallet.
 
@@ -223,130 +221,6 @@ The Initial deposit of 3 TADA will be released
 
   </TabItem>
 </Tabs>
-
-
-
-<details><summary>A. Wrapping: Convert Layer 1 assets to Milkomeda assets to perform actions on Layer 2</summary>
-<p>
-
-The first step is to convert the Mainchain assets into Milkomeda assets, known as wrapping, for them to be available to perform the action on the Layer 2. In this example we will be need 50.9 TADA to buy the Reservecoin and we will need to wrap an additional 4.2 TADA to cover transaction costs.
-
-Example:
-
-|  |  |
-|---|---|
-| Buy ReserveCoin | 50.9 TADA |
-| Bridge fees | 1.1 TADA |
-| Bridge Lock-up | 3 TADA |
-| Estimated EVM fees |  ~0.1 TADA |
-| Total | 55.1 TADA |
-
-
-:::note
-Wrapping transaction may take a few minutes (~4m).
-:::
-
-
-A few minutes after signing the transaction, a confirmation will be presented and the user can move to the next step. A link to the bridge transaction for wrapping the assets is also presented.
-
-
-<img
-  src={img4}
-  className="img-full"
-  alt="Step 1"
-/>
-
-
-
-
-At this point, the assets are now in the WSC on the Layer 2.
-
-</p>
-</details>
-
-
-<details><summary>B. Execute Action: Execute the desired action on Layer 2</summary>
-<p>
-
-The second step is to execute the action on the Layer 2. In this case we are buying Djed ReserveCoin, so we will be swapping TADA for Djed ReserveCoin (MOR).
-
-After confirming the transaction, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
-
-
-
-<img
-  src={img5}
-  className="img-full"
-  alt="Step 2"
-/>
-
-
-After this step, the WSC holds the ReserveCoin.
-
-
-</p>
-</details>
-
-
-
-
-
-
-
-
-
-
-<details><summary>C. Token Allowance: Set an allowance for transferring ReserveCoin from WSC to the Layer 1 wallet.</summary>
-<p>
-
-Because the call to transfer the tokens (ReserveCoin) held in the WSC to the Mainchain wallet will triggered by another contract, the user must set an allowance for this transfer in step 3.
-
-After confirming the allowance change, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
-
-
-
-<img
-  src={img6}
-  className="img-full"
-  alt="Step 3"
-/>
-
-
-After this step, the WSC still holds the ReserveCoin.
-
-
-</p>
-</details>
-
-<details><summary>D. Unwrapping: Transfer assets back to Layer 1 using the Milkomeda Bridge</summary>
-<p>
-
-The final step will transfer the asset (ReserveCoin in this example) to the Layer 1. WSC will seamlessly interact with the Milkomeda Bridge. Once bridge confirmations are complete, the assets will be securely returned to the mainchain wallet.
-
-
-
-<img
-  src={img7}
-  className="img-full"
-  alt="Step 7"
-/>
-
-
-
-Example:
-Is this example, 50 ReserveCoin will be transferred to the Layer 1 Wallet, while paying 1 TADA in bridge fees. 
-
-The Initial deposit of 3 TADA will be released
-
-| | |
-|---|---|
-| Bridge fees | 1 TADA |
-| You'll transfer | 50 RC |
-| Deposit Release | 3 TADA |
-
-
-</p>
-</details>
 
 
 Each step requires confirmation and, in some cases, may involve fees or waiting for bridge confirmations.
@@ -392,9 +266,10 @@ import img8 from "@site/static/img/wsc/sell_reservecoin.png";
     1. Unwrapping: Transfer assets (ADA) back to Layer 1 using the Milkomeda Bridge.
 
 
-<details><summary>A. Wrapping: Convert Layer 1 assets to Milkomeda assets to perform actions on Layer 2</summary>
-<p>
+<Tabs>
+  <TabItem value="step1" label="Step 1" default>
 
+  #### Wrapping: Convert Layer 1 assets to Milkomeda assets to perform actions on Layer 2
 
 The first step is to convert the Mainchain assets into Milkomeda assets, known as wrapping, for them to be available to perform the action on the Layer 2. In this example we will wrap the Reservecoin and we will need to wrap an additional 4.2 TADA to cover transaction costs.
 
@@ -432,14 +307,11 @@ A few minutes after signing the transaction, a confirmation will be presented an
 
 At this point, the assets are now in the WSC on the Layer 2.
 
-</p>
-</details>
 
+  </TabItem>
+  <TabItem value="step2" label="Step 2" default>
 
-
-<details><summary>B. Token Allowance: Set an allowance for swapping ReserveCoin for mADA</summary>
-<p>
-
+  #### Token Allowance: Set an allowance for swapping ReserveCoin for mADA
 
 A normal previous step to any ERC20 swap is the token spending approval. This will allow the swapping contract to call the `TransferFrom` on the ReserveCoin token.
 
@@ -457,15 +329,11 @@ import img10 from "@site/static/img/wsc/sell_djed_step2.png";
 
 After this step, the WSC still holds the ReserveCoin.
 
+  
+  </TabItem>
+  <TabItem value="step3" label="Step 3" default>
 
-</p>
-</details>
-
-
-
-
-<details><summary>C. Execute Action: Execute the desired action on Layer 2</summary>
-<p>
+  #### Execute Action: Execute the desired action on Layer 2
 
 The thirst step is to execute the action on the Layer 2. In this case we are selling Djed ReserveCoin, so we will be swapping Djed ReserveCoin (MOR) for mADA.
 
@@ -484,21 +352,11 @@ import img11 from "@site/static/img/wsc/sell_djed_step3.png";
 After this step, the WSC holds the mADA that resulted from the swap.
 
 
-</p>
-</details>
+  
+  </TabItem>
+  <TabItem value="step4" label="Step 4" default>
 
-
-
-
-
-
-
-
-
-
-
-<details><summary>D. Unwrapping: Transfer assets back to Layer 1 using the Milkomeda Bridge</summary>
-<p>
+  #### Unwrapping: Transfer assets back to Layer 1 using the Milkomeda Bridge
 
 The final step will transfer the asset (mADA in this example) to the Layer 1. WSC will seamlessly interact with the Milkomeda Bridge. Once bridge confirmations are complete, the assets will be securely returned to the mainchain wallet.
 
@@ -525,8 +383,9 @@ The Initial deposit of 3 TADA will be released
 | Deposit Release | 3 TADA |
 
 
-</p>
-</details>
+  </TabItem>
+</Tabs>
+
 
 
 To summarize all the steps performed for the selling process, after the connection was made, the Dapp action was triggered to wrap ReserveCoin to the L2, which was then swapped for mADA. The mADA resulting from the swap was subsequently unwrapped back to Layer 1, ending up in the Cardano address of the user.
