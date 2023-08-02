@@ -3,72 +3,75 @@ sidebar_position: 5
 ---
 
 
-# Integration for Developers
+# For Developers
 
-Milkomeda Liquid Staking protocol is composed of 3 core contracts with specific functions that can only be called from the bridge:
+**Milkomeda Liquid Staking** protocol is composed of 3 smart contracts with most of the logic being contained the the Liquid Staking contract, which has some functions that are public and can be called by DApps or users, and a specific function to reposit rewards in the contract that can only be called from the Milkomeda Bridge.
 
 
 | Contract      | Description                                                                                         |
 | ------------- | --------------------------------------------------------------------------------------------------- |
 | LiquidStaking | The core staking contract                                                                           |
-| StakedMilADA  | An ERC20 compliant token used to represent stakers share of the pool                                |
+| StakedMilADA  | A ERC20 like token used to represent stakers share of the pool                                      |
 | Pillage       | A utility contract to withdraw rewards from smart contract account unable to withdraw their rewards |
 
 You can find the contracts code [here](https://github.com/dcSpark/liquid-staking)
 
 
 
-
-
 ## LiquidStaking Contract
 
 
-### Member variables
+### Variables
 
-The Staking Smart Contract keeps the count of the total _milkADA_ deposited. There are at least three variables that track the movements of _milkADA_ native tokens:
+The Staking Smart Contract keeps the count of the total _mADA_ available in total and for each user. There are at least three variables that track the movements of _mADA_ native tokens:
 
-- `totalDeposited`: the sum of deposits in _milkAda_ made by each individual account
+- `userDeposit`: a mapping of the amount of _mADA_ the user has as balance (includes deposits + claimed rewards)
 
-- `userDeposit`: a mapping of the amount of _milkADA_ deposited by the user
+- `totalDeposited`: the total amount of `userDeposit`
 
-- `totalRewards`: the total rewards deposited up until this point by the Milkomeda DAO
+- `totalRewards`: the total unclaimed rewards deposited up until this point by the Milkomeda DAO
 
-### Core functions
+### Functions
 
-#### 1. **stake** and **unstake**: transfer to/from _milkADA_ <-> _stMilkADA_
+#### **stake**
 
-Every time the `stake` method is executed, internally a specific amount of shares is minted in favor of the caller. This is due to the double accounting system that shares the Staking Smart Contract and the Staked _milkADA_ Token.
+Every time the `stake` method is executed, a specific amount of shares is minted in favor of the caller. This is due to the double accounting system shared by the LiquidStaking and the _stMADA_ Token smart contracts.
 
-In order to calculate the number of shares to be minted, Formula One detailed above is used. In other words, the Staking Smart Contract will keep track of the total deposited in _milkADA_ while the Staked _milkADA_ Token keeps track of the percentage ownership of each user in relation to the total _milkADA_ deposited.
+In order to calculate the number of shares to be minted, the LiquidStaking contract keeps track of the total deposited in _mADA_ while the Staked _mADA_ Token keeps track of the percentage ownership of each user in relation to the total _mADA_ deposited.
 
-Note: sending to the liquid staking contract will also call _stake_ indirectly
+:::note
+Sending mADA to the liquid staking contract will indirectly call the _stake_ function for the value sent
+:::
 
-**Unstaking specifics**
+#### unstake
 
-1. The amount of _milkADA_ to unstake must be less than what he has in the mapping `userDeposit` (what is shown in their wallet balance). By withdrawing rewards first, an account could potentially have more _milkADA_ to unstake.
-1. Internally, `withdrawRewards` is called on behalf of the user and the additional rewards are deposited to them (needed to calculate the number of shares to burn)
+When the method `unstake` is executed, the `withdrawRewards` is called internally on behalf of the user and the additional rewards are deposited to them (needed to calculate the number of shares to burn)
 
-#### 2. **withdrawRewards**: withdraw any accumulated stMilkADA rewards (also: see _ableToWithdrawRewards_ for dApps)
+#### withdrawRewards
 
-All externally owned accounts (EOA) have the assumption that they are capable of withdrawing rewards
+This function converts the unclaimed rewards of the caller to user stMADA balance. All externally owned accounts (EOA) have the assumption that they are capable of withdrawing rewards. For smart contract accounts, see [claim rewards](./claim-rewards)
 
-For smart contract accounts, see [claim rewards](./claim-rewards)
+Since rewards are accumulated on each distribution, users do not need to call this function every epoch
 
-Since rewards are automatically compounding, you do not need to call this function every epoch
 
-#### 3. ERC20 interface
+:::danger
+: withdraw any accumulated stmADA rewards (also: see _ableToWithdrawRewards_ for dApps)
+:::
 
-sstMilkADA is an ERC20 token.
 
-stMilkADA is is an ERC20-like token
+#### **accreditToPool**
 
-#### 4. **accreditToPool**: called by Milkomeda DAO to deposit new rewards
 
-This function isn't protected, hence anyone can call this function to increase the Staking Smart Contract's rewards - and rewards are deposited based on an `ROI` value passed to the function. Internally, a variable called `totalRewards` keeps the count of it. This method is meant to be called at every epoch with all accrued gains from the Cardano chain.
 
-Note that this function has no concept of epochs or time passage of the L1.
+This function is used by Milkomeda DAO to deposit new rewards into the Liquid Staking smart contract. Onyle the Bridge address can call this function which is method is meant to be called at every epoch with all accrued gains from the Cardano chain.
 
-#### 5. **removeRewardsOnBehalf**: called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards
+Rewards are deposited based on an `ROI` and value passed on the function call. The resulting rewards are then added to the `totalRewards` variable that keeps track of all unclaimed rewards.
+
+Note that this function has no concept of epochs or time passage.
+
+#### **removeRewardsOnBehalf**:
+
+called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards
 
 See [claim rewards](./claim-rewards)
 
@@ -76,17 +79,17 @@ See [claim rewards](./claim-rewards)
 
 You can claim your rewards every epoch (unlike Cardano where you have to wait multiple epochs before your first reward)
 
-dApps can also accrue _stMilkADA_ and can claim the staking rewards of any token they've accrued.
+dApps can also accrue _stmADA_ and can claim the staking rewards of any token they've accrued.
 
 The following are required:
 
 1. Ensure your contract has a way of calling with `withdrawRewards` function of the liquid staking contract
 
 ```solidity
-function withdrawRewards() external returns (uint256 _rewardsInMilkAda);
+function withdrawRewards() external returns (uint256 _rewardsInmADA);
 ```
 
-2. Ensure your contract has a `ableToWithdrawRewards` that returns true (a-la EIP-165). If your contract does not have a `ableToWithdrawRewards` function, your dApp will **forfeit** any staking rewards accrued by the _stMilkADA_ in your dApp
+2. Ensure your contract has a `ableToWithdrawRewards` that returns true (a-la EIP-165). If your contract does not have a `ableToWithdrawRewards` function, your dApp will **forfeit** any staking rewards accrued by the _stMADA_ in your dApp
 
 ```solidity
 function ableToWithdrawRewards() external pure returns (bool) {
@@ -94,9 +97,9 @@ function ableToWithdrawRewards() external pure returns (bool) {
 }
 ```
 
-Optionally, you can implement the `stake` and `unstake` functions if you want to convert to/from _milkADA_
+Optionally, you can implement the `stake` and `unstake` functions if you want to convert to/from _MADA_
 
-Additionally, note that the default behavior when sending _milkADA_ to the liquid staking contract is to stake the tokens. For example, you can implement the stake function wrapper as seen below
+Additionally, note that the default behavior when sending _MADA_ to the liquid staking contract is to stake the tokens. For example, you can implement the stake function wrapper as seen below
 
 ```solidity
 function stake(uint256 _amountToStake) external {
@@ -118,21 +121,21 @@ Due to both the censorship concerns and the higher initial cost, we chose option
 
 </details>
 
-## stMilkADA formula
+## stMADA formula
 
 Whenever a user stakes, internally, the user has a mapping that represents the percentage ownership a particular user has as a result of his deposit.
 
-The following formula is used to calculate the number of shares to receive from an amount of _milkADA_ deposited:
+The following formula is used to calculate the number of shares to receive from an amount of _MADA_ deposited:
 
 _Formula one_:
 
 ```
-_sharesAmount = (totalShares * _milkAdaAmount) / (totalDeposited + totalRewards)
+_sharesAmount = (totalShares * _MADAAmount) / (totalDeposited + totalRewards)
 ```
 
 where
 
-- `totalShares`: Total shares created as a result of staking _milkAda_
+- `totalShares`: Total shares created as a result of staking _MADA_
 - `_milkAdaAmount`: Amount of _milkADA_ that a user is converting to shares
 - `totalDeposited`: Total amount of _milkADA_ deposited in the Staking Smart Contract
 - `totalRewards`: Total amount of rewards deposited by Milkomeda DAO

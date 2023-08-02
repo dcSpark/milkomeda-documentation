@@ -14,10 +14,13 @@ sidebar_position: 7
 | Pillage Implementation       | 0xb586fAd3185E2CBa7a39D19aa4875FB8684EF99C | A utility contract to withdraw rewards from smart contract account unable to withdraw their rewards |
 | ERC1967Proxy_Pillage         | 0x56eb656A30798a6A4AF8F12Dd304df65fE17Ea95 |                                                                                                     |
 
-<!-- ### Testnet
+### Testnet
 
-| Contract      | Address                                    | Description                                                                                         |
-| ------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------- |
-| LiquidStaking | 0x...                                      | The core staking contract                                                                           |
-| StakedMilkADA | 0x45F48842Ef34dA79A5b426F427E63D9fa8b53696 | An ERC20 complian token used to represent stakers share of the pool                                 |
-| Pillage       | 0x...                                      | A utility contract to withdraw rewards from smart contract account unable to withdraw their rewards | -->
+| Contract                     | Address                                    | Description                                                                                         |
+| ---------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| StakedMilkAda Implementation |  | An ERC20 complian token used to represent stakers share of the pool                                 |
+| ERC1967Proxy_StakedMilkAda   |  |                                                                                                     |
+| LiquidStaking Implementation |  | The core staking contract                                                                           |
+| ERC1967Proxy_LiquidStaking   |  |                                                                                                     |
+| Pillage Implementation       |  | A utility contract to withdraw rewards from smart contract account unable to withdraw their rewards |
+| ERC1967Proxy_Pillage         |  |                                                                                                     |

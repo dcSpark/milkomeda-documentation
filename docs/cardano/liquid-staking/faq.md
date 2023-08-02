@@ -125,4 +125,20 @@ Are there any fees associated with using Milkomeda Liquid Staking?
 </details>
 
 
+<details><summary>
+What are the benefits of enabling ongoing rewards beyond Layer 1?
+</summary>
+<p>
+
+- **Enhanced User Retention**: By extending rewards to Layer 2 solutions, users have a continuous incentive to remain actively engaged with the blockchain ecosystem. This boosts user retention and encourages ongoing participation and contribution to the network.
+
+- **Increased Developer Incentives**: Adoption of Layer 2 by dApps can utilize the rewards earned on Layer 1, providing an additional revenue stream for developers. This fosters a vibrant environment for building and maintaining innovative solutions on top of the Layer 2 infrastructure.
+
+- **Boosted Activity and Transaction Volume**: As users continue to stake their assets and earn rewards on different layers of the blockchain, the protocol experiences heightened activity and transaction volume. This, in turn, contributes to potential revenue generation for the entire ecosystem.
+
+
+</p>
+</details>
+
+
 Please note that this FAQ provides a general overview and may not cover all aspects of liquid staking.
