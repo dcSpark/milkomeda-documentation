@@ -1,8 +1,8 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
-# Protocol Overview
+# Overview
 
 
 **Milkomeda Liquid Staking** is a groundbreaking solution that enables users to stake their ADA on the Milkomeda sidechain while simultaneously earning Cardano staking rewards. This is achieved by depositing mADA into a smart contract, which mints a liquid staking token (stMADA) representing the user's stake.

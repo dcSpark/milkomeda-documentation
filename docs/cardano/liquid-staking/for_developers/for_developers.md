@@ -1,11 +1,10 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
+# Components
 
-# Overview
-
-**Milkomeda Liquid Staking** protocol is composed of 3 smart contracts with most of the logic being contained the the Liquid Staking contract, which has some functions that are public and can be called by DApps or users, and a specific function to reposit rewards in the contract that can only be called from the Milkomeda Bridge.
+**Milkomeda Liquid Staking** protocol is composed of 3 upgradeable smart contracts (UUPSUpgradeable implemented using an ERC1967Proxy), with most of the logic being contained the the Liquid Staking contract, which has some functions that are public and can be called by DApps or users, and a specific function to reposit rewards in the contract that can only be called from the Milkomeda Bridge.
 
 
 | Contract      | Description                                                                                         |
@@ -61,45 +60,39 @@ Sending mADA to the liquid staking contract will indirectly call the _stake_ fun
 :::
 
 
--  **`accreditToPool`**
+<!-- -  **`accreditToPool`**
 
     This function is used by Milkomeda DAO to deposit new rewards into the Liquid Staking smart contract. Onyle the Bridge address can call this function which is method is meant to be called at every epoch with all accrued gains from the Cardano chain.
 
     Rewards are deposited based on an `ROI` and value passed on the function call. The resulting rewards are then added to the `totalRewards` variable that keeps track of all unclaimed rewards.
 
-    Note that this function has no concept of epochs or time passage.
+    Note that this function has no concept of epochs or time passage. -->
 
 
 - **removeRewardsOnBehalf**
 
-    called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards
+    This access controlled function can only be called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards.
 
-    See [claim rewards](./claim-rewards)
-
-
+    See below [claim rewards](./claim-rewards)
 
 
 
 
+#### Claiming rewards
 
-
-
-
-## Claiming rewards
-
-You can claim your rewards every epoch (unlike Cardano where you have to wait multiple epochs before your first reward)
+Rewards can be claimed on every epoch (unlike Cardano where there is a wait period of multiple epochs before the first reward)
 
 dApps can also accrue _stmADA_ and can claim the staking rewards of any token they've accrued.
 
 The following are required:
 
-1. Ensure your contract has a way of calling with `withdrawRewards` function of the liquid staking contract
+1. Ensure the contract has a way of calling with `withdrawRewards` function of the liquid staking contract
 
 ```solidity
 function withdrawRewards() external returns (uint256 _rewardsInmADA);
 ```
 
-2. Ensure your contract has a `ableToWithdrawRewards` that returns true (a-la EIP-165). If your contract does not have a `ableToWithdrawRewards` function, your dApp will **forfeit** any staking rewards accrued by the _stMADA_ in your dApp
+2. Ensure the contract has a `ableToWithdrawRewards` that returns true (a-la EIP-165). If the contract does not have a `ableToWithdrawRewards` function, your dApp will **forfeit** any staking rewards accrued by the _stMADA_ held in the smart contract
 
 ```solidity
 function ableToWithdrawRewards() external pure returns (bool) {
@@ -107,7 +100,8 @@ function ableToWithdrawRewards() external pure returns (bool) {
 }
 ```
 
-Optionally, you can implement the `stake` and `unstake` functions if you want to convert to/from _MADA_
+Optionally, `stake` and `unstake` functions can be implemented to convert to/from _mADA_
+
 
 Additionally, note that the default behavior when sending _MADA_ to the liquid staking contract is to stake the tokens. For example, you can implement the stake function wrapper as seen below
 
@@ -120,14 +114,14 @@ function stake(uint256 _amountToStake) external {
 <details>
   <summary>Why is ableToWithdrawRewards required?</summary>
   
-  To avoid staking rewards accumulating forever in dApps that will never be able to claim the rewards, the Milkomeda DAO has a feature where it can claim the rewards on behalf of a smart contract that it judged unable to every claim the rewards
+  To avoid staking rewards accumulating forever in dApps that will never be able to claim the rewards, the Milkomeda DAO has a feature where it can claim the rewards on behalf of a smart contract that it judges unable to ever claim the rewards
 
-There are 2 ways of checking whether or not a contract can claim rewards that we investigated:
+There were at 2 ways of checking whether or not a contract could claim rewards :
 
 1. A staticcall following EIP-165. This costs 3,698 every time Milkomeda DAO attempts to withdraw rewards on behalf of a particular account. The downsides are that it requires work on the smart contract implementer and, if they forget to add the `ableToWithdrawRewards` function, they can't add it later without upgrading their contract
-2. Maintaining a map of whether or not this contract has claimed rewards in the past so that once a contract claims rewards once, the DAO can no longer claim on their behalf. Other than censorship concerns, this would also cost 22,257 gas to initially add an entry into the map (higher initial cost for lower read cost)
+2. Maintaining a map of whether or not a particular contract has claimed rewards in the past so that once a contract claims rewards once, the DAO can no longer claim on their behalf. Other than censorship concerns, this would also cost 22,257 gas to initially add an entry into the map (higher initial cost for lower read cost)
 
-Due to both the censorship concerns and the higher initial cost, we chose option (1)
+Due to both the censorship concerns and the higher initial cost, Milkomeda implemented the first option (1).
 
 </details>
 
@@ -208,9 +202,9 @@ function sideEffectTransferMilkAda(...) … {
 
 ### Pillage
 
-Contracts that do not implement the `ableToWithdrawRewards` function (as explained [here](./contract_liquidstaking) forfeit their staking rewards, and these rewards will be pillaged by the Milkomeda DAO.
+Contracts that do not implement the `ableToWithdrawRewards` function (as explained [here](/cardano/liquid-staking/for_developers/#claiming-rewards) forfeit their staking rewards, and these rewards will be pillaged by the Milkomeda DAO.
 
-When an account is Pillaged, its accumulated rewards is removed and the value is automatically staked on behalf of the pillager (Milkomeda DAO).
+When an account is Pillaged, its accumulated rewards are removed and the value is automatically staked on behalf of the pillager (Milkomeda DAO).
 
 ```solidity
     function pillage(address _account, bytes32 _transactionId) external {
@@ -236,6 +230,9 @@ When an account is Pillaged, its accumulated rewards is removed and the value is
 
 #### Example:
 
-Smart contract `A` doesn't implement the `ableToWithdrawRewards` function - they stake 5 MilkADA and have accrued staking rewards of 3 MilkADA. Account `A` is then pillaged by the Milkomeda DAO - its rewards of 3 MilkADA is withdrawn, and staked on behalf of the pillager. Now the Milkomeda DAO has a stake balance of 3 MilkADA, and contract `A` has a stake balance of 5 MilkADA, but reward value of 0.
+- Smart contract `A` doesn't implement the `ableToWithdrawRewards` function - 
+- Smart contract `A` holds 5 stmADA and have accrued staking rewards of 3 MilkADA. 
+- Account `A` is then pillaged by the Milkomeda DAO - its rewards of 3 MilkADA are withdrawn, and staked on behalf of the pillager. 
+- Now the Milkomeda DAO has a stake balance of 3 MilkADA, and contract `A` has a stake balance of 5 MilkADA, but reward value of 0.
 
 You can find the full contract [here](https://github.com/dcSpark/liquid-staking/blob/main/src/pillage/Pillage.sol)

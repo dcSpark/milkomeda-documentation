@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# Overview
+# Staking Guide
 
 The **Milkomeda Liquid Staking** frontend is a secure and user-friendly way for users to interact with the protocol and to perform all user actions: staking, unstaking and claiming rewards. On the [homepage](https://liquidstaking-dev.milkomeda.com/), users can view all relevant statistics on Milkomeda Liquid Staking and the supported chains (currently Cardano only).
 

@@ -39,7 +39,7 @@ Why would someone choose liquid staking over traditional staking?
 
 Liquid staking provides flexibility, as it allows users to stake their assets and still have access to their funds for other purposes, such as trading or participating in decentralized finance (DeFi) protocols.
 
-Liquid staking vs traditional staking many times refers to chains where the staked assets cannot be used, like in Ethereum for example. In the case of Cardano, staked (or delegated) asset do remain usable, but in this case Milkomeda Liquid Staking refers to the fact that assets can be used on the Layer 2 while being staked on the Layer 1 (Cardano Mainnet)
+Liquid staking vs traditional staking many times refers to chains where the staked assets cannot be used, like in Ethereum for example. In the case of Cardano, staked (or delegated) assets do remain usable, but here Milkomeda Liquid Staking refers to the fact that assets can be used on the Layer 2 while being staked on the Layer 1 (Cardano Mainnet)
 
 </p>
 </details>
@@ -92,7 +92,7 @@ Can I still use my staked assets?
 </summary>
 <p>
 
-You can use stMADA and more and more protocols should support it going forward.
+Yes, when staking you will receive a token, stMADA,  representing your stake and more and more protocols should support it going forward.
 
 </p>
 </details>
@@ -103,26 +103,28 @@ How can I unstake my assets from Milkomeda Liquid Staking?
 </summary>
 <p>
 
+You assets can be unstaked at any time throught the Milkomeda Liquid Staking frontend.
+
 </p>
 </details>
 
 
-<details><summary>
+<!-- <details><summary>
 Are my assets at risk when using Milkomeda Liquid Staking?
 </summary>
 <p>
 
 </p>
-</details>
+</details> -->
 
 
-<details><summary>
+<!-- <details><summary>
 Are there any fees associated with using Milkomeda Liquid Staking?
 </summary>
 <p>
 
 </p>
-</details>
+</details> -->
 
 
 <details><summary>
