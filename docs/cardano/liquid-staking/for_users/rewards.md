@@ -102,6 +102,6 @@ Consider in the following example that User B wants to make a transfer to User C
 | User C | 0 | 0 | 0 |
 | **Total** | **100** | **106** | **2** |
 
-Although, User B has a total amount of 27 (accrued rewards + balance), he may only transfer 25 until he claims the rewards. After doing so, he may now send the amount of 27.
+Although, User B has a total amount of 27 (accrued rewards + balance), he may only transfer 25 until he claims the rewards. After doing so, he may then send the amount of 27.
 
 
