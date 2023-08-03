@@ -35,29 +35,93 @@ The Staking Smart Contract keeps the count of the total _mADA_ available in tota
 
 - **`stake`**
 
-    Every time the `stake` method is executed, a specific amount of shares is minted in favor of the caller. This is due to the double accounting system shared by the LiquidStaking and the _stMADA_ Token smart contracts.
+    Every time the `stake` method is executed, a specific amount of shares is minted in favor of the caller. This is due to a double accounting system shared by the LiquidStaking and the _stMADA_ Token smart contracts.
 
     In order to calculate the number of shares to be minted, the LiquidStaking contract keeps track of the total deposited in _mADA_ while the Staked _mADA_ Token keeps track of the percentage ownership of each user in relation to the total _mADA_ deposited.
 
 
+```solidity
+    function stake() public payable returns (uint256) {
+        require(msg.value > 0, "LS: No value sent");
+
+        uint256 shares = previewStake(msg.value);
+
+        // Check for rounding error since we round dowm in `previewStake`
+        require(shares != 0, "LS: ZERO_SHARES");
+
+        _mint(_msgSender(), shares);
+
+        totalShares += shares;
+        totalDeposited += msg.value;
+        userDeposit[_msgSender()] += msg.value;
+
+        emit Staked(_msgSender(), msg.value, shares);
+
+        return shares;
+    }
+```
+
+The `stake` function with emit the `Staked` event
+
+```solidity
+    event Staked(
+        address indexed account,
+        uint256 indexed milkAdaDeposited,
+        uint256 indexed sharesReceived
+    );
+
+```
+
+
 :::note
 Sending mADA to the liquid staking contract will indirectly call the _stake_ function for the value sent
+
+```solidity
+fallback() external payable {
+    stake();
+}
+```
+
 :::
 
 - **`unstake`**
 
+    The unstake with exchange stMADA for mADA.
+
     When the method `unstake` is executed, the `withdrawRewards` is called internally on behalf of the user and the additional rewards are deposited to them (needed to calculate the number of shares to burn)
 
-- **`withdrawRewards`**
+
+```solidity
+    function unstake(
+        uint256 _amount
+    ) external nonReentrant returns (uint256, uint256) {
+        (...)
+    }
+```
+
+The `unstake` function with trigger the `Unstaked` event.
+
+
+```solidity
+event Unstaked(
+    address indexed account,
+    uint256 indexed sharesToWithdraw,
+    uint256 indexed milkAdaAmountToWithdraw
+);
+```
+
+
+
+<!-- - **`withdrawRewards`**
 
     This function converts the unclaimed rewards of the caller to user stMADA balance. All externally owned accounts (EOA) have the assumption that they are capable of withdrawing rewards. For smart contract accounts, see [claim rewards](./claim-rewards)
 
-    Since rewards are accumulated on each distribution, users do not need to call this function every epoch
+    Since rewards are accumulated on each distribution, users do not need to call this function every epoch -->
 
 
-:::danger
+<!-- :::danger
 : withdraw any accumulated stmADA rewards (also: see _ableToWithdrawRewards_ for dApps)
-:::
+::: -->
 
 
 <!-- -  **`accreditToPool`**
@@ -71,7 +135,7 @@ Sending mADA to the liquid staking contract will indirectly call the _stake_ fun
 
 - **removeRewardsOnBehalf**
 
-    This access controlled function can only be called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards.
+    There is an access controlled function can only be called by the Milkomeda DAO to claim rewards for a smart contract that cannot claim its own rewards.
 
     See below [claim rewards](./claim-rewards)
 
