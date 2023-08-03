@@ -1,9 +1,9 @@
 ---
-sidebar_position: 5
+sidebar_position: 1
 ---
 
 
-# For Developers
+# Overview
 
 **Milkomeda Liquid Staking** protocol is composed of 3 smart contracts with most of the logic being contained the the Liquid Staking contract, which has some functions that are public and can be called by DApps or users, and a specific function to reposit rewards in the contract that can only be called from the Milkomeda Bridge.
 
@@ -85,7 +85,7 @@ Sending mADA to the liquid staking contract will indirectly call the _stake_ fun
 
 
 
-<!-- ## Claiming rewards
+## Claiming rewards
 
 You can claim your rewards every epoch (unlike Cardano where you have to wait multiple epochs before your first reward)
 
@@ -129,7 +129,7 @@ There are 2 ways of checking whether or not a contract can claim rewards that we
 
 Due to both the censorship concerns and the higher initial cost, we chose option (1)
 
-</details> -->
+</details>
 
 
 

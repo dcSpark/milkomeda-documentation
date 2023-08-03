@@ -1,10 +1,12 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
-# For Users
+# Overview
 
-From a users' perpective Milkomeda Liquid Staking is very simple: mADA is staked into the liquid staking smart contract in return for stMADA and ADA rewards will accrue to its holder.
+The **Milkomeda Liquid Staking** frontend is a secure and user-friendly way for users to interact with the protocol and to perform all user actions: staking, unstaking and claiming rewards. On the [homepage](https://liquidstaking-dev.milkomeda.com/), users can view all relevant statistics on Milkomeda Liquid Staking and the supported chains (currently Cardano only).
+
+
 
 import forUsers from "@site/static/img/liquid_staking/users.png";
 
@@ -23,8 +25,9 @@ import unstake from "@site/static/img/liquid_staking/unstake.png";
 import claim from "@site/static/img/liquid_staking/claim.png";
 
 
+From a users' perpective Milkomeda Liquid Staking is very simple: mADA is staked into the liquid staking smart contract in return for stMADA and ADA rewards will accrue to its holder.
 
-The **Milkomeda Liquid Staking** frontend is a secure and user-friendly way for users to interact with the protocol and to perform all user actions: staking, unstaking and claiming rewards. On the [homepage](https://liquidstaking-dev.milkomeda.com/), users can view all relevant statistics on Milkomeda Liquid Staking and the supported chains (currently Cardano only).
+
 
 Stake your mADA using Milkomeda Liquid Staking today on the following [link](https://liquidstaking-dev.milkomeda.com/)
 
