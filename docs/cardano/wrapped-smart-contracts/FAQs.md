@@ -33,13 +33,13 @@ The transaction costs can be broken down into these components:
 </details>
 
 
-<details><summary>Who pays for the gas of Actor creation on the Layer 2?</summary>
+<!-- <details><summary>Who pays for the gas of Actor creation on the Layer 2?</summary>
 <p>
 
 The user does not pay any gas for the deployment of the WSC. This cost is supported by...
 
 </p>
-</details>
+</details> -->
 
 
 <details><summary>Can the Actor address be updated?</summary>
