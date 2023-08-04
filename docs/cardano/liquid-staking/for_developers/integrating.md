@@ -76,6 +76,17 @@ Calling the withdraw function will return to the caller all the stMADA available
     }
 ```
 
+
+Finally, in order to flag to the Milkomeda DAO that the smart contract is able to claim rewards, we'll add the `ableToWithdrawRewards` that will return `true`. Check [claim rewards](/cardano/liquid-staking/for_developers/#claiming-rewards) section for more details.
+
+```solidity
+function ableToWithdrawRewards() external pure returns (bool) {
+    return true;
+}
+```
+
+
+
 <details><summary>
 Full code
 </summary>
