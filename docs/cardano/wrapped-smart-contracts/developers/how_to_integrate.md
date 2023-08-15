@@ -12,53 +12,43 @@ To provide developers with a seamless and intuitive way to integrate Wrapped Sma
 
 ### Getting Started
 
-Get started with a Milkomeda WSC UI + WAGMI by installing the following packages in your project:
+To showcase the functionaly, we'll start a nextjs project from scratch and integrate `milkomeda-wsc-ui`
 
-  ```bash
-  npm install milkomeda-wsc-ui wagmi@0.12.15
-  ```
 
-Please note that react, wagmi and ethers are peer dependencies:
+Get started with `create-next-app` (install a specific next vesion to ensure compatibility)
 
-  ```
-  "peerDependencies": {
-    "react": "17.x || 18.x",
-    "react-dom": "17.x || 18.x",
-    "wagmi": "0.12.15",
-    "ethers": "5.x"
-  }
-  ```
+```bash
+npx create-next-app next-wsc && cd next-wsc && npm i -S next@13.2.4
+```
+
+Then, install `milkomeda-wsc-ui` and the require dependencies
+
+```bash
+npm install wagmi@0.12.15 ethers@5.x milkomeda-wsc-ui-test-beta
+```
+
 
 To enable top-level await and WebAssembly support in webpack, specific configuration is necessary. If you are utilizing webpack 5, you can achieve this by incorporating the following configuration settings. 
 
 
-  ```javascript
-  // webpack.config.js
-  module.exports = {
-    experiments: {
-      topLevelAwait: true,
+```javascript
+// next.config.js
+const nextConfig = {
+  reactStrictMode: true,
+  transpilePackages: ["milkomeda-wsc-ui-test-beta", "milkomeda-wsc"],
+  swcMinify: true,
+  webpack: (config) => {
+    config.experiments = {
       asyncWebAssembly: true,
-    },
-  }
-  ```
+      topLevelAwait: true,
+    };
 
-  ```javascript
-  // next.config.js
-  const nextConfig = {
-    reactStrictMode: true,
-    swcMinify: true,
-    webpack: (config) => {
-      config.experiments = {
-        asyncWebAssembly: true,
-        topLevelAwait: true,
-      };
+    return config;
+  },
+};
 
-      return config;
-    },
-  };
-
-  module.exports = nextConfig;
-  ```
+module.exports = nextConfig;
+```
 
 
 
