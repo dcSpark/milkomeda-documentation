@@ -172,7 +172,7 @@ After this step, the WSC holds the ReserveCoin.
 
  #### Token Allowance: Set an allowance for transferring ReserveCoin from WSC to the Layer 1 wallet
 
-Because the call to transfer the tokens (ReserveCoin) held in the WSC to the Mainchain wallet will triggered by another contract, the user must set an allowance for this transfer in step 3.
+Because the call to transfer the tokens (ReserveCoin) held in the WSC to the Mainchain wallet will be triggered by another contract, the user must set an allowance for this transfer in step 3.
 
 After confirming the allowance change, a confirmation is presented with a link to the transaction on the Layer 2 (Milkomeda C1 Sidechain).
 
