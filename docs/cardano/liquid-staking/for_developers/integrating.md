@@ -5,7 +5,7 @@ sidebar_position: 3
 # Integrating Liquid Staking
 
 
-Milkomeda Liquid Staking can be integrated in any DApp by supporting the stMADA token, since rewards will accrue to the smart contract where that hold stMADA.
+Milkomeda Liquid Staking can be integrated in any DApp by supporting the stMADA token, since rewards will accrue to the smart contract that hold stMADA.
 
 As a simple example, consider a smart contract where anyone can deposit any amount of stMADA, which will then accumulate rewards. This smart contract will also contain a withdraw function and the first person to call this function will receive all the amount deposited plus rewards accrued.
 
@@ -29,7 +29,7 @@ contract RewardsAccruer {
 }
 ```
 
-To interact with the stMADA and LiquidStaking contracts we will also add the requires interfaces.
+To interact with the stMADA and LiquidStaking contracts we will also add the required interfaces.
 
 ```solidity
 interface ISTMADA {
@@ -61,7 +61,6 @@ The deposit function will be very simple as the contract won't store individual 
 
 Then we'll add a function for the smart contract to claim it's rewards, and a withdraw function.
 Calling the withdraw function will return to the caller all the stMADA available in the smart contract, which includes the accrued rewards for the contract's shares.
-(Notice the withdraw function is )
 
 
 ```solidity
@@ -151,7 +150,7 @@ First, let's creating a `.env` file to store some variables:
 RPC_URL=https://rpc-devnet-cardano-evm.c1.milkomeda.com
 STMADA_ADDRESS=0xE42f60abfC51c9620706b69aEEEf838D25120150
 LIQUID_STAKING_ADDRESS=0x45f48842ef34da79a5b426f427e63d9fa8b53696
-PRIVATE_KEY=d0f3d1a282be7ec0489e0c37130d104e8297397cccadeaa8cb30d680aa48a128
+PRIVATE_KEY=<PRIVATE_KEY>
 DEPLOYED_CONTRACT=
 ```
 
