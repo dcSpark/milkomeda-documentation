@@ -137,6 +137,7 @@ const config = {
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
+      image: 'img/milkomeda-banner.png',
       navbar: {
         title: "Milkomeda",
         logo: {
