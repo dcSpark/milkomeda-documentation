@@ -1,0 +1,65 @@
+---
+sidebar_label: "Configuring your RPC"
+---
+
+# Configuring your RPC
+
+Although the Milkomeda team runs its own public nodes that you can find:
+- Mainnet: https://rpc-mainnet-cardano-evm.c1.milkomeda.com
+- Testnet: https://rpc-devnet-cardano-evm.c1.milkomeda.com
+
+Public endpoints may not give you the performance or uptime required for your applications. To tackle this, you have two options:
+
+## Run your own node
+
+We provide everything you need to run your own Milkomeda node in [this repository](https://github.com/dcSpark/milkomeda-evm-passive/)
+
+Note that again, by running your own node you may end up synchronizing the node from the public relays we operate.
+If you want to contribute to the health of the p2p network as you run a node, you can enable p2p discovery and have your nodes accessible so the p2p network doesn't rely only on bootstrap/static nodes.
+
+## RPC service
+
+It's possible to pay a company to operate a node on your behalf. These companies can often operate at a higher availability and faster performance.
+
+One such provider that supports Milkomeda C1 is [Liquify](https://www.liquify.com/).
+
+1. Setup a node with them and get your API key
+2. Connect to your node using https://milkomeda.liquify.com/api=API_KEY/milkomeda
+
+### Connecting to Liquify From Web3.js (JavaScript):
+If you're developing a web application or using JavaScript, you can use the web3.js library to connect to the RPC node
+
+```typescript
+const API_KEY = ...; // note: do not hardcode this in the app in practice
+
+const Web3 = require('web3');
+// Initialize web3 instance with the RPC URL and API key
+const web3 = new Web3(new Web3.providers.HttpProvider(`https://milkomeda.liquify.com/api=${API_KEY}/milkomeda`, {
+  headers: [{ name: 'Authorization', value: `Bearer ${API_KEY}` }]
+}));
+// Test the connection
+web3.eth.getBlockNumber()
+  .then(console.log)
+  .catch(console.error);
+```
+
+### Connecting to Liquify From Ethers.js (JavaScript)
+If you prefer using ethers.js, here's how you can connect:
+
+```typescript
+const API_KEY = ...; // note: do not hardcode this in the app in practice
+
+const { providers } = require('ethers');
+const customProvider = new providers.JsonRpcProvider(`https://milkomeda.liquify.com/api=${API_KEY}/milkomeda`, {
+  headers: { 'Authorization': `Bearer ${API_KEY}` }
+});
+// Test the connection
+customProvider.getBlockNumber()
+  .then(console.log)
+  .catch(console.error);
+```
+
+Usage Tips:
+1.  Always Secure Your API Key: Always ensure your key is kept secure and not exposed unnecessarily. Avoid hardcoding it directly in client-side code.
+2.  Rate Limits: If you're making frequent requests, consider implementing caching or rate-limiting on your end. Currently there are no rate limits for the purposes of testing 
+3.  Error Handling: Always try implement error handling when making requests to the RPC node. This ensures your application can gracefully handle any issues that might arise.
