@@ -5,7 +5,7 @@ sidebar_position: 3
 # Integrating Liquid Staking
 
 
-Milkomeda Liquid Staking can be integrated in any DApp by supporting the stMADA token, since rewards will accrue to the smart contract that hold stMADA.
+Milkomeda Liquid Staking can be integrated in any EVM DApp by supporting the stMADA token, since rewards will accrue to the smart contract that hold stMADA.
 
 As a simple example, consider a smart contract where anyone can deposit any amount of stMADA, which will then accumulate rewards. This smart contract will also contain a withdraw function and the first person to call this function will receive all the amount deposited plus rewards accrued.
 

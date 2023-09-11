@@ -1,12 +1,16 @@
 ---
 sidebar_position: 2
 ---
+import homepage from "@site/static/img/liquid_staking/homepage.png";
+import stake from "@site/static/img/liquid_staking/stake.png";
+import unstake from "@site/static/img/liquid_staking/unstake.png";
+import claim from "@site/static/img/liquid_staking/claim.png";
 
 # Staking Guide
 
 The **Milkomeda Liquid Staking** frontend is a secure and user-friendly way for users to interact with the protocol and to perform all user actions: staking, unstaking and claiming rewards. 
 
-On the [homepage](https://liquidstaking-dev.milkomeda.com/), users can view all relevant statistics on Milkomeda Liquid Staking and the supported chains (currently Cardano only).
+On the [homepage](https://liquidstaking.milkomeda.com/), users can view all relevant statistics on Milkomeda Liquid Staking and the supported chains (currently Cardano only).
 
 
 
@@ -17,21 +21,11 @@ import forUsers from "@site/static/img/liquid_staking/users.png";
 
 
 
-
-
-
-
-import homepage from "@site/static/img/liquid_staking/homepage.png";
-import stake from "@site/static/img/liquid_staking/stake.png";
-import unstake from "@site/static/img/liquid_staking/unstake.png";
-import claim from "@site/static/img/liquid_staking/claim.png";
-
-
 From a users' perpective Milkomeda Liquid Staking is very simple: mADA is staked into the liquid staking smart contract in return for stMADA and ADA rewards will accrue to its holder inside the Liquid Staking smart contract.
 
 
 
-Stake your mADA using Milkomeda Liquid Staking today on the following [link](https://liquidstaking-dev.milkomeda.com/)
+Stake your mADA using Milkomeda Liquid Staking today on the following [link](https://liquidstaking.milkomeda.com/)
 
 
 
@@ -45,13 +39,13 @@ Staking can be performed by navigating to the staking page, that contains the "S
 
 On this page users can stake their mADA by folowing these steps:
 
-1. Connecting a wallet (e.g Flint, Metamask, etc)
+1. Connecting a wallet (e.g Metamask, Flint, etc)
 1. Select "Stake" tab
 1. Enter the desired amount on mADA to stake, accept Terms of Use and press "Stake" button
-1. The mADA will be sent to the smart contract and the connected wallet address wil receive the equivalent amount of stMADA
+1. The MADA will be sent to the smart contract and the connected wallet address wil receive the equivalent amount of stMADA
 
 <p>
-<button onClick={() => addTokenToMM('devnet')}  className='button button--secondary'>Add stMADA to Metamask</button>
+<button onClick={() => addTokenToMM('mainnet')}  className='button button--secondary'>Add stMADA to Metamask</button>
 </p>
 
 
@@ -79,8 +73,9 @@ To claim rewards:
 
 <img src={claim} className="img-full" alt="Claiming" />
 
+:::note
 When claiming rewards, no tokens are sent to the user's wallet. The claimed rewards are added to the Staked mADA balance inside the Liquid Staking smart contract.
-
+:::
 
 
 ### Unstaking
@@ -92,7 +87,8 @@ The requires steps are:
 1. Connect a wallet (e.g Flint, Metamask, etc)
 1. Go to "Staking" page and "Unstake" tab
 1. Enter the desired amount on mADA to unstake, accept Terms of Use and press "Unstake" button
-1. The stMADA will be sent to the smart contract and the connected wallet address wil receive mADA
+1. The stMADA will be sent to the smart contract, and the connected wallet address will receive mADA. Additionally, when unstaking, all unclaimed rewards will be displayed and automatically unstaked, thus increasing the total amount of mADA received.
+
 
 <img src={unstake} className="img-full" alt="Unstaking" />
 

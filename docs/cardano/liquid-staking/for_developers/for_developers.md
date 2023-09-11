@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Protocol Components
 
-**Milkomeda Liquid Staking** protocol is composed of 3 upgradeable smart contracts (UUPSUpgradeable implemented using an ERC1967Proxy), with most of the logic being contained the the Liquid Staking contract, which has some functions that are public and can be called by DApps or users, and a specific function to reposit rewards in the contract that can only be called from the Milkomeda Bridge.
+**Milkomeda Liquid Staking** protocol consists of three upgradeable smart contracts, deployed through an ERC1967Proxy. The core logic resides primarily in the Liquid Staking contract. This contract features a set of public functions that can be invoked by either DApps or individual users. Additionally, it contains an exclusive function designed for depositing rewards, which is solely callable via the Milkomeda Bridge.
 
 
 | Contract      | Description                                                                                         |
@@ -13,7 +13,7 @@ sidebar_position: 2
 | StakedMilADA  | A ERC20 like token used to represent stakers share of the pool                                      |
 | Pillage       | A utility contract to withdraw rewards from smart contract account unable to withdraw their rewards |
 
-You can find the contracts code [here](https://github.com/dcSpark/liquid-staking)
+You can find the contracts code [here](https://github.com/dcSpark/liquid-staking) and the audit [here](https://www.milkomeda.com/docs/liquid-staking-final-report-updated.pdf).
 
 
 ## Contracts
@@ -166,7 +166,7 @@ function stake(uint256 _amountToStake) external {
   
 There were at 2 ways of checking whether or not a contract could claim rewards :
 
-1. A staticcall following EIP-165. This costs 3,698 every time Milkomeda DAO attempts to withdraw rewards on behalf of a particular account. The downsides are that it requires work on the smart contract implementer and, if they forget to add the `ableToWithdrawRewards` function, they can't add it later without upgrading their contract
+1. A static call following EIP-165. This costs 3,698 every time Milkomeda DAO attempts to withdraw rewards on behalf of a particular account. The downsides are that it requires work on the smart contract implementer and, if they forget to add the `ableToWithdrawRewards` function, they can't add it later without upgrading their contract
 2. Maintaining a map of whether or not a particular contract has claimed rewards in the past so that once a contract claims rewards once, the DAO can no longer claim on their behalf. Other than censorship concerns, this would also cost 22,257 gas to initially add an entry into the map (higher initial cost for lower read cost)
 
 Due to both the censorship concerns and the higher initial cost, Milkomeda implemented the first option (1).
@@ -276,8 +276,8 @@ When an account is Pillaged, its accumulated rewards are removed and the value i
 #### Example:
 
 - Smart contract `A` doesn't implement the `ableToWithdrawRewards` function.
-- Smart contract `A` holds 5 stmADA and has accrued staking rewards of 3 MilkADA. 
-- Smart contract `A` can then pillaged by the Milkomeda DAO and its rewards of 3 MilkADA are withdrawn, and staked on behalf of the pillager. 
-- Now the Milkomeda DAO has a stake balance of 3 MilkADA, and smart contract `A` has a stake balance of 5 MilkADA, but reward value of 0.
+- Smart contract `A` holds 5 stmADA and has accrued staking rewards of 3 mADA. 
+- Smart contract `A` can then be pillaged by the Milkomeda DAO and its rewards of 3 mADA are withdrawn, and staked on behalf of the pillager. 
+- Now the Milkomeda DAO has a stake balance of 3 mADA, and smart contract `A` has a stake balance of 5 mADA, but reward value of 0.
 
 You can find the full contract [here](https://github.com/dcSpark/liquid-staking/blob/main/src/pillage/Pillage.sol)
