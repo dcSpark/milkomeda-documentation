@@ -13,7 +13,7 @@ sidebar_position: 2
 | StakedMilADA  | A ERC20 like token used to represent stakers share of the pool                                      |
 | Pillage       | A utility contract to withdraw rewards from smart contract account unable to withdraw their rewards |
 
-You can find the contracts code [here](https://github.com/dcSpark/liquid-staking) and the audit [here](https://www.milkomeda.com/docs/liquid-staking-final-report-updated.pdf).
+You can find the audit on the Liquid Staking smart contracts [here](https://www.milkomeda.com/docs/liquid-staking-final-report-updated.pdf).
 
 
 ## Contracts
@@ -93,7 +93,7 @@ The `unstake` function with trigger the `Unstaked` event.
 
 - **`withdrawRewards`**
 
-    This function converts the unclaimed rewards of the caller to user stMADA balance. All externally owned accounts (EOA) have the assumption that they are capable of withdrawing rewards. For smart contract accounts, see [claim rewards](./claim-rewards)
+    This function converts the unclaimed rewards of the caller to user stMADA balance. All externally owned accounts (EOA) have the assumption that they are capable of withdrawing rewards. For smart contract accounts, see [claim rewards](/cardano/liquid-staking/for_developers/#claiming-rewards)
 
     Since rewards are accumulated on each distribution, users do not need to call this function every epoch
 
@@ -175,7 +175,7 @@ Due to both the censorship concerns and the higher initial cost, Milkomeda imple
 
 #### Dead Shares
 
-To mitigate against inflation attacks, we stake on initialization of the [Liquid Staking contract](https://github.com/dcSpark/liquid-staking/blob/0cffd0d6bdaff73d67d72983f652e7f152ad8074/src/LiquidStaking/LiquidStaking.sol#L148), creating dead shares. In order to create dead shares, a value (`msg.value` > 0) must be sent when initializating the staking contract. And this value is used to create the first stake in the pool, which is needed to protect against inflation attacks. Creating dead shares doesn't entirely solve this problem, but it reduces the profit that could be made from it .This dead shares is minted to the deployer - it's expected this shares and stake will never be withdrawn, unstaked or redeemed
+To mitigate against inflation attacks, we stake on initialization of the **Liquid Staking contract**, creating dead shares. In order to create dead shares, a value (`msg.value` > 0) must be sent when initializating the staking contract. And this value is used to create the first stake in the pool, which is needed to protect against inflation attacks. Creating dead shares doesn't entirely solve this problem, but it reduces the profit that could be made from it .This dead shares is minted to the deployer - it's expected this shares and stake will never be withdrawn, unstaked or redeemed
 
 
 ### StakedMADA (stMADA)
@@ -280,4 +280,3 @@ When an account is Pillaged, its accumulated rewards are removed and the value i
 - Smart contract `A` can then be pillaged by the Milkomeda DAO and its rewards of 3 mADA are withdrawn, and staked on behalf of the pillager. 
 - Now the Milkomeda DAO has a stake balance of 3 mADA, and smart contract `A` has a stake balance of 5 mADA, but reward value of 0.
 
-You can find the full contract [here](https://github.com/dcSpark/liquid-staking/blob/main/src/pillage/Pillage.sol)
