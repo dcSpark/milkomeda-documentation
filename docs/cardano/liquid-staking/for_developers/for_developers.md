@@ -10,7 +10,7 @@ sidebar_position: 2
 | Contract      | Description                                                                                         |
 | ------------- | --------------------------------------------------------------------------------------------------- |
 | LiquidStaking | The core staking contract                                                                           |
-| StakedMilADA  | A ERC20 like token used to represent stakers share of the pool                                      |
+| StakedMADA  | A ERC20 like token used to represent stakers share of the pool                                      |
 | Pillage       | A utility contract to withdraw rewards from smart contract account unable to withdraw their rewards |
 
 You can find the audit on the Liquid Staking smart contracts [here](https://www.milkomeda.com/docs/liquid-staking-final-report-updated.pdf).

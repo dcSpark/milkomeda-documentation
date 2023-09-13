@@ -45,5 +45,5 @@ In the case of Cardano, users can stake their mADA (a wrapped representation of 
 
 By implementing **Liquid Staking** and enabling rewards accumulation on Layer 2 solutions, blockchain platforms like Cardano aim to create an ecosystem that incentivizes user engagement, fosters developer innovation, and generates sustainable protocol revenue across multiple layers of the network. This approach ensures the network's continued growth and success while rewarding active participants.
 
-For a comprehensive understanding of the process, we recommend you read our Liquid Staking Documentation. Alternatively, you can directly [Stake your MADA in Milkomeda Official dApp](https://liquidstaking.milkomeda.com/).
+For a comprehensive understanding of the process, we recommend you read our Liquid Staking Documentation. 
 
