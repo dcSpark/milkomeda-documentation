@@ -66,7 +66,7 @@ import img1 from "@site/static/img/wsc/connect_wallets.png";
 />
 
 
-By clicking on the wallet address in the top right corner, users can access the WSC interface, which displays information and buttons to interact with the contract. Users can see their Layer 1 wallet balance and trigger actions with their WSC Wallet.
+<!-- By clicking on the wallet address in the top right corner, users can access the WSC interface, which displays information and buttons to interact with the contract. Users can see their Layer 1 wallet balance and trigger actions with their WSC Wallet.
 
 import img2 from "@site/static/img/wsc/wallet.png";
 
@@ -74,7 +74,7 @@ import img2 from "@site/static/img/wsc/wallet.png";
   src={img2}
   className="img-full"
   alt="Wallet"
-/>
+/> -->
 
 
 
