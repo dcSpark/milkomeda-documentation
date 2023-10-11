@@ -7,7 +7,7 @@ sidebar_position: 3
 
 import img1 from "@site/static/img/qrng/image1.png";
 
-If you're here solely for the purpose of generating QRNGs on Milkomeda C1 using API3, skip the introduction and head straight to the next section, that covers this topic.
+If you're here solely for the purpose of generating QRNGs on Milkomeda C1 using API3, skip the introduction and head straight to the [Creating the Smart Contract](#smart-contract) section, that covers this topic.
 
 ## Introduction
 
@@ -59,7 +59,7 @@ Using the QRNG service is free, meaning there is no subscription fee. There is a
 :::
 
 
-## Creating the Smart Contract
+## Creating the Smart Contract {#smart-contract}
 
 
 To make requests for random numbers, we will create a requester smart contract, that calls the QRNG service using the request–response protocol (RRP) implemented by the on-chain `AirnodeRrpV0` contract.
@@ -439,7 +439,7 @@ Add another task to `hardhat.config.js`:
 task("fulfillStatus", "Check request status")
 .addParam("request", "ID of the request")
 .setAction(async (taskArgs) => {  
-  const qrng = await hre.ethers.getContractAt("QrngExample", process.env.DEPLOYMENT_ADDRESS);
+  const qrng = await hre.ethers.getContractAt("QrngExample", DEPLOYMENT_ADDRESS);
   const status = await qrng.waitingFulfillment(taskArgs.request)
   console.log("Waiting for fulfillment:", status);
 });
