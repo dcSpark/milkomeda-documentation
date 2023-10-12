@@ -92,6 +92,8 @@ After importing `wagmi` and `milkomeda-wsc-ui` into your project, you can create
 
 In the newly created nextjs project, replace the contents of the `_app.tsx` file with the following:
 
+(please replace the `<BLOCKFROST_KEY>` with your own)
+
 
 ```javascript
 // _app,tsx
@@ -109,7 +111,7 @@ import {
 const client = createClient(
   getDefaultConfig({
     oracleUrl: "https://wsc-server-devnet.c1.milkomeda.com",
-    blockfrostId: "preprodliMqEQ9cvQgAFuV7b6dhA4lkjTX1eBLb",
+    blockfrostId: "<BLOCKFROST_KEY>",
     network: MilkomedaNetworkName.C1Devnet,
     cardanoWalletNames: ["flint"], // , "eternl", "nami", "nufi", "yoroi"
   })
