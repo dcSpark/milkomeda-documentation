@@ -4,6 +4,11 @@ sidebar_position: 1
 
 # Overview
 
+:::note
+
+You can start staking today through the [staking portal](https://liquidstaking.milkomeda.com/)
+
+:::
 
 **Milkomeda Liquid Staking** is a solution that enables users to stake their ADA on the Cardano's EVM Sidechain (Milkomeda C1) while simultaneously earning Cardano staking rewards. This is achieved by depositing mADA into a smart contract, which mints a liquid staking token (stMADA) representing the user's stake.
 
@@ -60,4 +65,4 @@ There are several benefits to using **Milkomeda Liquid Staking**:
 - DeFi Integration: stMADA tokens can be utilized within various DeFi protocols on Milkomeda. This functionality enables you to amplify your earnings by participating in lending, borrowing, and other decentralized finance activities.
 - Trade Flexibility: StmADA tokens are tradable on exchanges, providing you with the convenience to easily convert them into other cryptocurrencies or fiat currencies as you see fit.
 
-Overall, **Milkomeda Liquid Staking** is a promising new solution that has the potential to make it easier for users to participate in the Cardano & Miilkomeda ecosystem and earn rewards.
+Overall, **Milkomeda Liquid Staking** is a promising new solution that has the potential to make it easier for users to participate in the Cardano & Miilkomeda ecosystem and earn rewards. You can start staking through the [staking portal](https://liquidstaking.milkomeda.com/) today.
