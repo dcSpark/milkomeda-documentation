@@ -4,6 +4,11 @@ sidebar_position: 3
 ---
 
 # For End-users
+
+:::caution
+Milkomeda A1's validators will be shutting down at the end of May 2024. We urge anyone with funds on A1 to transfer them within the next six months to ensure their safety. [Read more here](https://twitter.com/milkomeda_com/status/1730385308355588553?s=61&t=xg8fF6YJdZy52Uq_UwTGjA)
+:::
+
 :::info
 Milkomeda A1 Rollup is fully operational on Mainnet, which means that it is currently deployed and connected to production version of the Algorand blockchain.
 :::

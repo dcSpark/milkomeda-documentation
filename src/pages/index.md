@@ -17,5 +17,6 @@ import cardano from "@site/static/img/brand/c1-white-default.png";
             Getting Started with
         </h3>
         <img src={algorand} className="img-full" />
+        <p>Mainnet available until the end of May 2024</p>
     </a>
 </nav>
